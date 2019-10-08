@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+动态SQL
+</title>
+
+  
+  
+  <meta name="author" content="fyzn" />
+  <meta name="description" content="动态sql语句总结 主要内容  * ```&amp;lt;choose&amp;gt;、&amp;lt;when&amp;gt;、&amp;lt;otherwise&amp;gt;元素``` * ```&amp;lt;trim&amp;gt;、&amp;lt;where&amp;gt;、&amp;lt;set&amp;gt;元素``` * ```&amp;lt;foreach&amp;gt;```元素 *** ### ```&amp;lt;if&amp;gt;```元素 下面先看一个例子 &amp;lt;select id=&amp;quot;selectUserById&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;quot;name !=null and name !=&#39;&#39;&amp;quot;&amp;gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;quot;sex !=null and sex !=&#39;&#39;&amp;quot;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt; 在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点： 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对 &amp;amp;emsp; *** ### ```&amp;lt;choose&amp;gt;、&amp;lt;when&amp;gt; 、&amp;lt;otherwise&amp;gt;```元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了```&amp;lt;choose&amp;gt;```元素，如下例子。 &amp;lt;select id = &amp;quot;selectUserBychoose&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;quot;name !" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2" />
+
+
+<link rel="canonical" href="https://fyzn12.github.io/post/mybatis/dynamicsql/" />
+<link rel="alternative" href="/index.xml" title="fyzn个人博客" type="application/atom+xml" />
+
+<link href="/css/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="首页"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+
+    <section class="ui top attached segment">
+      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
+        <i class="save icon"></i>
+      </a>
+      <header>
+        <h1 class="ui header">
+          动态SQL
+          <div class="sub header">@ fyzn · Oct 8, 2019 · 2 min read · 更新于 Oct 8, 2019</div>
+        </h1>
+      </header>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<h1 id="动态sql语句总结">动态sql语句总结</h1>
+
+<h2 id="主要内容">主要内容</h2>
+
+<ul>
+<li><pre><code class="language-&lt;if&gt;```元素">*   ```&lt;choose&gt;、&lt;when&gt;、&lt;otherwise&gt;元素```  
+*   ```&lt;trim&gt;、&lt;where&gt;、&lt;set&gt;元素```  
+*   ```&lt;foreach&gt;```元素    
+***   
+###  ```&lt;if&gt;```元素  
+
+下面先看一个例子  
+  
+&lt;select id=&quot;selectUserById&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+    select * from user where 1=1
+    &lt;if test =&quot;name !=null and name !=''&quot;&gt;
+        and name like concat('%',#{name},'%')
+    &lt;/if&gt;
+    &lt;if test = &quot;sex !=null and sex !=''&quot;&gt;
+        and sex = #{sex}
+    &lt;/if&gt;
+&lt;/select&gt;  
+
+在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：  
+1. resultType与resultMap不能同时使用  
+2. #{xxx}与${vlaue}的使用看上一篇博客  
+3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：  
+  
+    1）对象作为参数，则test里面的参数为对象的属性  
+    2)@Param声明的参数  
+    3)map方式键值对  
+      
+&amp;emsp;  
+***
+###   ```&lt;choose&gt;、&lt;when&gt; 、&lt;otherwise&gt;```元素  
+有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了```&lt;choose&gt;```元素，如下例子。  
+    
+&lt;select id = &quot;selectUserBychoose&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+    select * from user where 1=1
+    &lt;choose&gt;
+        &lt;when test=&quot;name !=null and name !=''&quot;&gt;
+            and name like concat('%',#{name},'%')
+        &lt;/when&gt;
+        &lt;when test=&quot;sex != null and sex !='' &quot;
+            and sex=#{sex}
+        &lt;/when&gt;
+        &lt;otherwise&gt;
+            and id&gt;10
+        &lt;/otherwise&gt;
+    &lt;/choose&gt;  
+     
+上面sql语句的含义是当满足test里面的其中之一时，执行when子句，两者都不满足时执行otherwise子句，这样做就可以实现if元素没法实现的一些选择功能。  
+***  
+###   ```&lt;trim&gt;、&lt;where&gt;、&lt;set&gt;```元素  
+</code></pre>
+
+<p><trim><code>的主要功能是可以在自己包含的内容上加上某些前缀，也可以在后面加上某些后缀，与之对应的属性是prefix和suffix；可以把包含内容的首部某些内容覆盖，及忽略，也可以把尾部的某些内容覆盖，对应的属性是prefixOverrides和suffixOverrides。正因为</code><trim><code>元素有这样的功能，所以也可以非常简单利用</code><trim><code>来代替</code><where>```元素功能。代码如下：</p>
+
+<pre><code class="language-&lt;trim&gt;```"> 
+      
+&lt;select id=&quot;selectByTrim&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
+    select * from user
+    &lt;trim prefix=&quot;where&quot; prefixOverrides=&quot;and | or&quot;&gt;
+        &lt;if test=&quot;name !=null and name !=''&quot;&gt;
+            and name like concat('%',#{name},'%')
+        &lt;/if&gt;
+        &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
+            and sex=#{sex}
+        &lt;/if&gt;
+    &lt;/trim&gt;
+&lt;/select&gt;    
+  
+  
+where子句的应用  
+&amp;emsp;
+    
+&lt;select id=&quot;selectByWhere&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
+    select * from user
+    &lt;where&gt;
+        &lt;if test=&quot;name !=null and name !=''&quot;&gt;
+            and name like concat('%',#{name},'%')
+        &lt;/if&gt;
+        &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
+            and sex=#{sex}
+        &lt;/if&gt;
+    &lt;/where&gt;
+&lt;/select&gt;  
+   
+set元素的应用： 
+        
+&lt;select id=&quot;selectBySet&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
+    update user
+    &lt;set&gt;
+        &lt;if test=&quot;name !=null and name !=''&quot;
+            name like concat('%',#{name},'%')
+        &lt;/if&gt;
+        &lt;if test=&quot;sex !=null and sex !=''&quot;
+            sex like concat('%',#{sex},'%')
+        &lt;/if&gt;
+    &lt;/set&gt;
+    where id=#{id}
+&lt;/select&gt;
+   
+ 
+</code></pre>
+
+<p><set>```子句会在update的sql语句中用到，对应的值千万别忘了where限定。</p>
+
+<p><code>&lt;foreach&gt;</code>元素的应用<br />
+foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集合，<code>&lt;foreach&gt;</code>元素的属性主要有item、index、collection、open、separator、close。item表示集合中每个元素进行迭代时的别名，index指定一个名字，用于表示在迭代过程中每次迭代到的位置，open表示该语句以什么开始，separator表示在每次进行迭代之间以什么符号进行分隔符，close表示以什么结束。在使用<code>&lt;foreach&gt;</code>元素时最关键，最容易出错的是collection属性，该属性是必选的，但在不同情况下值不同，有以下几种情况：</p>
+
+<ul>
+<li>如果传入的是单参数且参数类型是一个List，collection属性值为list<br /></li>
+<li>如果传入的参数是单参数且参数类型是一个arry数组，collection值为arry</li>
+<li>如果传入的参数是多个，需要把她们封装成一个Map，当然单参数也可以封装成Map。map的key值参数名，collection属性值是传入的List或者arry对象在封装的Map中的key<br /></li>
+</ul>
+
+<p>具体例子如下：<br />
+&emsp;</p>
+
+<p><select id="selectByForeach" resultType="MyUser" parameType="List">
+    select *from user
+    <foreach item="item" index='index' collection='list' open="("separator='',"close=")">
+        #{item}
+    </foreach>
+</select></p>
+
+<hr />
+
+<h3 id="bind-元素"><code>&lt;bind&gt;</code>元素</h3>
+
+<p>在进行模糊查询时，如果使用&rdquo;${}&ldquo;拼接字符串，则无法防止SQL注入问题；bind使用可以一定程度上避免这个问题。代码演示如下：</p>
+
+<p><select id="selectByBind" resultType="MyUser" parameType="List">
+    <bind name ="paran_uname" vlaue = "'%'+uname+'%' "/>
+    select * from user
+        where name like #{paran_uname}
+</select></p></li>
+</ul>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    
+<section class="ui top attached center aligned inverted segment">
+
+  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
+    <i class="bars icon" title="弹出菜单"></i>
+  </a>
+
+  <div class="ui small circular image" style="margin-top: 1rem;">
+    
+    <img src="/img/dome2.jpg">
+    
+  </div>
+  
+  <h3 class="ui inverted header">
+  fyzn的博客<div class="sub header">希望不属于我，我只相信自己！</div>
+  </h3>
+
+  
+  <div class="ui inverted horizontal list">
+  
+    
+    <a class="item" href="/post">
+      <i class="archive icon" title="归档"></i>
+    </a>
+    
+    <a class="item" href="/tags">
+      <i class="tags icon" title="所有标签"></i>
+    </a>
+    <a class="item" href="/categories">
+      <i class="cube icon" title="所有分类"></i>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
+
+  
+  <a class="ui label" href="/tags/css" title="css">css</a>
+  
+  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+  
+  <a class="ui label" href="/tags/html" title="html">html</a>
+  
+  <a class="ui label" href="/tags/markdown" title="markdown">markdown</a>
+  
+  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+  
+  <a class="ui label" href="/tags/test" title="test">test</a>
+  
+  <a class="ui label" href="/tags/text" title="text">text</a>
+  
+  <a class="ui label" href="/tags/themes" title="themes">themes</a>
+  
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+
+  
+  <div class="ui inverted accordion">
+  
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssmmybatis" class="item">ssmmybatis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">动态SQL</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mapper接口编程</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/syntax" class="item">syntax</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/markdown-syntax/" class="item">Markdown Syntax Guide</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/test" class="item">test</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/test/" class="item">test</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/themes" class="item">themes</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/markdown-syntax/" class="item">Markdown Syntax Guide</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ui bottom attached center aligned inverted segment">
+
+    
+    <p>© 2019 fyzn个人博客</p>
+    
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:1149919071@qq.com">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/fyzn12/" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      
+      <header class="ui inverted segment">
+      
+        <h2 class="ui header">
+          喜欢的诗
+        </h2>
+      </header>
+
+      
+      <article class="ui inverted segment markdown-body">
+      
+        <div class="ui stackable three column grid">
+          <div class="column">
+              
+              每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。<br />
+每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。<br />
+每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。<br />
+每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。<br />
+每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。<br />
+你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。<br />
+也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。<br />
+你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。<br />
+我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
+              
+          </div>
+          <div class="column">
+              
+          </div>
+          <div class="column">
+              
+          </div>
+        </div>
+      </article>
+
+      
+
+      
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

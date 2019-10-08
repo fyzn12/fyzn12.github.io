@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mybatis on fyzn个人博客</title>
+    <link>https://fyzn12.github.io/tags/mybatis/</link>
+    <description>Recent content in mybatis on fyzn个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 08 Oct 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>动态SQL</title>
+      <link>https://fyzn12.github.io/post/mybatis/dynamicsql/</link>
+      <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/mybatis/dynamicsql/</guid>
+      <description>动态sql语句总结 主要内容  * ```&amp;lt;choose&amp;gt;、&amp;lt;when&amp;gt;、&amp;lt;otherwise&amp;gt;元素``` * ```&amp;lt;trim&amp;gt;、&amp;lt;where&amp;gt;、&amp;lt;set&amp;gt;元素``` * ```&amp;lt;foreach&amp;gt;```元素 *** ### ```&amp;lt;if&amp;gt;```元素 下面先看一个例子 &amp;lt;select id=&amp;quot;selectUserById&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;quot;name !=null and name !=&#39;&#39;&amp;quot;&amp;gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;quot;sex !=null and sex !=&#39;&#39;&amp;quot;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt; 在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点： 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对 &amp;amp;emsp; *** ### ```&amp;lt;choose&amp;gt;、&amp;lt;when&amp;gt; 、&amp;lt;otherwise&amp;gt;```元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了```&amp;lt;choose&amp;gt;```元素，如下例子。 &amp;lt;select id = &amp;quot;selectUserBychoose&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;quot;name !</description>
+    </item>
+    
+    <item>
+      <title>mapper接口编程</title>
+      <link>https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Tue, 24 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/</guid>
+      <description>面向接口编程的思路  创建pojo（javaBean）类
+ 创建接口
+ 创建接口对应的mapper文件
+注意：
+1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
+ 
+  如果用读取文件的方式，则不用在同一个包下如下
+&amp;lt;mappers&amp;gt; &amp;lt;mapper resource=&amp;quot;mapper/*.xml&amp;quot;/&amp;gt; &amp;lt;/mappers&amp;gt;  2）mapper文件的namespace取值必须和接口的全路径相同
+3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
+4）多参传递可以不写parameterType属性
+5）参数的下标书写 &amp;lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
+6）参数的占位书写
+7）参数的声明书写 方法中用@Param声明。
+4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
+InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&amp;quot;mybatis-config.xml&amp;quot;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }  &amp;emsp;</description>
+    </item>
+    
+    <item>
+      <title>Mybatis-的配置文件</title>
+      <link>https://fyzn12.github.io/post/mybatis/mybatis01/</link>
+      <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/mybatis/mybatis01/</guid>
+      <description>Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &amp;lt;configuration&amp;gt;&amp;lt;/configuration&amp;gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &amp;lt;configuration&amp;gt;  1.配置日志（开启日志）通过&amp;lt;settings&amp;gt;&amp;lt;/settings&amp;gt;标签配置，如下所示：
+ &amp;lt;!-- 开启日志 --&amp;gt; &amp;lt;settings&amp;gt; &amp;lt;setting name=&amp;quot;logImpl&amp;quot; value=&amp;quot;LOG4J&amp;quot;/&amp;gt; &amp;lt;/settings&amp;gt;  2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点
+ &amp;lt;typeAliases&amp;gt; &amp;lt;typeAlia type=&amp;quot;com.pojo.Student&amp;quot;alias=&amp;quot;Student&amp;quot;/&amp;gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &amp;lt;!-- 或者&amp;lt;package name=&amp;quot;com.pojo/&amp;gt;&amp;quot; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &amp;lt;/typeAliases&amp;gt;  3.数据库连接的配置
+ &amp;lt;environments default=&amp;quot;default&amp;quot;&amp;gt; &amp;lt;!--配置多个数据源,但只能指定一个使用 --&amp;gt; &amp;lt;!-- Mysql的数据库链接 --&amp;gt; &amp;lt;environment id=&amp;quot;default&amp;quot;&amp;gt; &amp;lt;transactionManager type=&amp;quot;JDBC&amp;quot;/&amp;gt;&amp;lt;!-- 指定当前数据库的事务管理方式 --&amp;gt; &amp;lt;dataSource type=&amp;quot;POOLED&amp;quot;&amp;gt;&amp;lt;!-- 数据源的管理方式为连接池 --&amp;gt; &amp;lt;property name=&amp;quot;driver&amp;quot; value=&amp;quot;com.mysql.jdbc.Driver&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;url&amp;quot; value=&amp;quot;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;username&amp;quot; value=&amp;quot;root&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;password&amp;quot; value=&amp;quot;1234&amp;quot;/&amp;gt; &amp;lt;!-- 设定数据库的链接4要素 --&amp;gt; &amp;lt;/dataSource&amp;gt; &amp;lt;/environment&amp;gt;  4.映射文件的扫面通过标签配置。</description>
+    </item>
+    
+  </channel>
+</rss>

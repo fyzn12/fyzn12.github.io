@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>
 
-tag | emoji
+category | SSM
 
 </title>
 
@@ -23,7 +23,7 @@ tag | emoji
 <meta name="generator" content="Hugo 0.57.2" />
 
 
-<link rel="canonical" href="https://fyzn12.github.io/tags/emoji/" />
+<link rel="canonical" href="https://fyzn12.github.io/categories/ssm/" />
 <link rel="alternative" href="/index.xml" title="fyzn个人博客" type="application/atom+xml" />
 
 <link href="/css/semantic.min.css" rel="stylesheet" />
@@ -250,24 +250,31 @@ tag | emoji
           
           <div class="display-content">
           
-            <a href="https://fyzn12.github.io/post/emoji-support/">
+            <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
               
-              <h2 class="ui header" style="color: white;">Emoji Support</h2>
+              <h2 class="ui header" style="color: white;">动态SQL</h2>
               
             </a>
-            <p style="padding: 5px;">Emoji can be enabled in a Hugo project in a number of ways.
-</p>
-            <p>@ Hugo Authors</p>
+            <p style="padding: 5px;">动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  &lt;if&gt;元素 下面先看一个例子
+&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+1. resultType与resultMap不能同时使用
+2. #{xxx}与${vlaue}的使用看上一篇博客
+3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：
+ 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对   
+&lt;choose&gt;、&lt;when&gt; 、&lt;otherwise&gt;元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !</p>
+            <p>@ fyzn</p>
           </div>
           
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Mar 5, 2019</div>
+          <div class="ui top right attached black label">2 min read</div>
+          <div class="ui bottom left attached black label">Oct 8, 2019</div>
           
         </div>
       </div>
     </div>
     
-    <img src="/img/default1.jpg" alt="Emoji Support">
+    <img src="/img/default4.jpg" alt="动态SQL">
     
   </div>
 </article>

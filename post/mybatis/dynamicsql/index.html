@@ -141,7 +141,7 @@
 
 <p>trim应用</p>
 
-<pre><code>&lt;select id=&quot;selectByTrim&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
+<pre><code>&lt;select id=&quot;selectByTrim&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
     select * from user
     &lt;trim prefix=&quot;where&quot; prefixOverrides=&quot;and | or&quot;&gt;
         &lt;if test=&quot;name !=null and name !=''&quot;&gt;
@@ -151,7 +151,27 @@
             and sex=#{sex}
         &lt;/if&gt;
     &lt;/trim&gt;
-&lt;/select&gt;    
+&lt;/select&gt;  
+</code></pre>
+
+<p>&emsp;</p>
+
+<pre><code>&lt;!-- sql动态中的trim标签
+    prefix&quot;在前面进行添加&quot;
+    prefixOverreds=&quot;在前面进行去掉&quot;
+    suffix=&quot;在后面进行添加&quot;
+    suffixOverreds=&quot;在后面进行去掉&quot;
+    重点：执行的重点，先去除，在添加
+    使用trim 会在prefix设置的值后面添加空格  在使用trim进行模糊查询不可取
+--&gt;
+
+    &lt;update id=&quot;upid&quot; parameterType=&quot;Teacher&quot;&gt;   
+        update Teacher
+        &lt;trim prefix=&quot;set&quot; suffixOverreds&quot;,&quot;&gt;
+            name=#{name},age=#{age}
+        &lt;/trim&gt;
+        where id=#{id}
+    &lt;/update&gt;
 </code></pre>
 
 <p>where子句的应用</p>
@@ -199,12 +219,38 @@ foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集�
 <p>具体例子如下：<br />
 &emsp;</p>
 
-<pre><code>&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameType=&quot;List&quot;&gt;
+<pre><code>&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameterType=&quot;List&quot;&gt;
     select *from user
     &lt;foreach item=&quot;item&quot; index='index' collection='list' open=&quot;(&quot;separator='',&quot;close=&quot;)&quot;&gt;
         #{item}
     &lt;/foreach&gt;
 &lt;/select&gt; 
+&lt;!-- 
+    foreach的作用：
+        1.查询中的使用 多值查询 in
+        2.批量添加
+--&gt;
+&lt;!-- in的使用 --&gt;
+&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameterType=&quot;List&quot;&gt;
+    select * from user where age in
+        &lt;foreach collection=&quot;list&quot; item=&quot;age&quot; open=&quot;(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
+            #{age}
+        &lt;/foreach&gt;
+&lt;/select&gt;
+
+&lt;!-- 使用foreach与trim联合使用 批量添加--&gt;
+&lt;!-- sql的声明字段 --&gt;
+&lt;sql id=&quot;fileName&quot;&gt;
+    (id,name,age,sex)
+&lt;/sql&gt;
+&lt;insert id=&quot;insertByForeach&quot; parameterType=&quot;list&quot;&gt;
+    insert into teacher &lt;include refid=&quot;fileName&quot;/&gt;  values
+        &lt;trim suffixOverreds=&quot;,&quot;&gt;&lt;!-- 去掉最后一个&quot;,&quot; --&gt;
+            &lt;foreach collection=&quot;list&quot; item=&quot;user&quot;&gt;
+                (id,#{user.name},#{user.age},#{user.sex}),
+            &lt;/foreach&gt;
+        &lt;/trim&gt;
+&lt;/insert&gt;
 </code></pre>
 
 <hr />
@@ -217,6 +263,14 @@ foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集�
     &lt;bind name =&quot;paran_uname&quot; vlaue = &quot;'%'+uname+'%' &quot;/&gt;
     select * from user
         where name like #{paran_uname}
+&lt;/select&gt;
+
+&lt;!-- 
+    sql动态中的bind标签对变量或者查询的条件进行重新定义,模糊查询中trim的prefix和suffix使用后会在后面添加空格，显然不适合模糊查询。  
+--&gt;
+&lt;select id=&quot;selectBind&quot; parameterType=&quot;&quot;Teacher resultType=&quot;Teacher&quot;&gt;
+    &lt;bind name=&quot;name&quot; vlaue=&quot;'%'+name+'%'&quot;/&gt;
+    select * from teacher where name like #{name}
 &lt;/select&gt;
 </code></pre>
 </article>
@@ -403,7 +457,7 @@ foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集�
 <section class="ui bottom attached center aligned inverted segment">
 
     
-    <p>© 2019 fyzn个人博客</p>
+    <p>© 2019 - 2020 fyzn个人博客</p>
     
     <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
 </section>

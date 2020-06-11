@@ -151,24 +151,14 @@
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
-          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">动态SQL</a>
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">mybatis之动态SQL</a>
         </div>
       </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/ssmmybatis" class="item">ssmmybatis</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
       
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
-          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mapper接口编程</a>
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mybatis之mapper接口编程</a>
         </div>
       </div>
       
@@ -311,7 +301,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
           
             <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
               
-              <h2 class="ui header" style="color: white;">动态SQL</h2>
+              <h2 class="ui header" style="color: white;">mybatis之动态SQL</h2>
               
             </a>
             <p style="padding: 5px;">动态SQL语句总结 主要内容  if元素
@@ -333,7 +323,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="动态SQL">
+    <img src="/img/default5.jpg" alt="mybatis之动态SQL">
     
   </div>
 </article>
@@ -353,7 +343,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
           
             <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">
               
-              <h2 class="ui header" style="color: white;">mapper接口编程</h2>
+              <h2 class="ui header" style="color: white;">mybatis之mapper接口编程</h2>
               
             </a>
             <p style="padding: 5px;">面向接口编程的思路  创建pojo（javaBean）类
@@ -371,7 +361,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
 7）参数的声明书写 方法中用@Param声明。
 4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
 InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }   </p>
-            <p>@ fyzn</p>
+            <p>@ fyzn12</p>
           </div>
           
           <div class="ui top right attached black label">1 min read</div>
@@ -381,7 +371,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="mapper接口编程">
+    <img src="/img/default4.jpg" alt="mybatis之mapper接口编程">
     
   </div>
 </article>
@@ -408,7 +398,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
  &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt;  2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点
  &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt;  3.数据库连接的配置
  &lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。</p>
-            <p>@ fyzn</p>
+            <p>@ fyzn12</p>
           </div>
           
           <div class="ui top right attached black label">1 min read</div>
@@ -418,7 +408,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default1.jpg" alt="Mybatis-的配置文件">
+    <img src="/img/default2.jpg" alt="Mybatis-的配置文件">
     
   </div>
 </article>

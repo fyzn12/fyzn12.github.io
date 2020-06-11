@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+java基础篇
+</title>
+
+  
+  
+  <meta name="author" content="fyzn12" />
+  <meta name="description" content="java中保证多线程的运行安全  原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操着（atomic，synchronied）;
+ 可见性：一个线程对主内存的修改可以及时的被其他线程看到（synchronied，volatile）； 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序，该观察结果一般杂论无序（happens-before原则）  session和cookie的区别  由于http协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识别具体的用户，这个机制就是session，如购物车，在服务端需要记录该用户的状态。在服务端保存session的方式有很多，比如内存、数据库、文件。集群的时候也要考虑session的转移，一般会有专门的session服务器集群，（使用缓存服务器Memcached）。 服务端如何识别特定的用户：每次Http请求时，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用Cookie来实现Session跟踪，第一次创建session时，服务端会在Http协议中告诉客户端，需要在Cookie里面记录一个session ID，以后每次请求把这个会话ID发送到服务器，如果客户端浏览器禁用了Cookie，一般情况下会使用URl重写的技术来进行会话跟踪，即每次HTTP交互时，URL后面都会附加上一个sid=xxxx这样的参数，服务端据此来识别用户。 Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。   session的工作原理 session是存在服务器上的类似于一个散列表格。类似于一个大号的map，里面存储的是用户的session ID，用户向服务器发送请求的时候会带上这个session ID，这时就可以从中取出对应的值。
+struts和springMVC的区别  拦截机制不同
+ struts是类拦截。每次请求都会创建一个action。 springMVC是方法级别的拦截。  底层框架不同
+ struts2采用Filter实现，SpringMVC采用servlet实现。Filter在容器启动后即初始化；服务器停止后坠毁，晚于servlet。servlet是在调用的时候初始化，先于Filter调用，服务停止后销毁。
+  配置方面
+spring MVC 和spring是无缝的。从这个项目的管理和安全上也比struts2高。
+  避免sql注入  使用preparedstatement 使用正则表达式过滤传入的参数 字符串过滤 jsp调用该函数检查是否包含非法字符 jsp页面判断代码
+  什么是XSS攻击 XSS攻击又称CSS，其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当用户浏览该网站时，这段html代码就会执行，从而达到攻击的目的。XSS攻击类似于SQL注入的攻击，SQL注入攻击中以SQL语句走位用户输入，从而达到查询/修改/删除数据，而在xss攻击中通过恶意脚本，实现对用户浏览器的控制，获取用户的一些信息。XSS是web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式。
+XSS防范的总体思路是：对输入（和URL参数）进行过滤，对输出进行编码。 什么是CSRF攻击 CSRF也称为one-click attack或者session riding，中文全称叫&amp;rdquo;跨站请求伪造&amp;rdquo;。一般来说攻击者通过伪造用户浏览器的请求，向访问一个用户自己曾经认证访问过的网站发送出去，使目标网站接受并以为是用户的真实操着而去执行用户的浏览器，却不能验证请求是否源于用户的真实意愿下的操作行为。
+如何避免CSRF攻击  验证HTTP Referer字段：
+HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况下，访问一个安全受限页面的请求来自于同一个网站，而如果黑客要对其实施CSRF攻击，他一般只能在他自己 的网站构造请求。因此，可以通过验证Referer值来防御CSRF攻击。 使用验证码 关键操作页面上加上验证码，后台接收到请求后通过判断验证码可以防御CSRF。但这种方法对用户不太友好。 在请求地址中添加token并验证。 CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于cookie中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有token或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。这种方法要比检查 Referer 要安全一些，token 可以在用户登陆后产生并放于session之中，然后在每次请求时把token 从 session 中拿出，与请求中的 token 进行比对，但这种方法的难点在于如何把 token 以参数的形式加入请求。 对于 GET 请求，token 将附在请求地址之后，这样 URL 就变成 http://url?" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2" />
+
+
+<link rel="canonical" href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" />
+<link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
+
+<link href="/css/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="首页"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+
+    <section class="ui top attached segment">
+      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
+        <i class="save icon"></i>
+      </a>
+      <header>
+        <h1 class="ui header">
+          java基础篇
+          <div class="sub header">@ fyzn12 · Jun 11, 2020 · 2 min read · 更新于 Jun 11, 2020</div>
+        </h1>
+      </header>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<h2 id="java中保证多线程的运行安全">java中保证多线程的运行安全</h2>
+
+<ul>
+<li>原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操着（atomic，synchronied）;<br /></li>
+<li>可见性：一个线程对主内存的修改可以及时的被其他线程看到（synchronied，volatile）；</li>
+<li>有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序，该观察结果一般杂论无序（happens-before原则）</li>
+</ul>
+
+<h2 id="session和cookie的区别">session和cookie的区别</h2>
+
+<ul>
+<li>由于http协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识别具体的用户，这个机制就是session，如购物车，在服务端需要记录该用户的状态。在服务端保存session的方式有很多，比如内存、数据库、文件。集群的时候也要考虑session的转移，一般会有专门的session服务器集群，（使用缓存服务器Memcached）。</li>
+<li>服务端如何识别特定的用户：每次Http请求时，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用Cookie来实现Session跟踪，第一次创建session时，服务端会在Http协议中告诉客户端，需要在Cookie里面记录一个session ID，以后每次请求把这个会话ID发送到服务器，如果客户端浏览器禁用了Cookie，一般情况下会使用URl重写的技术来进行会话跟踪，即每次HTTP交互时，URL后面都会附加上一个sid=xxxx这样的参数，服务端据此来识别用户。</li>
+<li>Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。
+<br /></li>
+</ul>
+
+<h2 id="session的工作原理">session的工作原理</h2>
+
+<p>session是存在服务器上的类似于一个散列表格。类似于一个大号的map，里面存储的是用户的session ID，用户向服务器发送请求的时候会带上这个session ID，这时就可以从中取出对应的值。</p>
+
+<h2 id="struts和springmvc的区别">struts和springMVC的区别</h2>
+
+<ul>
+<li>拦截机制不同<br />
+
+<ol>
+<li>struts是类拦截。每次请求都会创建一个action。</li>
+<li>springMVC是方法级别的拦截。</li>
+</ol></li>
+<li>底层框架不同<br />
+
+<ol>
+<li>struts2采用Filter实现，SpringMVC采用servlet实现。Filter在容器启动后即初始化；服务器停止后坠毁，晚于servlet。servlet是在调用的时候初始化，先于Filter调用，服务停止后销毁。<br /></li>
+</ol></li>
+<li>配置方面<br />
+spring MVC 和spring是无缝的。从这个项目的管理和安全上也比struts2高。<br /></li>
+</ul>
+
+<h2 id="避免sql注入">避免sql注入</h2>
+
+<ul>
+<li>使用preparedstatement</li>
+<li>使用正则表达式过滤传入的参数</li>
+<li>字符串过滤</li>
+<li>jsp调用该函数检查是否包含非法字符</li>
+<li>jsp页面判断代码<br />
+<br /></li>
+</ul>
+
+<h2 id="什么是xss攻击">什么是XSS攻击</h2>
+
+<p>XSS攻击又称CSS，其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当用户浏览该网站时，这段html代码就会执行，从而达到攻击的目的。XSS攻击类似于SQL注入的攻击，SQL注入攻击中以SQL语句走位用户输入，从而达到查询/修改/删除数据，而在xss攻击中通过恶意脚本，实现对用户浏览器的控制，获取用户的一些信息。XSS是web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式。</p>
+
+<h2 id="xss防范的总体思路是-对输入-和url参数-进行过滤-对输出进行编码">XSS防范的总体思路是：对输入（和URL参数）进行过滤，对输出进行编码。</h2>
+
+<h2 id="什么是csrf攻击">什么是CSRF攻击</h2>
+
+<p>CSRF也称为one-click attack或者session riding，中文全称叫&rdquo;跨站请求伪造&rdquo;。一般来说攻击者通过伪造用户浏览器的请求，向访问一个用户自己曾经认证访问过的网站发送出去，使目标网站接受并以为是用户的真实操着而去执行用户的浏览器，却不能验证请求是否源于用户的真实意愿下的操作行为。</p>
+
+<h2 id="如何避免csrf攻击">如何避免CSRF攻击</h2>
+
+<ul>
+<li>验证HTTP Referer字段：<br />
+ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况下，访问一个安全受限页面的请求来自于同一个网站，而如果黑客要对其实施CSRF攻击，他一般只能在他自己 的网站构造请求。因此，可以通过验证Referer值来防御CSRF攻击。</li>
+<li>使用验证码
+ 关键操作页面上加上验证码，后台接收到请求后通过判断验证码可以防御CSRF。但这种方法对用户不太友好。</li>
+<li>在请求地址中添加token并验证。
+ CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于cookie中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有token或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。这种方法要比检查 Referer 要安全一些，token 可以在用户登陆后产生并放于session之中，然后在每次请求时把token 从 session 中拿出，与请求中的 token 进行比对，但这种方法的难点在于如何把 token 以参数的形式加入请求。
+ 对于 GET 请求，token 将附在请求地址之后，这样 URL 就变成 <a href="http://url?csrftoken=tokenvalue。">http://url?csrftoken=tokenvalue。</a>
+ 而对于 POST 请求来说，要在 form 的最后加上 <input type="hidden" name="csrftoken" value="tokenvalue"/>，这样就把token以参数的形式加入请求了。</li>
+
+<li><p>在HTTP头中自定义属性并验证<br />
+ 这种方法也是使用 token 并进行验证，和上一种方法不同的是，这里并不是把 token 以参数的形式置于 HTTP 请求之中，而是把它放到 HTTP 头中自定义的属性里。通过 XMLHttpRequest 这个类，可以一次性给所有该类请求加上 csrftoken 这个 HTTP 头属性，并把 token 值放入其中。这样解决了上种方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求的地址不会被记录到浏览器的地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中去。</p>
+
+<h2 id="switch语句能否作用在byte上-能否作用在long上-能否作用在string上">switch语句能否作用在byte上，能否作用在long上，能否作用在string上？</h2>
+
+<p>在switch（exprl）中exprl只能是整数表达式或枚举常量，整数表达式可以是int基本数据类型或Integer包装类型，由于byte，short，char都可以隐含转换为int，所以这些类型以及这些类型的包装类型也是可以的。显然，long和String类型都不符合switch的语法规定，并且不能隐式转换成int类型，所以，他们不能用于switch语句中。</p>
+
+<h2 id="short-sl-1-sl-sl-1-与short-sl-1-sl-1-有什么错">short sl=1;sl = sl + 1 与short sl = 1; sl += 1;有什么错？</h2>
+
+<p>对于short sl = 1； sl = sl + 1；由于sl + 1运算时会自动提升表达式的类型，所以结果是int类型，在赋值给sl，编译器会包需要强制转换类型的错误。
+sl += 1；+=是java语言规定的运算符，java编译器会对他进行特殊处理，因此可以正确编译。</p></li>
+</ul>
+
+<h2 id="用最有效率的方法计算2乘以8">用最有效率的方法计算2乘以8</h2>
+
+<pre><code>2&lt;&lt;3   因为将一个数左移n位就相当于乘以2的n次方。而位运算cpu直接支持，效率最高。所以2乘以8最高效率就是位运算，2&lt;&lt;3
+</code></pre>
+
+<h2 id="去掉vector集合的重复元素">去掉Vector集合的重复元素</h2>
+
+<pre><code>利用set集合的特性去掉  
+HashSet hashset = new HashSet(vector);
+这样就可以去掉vector集合中重复的元素  
+</code></pre>
+
+<h2 id="collection和collections的区别">Collection和Collections的区别</h2>
+
+<pre><code>Collection是集合类的上级借口，继承他的接口有Set和List。Collections是针对集合类的一个辅助类，他提供一系列的静态方法实现对各种集合的搜索、排序、线程安全化等操作。 
+</code></pre>
+
+<h2 id="java中io分为几种">java中IO分为几种</h2>
+
+<pre><code>按功能划分：输入流、输出流；  
+按类型划分：字节流、字符流；
+字节流和字符流的区别：字节流按8位传输，以字节为单位输入输出数据；字符流按16位传输，以字符为单位输入输出数据。
+</code></pre>
+
+<h2 id="什么是-java-序列化-什么情况下需要序列化">什么是 java 序列化？什么情况下需要序列化？</h2>
+
+<pre><code>保存在内存中的各种对象的状态，并且可以把保存对象的状态再次读取出来。是java提供的一种保存对象的状态的机制————序列化。
+什么需要序列化：
+1 当你想把内存中的对象保存到文件或数据库中的时候。
+2 当你想用套接字在网络上传输对象的时候。
+3 当你想通过RMI传输对象的时候。
+总结：序列化其实就是保存在内存中对象的状态
+</code></pre>
+
+<h2 id="描述一下jvm加载class文件的机制">描述一下JVM加载class文件的机制？</h2>
+
+<pre><code>JVM中类的装载是在ClassLoader和他的子类来实现的。ClassLoader中java中一个运行时重要的系统组件，他负责在运行时查找和装入类文件的类。
+</code></pre>
+
+<h2 id="head-堆-和stack-栈-的区别">head（堆）和stack（栈）的区别？</h2>
+
+<pre><code>java中内存分为两类：栈和堆内存。
+栈内存是指程序进入一个方法时，会为这个方法单独分配一个私属存储空间，用于存储这个方法内部的局部变量，当这个方法结束时，这个栈空间也会被释放。
+堆内存是指：存放不在当前方法中的那些数据。比如new创建的对象都存放在堆内存中。局部变量使用final修饰的变量也存放在堆内存中。
+</code></pre>
+
+<h2 id="抽象类的总结">抽象类的总结</h2>
+
+<pre><code>1. 抽象类的方法必须以&quot;;&quot;结尾不能用&quot;{}&quot;结尾。
+2. 局部变量前不能放置任何访问修饰符
+3. 抽象类的方法不能是private修饰，因为要子类实现
+4. 抽象类不能用final修饰
+</code></pre>
+
+<h2 id="接口的总结">接口的总结</h2>
+
+<pre><code>1. 接口中声明的变量是pulib static final
+2. 接口不能有main方法，但抽象类可以有；
+3. 接口可以继承多个接口如interface Rollable extends Playable, Bounceable ，playable和Bounceable都是接口。
+4. 接口不可以有构造函数，但抽象类可以有。
+5. 程序如下加深印象。
+    interface Playable {
+        void play();
+    }
+    interface Bounceable {
+        void play();
+    }
+    interface Rollable extends Playable, Bounceable {
+        Ball ball = new Ball(&quot;PingPang&quot;);
+    }
+    class Ball implements Rollable {
+        private String name;
+        public String getName() {
+            return name;
+        }
+        public Ball(String name) {
+            this.name = name;        
+        }
+        public void play() {
+            ball = new Ball(&quot;Football&quot;);
+            System.out.println(ball.getName());
+         }
+    }
+    在上面程序中是有错误的分析如下：
+    首先明确接口是可以继承多个接口；
+    接口中变量都是默认public static final
+    因此在接口  Rollable中声明的 对象Ball ball = new Ball(&quot;PingPang&quot;);这里可以看成是变量，默认就是
+      public static final Ball ball = new Ball(&quot;PingPang&quot;);
+    再看类Ball中，方法play（）中重初始化ball，相当于修改了接口Rollable中的ball，但是该变量是用final修饰，不能随意修改。
+    final的object是不能被改变reference的。因此编译器将在&quot;ball = new Ball(&quot;Football&quot;);&quot;这里显示有错。
+</code></pre>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/java" title="java">java</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    
+<section class="ui top attached center aligned inverted segment">
+
+  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
+    <i class="bars icon" title="弹出菜单"></i>
+  </a>
+
+  <div class="ui small circular image" style="margin-top: 1rem;">
+    
+    <img src="/img/dome2.jpg">
+    
+  </div>
+  
+  <h3 class="ui inverted header">
+  fyzn12的博客<div class="sub header">路是自己走、踏破云层，也许看不到所幻想的彩虹、却能体会自己付出的汗水！</div>
+  </h3>
+
+  
+  <div class="ui inverted horizontal list">
+  
+    
+    <a class="item" href="/post">
+      <i class="archive icon" title="归档"></i>
+    </a>
+    
+    <a class="item" href="/tags">
+      <i class="tags icon" title="所有标签"></i>
+    </a>
+    <a class="item" href="/categories">
+      <i class="cube icon" title="所有分类"></i>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
+
+  
+  <a class="ui label" href="/tags/css" title="css">css</a>
+  
+  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+  
+  <a class="ui label" href="/tags/html" title="html">html</a>
+  
+  <a class="ui label" href="/tags/java" title="java">java</a>
+  
+  <a class="ui label" href="/tags/markdown" title="markdown">markdown</a>
+  
+  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+  
+  <a class="ui label" href="/tags/test" title="test">test</a>
+  
+  <a class="ui label" href="/tags/text" title="text">text</a>
+  
+  <a class="ui label" href="/tags/themes" title="themes">themes</a>
+  
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+
+  
+  <div class="ui inverted accordion">
+  
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/java%E5%9F%BA%E7%A1%80" class="item">java基础</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssm" class="item">ssm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">动态SQL</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssmmybatis" class="item">ssmmybatis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mapper接口编程</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/syntax" class="item">syntax</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/markdown-syntax/" class="item">Markdown Syntax Guide</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/test" class="item">test</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/test/" class="item">test</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/themes" class="item">themes</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/markdown-syntax/" class="item">Markdown Syntax Guide</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ui bottom attached center aligned inverted segment">
+
+    
+    <p>© 2019 - 2020 fyzn12个人博客</p>
+    
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:1149919071@qq.com">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/fyzn12/" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      
+      <header class="ui inverted segment">
+      
+        <h2 class="ui header">
+          喜欢的诗
+        </h2>
+      </header>
+
+      
+      <article class="ui inverted segment markdown-body">
+      
+        <div class="ui stackable three column grid">
+          <div class="column">
+              
+              (<font color="blue" face="楷体">我以为上帝为我关上了一扇门，会为我打开一扇窗，谁知再关上门的同时，把窗也锁了  可笑又可悲！</font>)<br />
+每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。<br />
+每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。<br />
+每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。<br />
+每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。<br />
+每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。<br />
+你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。<br />
+也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。<br />
+你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。<br />
+我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
+              
+          </div>
+          <div class="column">
+              
+          </div>
+          <div class="column">
+              
+          </div>
+        </div>
+      </article>
+
+      
+
+      
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

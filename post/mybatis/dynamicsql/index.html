@@ -13,14 +13,10 @@ mybatis之动态SQL
   
   <meta name="author" content="fyzn" />
   <meta name="description" content="动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  元素 下面先看一个例子
-&amp;lt;select id=&amp;quot;selectUserById&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;quot;name !=null and name !=&#39;&#39;&amp;quot;&amp;gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;quot;sex !=null and sex !=&#39;&#39;&amp;quot;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
-1. resultType与resultMap不能同时使用
-2. #{xxx}与${vlaue}的使用看上一篇博客
-3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：
- 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  &amp;emsp;
-choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&amp;lt;choose&amp;gt;元素，如下例子。
-&amp;lt;select id = &amp;quot;selectUserBychoose&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;quot;name !" />
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+ &amp;lt;select id=&amp;quot;selectUserById&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;quot;name !=null and name !=&#39;&#39;&amp;quot;&amp;gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;quot;sex !=null and sex !=&#39;&#39;&amp;quot;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+ 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&amp;lt;choose&amp;gt;元素，如下例子。
+ &amp;lt;select id = &amp;quot;selectUserBychoose&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;quot;name !" />
 
 
 
@@ -83,87 +79,83 @@ choose、when 、otherwise元素 有些时候不想用到所以的条件语句�
 
 <hr />
 
-<h3 id="if-元素"><if>元素</h3>
+<h2 id="if-元素">if 元素</h2>
 
 <p>下面先看一个例子</p>
 
-<pre><code>&lt;select id=&quot;selectUserById&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
-    select * from user where 1=1
-    &lt;if test =&quot;name !=null and name !=''&quot;&gt;
-        and name like concat('%',#{name},'%')
-    &lt;/if&gt;
-    &lt;if test = &quot;sex !=null and sex !=''&quot;&gt;
-        and sex = #{sex}
-    &lt;/if&gt;
-&lt;/select&gt;  
+<pre><code>    &lt;select id=&quot;selectUserById&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+        select * from user where 1=1
+        &lt;if test =&quot;name !=null and name !=''&quot;&gt;
+            and name like concat('%',#{name},'%')
+        &lt;/if&gt;
+        &lt;if test = &quot;sex !=null and sex !=''&quot;&gt;
+            and sex = #{sex}
+        &lt;/if&gt;
+    &lt;/select&gt;  
 </code></pre>
 
-<p>在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：<br />
-1. resultType与resultMap不能同时使用<br />
-2. #{xxx}与${vlaue}的使用看上一篇博客<br />
-3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：</p>
+<p>在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：</p>
 
-<pre><code>    1）对象作为参数，则test里面的参数为对象的属性  
+<pre><code>    1. resultType与resultMap不能同时使用  
+    2. #{xxx}与${vlaue}的使用看上一篇博客  
+    3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：  
+
+    1）对象作为参数，则test里面的参数为对象的属性  
     2)@Param声明的参数  
     3)map方式键值对  
 </code></pre>
 
-<p>&emsp;</p>
-
 <hr />
 
-<h3 id="choose-when-otherwise元素">choose、when 、otherwise元素</h3>
+<h2 id="choose-when-otherwise元素">choose、when 、otherwise元素</h2>
 
 <p>有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了<code>&lt;choose&gt;</code>元素，如下例子。</p>
 
-<pre><code>&lt;select id = &quot;selectUserBychoose&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
-    select * from user where 1=1
-    &lt;choose&gt;
-        &lt;when test=&quot;name !=null and name !=''&quot;&gt;
-            and name like concat('%',#{name},'%')
-        &lt;/when&gt;
-        &lt;when test=&quot;sex != null and sex !='' &quot;
-            and sex=#{sex}
-        &lt;/when&gt;
-        &lt;otherwise&gt;
-            and id&gt;10
-        &lt;/otherwise&gt;
-    &lt;/choose&gt;  
+<pre><code>    &lt;select id = &quot;selectUserBychoose&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+        select * from user where 1=1
+        &lt;choose&gt;
+            &lt;when test=&quot;name !=null and name !=''&quot;&gt;
+                and name like concat('%',#{name},'%')
+            &lt;/when&gt;
+            &lt;when test=&quot;sex != null and sex !='' &quot;
+                and sex=#{sex}
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+                and id&gt;10
+            &lt;/otherwise&gt;
+        &lt;/choose&gt;  
 </code></pre>
 
 <p>上面sql语句的含义是当满足test里面的其中之一时，执行when子句，两者都不满足时执行otherwise子句，这样做就可以实现if元素没法实现的一些选择功能。</p>
 
 <hr />
 
-<h3 id="trim-where-set元素">trim、where、set元素</h3>
+<h2 id="trim-where-set元素">trim、where、set元素</h2>
 
 <p>trim 的主要功能是可以在自己包含的内容上加上某些前缀，也可以在后面加上某些后缀，与之对应的属性是prefix和suffix；可以把包含内容的首部某些内容覆盖，及忽略，也可以把尾部的某些内容覆盖，对应的属性是prefixOverrides和suffixOverrides。正因为<code>&lt;trim&gt;</code>元素有这样的功能，所以也可以非常简单利用<code>&lt;trim&gt;</code>来代替<code>&lt;where&gt;</code>元素功能。代码如下：</p>
 
 <p>trim应用</p>
 
-<pre><code>&lt;select id=&quot;selectByTrim&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
-    select * from user
-    &lt;trim prefix=&quot;where&quot; prefixOverrides=&quot;and | or&quot;&gt;
-        &lt;if test=&quot;name !=null and name !=''&quot;&gt;
-            and name like concat('%',#{name},'%')
-        &lt;/if&gt;
-        &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
-            and sex=#{sex}
-        &lt;/if&gt;
-    &lt;/trim&gt;
-&lt;/select&gt;  
-</code></pre>
+<pre><code>    &lt;select id=&quot;selectByTrim&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+        select * from user
+        &lt;trim prefix=&quot;where&quot; prefixOverrides=&quot;and | or&quot;&gt;
+            &lt;if test=&quot;name !=null and name !=''&quot;&gt;
+                and name like concat('%',#{name},'%')
+            &lt;/if&gt;
+            &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
+                and sex=#{sex}
+            &lt;/if&gt;
+        &lt;/trim&gt;
+    &lt;/select&gt;  
 
-<p>&emsp;</p>
-
-<pre><code>&lt;!-- sql动态中的trim标签
+    &lt;!-- sql动态中的trim标签
     prefix&quot;在前面进行添加&quot;
     prefixOverreds=&quot;在前面进行去掉&quot;
     suffix=&quot;在后面进行添加&quot;
     suffixOverreds=&quot;在后面进行去掉&quot;
     重点：执行的重点，先去除，在添加
     使用trim 会在prefix设置的值后面添加空格  在使用trim进行模糊查询不可取
---&gt;
+    --&gt;
 
     &lt;update id=&quot;upid&quot; parameterType=&quot;Teacher&quot;&gt;   
         update Teacher
@@ -208,16 +200,14 @@ choose、when 、otherwise元素 有些时候不想用到所以的条件语句�
 <p>set 子句会在update的sql语句中用到，对应的值千万别忘了where限定。</p>
 
 <p>foreach元素的应用:<br />
-foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集合，<code>&lt;foreach&gt;</code>元素的属性主要有item、index、collection、open、separator、close。item表示集合中每个元素进行迭代时的别名，index指定一个名字，用于表示在迭代过程中每次迭代到的位置，open表示该语句以什么开始，separator表示在每次进行迭代之间以什么符号进行分隔符，close表示以什么结束。在使用<code>&lt;foreach&gt;</code>元素时最关键，最容易出错的是collection属性，该属性是必选的，但在不同情况下值不同，有以下几种情况：</p>
+        foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集合，<code>&lt;foreach&gt;</code>元素的属性主要有item、index、collection、open、separator、close。item表示集合中每个元素进行迭代时的别名，index指定一个名字，用于表示在迭代过程中每次迭代到的位置，open表示该语句以什么开始，separator表示在每次进行迭代之间以什么符号进行分隔符，close表示以什么结束。在使用<code>&lt;foreach&gt;</code>元素时最关键，最容易出错的是collection属性，该属性是必选的，但在不同情况下值不同，有以下几种情况：</p>
 
-<ul>
-<li>如果传入的是单参数且参数类型是一个List，collection属性值为list<br /></li>
-<li>如果传入的参数是单参数且参数类型是一个arry数组，collection值为arry</li>
-<li>如果传入的参数是多个，需要把她们封装成一个Map，当然单参数也可以封装成Map。map的key值参数名，collection属性值是传入的List或者arry对象在封装的Map中的key<br /></li>
-</ul>
+<pre><code>    * 如果传入的是单参数且参数类型是一个List，collection属性值为list  
+    * 如果传入的参数是单参数且参数类型是一个arry数组，collection值为arry
+    * 如果传入的参数是多个，需要把她们封装成一个Map，当然单参数也可以封装成Map。map的key值参数名，collection属性值是传入的List或者arry对象在封装的Map中的key  
+</code></pre>
 
-<p>具体例子如下：<br />
-&emsp;</p>
+<p>具体例子如下：</p>
 
 <pre><code>&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameterType=&quot;List&quot;&gt;
     select *from user
@@ -255,23 +245,23 @@ foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集�
 
 <hr />
 
-<h3 id="bind元素">bind元素</h3>
+<h2 id="bind元素">bind元素</h2>
 
 <p>在进行模糊查询时，如果使用&rdquo;${}&ldquo;拼接字符串，则无法防止SQL注入问题；bind使用可以一定程度上避免这个问题。代码演示如下：</p>
 
-<pre><code>&lt;select id=&quot;selectByBind&quot; resultType=&quot;MyUser&quot; parameType=&quot;List&quot;&gt;
-    &lt;bind name =&quot;paran_uname&quot; vlaue = &quot;'%'+uname+'%' &quot;/&gt;
-    select * from user
-        where name like #{paran_uname}
-&lt;/select&gt;
+<pre><code>    &lt;select id=&quot;selectByBind&quot; resultType=&quot;MyUser&quot; parameType=&quot;List&quot;&gt;
+        &lt;bind name =&quot;paran_uname&quot; vlaue = &quot;'%'+uname+'%' &quot;/&gt;
+        select * from user
+            where name like #{paran_uname}
+    &lt;/select&gt;
 
-&lt;!-- 
-    sql动态中的bind标签对变量或者查询的条件进行重新定义,模糊查询中trim的prefix和suffix使用后会在后面添加空格，显然不适合模糊查询。  
---&gt;
-&lt;select id=&quot;selectBind&quot; parameterType=&quot;&quot;Teacher resultType=&quot;Teacher&quot;&gt;
-    &lt;bind name=&quot;name&quot; vlaue=&quot;'%'+name+'%'&quot;/&gt;
-    select * from teacher where name like #{name}
-&lt;/select&gt;
+    &lt;!-- 
+        sql动态中的bind标签对变量或者查询的条件进行重新定义,模糊查询中trim的prefix和suffix使用后会在后面添加空格，显然不适合模糊查询。  
+    --&gt;
+    &lt;select id=&quot;selectBind&quot; parameterType=&quot;&quot;Teacher resultType=&quot;Teacher&quot;&gt;
+        &lt;bind name=&quot;name&quot; vlaue=&quot;'%'+name+'%'&quot;/&gt;
+        select * from teacher where name like #{name}
+    &lt;/select&gt;
 </code></pre>
 </article>
     </section>

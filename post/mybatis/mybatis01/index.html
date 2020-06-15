@@ -12,10 +12,9 @@ Mybatis-的配置文件
   
   
   <meta name="author" content="fyzn12" />
-  <meta name="description" content="Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &amp;lt;configuration&amp;gt;&amp;lt;/configuration&amp;gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &amp;lt;configuration&amp;gt;  1.配置日志（开启日志）通过&amp;lt;settings&amp;gt;&amp;lt;/settings&amp;gt;标签配置，如下所示：
- &amp;lt;!-- 开启日志 --&amp;gt; &amp;lt;settings&amp;gt; &amp;lt;setting name=&amp;quot;logImpl&amp;quot; value=&amp;quot;LOG4J&amp;quot;/&amp;gt; &amp;lt;/settings&amp;gt;  2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点
- &amp;lt;typeAliases&amp;gt; &amp;lt;typeAlia type=&amp;quot;com.pojo.Student&amp;quot;alias=&amp;quot;Student&amp;quot;/&amp;gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &amp;lt;!-- 或者&amp;lt;package name=&amp;quot;com.pojo/&amp;gt;&amp;quot; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &amp;lt;/typeAliases&amp;gt;  3.数据库连接的配置
- &amp;lt;environments default=&amp;quot;default&amp;quot;&amp;gt; &amp;lt;!--配置多个数据源,但只能指定一个使用 --&amp;gt; &amp;lt;!-- Mysql的数据库链接 --&amp;gt; &amp;lt;environment id=&amp;quot;default&amp;quot;&amp;gt; &amp;lt;transactionManager type=&amp;quot;JDBC&amp;quot;/&amp;gt;&amp;lt;!-- 指定当前数据库的事务管理方式 --&amp;gt; &amp;lt;dataSource type=&amp;quot;POOLED&amp;quot;&amp;gt;&amp;lt;!-- 数据源的管理方式为连接池 --&amp;gt; &amp;lt;property name=&amp;quot;driver&amp;quot; value=&amp;quot;com.mysql.jdbc.Driver&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;url&amp;quot; value=&amp;quot;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;username&amp;quot; value=&amp;quot;root&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;password&amp;quot; value=&amp;quot;1234&amp;quot;/&amp;gt; &amp;lt;!-- 设定数据库的链接4要素 --&amp;gt; &amp;lt;/dataSource&amp;gt; &amp;lt;/environment&amp;gt;  4.映射文件的扫面通过标签配置。" />
+  <meta name="description" content="Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &amp;lt;configuration&amp;gt;&amp;lt;/configuration&amp;gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &amp;lt;configuration&amp;gt; 1.配置日志（开启日志）通过```&amp;lt;settings&amp;gt;&amp;lt;/settings&amp;gt;```标签配置，如下所示： &amp;lt;!-- 开启日志 --&amp;gt; &amp;lt;settings&amp;gt; &amp;lt;setting name=&amp;quot;logImpl&amp;quot; value=&amp;quot;LOG4J&amp;quot;/&amp;gt; &amp;lt;/settings&amp;gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &amp;lt;typeAliases&amp;gt; &amp;lt;typeAlia type=&amp;quot;com.pojo.Student&amp;quot;alias=&amp;quot;Student&amp;quot;/&amp;gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &amp;lt;!-- 或者&amp;lt;package name=&amp;quot;com.pojo/&amp;gt;&amp;quot; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &amp;lt;/typeAliases&amp;gt;  3.数据库连接的配置
+ &amp;lt;environments default=&amp;quot;default&amp;quot;&amp;gt; &amp;lt;!--配置多个数据源,但只能指定一个使用 --&amp;gt; &amp;lt;!-- Mysql的数据库链接 --&amp;gt; &amp;lt;environment id=&amp;quot;default&amp;quot;&amp;gt; &amp;lt;transactionManager type=&amp;quot;JDBC&amp;quot;/&amp;gt;&amp;lt;!-- 指定当前数据库的事务管理方式 --&amp;gt; &amp;lt;dataSource type=&amp;quot;POOLED&amp;quot;&amp;gt;&amp;lt;!-- 数据源的管理方式为连接池 --&amp;gt; &amp;lt;property name=&amp;quot;driver&amp;quot; value=&amp;quot;com.mysql.jdbc.Driver&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;url&amp;quot; value=&amp;quot;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;username&amp;quot; value=&amp;quot;root&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;password&amp;quot; value=&amp;quot;1234&amp;quot;/&amp;gt; &amp;lt;!-- 设定数据库的链接4要素 --&amp;gt; &amp;lt;/dataSource&amp;gt; &amp;lt;/environment&amp;gt;  4.映射文件的扫面通过标签配置。
+ &amp;lt;!-- 一定是文件格式--&amp;gt; &amp;lt;mappers&amp;gt; &amp;lt;mapper resource=&amp;quot;com/mapper/StudentMapper." />
 
 
 
@@ -72,19 +71,17 @@ Mybatis-的配置文件
 <hr />
 
 <pre><code>&lt;configuration&gt; 
-</code></pre>
 
-<p>1.配置日志（开启日志）通过<code>&lt;settings&gt;&lt;/settings&gt;</code>标签配置，如下所示：</p>
+1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示：  
 
-<pre><code>   &lt;!-- 开启日志 --&gt;  
+   &lt;!-- 开启日志 --&gt;  
     &lt;settings&gt;
       &lt;setting name=&quot;logImpl&quot; value=&quot;LOG4J&quot;/&gt;
     &lt;/settings&gt;  
-</code></pre>
 
-<p>2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点</p>
+2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点  
 
-<pre><code>     &lt;typeAliases&gt;
+     &lt;typeAliases&gt;
         &lt;typeAlia type=&quot;com.pojo.Student&quot;alias=&quot;Student&quot;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码
          &lt;!-- 或者&lt;package name=&quot;com.pojo/&gt;&quot; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。
       &lt;/typeAliases&gt;
@@ -113,26 +110,23 @@ Mybatis-的配置文件
     &lt;mappers&gt;
      &lt;mapper resource=&quot;com/mapper/StudentMapper.xml&quot;/&gt;
     &lt;/mappers&gt;
-</code></pre>
 
-<ul>
-<li><pre><code class="language-&lt;/configuration&gt;">
-***
+&lt;/configuration&gt;  
+&lt;mapper&gt;&lt;/mapper&gt;  
 </code></pre>
-
-<p><mapper></mapper>```</p></li>
-</ul>
 
 <h4 id="mapper文件配置以及对应方法的讲解">mapper文件配置以及对应方法的讲解</h4>
 
 <ol>
-<li>mapper配置时设置的属性namespace定义一个操作包，是映射文件匹配的重要点；<br />
-<br />
-<code>&lt;mapper namespace=&quot;com.Mapper.Student&quot;&gt;</code><br />
-&emsp;<br />
-2. 插入时获取插入的主键，<br />
+<li><p>mapper配置时设置的属性namespace定义一个操作包，是映射文件匹配的重要点；</p>
 
-<!-- 插入时,获取插入的主键 -->
+<pre><code>&lt;mapper namespace=&quot;com.Mapper.Student&quot;&gt;
+</code></pre>
+
+<p>&emsp;</p></li>
+
+<li><p>插入时获取插入的主键<br />
+ <!-- 插入时,获取插入的主键 -->
  <insert id="insertStudentCatchID" >
     insert  into student(name,age,score) values(#{name},#{age},#{score})
     <selectKey resultType="int" keyProperty="id" order="AFTER">
@@ -146,16 +140,20 @@ Mybatis-的配置文件
         session.commit();
       }<br />
   }<br />
-&emsp;<br />
-3. #和$的区别和使用<br />
-<br />
-在传参过程中 #{}使用占位符的方式传参。${value}字符条件的拼接；在使用过程中，有一点很小的区别，#{xxx}需要用 <code>'%'#{xxx}'%'</code>包括起来，而${value}用<code>'%${value}%'</code>包起来.另为${vlaue}在万不得已的时候不推荐用，因为会造成SQL注入例如：<br />
-<br />
-selete * from student
-      where id=#{xxx} or 1=1<br />
-    假如这是登录验证就会产生SQL注入<br />
+&emsp;</p>
+
+<ol>
+<li>#和$的区别和使用<br />
 <br /></li>
+</ol></li>
 </ol>
+
+<p>在传参过程中 #{}使用占位符的方式传参。${value}字符条件的拼接；在使用过程中，有一点很小的区别，#{xxx}需要用 <code>'%'#{xxx}'%'</code>包括起来，而${value}用<code>'%${value}%'</code>包起来.另为${vlaue}在万不得已的时候不推荐用，因为会造成SQL注入例如：</p>
+
+<pre><code>selete * from student 
+      where id=#{xxx} or 1=1  
+    假如这是登录验证就会产生SQL注入  
+</code></pre>
 </article>
     </section>
 

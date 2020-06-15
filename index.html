@@ -281,7 +281,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="java基础篇">
+    <img src="/img/default4.jpg" alt="java基础篇">
     
   </div>
 </article>
@@ -305,13 +305,13 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
               
             </a>
             <p style="padding: 5px;">动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  &lt;if&gt;元素 下面先看一个例子
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  元素 下面先看一个例子
 &lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
 1. resultType与resultMap不能同时使用
 2. #{xxx}与${vlaue}的使用看上一篇博客
 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：
  1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对   
-&lt;choose&gt;、&lt;when&gt; 、&lt;otherwise&gt;元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
 &lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !</p>
             <p>@ fyzn</p>
           </div>
@@ -323,7 +323,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="mybatis之动态SQL">
+    <img src="/img/default4.jpg" alt="mybatis之动态SQL">
     
   </div>
 </article>
@@ -371,7 +371,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="mybatis之mapper接口编程">
+    <img src="/img/default5.jpg" alt="mybatis之mapper接口编程">
     
   </div>
 </article>
@@ -394,10 +394,9 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
               <h2 class="ui header" style="color: white;">Mybatis-的配置文件</h2>
               
             </a>
-            <p style="padding: 5px;">Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt;  1.配置日志（开启日志）通过&lt;settings&gt;&lt;/settings&gt;标签配置，如下所示：
- &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt;  2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点
- &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt;  3.数据库连接的配置
- &lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。</p>
+            <p style="padding: 5px;">Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt; 1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示： &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt;  3.数据库连接的配置
+ &lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。
+ &lt;!-- 一定是文件格式--&gt; &lt;mappers&gt; &lt;mapper resource=&#34;com/mapper/StudentMapper.</p>
             <p>@ fyzn12</p>
           </div>
           

@@ -13,13 +13,13 @@ ssm随学札记
   
   <meta name="author" content="fyzn12" />
   <meta name="description" content="使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
-java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)   这个错误产生的原因有三个：
+ java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)   这个错误产生的原因有三个：
 1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
 2. 期待转成的对象与json对应的属性不匹配。
 3. 真正的空指针，既json为空。
 ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
- 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
- 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
+* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
+* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
  /** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &amp;quot;XMLHttpRequest&amp;quot;; String header = &amp;quot;X-Requested-With&amp;quot;; if(ajax." />
 
 
@@ -73,117 +73,115 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
 <ol>
 <li><p>使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：</p>
 
-<pre><code>java.lang.NullPointerException
-at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889)
-at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004)
-at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48)
-at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29)
-at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.lang.reflect.Method.invoke(Method.java:498)
-at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
-at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
-at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142)
-at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111)
-at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872)
-at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
-at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
-at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+<pre><code>    java.lang.NullPointerException
+    at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889)
+    at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004)
+    at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48)
+    at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+    at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+    at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+    at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142)
+    at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111)
+    at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872)
+    at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+    at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+    at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
 </code></pre></li>
 </ol>
 
 <p>这个错误产生的原因有三个：<br />
-1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。<br />
-2. 期待转成的对象与json对应的属性不匹配。<br />
-3. 真正的空指针，既json为空。</p>
+            1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。<br />
+            2. 期待转成的对象与json对应的属性不匹配。<br />
+            3. 真正的空指针，既json为空。</p>
 
 <h2 id="ajax提交的几个坑">ajax提交的几个坑</h2>
 
 <ol>
-<li><p>通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：</p>
+<li><p>通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：<br />
+     * 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。<br />
+     * 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。</p>
+
+<pre><code>            /**
+                *@author fyzn12
+                *@version 1.0
+                *@date 2020/4/18 13:46
+                *主要作用于ajax请求，后台重定向
+                *提供日志接口
+                *提供获取具体日志对象的方法
+            */  
+        @Slf4j
+        public class RedirecUtil {
+            public  static void  redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){
+                try {
+                /*
+                *如果是ajax请求
+                **/
+                    String ajax = &quot;XMLHttpRequest&quot;;
+                    String header = &quot;X-Requested-With&quot;;
+                    if(ajax.equals(request.getHeader(header))){
+                        System.out.println(&quot;执行ajax请求&quot;);
+                        sendRedirect(response,redirectUrl);
+                    } //如果是浏览器地址栏请求
+                        else {
+                        System.out.println(&quot;执行普通请求&quot;);
+                        log.debug(&quot;normal redirect &quot;);
+                        response.sendRedirect(redirectUrl);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+        /**
+               *功能描述
+                *@Description   Ajax请求时重定向处理
+                *@param:
+                *@return:
+         */
+            private static void sendRedirect(HttpServletResponse    response, String redirectUrl){
+                try {
+                    //这里并不是设置跳转页面，而是将重定向的地址发给前端，让前端执行重定向
+                    //告诉ajax我是重定向
+                    response.setHeader(&quot;REDIRECT&quot;, &quot;redirect&quot;);
+                    //设置跳转地址
+                    response.setHeader(&quot;redirectUrl&quot;, redirectUrl);
+                    //设置跳转使能
+                    response.setHeader(&quot;enableRedirect&quot;,&quot;true&quot;);
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.flushBuffer();
+                    System.out.println(&quot;跳转&quot;);
+                } catch (IOException ex) {
+                    log.error(&quot;Could not redirect to: &quot; + redirectUrl, ex);
+                    System.out.println(ex.getMessage());
+                    }
+                }
+
+            }  
+</code></pre>
 
 <ul>
-<li>判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。<br /></li>
-
-<li><p>编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。</p>
-
-<pre><code>    /**
-        *@author fyzn12
-        *@version 1.0
-        *@date 2020/4/18 13:46
-        *主要作用于ajax请求，后台重定向
-        *提供日志接口
-        *提供获取具体日志对象的方法
-    */  
-@Slf4j
-public class RedirecUtil {
-    public  static void  redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){
-        try {
-        /*
-        *如果是ajax请求
-        **/
-            String ajax = &quot;XMLHttpRequest&quot;;
-            String header = &quot;X-Requested-With&quot;;
-            if(ajax.equals(request.getHeader(header))){
-                System.out.println(&quot;执行ajax请求&quot;);
-                sendRedirect(response,redirectUrl);
-            } //如果是浏览器地址栏请求
-                else {
-                System.out.println(&quot;执行普通请求&quot;);
-                log.debug(&quot;normal redirect &quot;);
-                response.sendRedirect(redirectUrl);
-            }
-        }catch (Exception e){
-
-        }
-    }
-/**
-       *功能描述
-        *@Description   Ajax请求时重定向处理
-        *@param:
-        *@return:
- */
-    private static void sendRedirect(HttpServletResponse    response, String redirectUrl){
-        try {
-            //这里并不是设置跳转页面，而是将重定向的地址发给前端，让前端执行重定向
-            //告诉ajax我是重定向
-            response.setHeader(&quot;REDIRECT&quot;, &quot;redirect&quot;);
-            //设置跳转地址
-            response.setHeader(&quot;redirectUrl&quot;, redirectUrl);
-            //设置跳转使能
-            response.setHeader(&quot;enableRedirect&quot;,&quot;true&quot;);
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.flushBuffer();
-            System.out.println(&quot;跳转&quot;);
-        } catch (IOException ex) {
-            log.error(&quot;Could not redirect to: &quot; + redirectUrl, ex);
-            System.out.println(ex.getMessage());
-            }
-        }
-
-    }  
-</code></pre></li>
-
 <li><p>前端进行处理，这里我推荐运用全局的ajax处理，这样就不用每一个ajax都运用complete进行处理。</p>
 
-<pre><code>$(document).ajaxComplete(function (event, xhr, settings) {
-    console.log(&quot;ajaxComplete &quot;)
-    redirectHandle(xhr);
-})
-function redirectHandle(xhr) {
-    //获取后台返回的参数
-    var url = xhr.getResponseHeader(&quot;redirectUrl&quot;);
-    console.log(&quot;redirectUrl = &quot; + url);
-    var enable = xhr.getResponseHeader(&quot;enableRedirect&quot;);
-    if((enable == &quot;true&quot;) &amp;&amp; (url != &quot;&quot;)){
-        var win = window;
-        while(win != win.top){
-        win = win.top;
+<pre><code>    $(document).ajaxComplete(function (event, xhr, settings) {
+        console.log(&quot;ajaxComplete &quot;)
+        redirectHandle(xhr);
+    })
+    function redirectHandle(xhr) {
+        //获取后台返回的参数
+        var url = xhr.getResponseHeader(&quot;redirectUrl&quot;);
+        console.log(&quot;redirectUrl = &quot; + url);
+        var enable = xhr.getResponseHeader(&quot;enableRedirect&quot;);
+        if((enable == &quot;true&quot;) &amp;&amp; (url != &quot;&quot;)){
+            var win = window;
+            while(win != win.top){
+            win = win.top;
+        }
+        win.location.href = url;
     }
-    win.location.href = url;
-}
 </code></pre></li>
 </ul></li>
 </ol>
@@ -196,17 +194,17 @@ function redirectHandle(xhr) {
 0时，表示该条评论为父级评论。
 具体数据结构如下</p>
 
-<pre><code>CREATE TABLE `comment`  (
-  `id` int(11) NOT NULL COMMENT '评论id',
-  `user_id` int(11) NOT NULL COMMENT '用户评论的id',
- `replyid` int(11) NOT NULL DEFAULT 0 COMMENT '该评论回复的评论id，没有则为0',
- `demandId` int(11) NOT NULL COMMENT '该评论的需求订单号',
- `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论内容',
- `time` char(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论时间',
- `pic` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评论图片',
- `score` int(11) NULL DEFAULT NULL COMMENT '评分',
- PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+<pre><code>        CREATE TABLE `comment`  (
+          `id` int(11) NOT NULL COMMENT '评论id',
+          `user_id` int(11) NOT NULL COMMENT '用户评论的id',
+         `replyid` int(11) NOT NULL DEFAULT 0 COMMENT '该评论回复的评论id，没有则为0',
+         `demandId` int(11) NOT NULL COMMENT '该评论的需求订单号',
+         `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论内容',
+         `time` char(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论时间',
+         `pic` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评论图片',
+         `score` int(11) NULL DEFAULT NULL COMMENT '评分',
+         PRIMARY KEY (`id`) USING BTREE
+        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 </code></pre></li>
 
 <li><p>编写dao层，这里主要运用逆向工程生成的文件，不做详细说明。</p></li>
@@ -220,62 +218,62 @@ function redirectHandle(xhr) {
 <ul>
 <li><p>改写逆向工程生成的Comment.java的pojo类，主要是添加三个属性，以便实现递归，具体更改如下：</p>
 
-<pre><code>@Data
-public class Comment implements Serializable {
-     /**
-      * 评论id
-     */
-    private Integer commentId;
+<pre><code>    @Data
+    public class Comment implements Serializable {
+         /**
+          * 评论id
+         */
+        private Integer commentId;
 
-     /**
-     * 用户评论的id
-     */
-    private Integer userId;
+         /**
+         * 用户评论的id
+         */
+        private Integer userId;
 
-    /**
-     * 父级评论id
-     */
-    private Integer parentCommitId;
+        /**
+         * 父级评论id
+         */
+        private Integer parentCommitId;
 
-    /**
-    * 评论内容
-     */
-    private String content;
+        /**
+        * 评论内容
+         */
+        private String content;
 
-    /**
-    * 评论时间
-    */
-     private String time;
+        /**
+        * 评论时间
+        */
+         private String time;
 
-    /**
-     * 头像
-     */
-    private String avatar;
+        /**
+         * 头像
+         */
+        private String avatar;
 
-    /**
-    * 评分
-     */
-    private Integer score;
+        /**
+        * 评分
+         */
+        private Integer score;
 
-   /**
-    * 昵称
-    */
-    private String nickname;
+       /**
+        * 昵称
+        */
+        private String nickname;
 
-    /**
-    * 评论的需求订单号
-    */
-    private Integer demandId;
-    /*
-    * 回复评论
-    * 使用递归的方式
-    * */
+        /**
+        * 评论的需求订单号
+        */
+        private Integer demandId;
+        /*
+        * 回复评论
+        * 使用递归的方式
+        * */
 
-    private List&lt;Comment&gt; replyComments = new ArrayList&lt;&gt;();
-    private Comment parentComment;
-    private String parentNickname;
-    private static final long serialVersionUID = 1L;
-}
+        private List&lt;Comment&gt; replyComments = new ArrayList&lt;&gt;();
+        private Comment parentComment;
+        private String parentNickname;
+        private static final long serialVersionUID = 1L;
+    }
 </code></pre>
 
 <ul>
@@ -284,75 +282,75 @@ public class Comment implements Serializable {
 
 <li><p>最后检索出所有的二级及以上的评论。实现代码如下：</p>
 
-<pre><code>@Override
-public DataTableResult listComment(int page, int rows) {
+<pre><code>    @Override
+    public DataTableResult listComment(int page, int rows) {
 
-    //1.初始化分页插件
-     PageHelper.startPage(page,rows);
-    //2.执行查询,获取查询集合
-    CommentExample commentExample = new CommentExample();
+        //1.初始化分页插件
+         PageHelper.startPage(page,rows);
+        //2.执行查询,获取查询集合
+        CommentExample commentExample = new CommentExample();
+        /*
+
+     * 查询所有父级节点并分页
+        * */
+        commentExample.createCriteria().andParentCommitIdEqualTo(0);
+        commentExample.setDistinct(false);
+        List&lt;Comment&gt; comments = commentMapper.selectByExample(commentExample);
+
+        for (Comment c : comments){
+            String parentNickname1 = c.getNickname();
+            //根据父级节点的commentid查询出子评论
+            CommentExample commentExample1 = new CommentExample();
+             commentExample1.createCriteria().andParentCommitIdEqualTo(c.getCommentId());
+            commentExample1.setDistinct(false);
+            List&lt;Comment&gt; childComments = commentMapper.selectByExample(commentExample1);
+            //查询出子评论
+            queryChildComment(childComments,parentNickname1);
+             c.setReplyComments(tempReplys);
+             tempReplys = new ArrayList&lt;&gt;();
+             }  
+
+        /*
+        * 查询出子评论
+        * 这里主要运用了分页，所以把检索出楼中楼的数据的主要代码列举出
+        * */
+
+        private void queryChildComment(List&lt;Comment&gt; childComments,String parentNickname1){
+        //判断是否有一级回复
+            if (childComments.size()&gt;0){
+            //循环找出子评论的id
+             for (Comment childComment:childComments){
+                String parentNickname = childComment.getNickname();
+                childComment.setParentNickname(parentNickname1);
+                //添加子回复
+                 tempReplys.add(childComment);
+                //查询二级以及所有子集回复
+                 recursively(childComment.getCommentId(), parentNickname);
+            }
+           }
+    }
     /*
-
- * 查询所有父级节点并分页
-    * */
-    commentExample.createCriteria().andParentCommitIdEqualTo(0);
-    commentExample.setDistinct(false);
-    List&lt;Comment&gt; comments = commentMapper.selectByExample(commentExample);
-
-    for (Comment c : comments){
-        String parentNickname1 = c.getNickname();
-        //根据父级节点的commentid查询出子评论
-        CommentExample commentExample1 = new CommentExample();
-         commentExample1.createCriteria().andParentCommitIdEqualTo(c.getCommentId());
-        commentExample1.setDistinct(false);
-        List&lt;Comment&gt; childComments = commentMapper.selectByExample(commentExample1);
-        //查询出子评论
-        queryChildComment(childComments,parentNickname1);
-         c.setReplyComments(tempReplys);
-         tempReplys = new ArrayList&lt;&gt;();
-         }  
-
-    /*
-    * 查询出子评论
-    * 这里主要运用了分页，所以把检索出楼中楼的数据的主要代码列举出
+     * 查询一级评论一下的所有的评论
     * */
 
-    private void queryChildComment(List&lt;Comment&gt; childComments,String parentNickname1){
-    //判断是否有一级回复
-        if (childComments.size()&gt;0){
-        //循环找出子评论的id
-         for (Comment childComment:childComments){
-            String parentNickname = childComment.getNickname();
-            childComment.setParentNickname(parentNickname1);
-            //添加子回复
-             tempReplys.add(childComment);
-            //查询二级以及所有子集回复
-             recursively(childComment.getCommentId(), parentNickname);
-        }
-       }
-}
-/*
- * 查询一级评论一下的所有的评论
-* */
-
-private void recursively(Integer childId, String parentNickname1) {
- //根据子一级评论的id找到子二级评论
-     CommentExample commentExample = new CommentExample();
-     commentExample.createCriteria().andParentCommitIdEqualTo(childId);
-     commentExample.setDistinct(false);
-     List&lt;Comment&gt; replayComments = commentMapper.selectByExample(commentExample);
-    if(replayComments.size() &gt; 0){
-        for(Comment replayComment : replayComments){
-            String parentNickname = replayComment.getNickname();
-             replayComment.setParentNickname(parentNickname1);
-             Integer replayId = replayComment.getCommentId();
-             tempReplys.add(replayComment);
-            //循环迭代找出子集回复
-            //利用递归的方式
-            recursively(replayId,parentNickname);
+    private void recursively(Integer childId, String parentNickname1) {
+     //根据子一级评论的id找到子二级评论
+         CommentExample commentExample = new CommentExample();
+         commentExample.createCriteria().andParentCommitIdEqualTo(childId);
+         commentExample.setDistinct(false);
+         List&lt;Comment&gt; replayComments = commentMapper.selectByExample(commentExample);
+        if(replayComments.size() &gt; 0){
+            for(Comment replayComment : replayComments){
+                String parentNickname = replayComment.getNickname();
+                 replayComment.setParentNickname(parentNickname1);
+                 Integer replayId = replayComment.getCommentId();
+                 tempReplys.add(replayComment);
+                //循环迭代找出子集回复
+                //利用递归的方式
+                recursively(replayId,parentNickname);
+            }
         }
     }
-}
 </code></pre></li>
 </ul></li>
 </ul></li>
@@ -360,279 +358,278 @@ private void recursively(Integer childId, String parentNickname1) {
 <li><p>编写controller层
 主要是将评论信息传回前端</p>
 
-<pre><code>@RequestMapping(value = &quot;/aa&quot;)
-public String getComment(Model model){
-    DataTableResult dataTableResult = commentService.listComment(1,12);
-    model.addAttribute(&quot;comments&quot;,dataTableResult.getData());
-    /*
-    * 为了前端能显示当前评论回复者的头像，必须将当前用户的头像地址传回前端
-    * */
-    model.addAttribute(&quot;pic&quot;,user.getPic());
-    model.addAttribute(&quot;nickname&quot;,user.getNickname());
+<pre><code>    @RequestMapping(value = &quot;/aa&quot;)
+    public String getComment(Model model){
+        DataTableResult dataTableResult = commentService.listComment(1,12);
+        model.addAttribute(&quot;comments&quot;,dataTableResult.getData());
+        /*
+        * 为了前端能显示当前评论回复者的头像，必须将当前用户的头像地址传回前端
+        * */
+        model.addAttribute(&quot;pic&quot;,user.getPic());
+        model.addAttribute(&quot;nickname&quot;,user.getNickname());
 
-    return &quot;user/comment&quot;;
-}
+        return &quot;user/comment&quot;;
+    }
 </code></pre></li>
 
 <li><p>前端显示。</p>
 
-<pre><code>&lt;!--显示评论--&gt;
-&lt;div class=&quot;container&quot;&gt;
-    &lt;input type=&quot;text&quot; id=&quot;pic&quot; style=&quot;display: none&quot; value=&quot;${pic}&quot;/&gt;
-    &lt;input type=&quot;text&quot; id=&quot;nickname&quot; style=&quot;display: none&quot; value=&quot;${nickname}&quot;/&gt;
-    &lt;div class=&quot;row&quot;&gt;
-        &lt;div class=&quot;col-md-10&quot;&gt;
-            &lt;c:forEach var=&quot;comment&quot; items=&quot;${comments}&quot;&gt;
-                &lt;div class=&quot;comments&quot; style=&quot;margin-top: 20px&quot;&gt;
-                    &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;
-                        &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;${comment.avatar}&quot; alt=&quot;&quot;/&gt;
-                    &lt;/a&gt;
-                    &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;
-                        &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt;
-                            &lt;span&gt;${comment.nickname}&lt;/span&gt;
-                         &lt;/a&gt;
-                        &lt;div class=&quot;metadata&quot; style=&quot;margin-left: 70px&quot;&gt;
-                            &lt;span class=&quot;date&quot;&gt;${comment.time}&lt;/span&gt;
-                        &lt;/div&gt;
-                         &lt;div class=&quot;text&quot;&gt;
-                            &lt;span style=&quot;float:left;&quot;&gt;${comment.content}&lt;/span&gt;
-                            &lt;div style=&quot;float: right;margin-right:20px;&quot;&gt;
-                            &lt;span&gt;&lt;a href=&quot;javascript:reply('${comment.commentId}','${comment.nickname}')&quot;&gt;回复&lt;/a&gt;&lt;/span&gt;
-                        &lt;/div&gt;
-                     &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;!-- 用于显示提交新评论的位置 --&gt;
-        &lt;div id=&quot;${comment.commentId}&quot;&gt;&lt;/div&gt;
-        &lt;!--子级评论--&gt;
-        &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;childComment&quot;&gt;
-            &lt;div class=&quot;comments&quot; style=&quot;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&quot;&gt;
-                &lt;!-- 用于显示提交新评论的位置 --&gt;
-                &lt;div id=&quot;child-${childComment.commentId}&quot;&gt;&lt;/div&gt;
-                &lt;!-- 父级评论 --&gt;
-                &lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;
-                     &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;
-                        &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;${childComment.avatar}&quot;&gt;
-                     &lt;/a&gt;
-                    &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;
-                        &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt;
-                            &lt;span&gt;${childComment.nickname}&lt;/span&gt;
-                        &lt;/a&gt;
-                        &lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;
-                            &lt;span&gt;&amp;nbsp;回复&amp;nbsp;
-                                &lt;!-- 父级评论回复子集评论--&gt;
-                                &lt;c:if test=&quot;${childComment.commentId==comment.commentId}&quot;&gt;
-                                    &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;ch_comment&quot;&gt;
-                                        &lt;c:if test=&quot;${ch_comment.commentId==childComment.parentCommitId}&quot;&gt;
-                                            ${ch_comment.nickname}
-                                        &lt;/c:if&gt;
-                                    &lt;/c:forEach&gt;
-                                &lt;/c:if&gt;
-                                &lt;!-- 子级评论回复父级评论或者子级评论之间的回复--&gt;
-                                &lt;c:if test=&quot;${childComment.commentId!=comment.commentId}&quot;&gt;
-                                    &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;ch_comment&quot;&gt;
-                                        &lt;!-- 子级评论之间的回复--&gt;
-                                        &lt;c:if test=&quot;${ch_comment.commentId==childComment.parentCommitId}&quot;&gt;
-                                            ${ch_comment.nickname}
-                                        &lt;/c:if&gt;
-                                    &lt;/c:forEach&gt;
-                                    &lt;!-- 子级评论回复父集评论 --&gt;
-                                    &lt;c:if test=&quot;${childComment.parentCommitId==comment.commentId}&quot;&gt;
-                                        ${comment.nickname}
-                                    &lt;/c:if&gt;
-
-                                &lt;/c:if&gt;
-                            &lt;/span&gt;
-                        &lt;/a&gt;
-                        &lt;div class=&quot;date-picker-popup&quot; &gt;
-                            &lt;a class=&quot;date-cell&quot;&gt;${childComment.time}&lt;/a&gt;
-                        &lt;/div&gt;
-                        &lt;div class=&quot;text&quot;&gt;
-                               &lt;span style=&quot;float: left&quot;&gt; ${childComment.content}&lt;/span&gt;
-                               &lt;div style=&quot;float: right;margin-right:20px;&quot;&gt;
-                                   &lt;span&gt;&lt;a href=&quot;javascript:childrenReply('${childComment.commentId}','${childComment.nickname}')&quot;&gt;回复&lt;/a&gt;&lt;/span&gt;
-                               &lt;/div&gt;
-                        &lt;/div&gt;
+<pre><code>        &lt;!--显示评论--&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;input type=&quot;text&quot; id=&quot;pic&quot; style=&quot;display: none&quot; value=&quot;${pic}&quot;/&gt;
+            &lt;input type=&quot;text&quot; id=&quot;nickname&quot; style=&quot;display: none&quot; value=&quot;${nickname}&quot;/&gt;
+            &lt;div class=&quot;row&quot;&gt;
+                &lt;div class=&quot;col-md-10&quot;&gt;
+                    &lt;c:forEach var=&quot;comment&quot; items=&quot;${comments}&quot;&gt;
+                        &lt;div class=&quot;comments&quot; style=&quot;margin-top: 20px&quot;&gt;
+                            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;
+                                &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;${comment.avatar}&quot; alt=&quot;&quot;/&gt;
+                            &lt;/a&gt;
+                            &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;
+                                &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt;
+                                    &lt;span&gt;${comment.nickname}&lt;/span&gt;
+                                 &lt;/a&gt;
+                                &lt;div class=&quot;metadata&quot; style=&quot;margin-left: 70px&quot;&gt;
+                                    &lt;span class=&quot;date&quot;&gt;${comment.time}&lt;/span&gt;
+                                &lt;/div&gt;
+                                 &lt;div class=&quot;text&quot;&gt;
+                                    &lt;span style=&quot;float:left;&quot;&gt;${comment.content}&lt;/span&gt;
+                                    &lt;div style=&quot;float: right;margin-right:20px;&quot;&gt;
+                                    &lt;span&gt;&lt;a href=&quot;javascript:reply('${comment.commentId}','${comment.nickname}')&quot;&gt;回复&lt;/a&gt;&lt;/span&gt;
+                                &lt;/div&gt;
+                             &lt;/div&gt;
                     &lt;/div&gt;
-                 &lt;/div&gt;
+                &lt;!-- 用于显示提交新评论的位置 --&gt;
+                &lt;div id=&quot;${comment.commentId}&quot;&gt;&lt;/div&gt;
+                &lt;!--子级评论--&gt;
+                &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;childComment&quot;&gt;
+                    &lt;div class=&quot;comments&quot; style=&quot;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&quot;&gt;
+                        &lt;!-- 用于显示提交新评论的位置 --&gt;
+                        &lt;div id=&quot;child-${childComment.commentId}&quot;&gt;&lt;/div&gt;
+                        &lt;!-- 父级评论 --&gt;
+                        &lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;
+                             &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;
+                                &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;${childComment.avatar}&quot;&gt;
+                             &lt;/a&gt;
+                            &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;
+                                &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt;
+                                    &lt;span&gt;${childComment.nickname}&lt;/span&gt;
+                                &lt;/a&gt;
+                                &lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;
+                                    &lt;span&gt;&amp;nbsp;回复&amp;nbsp;
+                                        &lt;!-- 父级评论回复子集评论--&gt;
+                                        &lt;c:if test=&quot;${childComment.commentId==comment.commentId}&quot;&gt;
+                                            &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;ch_comment&quot;&gt;
+                                                &lt;c:if test=&quot;${ch_comment.commentId==childComment.parentCommitId}&quot;&gt;
+                                                    ${ch_comment.nickname}
+                                                &lt;/c:if&gt;
+                                            &lt;/c:forEach&gt;
+                                        &lt;/c:if&gt;
+                                        &lt;!-- 子级评论回复父级评论或者子级评论之间的回复--&gt;
+                                        &lt;c:if test=&quot;${childComment.commentId!=comment.commentId}&quot;&gt;
+                                            &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;ch_comment&quot;&gt;
+                                                &lt;!-- 子级评论之间的回复--&gt;
+                                                &lt;c:if test=&quot;${ch_comment.commentId==childComment.parentCommitId}&quot;&gt;
+                                                    ${ch_comment.nickname}
+                                                &lt;/c:if&gt;
+                                            &lt;/c:forEach&gt;
+                                            &lt;!-- 子级评论回复父集评论 --&gt;
+                                            &lt;c:if test=&quot;${childComment.parentCommitId==comment.commentId}&quot;&gt;
+                                                ${comment.nickname}
+                                            &lt;/c:if&gt;
+
+                                        &lt;/c:if&gt;
+                                    &lt;/span&gt;
+                                &lt;/a&gt;
+                                &lt;div class=&quot;date-picker-popup&quot; &gt;
+                                    &lt;a class=&quot;date-cell&quot;&gt;${childComment.time}&lt;/a&gt;
+                                &lt;/div&gt;
+                                &lt;div class=&quot;text&quot;&gt;
+                                       &lt;span style=&quot;float: left&quot;&gt; ${childComment.content}&lt;/span&gt;
+                                       &lt;div style=&quot;float: right;margin-right:20px;&quot;&gt;
+                                           &lt;span&gt;&lt;a href=&quot;javascript:childrenReply('${childComment.commentId}','${childComment.nickname}')&quot;&gt;回复&lt;/a&gt;&lt;/span&gt;
+                                       &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                         &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/c:forEach&gt;
             &lt;/div&gt;
         &lt;/c:forEach&gt;
+        &lt;/div&gt;
     &lt;/div&gt;
-&lt;/c:forEach&gt;
-&lt;/div&gt;
-</code></pre>
-
-<p></div></p></li>
+</code></pre></li>
 
 <li><p>js的实现</p>
 
-<pre><code>/**************************************时间格式化处理************************************/
-function dateFtt(fmt,date) {
-    var o = {
-        &quot;M+&quot; : date.getMonth()+1,     //月份
-        &quot;d+&quot; : date.getDate(),     //日
-        &quot;h+&quot; : date.getHours(),     //小时
-        &quot;m+&quot; : date.getMinutes(),     //分
-        &quot;s+&quot; : date.getSeconds(),     //秒
-        &quot;q+&quot; : Math.floor((date.getMonth()+3)/3), //季度
-        &quot;S&quot; : date.getMilliseconds()    //毫秒
-    };
-    if(/(y+)/.test(fmt))
-        fmt=fmt.replace(RegExp.$1, (date.getFullYear()+&quot;&quot;).substr(4 - RegExp.$1.length));
-    for(var k in o)
-        if(new RegExp(&quot;(&quot;+ k +&quot;)&quot;).test(fmt))
-        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : ((&quot;00&quot;+ o[k]).substr((&quot;&quot;+ o[k]).length)));
-return fmt;
-}
-//创建时间格式化显示
-function crtTimeFtt(date){
-    return top.dateFtt(&quot;yyyy-MM-dd hh:mm:ss&quot;,date);//直接调用公共JS里面的时间类处理的办法
-}
-function reply(replyCommentId,nickname){
-    var commentId = replyCommentId;
-    //弹出alert
-    swal({
-        title:'评论回复',
-        text:'请输入回复内容~',
-        type:'input',
-        showCancelButton:true,
-        confirmButtonColor:'#33ccff',
-        closeOnConfirm: false,
-        closeOnCancel: false,
-        confirmButtonText:'回复',
-        cancelButtonText:'取消',
-        inputPlaceholder:'已回复......',
-        showLoaderOnConfirm:true
-    },function(inputValue){
-        //console.debug(inputValue);
-        if(jQuery.trim(inputValue)!=''&amp;&amp;inputValue==false){
-            swal(&quot;取消回复&quot;, &quot;你没有进行回复！&quot;, &quot;info&quot;);
-            return;
+<pre><code>        /**************************************时间格式化处理************************************/
+        function dateFtt(fmt,date) {
+            var o = {
+                &quot;M+&quot; : date.getMonth()+1,     //月份
+                &quot;d+&quot; : date.getDate(),     //日
+                &quot;h+&quot; : date.getHours(),     //小时
+                &quot;m+&quot; : date.getMinutes(),     //分
+                &quot;s+&quot; : date.getSeconds(),     //秒
+                &quot;q+&quot; : Math.floor((date.getMonth()+3)/3), //季度
+                &quot;S&quot; : date.getMilliseconds()    //毫秒
+            };
+            if(/(y+)/.test(fmt))
+                fmt=fmt.replace(RegExp.$1, (date.getFullYear()+&quot;&quot;).substr(4 - RegExp.$1.length));
+            for(var k in o)
+                if(new RegExp(&quot;(&quot;+ k +&quot;)&quot;).test(fmt))
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : ((&quot;00&quot;+ o[k]).substr((&quot;&quot;+ o[k]).length)));
+        return fmt;
         }
-        if(inputValue==''){
-            swal.showInputError('你没有填写任何回复信息！');
-            return;
+        //创建时间格式化显示
+        function crtTimeFtt(date){
+            return top.dateFtt(&quot;yyyy-MM-dd hh:mm:ss&quot;,date);//直接调用公共JS里面的时间类处理的办法
         }
-        //将父评论的commentId作为回复评论的
-        //发送ajax
-        $.ajax({
-            type:&quot;post&quot;,
-            url:'user/comment',
-            traditional: true,
-            data:{&quot;parentCommitId&quot;:commentId,&quot;content&quot;:inputValue},
-            success:function (data) {
-                if(data.status==200){
-                    swal(&quot;回复成功!&quot;, &quot;您已进行此用户评论的回复！&quot;, &quot;success&quot;);
-                    //修改显示评论的
-                    var time = crtTimeFtt(new Date());
-                    $(&quot;#&quot;+commentId).html('&lt;div class=&quot;comments&quot; style=&quot;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&quot;&gt; ' +
-                        '&lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;' +
-                        '            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;' +
-                        '                 &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;'+$(&quot;#pic&quot;).val()+'&quot;&gt;' +
-                        '            &lt;/a&gt;' +
-                        ' &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;'+
-                        '               &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt; '+
-                        '&lt;span&gt;'+$(&quot;#nickname&quot;).val()+'&lt;/span&gt;' +
-                        '&lt;/a&gt;'+
-                        '&lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;' +
-                        '                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;'+
-                        nickname+
-                        '&lt;/span&gt;'+
-                        '&lt;/a&gt;'+
-                        '&lt;div class=&quot;date-picker-popup&quot; &gt;'+
-                        '&lt;a class=&quot;date-cell&quot;&gt;'+time+'&lt;/a&gt;'+
-                        '&lt;/div&gt;'+
-                        ' &lt;div class=&quot;text&quot;&gt;'+
-                        '&lt;span style=&quot;float: left&quot;&gt;'+ inputValue+'&lt;/span&gt;'+
-                        '&lt;/div&gt;'+
-                        '&lt;/div&gt;'+
-                        '&lt;/div&gt;'+
-                        '&lt;/div&gt;')
-                    return  ;
-                }else{
-                    swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+        function reply(replyCommentId,nickname){
+            var commentId = replyCommentId;
+            //弹出alert
+            swal({
+                title:'评论回复',
+                text:'请输入回复内容~',
+                type:'input',
+                showCancelButton:true,
+                confirmButtonColor:'#33ccff',
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                confirmButtonText:'回复',
+                cancelButtonText:'取消',
+                inputPlaceholder:'已回复......',
+                showLoaderOnConfirm:true
+            },function(inputValue){
+                //console.debug(inputValue);
+                if(jQuery.trim(inputValue)!=''&amp;&amp;inputValue==false){
+                    swal(&quot;取消回复&quot;, &quot;你没有进行回复！&quot;, &quot;info&quot;);
+                    return;
                 }
-            },
-            error:function (data) {
-                swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
-            }
-        });
-    }
-    );
-
-}
-function childrenReply(replyCommentId,nickname){
-     var commentId = replyCommentId;
-    //弹出alert
-    swal({
-        title:'评论回复',
-        text:'请输入回复内容~',
-        type:'input',
-        showCancelButton:true,
-        confirmButtonColor:'#33ccff',
-        closeOnConfirm: false,
-        closeOnCancel: false,
-        confirmButtonText:'回复',
-        cancelButtonText:'取消',
-        inputPlaceholder:'已回复......',
-        showLoaderOnConfirm:true
-    },function(inputValue){
-        //console.debug(inputValue);
-        if(jQuery.trim(inputValue)!=''&amp;&amp;inputValue==false){
-            swal(&quot;取消回复&quot;, &quot;你没有进行回复！&quot;, &quot;info&quot;);
-            return;
-        }
-        if(inputValue==''){
-            swal.showInputError('你没有填写任何回复信息！');
-            return;
-        }
-        //将父评论的commentId作为回复评论的
-        //发送ajax
-        $.ajax({
-            type:&quot;post&quot;,
-            url:'user/comment',
-            traditional: true,
-            data:{&quot;parentCommitId&quot;:commentId,&quot;content&quot;:inputValue},
-            success:function (data) {
-                if(data.status==200){
-                    swal(&quot;回复成功!&quot;, &quot;您已进行此用户评论的回复！&quot;, &quot;success&quot;);
-                    //修改显示评论的
-                    var time = crtTimeFtt(new Date());
-                    $(&quot;#child-&quot;+commentId).html(
-                        '&lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;' +
-                        '            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;' +
-                        '                 &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;'+$(&quot;#pic&quot;).val()+'&quot;&gt;' +
-                        '            &lt;/a&gt;' +
-                        ' &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;'+
-                        '               &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt; '+
-                        '&lt;span&gt;'+$(&quot;#nickname&quot;).val()+'&lt;/span&gt;' +
-                        '&lt;/a&gt;'+
-                        '&lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;' +
-                        '                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;'+
-                        nickname+
-                        '&lt;/span&gt;'+
-                        '&lt;/a&gt;'+
-                        '&lt;div class=&quot;date-picker-popup&quot; &gt;'+
-                        '&lt;a class=&quot;date-cell&quot;&gt;'+time+'&lt;/a&gt;'+
-                        '&lt;/div&gt;'+
-                        ' &lt;div class=&quot;text&quot;&gt;'+
-                        '&lt;span style=&quot;float: left&quot;&gt;'+ inputValue+'&lt;/span&gt;'+
-                        '&lt;/div&gt;'+
-                        '&lt;/div&gt;'+
-                        '&lt;/div&gt;'
-                    )
-                    return  ;
-                }else{
-                    swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                if(inputValue==''){
+                    swal.showInputError('你没有填写任何回复信息！');
+                    return;
                 }
-            },
-            error:function (data) {
-                swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                //将父评论的commentId作为回复评论的
+                //发送ajax
+                $.ajax({
+                    type:&quot;post&quot;,
+                    url:'user/comment',
+                    traditional: true,
+                    data:{&quot;parentCommitId&quot;:commentId,&quot;content&quot;:inputValue},
+                    success:function (data) {
+                        if(data.status==200){
+                            swal(&quot;回复成功!&quot;, &quot;您已进行此用户评论的回复！&quot;, &quot;success&quot;);
+                            //修改显示评论的
+                            var time = crtTimeFtt(new Date());
+                            $(&quot;#&quot;+commentId).html('&lt;div class=&quot;comments&quot; style=&quot;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&quot;&gt; ' +
+                                '&lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;' +
+                                '            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;' +
+                                '                 &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;'+$(&quot;#pic&quot;).val()+'&quot;&gt;' +
+                                '            &lt;/a&gt;' +
+                                ' &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;'+
+                                '               &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt; '+
+                                '&lt;span&gt;'+$(&quot;#nickname&quot;).val()+'&lt;/span&gt;' +
+                                '&lt;/a&gt;'+
+                                '&lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;' +
+                                '                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;'+
+                                nickname+
+                                '&lt;/span&gt;'+
+                                '&lt;/a&gt;'+
+                                '&lt;div class=&quot;date-picker-popup&quot; &gt;'+
+                                '&lt;a class=&quot;date-cell&quot;&gt;'+time+'&lt;/a&gt;'+
+                                '&lt;/div&gt;'+
+                                ' &lt;div class=&quot;text&quot;&gt;'+
+                                '&lt;span style=&quot;float: left&quot;&gt;'+ inputValue+'&lt;/span&gt;'+
+                                '&lt;/div&gt;'+
+                                '&lt;/div&gt;'+
+                                '&lt;/div&gt;'+
+                                '&lt;/div&gt;')
+                            return  ;
+                        }else{
+                            swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                        }
+                    },
+                    error:function (data) {
+                        swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                    }
+                });
             }
-        });
-       }
-    );
+            );
 
- }
+        }
+        function childrenReply(replyCommentId,nickname){
+             var commentId = replyCommentId;
+            //弹出alert
+            swal({
+                title:'评论回复',
+                text:'请输入回复内容~',
+                type:'input',
+                showCancelButton:true,
+                confirmButtonColor:'#33ccff',
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                confirmButtonText:'回复',
+                cancelButtonText:'取消',
+                inputPlaceholder:'已回复......',
+                showLoaderOnConfirm:true
+            },function(inputValue){
+                //console.debug(inputValue);
+                if(jQuery.trim(inputValue)!=''&amp;&amp;inputValue==false){
+                    swal(&quot;取消回复&quot;, &quot;你没有进行回复！&quot;, &quot;info&quot;);
+                    return;
+                }
+                if(inputValue==''){
+                    swal.showInputError('你没有填写任何回复信息！');
+                    return;
+                }
+                //将父评论的commentId作为回复评论的
+                //发送ajax
+                $.ajax({
+                    type:&quot;post&quot;,
+                    url:'user/comment',
+                    traditional: true,
+                    data:{&quot;parentCommitId&quot;:commentId,&quot;content&quot;:inputValue},
+                    success:function (data) {
+                        if(data.status==200){
+                            swal(&quot;回复成功!&quot;, &quot;您已进行此用户评论的回复！&quot;, &quot;success&quot;);
+                            //修改显示评论的
+                            var time = crtTimeFtt(new Date());
+                            $(&quot;#child-&quot;+commentId).html(
+                                '&lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;' +
+                                '            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;' +
+                                '                 &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;'+$(&quot;#pic&quot;).val()+'&quot;&gt;' +
+                                '            &lt;/a&gt;' +
+                                ' &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;'+
+                                '               &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt; '+
+                                '&lt;span&gt;'+$(&quot;#nickname&quot;).val()+'&lt;/span&gt;' +
+                                '&lt;/a&gt;'+
+                                '&lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;' +
+                                '                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;'+
+                                nickname+
+                                '&lt;/span&gt;'+
+                                '&lt;/a&gt;'+
+                                '&lt;div class=&quot;date-picker-popup&quot; &gt;'+
+                                '&lt;a class=&quot;date-cell&quot;&gt;'+time+'&lt;/a&gt;'+
+                                '&lt;/div&gt;'+
+                                ' &lt;div class=&quot;text&quot;&gt;'+
+                                '&lt;span style=&quot;float: left&quot;&gt;'+ inputValue+'&lt;/span&gt;'+
+                                '&lt;/div&gt;'+
+                                '&lt;/div&gt;'+
+                                '&lt;/div&gt;'
+                            )
+                            return  ;
+                        }else{
+                            swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                        }
+                    },
+                    error:function (data) {
+                        swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                    }
+                });
+               }
+            );
+
+         }
 </code></pre></li>
 
 <li><p>效果图显示</p></li>
@@ -643,55 +640,55 @@ function childrenReply(replyCommentId,nickname){
 <ol>
 <li><p>配置消息通知的类</p>
 
-<pre><code>&lt;!-- 配置消息通知aop--&gt;
-&lt;bean id=&quot;myadvice&quot; class=&quot;com.express.advice.advice&quot;/&gt;
+<pre><code>    &lt;!-- 配置消息通知aop--&gt;
+    &lt;bean id=&quot;myadvice&quot; class=&quot;com.express.advice.advice&quot;/&gt;
 </code></pre></li>
 
 <li><p>配置切面</p>
 
-<pre><code>&lt;!-- 切面 --&gt;
- &lt;aop:config&gt;
+<pre><code>    &lt;!-- 切面 --&gt;
+     &lt;aop:config&gt;
 
-&lt;/aop:config&gt;
+    &lt;/aop:config&gt;
 </code></pre></li>
 
 <li><p>指定通知类</p>
 
-<pre><code> &lt;!-- 切面 --&gt;
- &lt;aop:config&gt;
-    &lt;!-- 指定通知类
-    &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
+<pre><code>     &lt;!-- 切面 --&gt;
+     &lt;aop:config&gt;
+        &lt;!-- 指定通知类
+        &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
 
-    &lt;/aop:aspect&gt;
+        &lt;/aop:aspect&gt;
 
-&lt;/aop:config&gt;
+    &lt;/aop:config&gt;
 </code></pre></li>
 
 <li><p>指定切点</p>
 
-<pre><code> &lt;!-- 切面 --&gt;
- &lt;aop:config&gt;
-    &lt;!-- 指定通知类
-    &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
-        指定切点
-        &lt;aop:pointcut id=&quot;checkComment&quot; expression=&quot;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&quot;/&gt; 
-    &lt;/aop:aspect&gt;
+<pre><code>     &lt;!-- 切面 --&gt;
+     &lt;aop:config&gt;
+        &lt;!-- 指定通知类
+        &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
+            指定切点
+            &lt;aop:pointcut id=&quot;checkComment&quot; expression=&quot;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&quot;/&gt; 
+        &lt;/aop:aspect&gt;
 
-&lt;/aop:config&gt;
+    &lt;/aop:config&gt;
 </code></pre></li>
 
 <li><p>切点织入</p>
 
-<pre><code>  &lt;!-- 切面 --&gt;
- &lt;aop:config&gt;
-    &lt;!-- 指定通知类
-    &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
-        指定切点
-        &lt;aop:pointcut id=&quot;checkComment&quot; expression=&quot;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&quot;/&gt;
-        切点织入
-        &lt;aop:after method=&quot;after&quot; arg-names=&quot;comment&quot; pointcut-ref=&quot;checkComment&quot;/&gt; 
-    &lt;/aop:aspect&gt;
-&lt;/aop:config&gt;
+<pre><code>      &lt;!-- 切面 --&gt;
+     &lt;aop:config&gt;
+        &lt;!-- 指定通知类
+        &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
+            指定切点
+            &lt;aop:pointcut id=&quot;checkComment&quot; expression=&quot;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&quot;/&gt;
+            切点织入
+            &lt;aop:after method=&quot;after&quot; arg-names=&quot;comment&quot; pointcut-ref=&quot;checkComment&quot;/&gt; 
+        &lt;/aop:aspect&gt;
+    &lt;/aop:config&gt;
 </code></pre></li>
 </ol>
 </article>

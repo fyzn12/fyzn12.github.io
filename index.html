@@ -246,7 +246,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="java基础篇">
+    <img src="/img/default2.jpg" alt="java基础篇">
     
   </div>
 </article>
@@ -281,7 +281,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="常见算法篇">
+    <img src="/img/default1.jpg" alt="常见算法篇">
     
   </div>
 </article>
@@ -305,13 +305,13 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
               
             </a>
             <p style="padding: 5px;">使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
-java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)   这个错误产生的原因有三个：
+ java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)   这个错误产生的原因有三个：
 1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
 2. 期待转成的对象与json对应的属性不匹配。
 3. 真正的空指针，既json为空。
 ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
- 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
- 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
+* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
+* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
  /** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax.</p>
             <p>@ fyzn12</p>
           </div>
@@ -323,7 +323,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="ssm随学札记">
+    <img src="/img/default1.jpg" alt="ssm随学札记">
     
   </div>
 </article>
@@ -361,7 +361,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="mybatis之动态SQL">
+    <img src="/img/default4.jpg" alt="mybatis之动态SQL">
     
   </div>
 </article>

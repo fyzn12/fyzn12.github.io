@@ -42,9 +42,22 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
     </item>
     
     <item>
+      <title>mybatis之动态SQL</title>
+      <link>https://fyzn12.github.io/post/mybatis/dynamicsql/</link>
+      <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/mybatis/dynamicsql/</guid>
+      <description>动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+ &amp;lt;select id=&amp;quot;selectUserById&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;quot;name !=null and name !=&#39;&#39;&amp;quot;&amp;gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;quot;sex !=null and sex !=&#39;&#39;&amp;quot;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+ 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&amp;lt;choose&amp;gt;元素，如下例子。
+ &amp;lt;select id = &amp;quot;selectUserBychoose&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;quot;name !</description>
+    </item>
+    
+    <item>
       <title>ssm随学札记</title>
       <link>https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/</link>
-      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/</guid>
       <description>使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
@@ -56,19 +69,6 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
 * 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
 * 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
  /** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &amp;quot;XMLHttpRequest&amp;quot;; String header = &amp;quot;X-Requested-With&amp;quot;; if(ajax.</description>
-    </item>
-    
-    <item>
-      <title>mybatis之动态SQL</title>
-      <link>https://fyzn12.github.io/post/mybatis/dynamicsql/</link>
-      <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/post/mybatis/dynamicsql/</guid>
-      <description>动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
- &amp;lt;select id=&amp;quot;selectUserById&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;quot;name !=null and name !=&#39;&#39;&amp;quot;&amp;gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;quot;sex !=null and sex !=&#39;&#39;&amp;quot;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
- 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&amp;lt;choose&amp;gt;元素，如下例子。
- &amp;lt;select id = &amp;quot;selectUserBychoose&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;quot;name !</description>
     </item>
     
     <item>

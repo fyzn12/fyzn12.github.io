@@ -95,6 +95,8 @@
 <section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
 
   
+  <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+  
   <a class="ui label" href="/tags/css" title="css">css</a>
   
   <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
@@ -123,6 +125,23 @@
   
   <div class="ui inverted accordion">
   
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/algorithm" class="item">algorithm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
     
     <div class="title">
       <i class="dropdown icon"></i>
@@ -299,6 +318,41 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">
+              
+              <h2 class="ui header" style="color: white;">常见算法篇</h2>
+              
+            </a>
+            <p style="padding: 5px;">常见算法总结篇 递归算法  递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)&#43;2; }  排序算法  快速排序算法 排序步骤总结如下：
+* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&#34;11&#34;,&#34;66&#34;,&#34;22&#34;,&#34;0&#34;,&#34;55&#34;,&#34;22&#34;,&#34;0&#34;,&#34;32&#34;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //定义在排序过程中的左右基点 int i = left; int j = right; //定义左右替换值时的替换参数 String temValue; //步骤一：获取基准 String middle = strViod[(i&#43;j)/2]; //步骤二：找出比基准大和小的值，并摆放其左右； do{ //找到比基准小的值 while(strViod[i].</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">1 min read</div>
+          <div class="ui bottom left attached black label">Jun 11, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default2.jpg" alt="常见算法篇">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
               
               <h2 class="ui header" style="color: white;">mybatis之动态SQL</h2>
@@ -319,7 +373,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="mybatis之动态SQL">
+    <img src="/img/default2.jpg" alt="mybatis之动态SQL">
     
   </div>
 </article>
@@ -367,43 +421,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="mybatis之mapper接口编程">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/mybatis/mybatis01/">
-              
-              <h2 class="ui header" style="color: white;">Mybatis-的配置文件</h2>
-              
-            </a>
-            <p style="padding: 5px;">Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt; 1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示： &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt;  3.数据库连接的配置
- &lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。
- &lt;!-- 一定是文件格式--&gt; &lt;mappers&gt; &lt;mapper resource=&#34;com/mapper/StudentMapper.</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Sep 10, 2019</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default2.jpg" alt="Mybatis-的配置文件">
+    <img src="/img/default4.jpg" alt="mybatis之mapper接口编程">
     
   </div>
 </article>

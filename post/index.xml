@@ -32,6 +32,16 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
     </item>
     
     <item>
+      <title>常见算法篇</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/</guid>
+      <description>常见算法总结篇 递归算法  递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&amp;lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)+2; }  排序算法  快速排序算法 排序步骤总结如下：
+* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&amp;quot;11&amp;quot;,&amp;quot;66&amp;quot;,&amp;quot;22&amp;quot;,&amp;quot;0&amp;quot;,&amp;quot;55&amp;quot;,&amp;quot;22&amp;quot;,&amp;quot;0&amp;quot;,&amp;quot;32&amp;quot;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //定义在排序过程中的左右基点 int i = left; int j = right; //定义左右替换值时的替换参数 String temValue; //步骤一：获取基准 String middle = strViod[(i+j)/2]; //步骤二：找出比基准大和小的值，并摆放其左右； do{ //找到比基准小的值 while(strViod[i].</description>
+    </item>
+    
+    <item>
       <title>mybatis之动态SQL</title>
       <link>https://fyzn12.github.io/post/mybatis/dynamicsql/</link>
       <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>

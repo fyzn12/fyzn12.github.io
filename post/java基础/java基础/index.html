@@ -166,6 +166,7 @@ java基础篇
 
 <pre><code>    在try块或者catch块中调用了退出虚拟机的方法（即System.exit(1);），
     否则不管在try块、catch块中执行怎样的代码，出现怎样的情况，异常处理的finally块总是会被执行的。  
+    正常执行时会在方法返回调用者前执行。
 </code></pre>
 
 <h2 id="生成某一个范围内的随机数">生成某一个范围内的随机数</h2>
@@ -188,7 +189,7 @@ java基础篇
 
 <h2 id="string-str-i-和string-str-new-string-i-一样吗">String str = &ldquo;i&rdquo; 和String str = new String(&ldquo;i&rdquo;)一样吗</h2>
 
-<pre><code>    内存的feipei方式不一样，String str = &quot;i&quot; java虚拟机会将其分配到常量池中；
+<pre><code>    内存的分配方式不一样，String str = &quot;i&quot; java虚拟机会将其分配到常量池中；
     而String str = new Stirng(&quot;i&quot;)则会将其分到堆内存中。  
 </code></pre>
 
@@ -268,6 +269,19 @@ java基础篇
 
 <p><img src="https://fyzn12.github.io/img/picture/static-num.png" alt="avatar" /></p>
 
+<h2 id="类-examplea-继承-exception-类-exampleb-继承examplea">类 ExampleA 继承 Exception，类 ExampleB 继承ExampleA。</h2>
+
+<pre><code>        有如下代码片断：try {
+            throw new ExampleB(&quot;b&quot;)
+        }
+        catch（ExampleA e）{
+            System.out.println(&quot;ExampleA&quot;);
+        }
+        catch（Exception e）{
+            System.out.println(&quot;Exception&quot;);
+        }复制代码**请问执行此段代码的输出是什么？答：输出：ExampleA。（根据里氏代换原则[能使用父类型的地方一定能使用子类型]，抓取 ExampleA 类型异常的 catch 块能够抓住 try 块中抛出的 ExampleB 类型的异常）
+</code></pre>
+
 <h2 id="java中保证多线程的运行安全">java中保证多线程的运行安全</h2>
 
 <pre><code>    * 原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操着（atomic，synchronied）;  
@@ -308,34 +322,55 @@ java基础篇
 
 <h2 id="什么是xss攻击">什么是XSS攻击</h2>
 
-<pre><code>    XSS攻击又称CSS，其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当用户浏览该网站时，这段html代码就会执行，从而达到攻击的目的。XSS攻击类似于SQL注入的攻击，SQL注入攻击中以SQL语句走位用户输入，从而达到查询/修改/删除数据，而在xss攻击中通过恶意脚本，实现对用户浏览器的控制，获取用户的一些信息。XSS是web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式。  
+<pre><code>    XSS攻击又称CSS，其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当用户浏览该网站时，
+    这段html代码就会执行，从而达到攻击的目的。XSS攻击类似于SQL注入的攻击，SQL注入攻击中以SQL语
+    句走位用户输入，从而达到查询/修改/删除数据，而在xss攻击中通过恶意脚本，实现对用户浏览器的控
+    制，获取用户的一些信息。XSS是web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式。  
 </code></pre>
 
 <h2 id="xss防范的总体思路是-对输入-和url参数-进行过滤-对输出进行编码">XSS防范的总体思路是：对输入（和URL参数）进行过滤，对输出进行编码。</h2>
 
 <h2 id="什么是csrf攻击">什么是CSRF攻击</h2>
 
-<pre><code>    CSRF也称为one-click attack或者session riding，中文全称叫&quot;跨站请求伪造&quot;。一般来说攻击者通过伪造用户浏览器的请求，向访问一个用户自己曾经认证访问过的网站发送出去，使目标网站接受并以为是用户的真实操着而去执行用户的浏览器，却不能验证请求是否源于用户的真实意愿下的操作行为。  
+<pre><code>    CSRF也称为one-click attack或者session riding，中文全称叫&quot;跨站请求伪造&quot;。一般来说攻击者通
+    过伪造用户浏览器的请求，向访问一个用户自己曾经认证访问过的网站发送出去，使目标网站接受并以为
+    是用户的真实操着而去执行用户的浏览器，却不能验证请求是否源于用户的真实意愿下的操作行为。  
 </code></pre>
 
 <h2 id="如何避免csrf攻击">如何避免CSRF攻击</h2>
 
 <ul>
 <li>验证HTTP Referer字段：<br />
-    HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况下，访问一个安全受限页面的请求来自于同一个网站，而如果黑客要对其实施CSRF攻击，他一般只能在他自己 的网站构造请求。因此，可以通过验证Referer值来防御CSRF攻击。</li>
+    HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况下，访问一个安全受限页面的请求来自
+    于同一个网站，而如果黑客要对其实施CSRF攻击，他一般只能在他自己 的网站构造请求。因此，可以通过
+    验证Referer值来防御CSRF攻击。</li>
 <li>使用验证码
     关键操作页面上加上验证码，后台接收到请求后通过判断验证码可以防御CSRF。但这种方法对用户不太友好。</li>
 <li>在请求地址中添加token并验证。
-    CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于cookie中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有token或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。这种方法要比检查 Referer 要安全一些，token 可以在用户登陆后产生并放于session之中，然后在每次请求时把token 从 session 中拿出，与请求中的 token 进行比对，但这种方法的难点在于如何把 token 以参数的形式加入请求。
+    CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存
+    在于cookie中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的cookie 来通过安全验
+    证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。
+    可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这
+    个 token，如果请求中没有token或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。这
+    种方法要比检查 Referer 要安全一些，token 可以在用户登陆后产生并放于session之中，然后在每次请求时把token 从 session 中拿出，与请求中的 token 进行比对，但这种方法的难点在于如何把
+    token 以参数的形式加入请求。
     对于 GET 请求，token 将附在请求地址之后，这样 URL 就变成 <a href="http://url?csrftoken=tokenvalue。">http://url?csrftoken=tokenvalue。</a>
-    而对于 POST 请求来说，要在 form 的最后加上 <input type="hidden" name="csrftoken" value="tokenvalue"/>，这样就把token以参数的形式加入请求了。</li>
+    而对于 POST 请求来说，要在 form 的最后加上 <input type="hidden" name="csrftoken" value="tokenvalue"/>，
+    这样就把token以参数的形式加入请求了。</li>
 
 <li><p>在HTTP头中自定义属性并验证<br />
-    这种方法也是使用 token 并进行验证，和上一种方法不同的是，这里并不是把 token 以参数的形式置于 HTTP 请求之中，而是把它放到 HTTP 头中自定义的属性里。通过 XMLHttpRequest 这个类，可以一次性给所有该类请求加上 csrftoken 这个 HTTP 头属性，并把 token 值放入其中。这样解决了上种方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求的地址不会被记录到浏览器的地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中去。</p>
+    这种方法也是使用 token 并进行验证，和上一种方法不同的是，这里并不是把 token 以参数的形式置
+    于 HTTP 请求之中，而是把它放到 HTTP 头中自定义的属性里。通过 XMLHttpRequest 这个类，可以
+    一次性给所有该类请求加上 csrftoken 这个 HTTP 头属性，并把 token 值放入其中。这样解决了上种
+    方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求的地址不会被记录到浏览器的
+    地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中去。</p>
 
 <h2 id="switch语句能否作用在byte上-能否作用在long上-能否作用在string上">switch语句能否作用在byte上，能否作用在long上，能否作用在string上？</h2>
 
-<pre><code>在switch（exprl）中exprl只能是整数表达式或枚举常量，整数表达式可以是int基本数据类型或Integer包装类型，由于byte，short，char都可以隐含转换为int，所以这些类型以及这些类型的包装类型也是可以的。显然，long和String类型都不符合switch的语法规定，并且不能隐式转换成int类型，所以，他们不能用于switch语句中。  
+<pre><code>在switch（exprl）中exprl只能是整数表达式或枚举常量，整数表达式可以是int基本数据类型或
+Integer包装类型，由于byte，short，char都可以隐含转换为int，所以这些类型以及这些类型的包装
+类型也是可以的。显然，long和String类型都不符合switch的语法规定，并且不能隐式转换成int类型，
+所以，他们不能用于switch语句中。  
 </code></pre>
 
 <h2 id="short-sl-1-sl-sl-1-与short-sl-1-sl-1-有什么错">short sl=1;sl = sl + 1 与short sl = 1; sl += 1;有什么错？</h2>
@@ -359,7 +394,8 @@ HashSet hashset = new HashSet(vector);
 
 <h2 id="collection和collections的区别">Collection和Collections的区别</h2>
 
-<pre><code>Collection是集合类的上级借口，继承他的接口有Set和List。Collections是针对集合类的一个辅助类，他提供一系列的静态方法实现对各种集合的搜索、排序、线程安全化等操作。 
+<pre><code>Collection是集合类的上级借口，继承他的接口有Set和List。Collections是针对集合类的一个辅助类，他
+提供一系列的静态方法实现对各种集合的搜索、排序、线程安全化等操作。 
 </code></pre>
 
 <h2 id="java中io分为几种">java中IO分为几种</h2>
@@ -379,16 +415,13 @@ HashSet hashset = new HashSet(vector);
 总结：序列化其实就是保存在内存中对象的状态
 </code></pre>
 
-<h2 id="描述一下jvm加载class文件的机制">描述一下JVM加载class文件的机制？</h2>
-
-<pre><code>JVM中类的装载是在ClassLoader和他的子类来实现的。ClassLoader中java中一个运行时重要的系统组件，他负责在运行时查找和装入类文件的类。
-</code></pre>
-
 <h2 id="head-堆-和stack-栈-的区别">head（堆）和stack（栈）的区别？</h2>
 
 <pre><code>java中内存分为两类：栈和堆内存。
-栈内存是指程序进入一个方法时，会为这个方法单独分配一个私属存储空间，用于存储这个方法内部的局部变量，当这个方法结束时，这个栈空间也会被释放。
-堆内存是指：存放不在当前方法中的那些数据。比如new创建的对象都存放在堆内存中。局部变量使用final修饰的变量也存放在堆内存中。
+栈内存是指程序进入一个方法时，会为这个方法单独分配一个私属存储空间，用于存储这个方法内部的局部变
+量，当这个方法结束时，这个栈空间也会被释放。
+堆内存是指：存放不在当前方法中的那些数据。比如new创建的对象都存放在堆内存中。局部变量使用final修
+饰的变量也存放在堆内存中。
 </code></pre>
 
 <h2 id="抽象类的总结">抽象类的总结</h2>

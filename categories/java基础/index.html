@@ -229,18 +229,8 @@ category | java基础
               <h2 class="ui header" style="color: white;">java基础篇</h2>
               
             </a>
-            <p style="padding: 5px;">java中保证多线程的运行安全  原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操着（atomic，synchronied）;
- 可见性：一个线程对主内存的修改可以及时的被其他线程看到（synchronied，volatile）； 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序，该观察结果一般杂论无序（happens-before原则）  session和cookie的区别  由于http协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识别具体的用户，这个机制就是session，如购物车，在服务端需要记录该用户的状态。在服务端保存session的方式有很多，比如内存、数据库、文件。集群的时候也要考虑session的转移，一般会有专门的session服务器集群，（使用缓存服务器Memcached）。 服务端如何识别特定的用户：每次Http请求时，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用Cookie来实现Session跟踪，第一次创建session时，服务端会在Http协议中告诉客户端，需要在Cookie里面记录一个session ID，以后每次请求把这个会话ID发送到服务器，如果客户端浏览器禁用了Cookie，一般情况下会使用URl重写的技术来进行会话跟踪，即每次HTTP交互时，URL后面都会附加上一个sid=xxxx这样的参数，服务端据此来识别用户。 Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。   session的工作原理 session是存在服务器上的类似于一个散列表格。类似于一个大号的map，里面存储的是用户的session ID，用户向服务器发送请求的时候会带上这个session ID，这时就可以从中取出对应的值。
-struts和springMVC的区别  拦截机制不同
- struts是类拦截。每次请求都会创建一个action。 springMVC是方法级别的拦截。  底层框架不同
- struts2采用Filter实现，SpringMVC采用servlet实现。Filter在容器启动后即初始化；服务器停止后坠毁，晚于servlet。servlet是在调用的时候初始化，先于Filter调用，服务停止后销毁。
-  配置方面
-spring MVC 和spring是无缝的。从这个项目的管理和安全上也比struts2高。
-  避免sql注入  使用preparedstatement 使用正则表达式过滤传入的参数 字符串过滤 jsp调用该函数检查是否包含非法字符 jsp页面判断代码
-  什么是XSS攻击 XSS攻击又称CSS，其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当用户浏览该网站时，这段html代码就会执行，从而达到攻击的目的。XSS攻击类似于SQL注入的攻击，SQL注入攻击中以SQL语句走位用户输入，从而达到查询/修改/删除数据，而在xss攻击中通过恶意脚本，实现对用户浏览器的控制，获取用户的一些信息。XSS是web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式。
-XSS防范的总体思路是：对输入（和URL参数）进行过滤，对输出进行编码。 什么是CSRF攻击 CSRF也称为one-click attack或者session riding，中文全称叫”跨站请求伪造”。一般来说攻击者通过伪造用户浏览器的请求，向访问一个用户自己曾经认证访问过的网站发送出去，使目标网站接受并以为是用户的真实操着而去执行用户的浏览器，却不能验证请求是否源于用户的真实意愿下的操作行为。
-如何避免CSRF攻击  验证HTTP Referer字段：
-HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况下，访问一个安全受限页面的请求来自于同一个网站，而如果黑客要对其实施CSRF攻击，他一般只能在他自己 的网站构造请求。因此，可以通过验证Referer值来防御CSRF攻击。 使用验证码 关键操作页面上加上验证码，后台接收到请求后通过判断验证码可以防御CSRF。但这种方法对用户不太友好。 在请求地址中添加token并验证。 CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于cookie中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有token或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。这种方法要比检查 Referer 要安全一些，token 可以在用户登陆后产生并放于session之中，然后在每次请求时把token 从 session 中拿出，与请求中的 token 进行比对，但这种方法的难点在于如何把 token 以参数的形式加入请求。 对于 GET 请求，token 将附在请求地址之后，这样 URL 就变成 http://url?</p>
+            <p style="padding: 5px;">JDK和JRE的区别  * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  java中保证多线程的运行安全  * 原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操着（atomic，synchronied）; * 可见性：一个线程对主内存的修改可以及时的被其他线程看到（synchronied，volatile）； * 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序，该观察结果一般杂论无序（happens-before原则）  session和cookie的区别  * 由于http协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识别具体的用户，这个机制就是session，如购物车，在服务端需要记录该用户的状态。在服务端保存session的方式有很多，比如内存、数据库、文件。集群的时候也要考虑session的转移，一般会有专门的session服务器集群，（使用缓存服务器Memcached）。 * 服务端如何识别特定的用户：每次Http请求时，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用Cookie来实现Session跟踪，第一次创建session时，服务端会在Http协议中告诉客户端，需要在Cookie里面记录一个session ID，以后每次请求把这个会话ID发送到服务器，如果客户端浏览器禁用了Cookie，一般情况下会使用URl重写的技术来进行会话跟踪，即每次HTTP交互时，URL后面都会附加上一个sid=xxxx这样的参数，服务端据此来识别用户。 * Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。  session的工作原理 session是存在服务器上的类似于一个散列表格。类似于一个大号的map，里面存储的是用户的session ID，用户向服务器发送请求的时候会带上这个session ID，这时就可以从中取出对应的值。
+struts和springMVC的区别  * 拦截机制不同 1. struts是类拦截。每次请求都会创建一个action。 2. springMVC是方法级别的拦截。 * 底层框架不同 1. struts2采用Filter实现，SpringMVC采用servlet实现。Filter在容器启动后即初始化；服务器停止后坠毁，晚于servlet。servlet是在调用的时候初始化，先于Filter调用，服务停止后销毁。 * 配置方面 spring MVC 和spring是无缝的。从这个项目的管理和安全上也比struts2高。  避免sql注入  * 使用preparedstatement * 使用正则表达式过滤传入的参数 * 字符串过滤 * jsp调用该函数检查是否包含非法字符 * jsp页面判断代码  什么是XSS攻击 XSS攻击又称CSS，其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当用户浏览该网站时，这段html代码就会执行，从而达到攻击的目的。XSS攻击类似于SQL注入的攻击，SQL注入攻击中以SQL语句走位用户输入，从而达到查询/修改/删除数据，而在xss攻击中通过恶意脚本，实现对用户浏览器的控制，获取用户的一些信息。XSS是web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式。</p>
             <p>@ fyzn12</p>
           </div>
           
@@ -251,7 +241,7 @@ HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况�
       </div>
     </div>
     
-    <img src="/img/default6.jpg" alt="java基础篇">
+    <img src="/img/default3.jpg" alt="java基础篇">
     
   </div>
 </article>

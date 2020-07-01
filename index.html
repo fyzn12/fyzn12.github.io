@@ -105,6 +105,8 @@
   
   <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
   
+  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
+  
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
 </section>
@@ -129,6 +131,23 @@
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/database" class="item">database</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
         </div>
       </div>
       
@@ -228,6 +247,43 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/">
+              
+              <h2 class="ui header" style="color: white;">数据库易忘知识点总结</h2>
+              
+            </a>
+            <p style="padding: 5px;">数据库总结 创建数据库  在创建数据库时，指定数据库编码命令
+create database ads character set ‘utf8’
+如图所示
+   2. 对数据表的操作 * 删除数据 语法： delete from 表名 [where 条件] 注意： 1. 如果不加条件，则删除表中所有记录。 2. 如果要删除所有记录 delete from 表名---不推荐使用。有多少条记录就会执行多少次删除操作。 3. TRUNCATE TABLE 表名；--推荐使用，效率更高，先删除表，然后创建相同的表。 * update 表名 set 列名1 = 值1，列名2 = 值2，...[where 条件]; 注意：如果不加条件，则会修改所有的记录； * 多表查询取出重复的行 关键字 distinct * DQL：查询语句 1. 排序查询 语法：order by 子句 排序方式： ASC：升序；DESC：降序 注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。 2. 聚合函数： （1）count：计算个数 （2）max （3）min （4）sum （5）avg 注意：聚合函数的计算排除null值：选择不包含非空的列进行计算；IF NULL 3.</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">2 min read</div>
+          <div class="ui bottom left attached black label">Jul 1, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default2.jpg" alt="数据库易忘知识点总结">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/">
               
               <h2 class="ui header" style="color: white;">java基础篇</h2>
@@ -268,16 +324,12 @@
               <h2 class="ui header" style="color: white;">多线程</h2>
               
             </a>
-            <p style="padding: 5px;">#java多线程总结
-多线程的几种实现方式  继承Thread类 重写run（）方法定义线程的行为；
+            <p style="padding: 5px;">java多线程总结 多线程的几种实现方式  继承Thread类 重写run（）方法定义线程的行为；
 如下图所示  实现Runnable接口
 如下图所示  实现 Callable 接口，该接口中的 call方法可以在线程执行结束时产生一个返回值。
 使用总结：因为 Java 中的继承是单继承，一个类有一个父类，如果继承了 Thread 类就无法再继承其 他类了，显然使用 Runnable 接口更为灵活。
 实现Runnable接口比继承Thread类所具有的优势：
- 1）：适合多个相同的程序代码的线程去处理同一个资源 2）：可以避免java中的单继承的限制 3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立 4）：线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类 创建多线程的三种方式:两个接口（Runnable、Callable）一个类（Thread）  实例变量与线程安全 自定义线程类中的实例变量针对其他线程可以有共享与不共享之分。当每个线程都有各自的实例变量时，就是变量不共享。共享数据的情况就是多个线程可以访问同一个变量。 来看下面的示例：  打印的结果中存在多个线程同时对count进行操作，产生了”非线程安全”问题
-* 在某些JVM中，i–的操作要分成如下3步：
-* 取得原有变量的值。计算i-1。对i进行赋值。 * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。 解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：  synchronized 关键字的用法  在上面提到&#34;同步&#34;关键字，synchronized关键字可以将方法或者对象标记为同步，以实现对对象和法 的互斥访问，可以用synchronized(对象) { … }定义同步代码块，或者在声明方法时将 synchronized 作为方法的修饰符。 如果系统中存在临界资源（资源数量少于竞争资源的线程数量的资源），例如正在写的数据以后可能被另 一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就必须进行同步存取（数 据库操作中的排他锁就是最好的例子）。当应用程序在对象上调用了一个需要花费很长时间来执行的方 法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效 率。事实上，所谓的同步就是指阻塞式操作，而异步就是非阻塞式操作。  线程的状态变化 要想实现多线程，必须在主线程中创建新的线程对象。任何线程一般具有5种状态，即创建，就绪，运行 阻塞，终止。下面分别介绍一下这几种状态：  创建状态
-在程序中用构造方法创建了一个线程对象后，新的线程对象便处于新建状态，此时它已经有了相应的内存 空间和其他资源，但还处于不可运行状态。新建一个线程对象可采用Thread 类的构造方法来实现，例如 “Thread thread=new Thread()”。  就绪状态</p>
+ 1）：适合多个相同的程序代码的线程去处理同一个资源 2）：可以避免java中的单继承的限制 3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立 4）：线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类 创建多线程的三种方式:两个接口（Runnable、Callable）一个类（Thread）  实例变量与线程安全 自定义线程类中的实例变量针对其他线程可以有共享与不共享之分。当每个线程都有各自的实例变量时，就是变量不共享。共享数据的情况就是多个线程可以访问同一个变量。 来看下面的示例：   打印的结果中存在多个线程同时对count进行操作，产生了&#34;非线程安全&#34;问题 * 在某些JVM中，i--的操作要分成如下3步： * 取得原有变量的值。计算i-1。对i进行赋值。 * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。 解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：    synchronized 关键字的用法  在上面提到&#34;同步&#34;关键字，synchronized关键字可以将方法或者对象标记为同步，以实现对对象和法 的互斥访问，可以用synchronized(对象) { … }定义同步代码块，或者在声明方法时将 synchronized 作为方法的修饰符。 如果系统中存在临界资源（资源数量少于竞争资源的线程数量的资源），例如正在写的数据以后可能被另 一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就必须进行同步存取（数 据库操作中的排他锁就是最好的例子）。当应用程序在对象上调用了一个需要花费很长时间来执行的方 法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效 率。事实上，所谓的同步就是指阻塞式操作，而异步就是非阻塞式操作。  线程的状态变化  要想实现多线程，必须在主线程中创建新的线程对象。任何线程一般具有5种状态，即创建，就绪，运行 阻塞，终止。下面分别介绍一下这几种状态：   创建状态</p>
             <p>@ fyzn12</p>
           </div>
           
@@ -288,7 +340,7 @@
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="多线程">
+    <img src="/img/default1.jpg" alt="多线程">
     
   </div>
 </article>
@@ -323,45 +375,7 @@
       </div>
     </div>
     
-    <img src="/img/default6.jpg" alt="常见算法篇">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
-              
-              <h2 class="ui header" style="color: white;">mybatis之动态SQL</h2>
-              
-            </a>
-            <p style="padding: 5px;">动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
- &lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
- 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
- &lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">2 min read</div>
-          <div class="ui bottom left attached black label">Oct 8, 2019</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default3.jpg" alt="mybatis之动态SQL">
+    <img src="/img/default4.jpg" alt="常见算法篇">
     
   </div>
 </article>

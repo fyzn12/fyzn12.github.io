@@ -6,10 +6,19 @@
     <description>Recent content in Tags on fyzn12个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>mysql，事务，数据库优化</title>
+      <link>https://fyzn12.github.io/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>algorithm</title>

@@ -48,7 +48,9 @@
   </div>
   <div class="item">
     
-    <i class="disabled inverted big arrow alternate circle outline right icon" title="后一页"></i>
+    <a href="/page/3/">
+      <i class="inverted big arrow alternate circle outline right icon" title="后一页"></i>
+    </a>
     
   </div>
 </div>
@@ -105,6 +107,8 @@
   
   <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
   
+  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
+  
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
 </section>
@@ -129,6 +133,23 @@
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/database" class="item">database</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
         </div>
       </div>
       
@@ -228,6 +249,44 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
+              
+              <h2 class="ui header" style="color: white;">mybatis之动态SQL</h2>
+              
+            </a>
+            <p style="padding: 5px;">动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+ &lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+ 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+ &lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">2 min read</div>
+          <div class="ui bottom left attached black label">Oct 8, 2019</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default3.jpg" alt="mybatis之动态SQL">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/">
               
               <h2 class="ui header" style="color: white;">ssm随学札记</h2>
@@ -252,7 +311,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
       </div>
     </div>
     
-    <img src="/img/default1.jpg" alt="ssm随学札记">
+    <img src="/img/default4.jpg" alt="ssm随学札记">
     
   </div>
 </article>
@@ -300,7 +359,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="mybatis之mapper接口编程">
+    <img src="/img/default5.jpg" alt="mybatis之mapper接口编程">
     
   </div>
 </article>
@@ -336,42 +395,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="Mybatis-的配置文件">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/emoji-support/">
-              
-              <h2 class="ui header" style="color: white;">Emoji Support</h2>
-              
-            </a>
-            <p style="padding: 5px;">Emoji can be enabled in a Hugo project in a number of ways.
-</p>
-            <p>@ Hugo Authors</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Mar 5, 2019</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default3.jpg" alt="Emoji Support">
+    <img src="/img/default6.jpg" alt="Mybatis-的配置文件">
     
   </div>
 </article>

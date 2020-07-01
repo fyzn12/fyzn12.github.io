@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+数据库易忘知识点总结
+</title>
+
+  
+  
+  <meta name="author" content="fyzn12" />
+  <meta name="description" content="数据库总结 创建数据库  在创建数据库时，指定数据库编码命令
+create database ads character set &amp;lsquo;utf8&amp;rsquo;
+如图所示
+   2. 对数据表的操作 * 删除数据 语法： delete from 表名 [where 条件] 注意： 1. 如果不加条件，则删除表中所有记录。 2. 如果要删除所有记录 delete from 表名---不推荐使用。有多少条记录就会执行多少次删除操作。 3. TRUNCATE TABLE 表名；--推荐使用，效率更高，先删除表，然后创建相同的表。 * update 表名 set 列名1 = 值1，列名2 = 值2，...[where 条件]; 注意：如果不加条件，则会修改所有的记录； * 多表查询取出重复的行 关键字 distinct * DQL：查询语句 1. 排序查询 语法：order by 子句 排序方式： ASC：升序；DESC：降序 注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。 2. 聚合函数： （1）count：计算个数 （2）max （3）min （4）sum （5）avg 注意：聚合函数的计算排除null值：选择不包含非空的列进行计算；IF NULL 3." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2" />
+
+
+<link rel="canonical" href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" />
+<link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
+
+<link href="/css/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="首页"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+
+    <section class="ui top attached segment">
+      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
+        <i class="save icon"></i>
+      </a>
+      <header>
+        <h1 class="ui header">
+          数据库易忘知识点总结
+          <div class="sub header">@ fyzn12 · Jul 1, 2020 · 2 min read · 更新于 Jul 1, 2020</div>
+        </h1>
+      </header>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<h1 id="数据库总结">数据库总结</h1>
+
+<h2 id="创建数据库">创建数据库</h2>
+
+<ol>
+<li>在创建数据库时，指定数据库编码命令<br />
+    create database ads character set &lsquo;utf8&rsquo;<br />
+    如图所示<br />
+<br /></li>
+</ol>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/create_database.png" /></div>    
+2. 对数据表的操作  
+* 删除数据  
+        语法：  
+        delete from 表名 [where 条件]  
+        注意：  
+        1. 如果不加条件，则删除表中所有记录。  
+        2. 如果要删除所有记录  
+          delete from 表名---不推荐使用。有多少条记录就会执行多少次删除操作。  
+        3. TRUNCATE TABLE 表名；--推荐使用，效率更高，先删除表，然后创建相同的表。
+* update 表名 set 列名1 = 值1，列名2 = 值2，...[where 条件]; 
+        注意：如果不加条件，则会修改所有的记录；  
+* 多表查询取出重复的行  
+          
+         关键字 distinct  
+* DQL：查询语句  
+    1. 排序查询  
+        语法：order by 子句  
+        排序方式：  ASC：升序；DESC：降序  
+        注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。  
+    2. 聚合函数：
+        （1）count：计算个数
+        （2）max
+        （3）min
+        （4）sum
+        （5）avg
+        注意：聚合函数的计算排除null值：选择不包含非空的列进行计算；IF NULL
+    3. 分组查询  
+        语法：group by 分组字段  
+## 事务
+
+1. 事务的基本介绍  
+    概念：如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。
+    操作：  
+        * 开启事务 start transaction；   
+        * 回滚 rollback；
+        * 提交 commit
+2. 事务的四大特性  
+        * 原子性：是不可分割的最小操作单位，要么同时成功，要么同时失败。
+        * 持久性：当事务提交或回滚后 
+        * 隔离性：多个事务之间，相互独立。
+        * 一致性：事务操作前后，数据总量不变。
+3. 事务的隔离级别  
+        概念：多个事务之间隔离的，相互独立的，但是如果多个事务操作同一批数据，  
+             则会引发一些问题。  
+        * 脏读：一个事务，读取到另一个事务中没有提交的数据。  
+        * 不可重复读（虚读）：在同一个事务中，两次读取到的数据不一样。  
+        * 幻读：一个事务操作数据表中的所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改  
+          
+        隔离级别：  
+        1. read uncommitted：读未提交  
+        产生的问题：脏读、不可重复读、幻读  
+        2. read committed：读已提交（oracle）  
+        产生的问题：不可重复读、幻读  
+        3. repeatable read ：可重复读（mysql默认）
+        产生的问题：幻读  
+        4. serializable：序列化（串行化）  
+        可以解决所有的问题  
+          
+        注意：隔离级别从小到大安全性越来越高，但是效率越来越低  
+4. 数据库查询隔离级别  
+        select @@tx_isolation  如图所示   
+<div align=center><img src="https://fyzn12.github.io/img/picture/tx_isolation.png" /></div> 
+5. 数据库设置隔离级别  
+        
+        set global transaction isolation level 级别字符串;  
+## 事务隔离性的实现————常见的并发控制技术
+
+并打控制技术是实现事务隔离性以及不同隔离级别的关键  
+
+## 索引的分类  
+mysql常见的索引类别有：主键索引、唯一索引、普通索引、全文索引、组合索引  
+* primary key 主键索引  alert table `table_name` add primary key(`column`)
+* unique 唯一索引  alert table(`table_name') add unique('column')
+* index 普通索引  alert table `table_name` add index index_name(`column`)
+* fulltext全文索引  alert table`table_name` add fulltext(`column`)
+* 组合索引  ALTER TABLE `table_name` ADD INDEX index_name ( `column1`, `column2`, `column3` )   
+## 那些情况下索引会失效  
+1. 如果条件中有or，即使其中有条件带有索引也不会使用（这也是为什么尽量少用or的原因，要使用or，有想要索引生效，只有将or条件中的每个列都加上索引）  
+2. 对于多索引列，不是使用的第一部分，则不会使用索引
+3. like查询是以%开头
+4. 如果列类型是字符串，那一定要在条件中将数据使用引号引用起来，否则不使用索引
+5. 如果mysql估计使用全表扫描要比使用索引快，则不使用索引
+
+## 索引有B+索引和hash索引  
+* BTree索引是最常用的mysql索引算法，因为他可以用在=、>、>=、<、<=和between这些比较操作符上，而且还可以用于like操作符，只要他的查询条件不是一个以通配符开头的常量；如果以通配符开头，或者没有使用常量，则不会索引；
+* hash索引只能用于对等比较例如=、<=>（相当于=）操作符。由于hash索引是一次性定位数据，不像Btree索引需要从根节点定位到枝节点，最后才能访问到页面节点，这样多次IO访问，所以hash检索效率远比Btree索引高
+
+        但为什么我们使用BTree比使用Hash多呢？主要Hash本身由于其特殊性，也带来了很多限制和弊端：
+            1. Hash索引仅仅能满足“=”,“IN”,“<=>”查询，不能使用范围查询。 
+            2. 联合索引中，Hash索引不能利用部分索引键查询。 
+            对于联合索引中的多个列，Hash是要么全部使用，要么全部不使用，并不支持BTree支持的联合索引的最优前缀，也就是联合索引的前面一个或几个索引键进行查询时，Hash索引无法被利用。 
+            3. Hash索引无法避免数据的排序操作 
+            由于Hash索引中存放的是经过Hash计算之后的Hash值，而且Hash值的大小关系并不一定和Hash运算前的键值完全一样，所以数据库无法利用索引的数据来避免任何排序运算。 
+            4. Hash索引任何时候都不能避免表扫描 
+            Hash索引是将索引键通过Hash运算之后，将Hash运算结果的Hash值和所对应的行指针信息存放于一个Hash表中，由于不同索引键存在相同Hash值，所以即使满足某个Hash键值的数据的记录条数，也无法从Hash索引中直接完成查询，还是要通过访问表中的实际数据进行比较，并得到相应的结果。 
+            5. Hash索引遇到大量Hash值相等的情况后性能并不一定会比BTree高 
+            对于选择性比较低的索引键，如果创建Hash索引，那么将会存在大量记录指针信息存于同一个Hash值相关联。这样要定位某一条记录时就会非常麻烦，会浪费多次表数据访问，而造成整体性能底下。
+## 聚集索引和非聚集索引的区别  
+#### 两者的根本区别是标记的排序与索引的排序顺序是否一致。  
+        1. 聚集索引一个表只能有一个，而非聚集索引一个表可以存在多个。
+        2. 聚集索引存储记录是物理上连续存在，而非聚集索引是逻辑上连续存在
+        3. 聚集索引查询数据速度快，插入数据速度慢；非聚集索引反之。  
+
+## 数据库的优化  
+思路：从sql语句优化和索引两个方面考虑  
+实践中，mysql的优化主要涉及SQL语句及索引的优化、数据表结构的优化、系统配置的优化和硬件的优化四个方面  
+如图所示
+    
+<div align=center><img src="https://fyzn12.github.io/img/picture/Mysql性能优化.png" /></div>
+
+<ul>
+<li>SQL语句的优化<br />
+    1. 优化insert语句：一次插入多个值；
+    2. 尽量避免在where子句中使用 != 或&lt;&gt;操作符，否则将导致引擎放弃使用索引而进行全表扫描；
+    3. 优化嵌套查询：子查询可以被更有效率的连接（join）替代<br />
+      测试效果图如下，两种方式的SQL语句，测试执行时间，比较效率
+        (1) 使用连接（join）查询多表，查询时间效率如下图所示<br />
+<div align=center><img src="https://fyzn12.github.io/img/picture/join_test.png" /></div>
+        (2) 使用where子句查询多表，时间效率如下图所示
+<div align=center><img src="https://fyzn12.github.io/img/picture/join_test2.png" /></div>
+    4. 很多时候用exists代替in是一个好的选择</li>
+
+<li><p>索引的优化
+    建议在经常作查询选择的字段、经常作表连接的字段以及经常出现在order by、group by、distinct 后面的字段中建立索引。但必须注意以下几种可能会引起索引失效的情形：</p>
+
+<pre><code>1. 以“%(表示任意0个或多个字符)”开头的LIKE语句，模糊匹配；
+
+2. OR语句前后没有同时使用索引；
+
+3. 数据类型出现隐式转化（如varchar不加单引号的话可能会自动转换为int型）；
+
+4. 对于多列索引，必须满足最左匹配原则(eg,多列索引col1、col2和col3，则 索引生效的情形包括col1或col1，col2或col1，col2，col3)。
+</code></pre></li>
+
+<li><p>数据表结构的优化
+    数据库表结构的优化包括选择合适数据类型、表的范式的优化、表的垂直拆分和表的水平拆分等手段。</p></li>
+</ul>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql，事务，数据库优化">mysql，事务，数据库优化</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    
+<section class="ui top attached center aligned inverted segment">
+
+  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
+    <i class="bars icon" title="弹出菜单"></i>
+  </a>
+
+  <div class="ui small circular image" style="margin-top: 1rem;">
+    
+    <img src="/img/dome2.jpg">
+    
+  </div>
+  
+  <h3 class="ui inverted header">
+  fyzn12的博客<div class="sub header">路是自己走、踏破云层，也许看不到所幻想的彩虹、却能体会自己付出的汗水！</div>
+  </h3>
+
+  
+  <div class="ui inverted horizontal list">
+  
+    
+    <a class="item" href="/post">
+      <i class="archive icon" title="归档"></i>
+    </a>
+    
+    <a class="item" href="/tags">
+      <i class="tags icon" title="所有标签"></i>
+    </a>
+    <a class="item" href="/categories">
+      <i class="cube icon" title="所有分类"></i>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
+
+  
+  <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+  
+  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+  
+  <a class="ui label" href="/tags/java" title="java">java</a>
+  
+  <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
+  
+  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+  
+  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
+  
+  <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
+  
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+
+  
+  <div class="ui inverted accordion">
+  
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/algorithm" class="item">algorithm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/database" class="item">database</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/java%E5%9F%BA%E7%A1%80" class="item">java基础</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssm" class="item">ssm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">mybatis之动态SQL</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/" class="item">ssm随学札记</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mybatis之mapper接口编程</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ui bottom attached center aligned inverted segment">
+
+    
+    <p>© 2019 - 2020 fyzn12个人博客</p>
+    
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:1149919071@qq.com">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/fyzn12/" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      
+      <header class="ui inverted segment">
+      
+        <h2 class="ui header">
+          喜欢的诗
+        </h2>
+      </header>
+
+      
+      <article class="ui inverted segment markdown-body">
+      
+        <div class="ui stackable three column grid">
+          <div class="column">
+              
+              (<font color="blue" face="楷体">我以为上帝为我关上了一扇门，会为我打开一扇窗，谁知再关上门的同时，把窗也锁了  可笑又可悲！</font>)<br />
+每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。<br />
+每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。<br />
+每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。<br />
+每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。<br />
+每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。<br />
+你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。<br />
+也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。<br />
+你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。<br />
+我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
+              
+          </div>
+          <div class="column">
+              
+          </div>
+          <div class="column">
+              
+          </div>
+        </div>
+      </article>
+
+      
+
+      
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

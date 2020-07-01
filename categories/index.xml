@@ -6,10 +6,19 @@
     <description>Recent content in Categories on fyzn12个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Database</title>
+      <link>https://fyzn12.github.io/categories/database/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/categories/database/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>algorithm</title>

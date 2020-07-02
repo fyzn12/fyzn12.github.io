@@ -17,7 +17,26 @@
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/</guid>
-      <description>数据库总结 1 创建数据库 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   #### 1.2 对数据表的操作 * 删除数据 语法： delete from 表名 [where 条件] 注意： * 如果不加条件，则删除表中所有记录。 * 如果要删除所有记录 delete from 表名---不推荐使用。有多少条记录就会执行多少次删除操作。 * TRUNCATE TABLE 表名；--推荐使用，效率更高，先删除表，然后创建相同的表。 * update 表名 set 列名1 = 值1，列名2 = 值2，...[where 条件]; 注意：如果不加条件，则会修改所有的记录； * 多表查询取出重复的行 关键字 distinct * DQL：查询语句 1. 排序查询 语法：order by 子句 排序方式： ASC：升序；DESC：降序 注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。 2. 聚合函数： （1）count：计算个数 （2）max （3）min （4）sum （5）avg 注意：聚合函数的计算排除null值：选择不包含非空的列进行计算；IF NULL 3.</description>
+      <description>数据库总结 1 创建数据库 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+语法：
+delete from 表名 [where 条件]
+注意：
+* 如果不加条件，则删除表中所有记录。
+* 如果要删除所有记录
+delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多少次删除操作。
+* TRUNCATE TABLE 表名；&amp;ndash;推荐使用，效率更高，先删除表，然后创建相同的表。
+ update 表名 set 列名1 = 值1，列名2 = 值2，&amp;hellip;[where 条件]; 注意：如果不加条件，则会修改所有的记录；
+ 多表查询取出重复的行
+ 关键字 distinct  DQL：查询语句
+ 排序查询
+语法：order by 子句
+排序方式： ASC：升序；DESC：降序
+注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。
+ 聚合函数：
+（1）count：计算个数
+（2）max
+（3）min
+（4）sum</description>
     </item>
     
     <item>

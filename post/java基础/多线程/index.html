@@ -101,12 +101,13 @@
 </code></pre>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/safety-thread.png" /></div>   
-    打印的结果中存在多个线程同时对count进行操作，产生了"非线程安全"问题  
-    * 在某些JVM中，i--的操作要分成如下3步：
+    打印的结果中存在多个线程同时对count进行操作，产生了"非线程安全"问题     
+
+    * 在某些JVM中，i--的操作要分成如下3步：  
         
-    * 取得原有变量的值。计算i-1。对i进行赋值。
+    * 取得原有变量的值。计算i-1。对i进行赋值。  
         
-    * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。
+    * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。  
         
     解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：
 <div align=center><img src="https://fyzn12.github.io/img/picture/synchronized-thread.png" /></div>     

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+redis学习日志汇总
+</title>
+
+  
+  
+  <meta name="author" content="fyzn12" />
+  <meta name="description" content="1 Redis的简介 1.1 了解什么是redis  redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库， 并提供多种语言的API。 他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  1.2 redis的特点  * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。 * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。 * Redis支持数据的备份，即master-slave模式的数据备份。  1.3 redis的优势  * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。 * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。 * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务， 即原子性，通过MULTI和EXEC指令包起来。 * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  1.4 Redis支持的数据类型  * string（字符串） * hash（哈希） * list（列表） * set（集合） * zset或sorted set（有序集合）  2 Redis 命令 2." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2" />
+
+
+<link rel="canonical" href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" />
+<link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
+
+<link href="/css/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="首页"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+
+    <section class="ui top attached segment">
+      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
+        <i class="save icon"></i>
+      </a>
+      <header>
+        <h1 class="ui header">
+          redis学习日志汇总
+          <div class="sub header">@ fyzn12 · Jun 11, 2020 · 3 min read · 更新于 Jun 11, 2020</div>
+        </h1>
+      </header>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<h1 id="1-redis的简介">1 Redis的简介</h1>
+
+<hr />
+
+<h2 id="1-1-了解什么是redis">1.1 了解什么是redis</h2>
+
+<pre><code>        redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库，
+    并提供多种语言的API。
+        他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  
+</code></pre>
+
+<h2 id="1-2-redis的特点">1.2 redis的特点</h2>
+
+<pre><code>    * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。
+    * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。
+    * Redis支持数据的备份，即master-slave模式的数据备份。   
+</code></pre>
+
+<h2 id="1-3-redis的优势">1.3 redis的优势</h2>
+
+<pre><code>    * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。
+    * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。
+    * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，
+    即原子性，通过MULTI和EXEC指令包起来。
+    * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。    
+</code></pre>
+
+<h2 id="1-4-redis支持的数据类型">1.4 Redis支持的数据类型</h2>
+
+<pre><code>    * string（字符串）  
+    * hash（哈希）
+    * list（列表）
+    * set（集合）
+    * zset或sorted set（有序集合）  
+</code></pre>
+
+<h1 id="2-redis-命令">2 Redis 命令</h1>
+
+<h2 id="2-1-redis的运行">2.1 redis的运行</h2>
+
+<ol>
+<li><p>Redis 命令用于在 redis 服务上执行操作。</p>
+
+<pre><code>要在 redis 服务上执行命令需要一个 redis 客户端。Redis 客户端在我们之前下载的的 redis 的安装包中。
+
+Redis 客户端的基本语法为：
+
+$ redis-cli
+实例
+以下实例讲解了如何启动 redis 客户端：
+启动 redis 客户端，打开终端并输入命令 redis-cli。该命令会连接本地的 redis 服务。
+
+$redis-cli
+redis 127.0.0.1:6379&gt;
+redis 127.0.0.1:6379&gt; PING
+</code></pre></li>
+
+<li><p>在以上实例中我们连接到本地的 redis 服务并执行 PING 命令，该命令用于检测 redis 服务是否启动。
+在远程服务上执行命令
+如果需要在远程 redis 服务上执行命令，同样我们使用的也是 redis-cli 命令。
+    语法
+    $ redis-cli -h host -p port -a password</p>
+
+<pre><code>实例
+以下实例演示了如何连接到主机为 127.0.0.1，端口为 6379 ，密码为 mypass 的 redis 服务上。
+$redis-cli -h 127.0.0.1 -p 6379 -a &quot;mypass&quot;
+redis 127.0.0.1:6379&gt;
+redis 127.0.0.1:6379&gt; PING
+</code></pre></li>
+</ol>
+
+<h2 id="2-2-通用命令">2.2 通用命令</h2>
+
+<h4 id="1-keys-遍历出所有key-keys-如下图所示">1. keys  ：遍历出所有key：keys *  如下图所示 ：</h4>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/redis-keys.png"/></div>  
+  
+
+<pre><code>    注意：keys命令一般不在生产环境使用，原因是假如key过多，会造成阻塞  
+</code></pre>
+
+<h5 id="2-dbsize-计算key的总数">2. dbsize ：计算key的总数；</h5>
+
+<h5 id="3-exists-exists-key-检查可以是否存在-存在返回1-不存在返回0">3. exists ：exists key ：检查可以是否存在 ；存在返回1，不存在返回0</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/dbsize-exists.png"/></div>  
+      
+
+<h5 id="4-del-删除指定的key-value-存在删除返回1-不存在返回0-如下图所示">4. del ：删除指定的key-value；存在删除返回1，不存在返回0；如下图所示</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/redis-del.png"/></div>  
+  
+
+<p>expire key seconds：key在seconds秒后过期；</p>
+
+<h5 id="5-ttl-key-查看key剩余的过期时间-1-代表key存在-并且没有设置过期时间-2-代表key不存在">5. ttl key：查看key剩余的过期时间 ；-1 代表key存在，并且没有设置过期时间；-2 代表key不存在</h5>
+
+<h5 id="6-persist-key-去掉key的过期时间">6. persist key：去掉key的过期时间；</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/redis-expire.png"/></div>  
+#####  7. type key：返回key的类型；返回类型有：string、hash、list、set、zset、none  
+<div align=center><img src="https://fyzn12.github.io/img/picture/redis-type.png"/></div>
+
+<pre><code>    以上命令的时间复杂度：  
+        keys     :O(n)  
+        dbsize   :O(1)  
+        del      :O(1)   
+        exists   :O(1)  
+        expire   :O(1)   
+        type     :O(1)   
+</code></pre>
+
+<h1 id="3-redis的数据结构和内部编码">3 redis的数据结构和内部编码</h1>
+
+<h2 id="3-1-内部编码">3.1 内部编码</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/redis.png"/></div>  
+  
+
+<h1 id="4-redis的单线程">4 redis的单线程</h1>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/single.png"/></div>  
+        单线程为什么会这么快？  
+  
+            1. 纯内存  
+            2. 非阻塞IO  
+            3. 避免线程切换和竞太消耗  
+          
+        单线程注意什么？   
+            1. 一次只运行一条命令  
+            2. 拒绝长（慢）命令：keys，flushdb，slow lua script，mutil/exec，operate big vlalue（collection）
+            3. 其实不是单线程 如 fysnc file descriptor ，close file descriptor  
+              
+  
+# 5 redis的字符串类型的命令解析 
+ 
+* 结构和命令 
+* 内部编码
+* 快速实战  
+* 查缺补漏  
+  
+## 5.1 Redis的键值对结构  
+  
+        对于key-value：key是string，value是redis支持的数据结构  
+## 5.2 场景  
+* 缓存  
+* 计数器  
+* 分布式锁  
+* ...  
+  
+## 5.3 get、set、del命令的解析  
+         
+        get key：获取key对应的value    O(1)  
+        set key value：设置key-value  O(1)
+        del key ：删除key-value       O(1)
+        
+
+## 5.4 incr、decr、incrby、decrby命令解析  
+   
+        incr key : key自增1，如果可以key不存在，自增后get(key)=1 ;O(1)  
+        decr key : key自减1，如果key不存在，自减后get(key)=-1  ; O(1)  
+        incrby key k : key自增k，如果key不存在，自增后get(key) = k;O(1)   
+        decrby key k : key自减k，如果key不存在，自减后get(key) = -k;O(1)  
+  
+## 5.5 setnx,set xx命令的解析  
+  
+        setnx key value: 如果key不存在，则设置key-value；  
+        set key value xx: 更新key值为key的value为vlaue    
+  
+## 5.6 mget、mset命令解析  
+   
+        mget key1 key2...:批量获取key，原子操作 O(n)  
+        mset key1 value key2 value：批量设置key-value O(n)   
+ 
+<div align=center><img src="https://fyzn12.github.io/img/picture/mget.png"/></div>  
+  
+
+<h2 id="5-7-getset-append-strlen命令的解析">5.7 getset、append、strlen命令的解析</h2>
+
+<pre><code>    getset key newvalue：set key newvalue并返回旧的value O(1)   
+
+    append key value: 将value追加在旧value的后面  O(1)  
+
+    strlen key : 返回字符串的长度（注意中文）  
+</code></pre>
+
+<h2 id="5-8-incrbyfloat-getrange-setrange命令解析">5.8 incrbyfloat、getrange、setrange命令解析</h2>
+
+<pre><code>    incrbyfloat key 3.5 ：增加key对应值的3.5 O(1)   
+
+    getrange key start end：获取字符串指定下标所有值 O(1)  
+
+    setrnage key index value：设置指定下标所有对应的值 O(1)   
+</code></pre>
+
+<h2 id="5-9-字符串常用命令总结">5.9 字符串常用命令总结</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/redis-string.png"/></div>  
+  
+
+<h1 id="6-redis的hash结构命令解析">6 redis的hash结构命令解析</h1>
+
+<p>所有hash的命令都是以h开头</p>
+
+<h2 id="6-1-命令解析">6.1 命令解析</h2>
+
+<h5 id="1-hget-key-field-获取hash-key对应的field的value-o-1">1. hget key field：获取hash key对应的field的value O(1)</h5>
+
+<h5 id="2-hset-key-field-value-设置hashkey对应field的value-o-1">2. hset key field value：设置hashkey对应field的value O(1)</h5>
+
+<h5 id="3-hdel-key-field-删除hash-key对应field的value-o-1">3. hdel key field： 删除hash key对应field的value O(1)</h5>
+
+<p>命令演示如下图所示：</p>
+
+<p><div align=center><img src="https://fyzn12.github.io/img/picture/redis-hash.png"/></div></p>
+
+<h5 id="4-hexists-key-field-判断hash-key是否有field-o-1">4. hexists key field：判断hash key是否有field O(1)</h5>
+
+<h5 id="5-hlen-key-获取hash-key-field的数量-o-1-如下图所示">5. hlen key ：获取hash key field的数量 O(1) 如下图所示</h5>
+
+<p><div align=center><img src="https://fyzn12.github.io/img/picture/hexists-hlen.png"/></div></p>
+
+<h5 id="6-hmget-key-field1-field2-fieldn-批量获取hash-key的一批field对应的值-o-1">6. hmget key field1 field2&hellip; fieldN:批量获取hash key的一批field对应的值 O(1)</h5>
+
+<h5 id="7-hmset-key-field1-value1-field2-value2-fieldn-valuen-o-n">7. hmset key field1 value1 field2 value2&hellip; fieldN valueN O(n)</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hmset-hmget.png"/></div>  
+##### 8. hgetall key:返回hash key对应所有的field和value O(n)  
+##### 9. hvals key ：返回hash key对应所有field的value O(n)  
+##### 10. hkeys key：返回hash key对应所有field O(n)  
+  
+<div align=center><img src="https://fyzn12.github.io/img/picture/hkeys-hvals.png"/></div>  
+    
+
+<pre><code>    注意：小心使用hgetall  
+            假如存放数据多，redis是单线程的特点，hgetal命令就会很慢  
+</code></pre>
+
+<h2 id="6-1-1-hash命令的总结">6.1.1 hash命令的总结</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hash-string.png"/></div>  
+    
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hash-total.png"/></div>  
+  
+
+<h2 id="6-2-实战">6.2 实战</h2>
+
+<h3 id="6-2-1场景描述">6.2.1场景描述</h3>
+
+<p>实现以下功能：<br />
+        1 记录网站每个个人主页的访问量<br />
+        2</p>
+
+<h3 id="6-2-2-使用的命令">6.2.2 使用的命令</h3>
+
+<h5 id="hincrby-user-1-info-pageview-count">hincrby user:1:info pageview count</h5>
+
+<hr />
+
+<h1 id="7-redis的list结构命令解析">7 redis的list结构命令解析</h1>
+
+<p>按照如下顺序详细解析list的命令，命令基本都是以&rdquo;l&rdquo;开头</p>
+
+<ul>
+<li>增<br /></li>
+<li>删<br /></li>
+<li>改<br /></li>
+<li>查
+<br /></li>
+</ul>
+
+<h2 id="7-1-插入命令解析">7.1 插入命令解析</h2>
+
+<h5 id="1-rpush-key-value1-value2-valuen-从列表右端插入-1-n-个值-o-1-n">1. rpush key value1 value2&hellip;valueN：从列表右端插入（1~N）个值 O(1~n)</h5>
+
+<h5 id="2-lpush-key-value1-value2-valuen-从列表左端插入-1-n-个值-o-1-n">2. lpush key value1 value2&hellip;valueN：从列表左端插入（1~N）个值 O(1~n)</h5>
+
+<h5 id="3-linsert-key-befor-after-value-newvalue-在list指定的值前-后插入newvalue-o-n">3. linsert key befor|after value newvalue:在list指定的值前|后插入newvalue  O(n)</h5>
+
+<h2 id="7-2-删除命令的解析">7.2 删除命令的解析</h2>
+
+<h5 id="1-lpop-key-从列表左侧弹出一个item-o-1">1. lpop key ：从列表左侧弹出一个item O(1)</h5>
+
+<h5 id="2-rpop-key-从列表右侧弹出一个item-o-1">2. rpop key：从列表右侧弹出一个item O(1)</h5>
+
+<h5 id="3-lrem-key-count-value-根据count值-从列表中删除所有value相等的项-有一下几种情况">3. lrem key count value  ：根据count值，从列表中删除所有value相等的项，有一下几种情况</h5>
+
+<pre><code>    （1）count&gt;0,从左到右，删除最多count个value相等的项    
+    （2）count&lt;0,从右到左，删除最多Math.abs(count)个value相等的项    
+    （3）count=0，删除所有value相等的项  
+</code></pre>
+
+<h5 id="4-ltrim-key-start-end-按照索引范围修剪列表-o-n">4. ltrim key start end：按照索引范围修剪列表  O(n)</h5>
+
+<h5 id="5-lrange-key-start-end-包含end-获取列表指定索引范围所有item-o-n">5. lrange key start end（包含end）：获取列表指定索引范围所有item O(n)</h5>
+
+<h5 id="6-lindex-key-index-获取列表索引的item">6. lindex key index：获取列表索引的item</h5>
+
+<h5 id="7-llen-key-获取列表长度">7. llen key ：获取列表长度</h5>
+
+<h2 id="7-3-改命令解析">7.3 改命令解析</h2>
+
+<h5 id="1-lset-key-index-newvalue-设置列表指定索引为newvalue-o-n">1. lset key index newvalue:设置列表指定索引为newvalue O(n)</h5>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/redis" title="redis">redis</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    
+<section class="ui top attached center aligned inverted segment">
+
+  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
+    <i class="bars icon" title="弹出菜单"></i>
+  </a>
+
+  <div class="ui small circular image" style="margin-top: 1rem;">
+    
+    <img src="/img/dome2.jpg">
+    
+  </div>
+  
+  <h3 class="ui inverted header">
+  fyzn12的博客<div class="sub header">路是自己走、踏破云层，也许看不到所幻想的彩虹、却能体会自己付出的汗水！</div>
+  </h3>
+
+  
+  <div class="ui inverted horizontal list">
+  
+    
+    <a class="item" href="/post">
+      <i class="archive icon" title="归档"></i>
+    </a>
+    
+    <a class="item" href="/tags">
+      <i class="tags icon" title="所有标签"></i>
+    </a>
+    <a class="item" href="/categories">
+      <i class="cube icon" title="所有分类"></i>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
+
+  
+  <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+  
+  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+  
+  <a class="ui label" href="/tags/java" title="java">java</a>
+  
+  <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
+  
+  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+  
+  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
+  
+  <a class="ui label" href="/tags/redis" title="redis">redis</a>
+  
+  <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
+  
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+
+  
+  <div class="ui inverted accordion">
+  
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/algorithm" class="item">algorithm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/database" class="item">database</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/java%E5%9F%BA%E7%A1%80" class="item">java基础</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/redis" class="item">redis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssm" class="item">ssm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">mybatis之动态SQL</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/" class="item">ssm随学札记</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mybatis之mapper接口编程</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ui bottom attached center aligned inverted segment">
+
+    
+    <p>© 2019 - 2020 fyzn12个人博客</p>
+    
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:1149919071@qq.com">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/fyzn12/" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      
+      <header class="ui inverted segment">
+      
+        <h2 class="ui header">
+          喜欢的诗
+        </h2>
+      </header>
+
+      
+      <article class="ui inverted segment markdown-body">
+      
+        <div class="ui stackable three column grid">
+          <div class="column">
+              
+              (<font color="blue" face="楷体">我以为上帝为我关上了一扇门，会为我打开一扇窗，谁知再关上门的同时，把窗也锁了  可笑又可悲！</font>)<br />
+每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。<br />
+每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。<br />
+每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。<br />
+每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。<br />
+每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。<br />
+你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。<br />
+也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。<br />
+你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。<br />
+我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
+              
+          </div>
+          <div class="column">
+              
+          </div>
+          <div class="column">
+              
+          </div>
+        </div>
+      </article>
+
+      
+
+      
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

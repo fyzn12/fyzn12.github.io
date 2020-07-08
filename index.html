@@ -107,6 +107,8 @@
   
   <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
   
+  <a class="ui label" href="/tags/redis" title="redis">redis</a>
+  
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
 </section>
@@ -172,6 +174,23 @@
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/redis" class="item">redis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
         </div>
       </div>
       
@@ -252,7 +271,7 @@
               <h2 class="ui header" style="color: white;">数据库易忘知识点总结</h2>
               
             </a>
-            <p style="padding: 5px;">数据库总结 1 创建数据库 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+            <p style="padding: 5px;">1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
 语法：
 delete from 表名 [where 条件]
 注意：
@@ -271,7 +290,8 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
 （1）count：计算个数
 （2）max
 （3）min
-（4）sum</p>
+（4）sum
+（5）avg</p>
             <p>@ fyzn12</p>
           </div>
           
@@ -282,7 +302,7 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
       </div>
     </div>
     
-    <img src="/img/default6.jpg" alt="数据库易忘知识点总结">
+    <img src="/img/default1.jpg" alt="数据库易忘知识点总结">
     
   </div>
 </article>
@@ -317,7 +337,41 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="java基础篇">
+    <img src="/img/default6.jpg" alt="java基础篇">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
+            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+              
+              <h2 class="ui header" style="color: white;">redis学习日志汇总</h2>
+              
+            </a>
+            <p style="padding: 5px;">1 Redis的简介 1.1 了解什么是redis  redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库， 并提供多种语言的API。 他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  1.2 redis的特点  * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。 * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。 * Redis支持数据的备份，即master-slave模式的数据备份。  1.3 redis的优势  * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。 * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。 * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务， 即原子性，通过MULTI和EXEC指令包起来。 * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  1.4 Redis支持的数据类型  * string（字符串） * hash（哈希） * list（列表） * set（集合） * zset或sorted set（有序集合）  2 Redis 命令 2.</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">3 min read</div>
+          <div class="ui bottom left attached black label">Jun 11, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default2.jpg" alt="redis学习日志汇总">
     
   </div>
 </article>
@@ -342,10 +396,11 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
             </a>
             <p style="padding: 5px;">java多线程总结 多线程的几种实现方式  继承Thread类 重写run（）方法定义线程的行为；
 如下图所示  实现Runnable接口
-如下图所示  实现 Callable 接口，该接口中的 call方法可以在线程执行结束时产生一个返回值。
+如下图所示
+    实现 Callable 接口，该接口中的 call方法可以在线程执行结束时产生一个返回值。
 使用总结：因为 Java 中的继承是单继承，一个类有一个父类，如果继承了 Thread 类就无法再继承其 他类了，显然使用 Runnable 接口更为灵活。
 实现Runnable接口比继承Thread类所具有的优势：
- 1）：适合多个相同的程序代码的线程去处理同一个资源 2）：可以避免java中的单继承的限制 3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立 4）：线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类 创建多线程的三种方式:两个接口（Runnable、Callable）一个类（Thread）  实例变量与线程安全 自定义线程类中的实例变量针对其他线程可以有共享与不共享之分。当每个线程都有各自的实例变量时，就是变量不共享。共享数据的情况就是多个线程可以访问同一个变量。 来看下面的示例：   打印的结果中存在多个线程同时对count进行操作，产生了&#34;非线程安全&#34;问题 * 在某些JVM中，i--的操作要分成如下3步： * 取得原有变量的值。计算i-1。对i进行赋值。 * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。 解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：    synchronized 关键字的用法  在上面提到&#34;同步&#34;关键字，synchronized关键字可以将方法或者对象标记为同步，以实现对对象和法 的互斥访问，可以用synchronized(对象) { … }定义同步代码块，或者在声明方法时将 synchronized 作为方法的修饰符。 如果系统中存在临界资源（资源数量少于竞争资源的线程数量的资源），例如正在写的数据以后可能被另 一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就必须进行同步存取（数 据库操作中的排他锁就是最好的例子）。当应用程序在对象上调用了一个需要花费很长时间来执行的方 法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效 率。事实上，所谓的同步就是指阻塞式操作，而异步就是非阻塞式操作。  线程的状态变化  要想实现多线程，必须在主线程中创建新的线程对象。任何线程一般具有5种状态，即创建，就绪，运行 阻塞，终止。下面分别介绍一下这几种状态：   创建状态</p>
+ 1）：适合多个相同的程序代码的线程去处理同一个资源 2）：可以避免java中的单继承的限制 3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立 4）：线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类 创建多线程的三种方式:两个接口（Runnable、Callable）一个类（Thread）  实例变量与线程安全 自定义线程类中的实例变量针对其他线程可以有共享与不共享之分。当每个线程都有各自的实例变量时，就是变量不共享。共享数据的情况就是多个线程可以访问同一个变量。 来看下面的示例：    打印的结果中存在多个线程同时对count进行操作，产生了&#34;非线程安全&#34;问题 * 在某些JVM中，i--的操作要分成如下3步： * 取得原有变量的值。计算i-1。对i进行赋值。 * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。 解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：     synchronized 关键字的用法  在上面提到&#34;同步&#34;关键字，synchronized关键字可以将方法或者对象标记为同步，以实现对对象和法 的互斥访问，可以用synchronized(对象) { … }定义同步代码块，或者在声明方法时将 synchronized 作为方法的修饰符。 如果系统中存在临界资源（资源数量少于竞争资源的线程数量的资源），例如正在写的数据以后可能被另 一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就必须进行同步存取（数 据库操作中的排他锁就是最好的例子）。当应用程序在对象上调用了一个需要花费很长时间来执行的方 法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效 率。事实上，所谓的同步就是指阻塞式操作，而异步就是非阻塞式操作。  线程的状态变化  要想实现多线程，必须在主线程中创建新的线程对象。任何线程一般具有5种状态，即创建，就绪，运行 阻塞，终止。下面分别介绍一下这几种状态：   创建状态</p>
             <p>@ fyzn12</p>
           </div>
           
@@ -356,42 +411,7 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
       </div>
     </div>
     
-    <img src="/img/default1.jpg" alt="多线程">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">
-              
-              <h2 class="ui header" style="color: white;">常见算法篇</h2>
-              
-            </a>
-            <p style="padding: 5px;">常见算法总结篇 递归算法  递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)&#43;2; }  排序算法  快速排序算法 排序步骤总结如下：
-* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&#34;11&#34;,&#34;66&#34;,&#34;22&#34;,&#34;0&#34;,&#34;55&#34;,&#34;22&#34;,&#34;0&#34;,&#34;32&#34;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //定义在排序过程中的左右基点 int i = left; int j = right; //定义左右替换值时的替换参数 String temValue; //步骤一：获取基准 String middle = strViod[(i&#43;j)/2]; //步骤二：找出比基准大和小的值，并摆放其左右； do{ //找到比基准小的值 while(strViod[i].</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Jun 11, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default2.jpg" alt="常见算法篇">
+    <img src="/img/default5.jpg" alt="多线程">
     
   </div>
 </article>

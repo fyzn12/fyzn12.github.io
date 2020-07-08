@@ -215,7 +215,47 @@ java基础篇
 
     * 实现数量：类可以实现很多个接口；但是只能继承一个抽象类。
 
-    * 访问修饰符：接口中的方法默认使用 public 修饰；抽象类中的方法可以是任意访问修饰符。   
+    * 访问修饰符：接口中的方法默认使用 public 修饰；抽象类中的方法可以是任意访问修饰符。     
+</code></pre>
+
+<h2 id="java是值传递还是引用传递">java是值传递还是引用传递</h2>
+
+<pre><code>    值传递是对基本型变量而言，传递的是该变量的一个副本，改变副本不影响原变量，引用传递一般是对于对象型变量而言，  
+    传递的是该对象地址的一个副本，而不是原对象本身。  
+
+    一般认为，java内的传递都是值传递如下代码能直观的表达，值传递，传递的是原参数的副本，  
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/值传递.png" /></div>    
+
+<h2 id="java的构造器是否可以被重写">java的构造器是否可以被重写</h2>
+
+<pre><code>    java中父类的私有属性以及构造器是不能被继承的，所有constructor并不能被重写，但是能重载（overload）。   
+</code></pre>
+
+<h2 id="两个对象值相等-x-equals-y-true-但他们的hashcode不同正确吗">两个对象值相等（x.equals(y)==true）,但他们的hashCode不同正确吗？</h2>
+
+<pre><code>    （1）如果两个对象值相同（equals方法返回true），那么他们的hashCode值一定相同；  
+    （2）如果两个对象的hashCode相同，他们并不一定相等。  
+</code></pre>
+
+<h2 id="string可以被继承吗">String可以被继承吗</h2>
+
+<pre><code>    查看String的源码，他的方法头如下：   
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/String.png" /></div>  
+    
+
+<pre><code>    由于String类是被final修饰，因此String类是不能 被继承的。    
+</code></pre>
+
+<h2 id="char型的变量能不能存储一个汉字">char型的变量能不能存储一个汉字</h2>
+
+<pre><code>    首先明白char型变量是存储unicode编码字符，unicode编码字符集中包含了汉字，  
+    所以char型变量可以存储一个汉字，但是如果这个特殊的汉字不在unicode编码字符集中，那么就不能存储。  
+
+    说明：unicode编码占用两个字节，所以，char类型的变量也是占用两个字节。  
 </code></pre>
 
 <h2 id="程序的执行顺序">程序的执行顺序</h2>
@@ -538,6 +578,8 @@ HashSet hashset = new HashSet(vector);
   
   <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
   
+  <a class="ui label" href="/tags/redis" title="redis">redis</a>
+  
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
 </section>
@@ -603,6 +645,23 @@ HashSet hashset = new HashSet(vector);
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/redis" class="item">redis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
         </div>
       </div>
       

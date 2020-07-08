@@ -12,7 +12,7 @@
   
   
   <meta name="author" content="fyzn12" />
-  <meta name="description" content="数据库总结 1 创建数据库 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+  <meta name="description" content="1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
 语法：
 delete from 表名 [where 条件]
 注意：
@@ -31,7 +31,8 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
 （1）count：计算个数
 （2）max
 （3）min
-（4）sum" />
+（4）sum
+（5）avg" />
 
 
 
@@ -76,14 +77,12 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
       <header>
         <h1 class="ui header">
           数据库易忘知识点总结
-          <div class="sub header">@ fyzn12 · Jul 1, 2020 · 2 min read · 更新于 Jul 1, 2020</div>
+          <div class="sub header">@ fyzn12 · Jul 1, 2020 · 2 min read · 更新于 Jul 2, 2020</div>
         </h1>
       </header>
       <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
 
-<h1 id="数据库总结">数据库总结</h1>
-
-<h2 id="1-创建数据库">1 创建数据库</h2>
+<h2 id="1-数据库的基本常用知识点">1 数据库的基本常用知识点</h2>
 
 <h4 id="1-1-在创建数据库时-指定数据库编码命令">1.1 在创建数据库时，指定数据库编码命令</h4>
 
@@ -135,6 +134,58 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
 <li><p>分组查询<br />
 语法：group by 分组字段</p></li>
 </ol></li>
+</ul>
+
+<h4 id="1-4-数据库三范式">1.4 数据库三范式</h4>
+
+<ul>
+<li>第一范式 （1NF）
+    属性不可再分<br /></li>
+<li>第二范式（2NF）<br />
+    每个非主属性完全函数依赖于键码<br /></li>
+<li>第三范式（3NF）<br />
+    非主属性不传递函数依赖于键码
+<br /></li>
+</ul>
+
+<h4 id="1-5-内连接-交叉连接-外连接">1.5 内连接、交叉连接、外连接</h4>
+
+<ul>
+<li>概念：根据两个或多个表的列之间的关系，从这些表中查询数据。分为三种：内连接、外连接、交叉连接。<br /></li>
+<li>目的：实现多个表查询操作<br />
+<br /></li>
+</ul>
+
+<h4 id="1-6-mysql两种存储引擎的区别-事务-锁级别等等-各自的使用场景">1.6 MYSQL两种存储引擎的区别（事务，锁级别等等），各自的使用场景</h4>
+
+<h5 id="区别">区别</h5>
+
+<ul>
+<li>事务  ：InnoDB是事务型的，可以使用commit，rollback语句。</li>
+<li>并发  ：MyISAM只支持表级锁，InnoDB还支持行级锁。</li>
+<li>外键  ：InnoDB支持外键。</li>
+<li>备份  ：InnoDB支持在线热备份。</li>
+<li>崩溃恢复  ：MyISAM崩溃后发生损坏的概念要比InnoDB高很多，而且恢复速度更慢。</li>
+<li>其他特性  ：MyISAM只支持压缩表和空间数据索引。<br />
+<br /></li>
+</ul>
+
+<h5 id="应用场景">应用场景</h5>
+
+<ul>
+<li>MyISAM管理非事务表。它提供高速存储和检索，以及全文搜索能力。如果应用中需要执行大量的SELECT查询，那么MyISAM是更好的选择。</li>
+<li>InnoDB用于事务处理应用程序，具有众多特性，包括ACID事务支持。如果应用中需要执行大量的INSERT或UPDATE操作，则应该使用InnoDB，这样可以提高多用户并发操作的性能。<br /></li>
+</ul>
+
+<h5 id="1-7-drop-delete-truncate的区别">1.7 drop、delete、truncate的区别</h5>
+
+<p>说明： drop、delete、truncate都表示删除</p>
+
+<ul>
+<li>delete用来删除表的全部数据（一般不推荐使用）或者部分数据行，执行delete之后，用户需要提交（commit）或者回滚（rollback）来执行删除或者撤销删除；delete命令会触发这个表上的所有的delete触发器；<br /></li>
+<li>truncate常用来删除表中的所有数据行，他的工作原理是先删除表再新建相同的表，对比delete执行删除表全部数据时，delete是一行一行的执行SQL语句，因此比delete更快。这个操作不能回滚，也不会触发这个表上的触发器；<br /></li>
+<li>drop从数据库删除表，连带着这个数据表的所有数据行、索引和权限也会被删除，所有的DML触发器也不会被触发，这个命令也不能被回滚。<br />
+<br /></li>
 </ul>
 
 <h2 id="2-事务">2 事务</h2>
@@ -370,6 +421,8 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
   
   <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
   
+  <a class="ui label" href="/tags/redis" title="redis">redis</a>
+  
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
 </section>
@@ -435,6 +488,23 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/redis" class="item">redis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
         </div>
       </div>
       

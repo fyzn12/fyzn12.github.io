@@ -17,7 +17,7 @@
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/</guid>
-      <description>数据库总结 1 创建数据库 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+      <description>1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
 语法：
 delete from 表名 [where 条件]
 注意：
@@ -36,7 +36,8 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
 （1）count：计算个数
 （2）max
 （3）min
-（4）sum</description>
+（4）sum
+（5）avg</description>
     </item>
     
   </channel>

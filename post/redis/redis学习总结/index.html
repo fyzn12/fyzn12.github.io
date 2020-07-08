@@ -162,7 +162,10 @@ redis 127.0.0.1:6379&gt; PING
 <h5 id="6-persist-key-去掉key的过期时间">6. persist key：去掉key的过期时间；</h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/redis-expire.png"/></div>  
-#####  7. type key：返回key的类型；返回类型有：string、hash、list、set、zset、none  
+  
+
+<h5 id="7-type-key-返回key的类型-返回类型有-string-hash-list-set-zset-none">7. type key：返回key的类型；返回类型有：string、hash、list、set、zset、none</h5>
+
 <div align=center><img src="https://fyzn12.github.io/img/picture/redis-type.png"/></div>
 
 <pre><code>    以上命令的时间复杂度：  
@@ -184,58 +187,72 @@ redis 127.0.0.1:6379&gt; PING
 <h1 id="4-redis的单线程">4 redis的单线程</h1>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/single.png"/></div>  
-        单线程为什么会这么快？  
-  
-            1. 纯内存  
-            2. 非阻塞IO  
-            3. 避免线程切换和竞太消耗  
-          
-        单线程注意什么？   
-            1. 一次只运行一条命令  
-            2. 拒绝长（慢）命令：keys，flushdb，slow lua script，mutil/exec，operate big vlalue（collection）
-            3. 其实不是单线程 如 fysnc file descriptor ，close file descriptor  
-              
-  
-# 5 redis的字符串类型的命令解析 
- 
-* 结构和命令 
-* 内部编码
-* 快速实战  
-* 查缺补漏  
-  
-## 5.1 Redis的键值对结构  
-  
-        对于key-value：key是string，value是redis支持的数据结构  
-## 5.2 场景  
-* 缓存  
-* 计数器  
-* 分布式锁  
-* ...  
-  
-## 5.3 get、set、del命令的解析  
-         
-        get key：获取key对应的value    O(1)  
-        set key value：设置key-value  O(1)
-        del key ：删除key-value       O(1)
-        
+     
 
-## 5.4 incr、decr、incrby、decrby命令解析  
-   
-        incr key : key自增1，如果可以key不存在，自增后get(key)=1 ;O(1)  
-        decr key : key自减1，如果key不存在，自减后get(key)=-1  ; O(1)  
-        incrby key k : key自增k，如果key不存在，自增后get(key) = k;O(1)   
-        decrby key k : key自减k，如果key不存在，自减后get(key) = -k;O(1)  
-  
-## 5.5 setnx,set xx命令的解析  
-  
-        setnx key value: 如果key不存在，则设置key-value；  
-        set key value xx: 更新key值为key的value为vlaue    
-  
-## 5.6 mget、mset命令解析  
-   
-        mget key1 key2...:批量获取key，原子操作 O(n)  
-        mset key1 value key2 value：批量设置key-value O(n)   
- 
+<pre><code>    单线程为什么会这么快？    
+
+        1. 纯内存    
+        2. 非阻塞IO    
+        3. 避免线程切换和竞太消耗    
+
+    单线程注意什么？     
+        1. 一次只运行一条命令    
+        2. 拒绝长（慢）命令：keys，flushdb，slow lua script，mutil/exec，operate big vlalue（collection）  
+        3. 其实不是单线程 如 fysnc file descriptor ，close file descriptor    
+</code></pre>
+
+<h1 id="5-redis的字符串类型的命令解析">5 redis的字符串类型的命令解析</h1>
+
+<ul>
+<li>结构和命令</li>
+<li>内部编码</li>
+<li>快速实战<br /></li>
+<li>查缺补漏<br />
+<br /></li>
+</ul>
+
+<h2 id="5-1-redis的键值对结构">5.1 Redis的键值对结构</h2>
+
+<pre><code>    对于key-value：key是string，value是redis支持的数据结构  
+</code></pre>
+
+<h2 id="5-2-场景">5.2 场景</h2>
+
+<ul>
+<li>缓存<br /></li>
+<li>计数器<br /></li>
+<li>分布式锁<br /></li>
+<li>&hellip;<br />
+<br /></li>
+</ul>
+
+<h2 id="5-3-get-set-del命令的解析">5.3 get、set、del命令的解析</h2>
+
+<pre><code>    get key：获取key对应的value    O(1)  
+    set key value：设置key-value  O(1)
+    del key ：删除key-value       O(1)
+</code></pre>
+
+<h2 id="5-4-incr-decr-incrby-decrby命令解析">5.4 incr、decr、incrby、decrby命令解析</h2>
+
+<pre><code>    incr key : key自增1，如果可以key不存在，自增后get(key)=1 ;O(1)  
+    decr key : key自减1，如果key不存在，自减后get(key)=-1  ; O(1)  
+    incrby key k : key自增k，如果key不存在，自增后get(key) = k;O(1)   
+    decrby key k : key自减k，如果key不存在，自减后get(key) = -k;O(1)  
+</code></pre>
+
+<h2 id="5-5-setnx-set-xx命令的解析">5.5 setnx,set xx命令的解析</h2>
+
+<pre><code>    setnx key value: 如果key不存在，则设置key-value；  
+    set key value xx: 更新key值为key的value为vlaue    
+</code></pre>
+
+<h2 id="5-6-mget-mset命令解析">5.6 mget、mset命令解析</h2>
+
+<pre><code>    mget key1 key2...:批量获取key，原子操作 O(n)  
+    mset key1 value key2 value：批量设置key-value O(n)   
+</code></pre>
+
 <div align=center><img src="https://fyzn12.github.io/img/picture/mget.png"/></div>  
   
 
@@ -288,13 +305,17 @@ redis 127.0.0.1:6379&gt; PING
 
 <h5 id="7-hmset-key-field1-value1-field2-value2-fieldn-valuen-o-n">7. hmset key field1 value1 field2 value2&hellip; fieldN valueN O(n)</h5>
 
-<div align=center><img src="https://fyzn12.github.io/img/picture/hmset-hmget.png"/></div>  
-##### 8. hgetall key:返回hash key对应所有的field和value O(n)  
-##### 9. hvals key ：返回hash key对应所有field的value O(n)  
-##### 10. hkeys key：返回hash key对应所有field O(n)  
+<div align=center><img src="https://fyzn12.github.io/img/picture/hmset-hmget.png"/></div>   
   
-<div align=center><img src="https://fyzn12.github.io/img/picture/hkeys-hvals.png"/></div>  
-    
+
+<h5 id="8-hgetall-key-返回hash-key对应所有的field和value-o-n">8. hgetall key:返回hash key对应所有的field和value O(n)</h5>
+
+<h5 id="9-hvals-key-返回hash-key对应所有field的value-o-n">9. hvals key ：返回hash key对应所有field的value O(n)</h5>
+
+<h5 id="10-hkeys-key-返回hash-key对应所有field-o-n">10. hkeys key：返回hash key对应所有field O(n)</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hkeys-hvals.png"/></div>    
+  
 
 <pre><code>    注意：小心使用hgetall  
             假如存放数据多，redis是单线程的特点，hgetal命令就会很慢  
@@ -302,10 +323,10 @@ redis 127.0.0.1:6379&gt; PING
 
 <h2 id="6-1-1-hash命令的总结">6.1.1 hash命令的总结</h2>
 
-<div align=center><img src="https://fyzn12.github.io/img/picture/hash-string.png"/></div>  
+<div align=center><img src="https://fyzn12.github.io/img/picture/hash-string.png"/></div>    
     
 
-<div align=center><img src="https://fyzn12.github.io/img/picture/hash-total.png"/></div>  
+<div align=center><img src="https://fyzn12.github.io/img/picture/hash-total.png"/></div>    
   
 
 <h2 id="6-2-实战">6.2 实战</h2>
@@ -366,6 +387,20 @@ redis 127.0.0.1:6379&gt; PING
 <h2 id="7-3-改命令解析">7.3 改命令解析</h2>
 
 <h5 id="1-lset-key-index-newvalue-设置列表指定索引为newvalue-o-n">1. lset key index newvalue:设置列表指定索引为newvalue O(n)</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/lrange-lpush.png"/></div>  
+  
+
+<h2 id="7-4-查缺补漏">7.4 查缺补漏</h2>
+
+<h5 id="1-blpop-key-timeout-lpop阻塞版本-timeout是阻塞超时时间-timeout-0为永远不阻塞-o-1">1. blpop key timeout:lpop阻塞版本，timeout是阻塞超时时间，timeout=0为永远不阻塞  O(1)</h5>
+
+<h5 id="2-brpop-key-timeout-rpop阻塞版本-timeout是阻塞超时时间-timeout-0为永远不阻塞-o-1">2. brpop key timeout:rpop阻塞版本，timeout是阻塞超时时间，timeout=0为永远不阻塞  O(1)</h5>
+
+<h2 id="7-5-list命令总结">7.5 list命令总结</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/list-total.png"/></div>  
+        
 </article>
     </section>
 

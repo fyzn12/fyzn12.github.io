@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+redis之java客户端
+</title>
+
+  
+  
+  <meta name="author" content="fyzn12" />
+  <meta name="description" content="1 jedis的简单介绍 1.1 Jedis是什么  直观来说，jedis就是redis-cli   1.2 引入jedis的依赖包  &amp;lt;!-- 引入jedis的依赖包 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;redis.clients&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jedis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.9.3&amp;lt;/version&amp;gt; &amp;lt;type&amp;gt;jar&amp;lt;/type&amp;gt; &amp;lt;scope&amp;gt;compile&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt;  1.3 jedis直连  生成一个Jedis对象，这个对象负责和指定Redis节点进行通信
+Jedis jedis = new Jedis(&amp;ldquo;127.0.0.1&amp;rdquo;,6379);
+ jedis执行set操作
+jedis.set(&amp;ldquo;hello&amp;rdquo;,&amp;ldquo;world&amp;rdquo;);
+ jedis执行get操作，value=&amp;ldquo;world&amp;rdquo;
+String value = jedis.get(&amp;ldquo;hello&amp;rdquo;);
+
+  Jedis构造函数的简单介绍  Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
+ 三个命令
+ 两个配置" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2" />
+
+
+<link rel="canonical" href="https://fyzn12.github.io/post/redis/jedis/" />
+<link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
+
+<link href="/css/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="首页"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+
+    <section class="ui top attached segment">
+      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
+        <i class="save icon"></i>
+      </a>
+      <header>
+        <h1 class="ui header">
+          redis之java客户端
+          <div class="sub header">@ fyzn12 · Mar 20, 2020 · 3 min read · 更新于 Jul 8, 2020</div>
+        </h1>
+      </header>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<h1 id="1-jedis的简单介绍">1 jedis的简单介绍</h1>
+
+<h2 id="1-1-jedis是什么">1.1 Jedis是什么</h2>
+
+<pre><code>    直观来说，jedis就是redis-cli    
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/jedis-info.png"/></div>  
+  
+
+<h2 id="1-2-引入jedis的依赖包">1.2 引入jedis的依赖包</h2>
+
+<pre><code>     &lt;!-- 引入jedis的依赖包 --&gt;
+    &lt;dependency&gt;  
+      &lt;groupId&gt;redis.clients&lt;/groupId&gt;  
+      &lt;artifactId&gt;jedis&lt;/artifactId&gt;  
+      &lt;version&gt;2.9.3&lt;/version&gt;  
+      &lt;type&gt;jar&lt;/type&gt;  
+      &lt;scope&gt;compile&lt;/scope&gt;  
+    &lt;/dependency&gt;   
+</code></pre>
+
+<h2 id="1-3-jedis直连">1.3 jedis直连</h2>
+
+<ol>
+<li>生成一个Jedis对象，这个对象负责和指定Redis节点进行通信<br />
+    Jedis jedis = new Jedis(&ldquo;127.0.0.1&rdquo;,6379);<br /></li>
+
+<li><p>jedis执行set操作<br />
+    jedis.set(&ldquo;hello&rdquo;,&ldquo;world&rdquo;);</p></li>
+
+<li><p>jedis执行get操作，value=&ldquo;world&rdquo;<br />
+    String value = jedis.get(&ldquo;hello&rdquo;);<br />
+<div align=center><img src="https://fyzn12.github.io/img/picture/jedis-test.png"/></div></p></li>
+</ol>
+
+<h3 id="jedis构造函数的简单介绍">Jedis构造函数的简单介绍</h3>
+
+<pre><code>    Jedis构造方法的参数  
+    Jedis(String host,int port,int connectionTimeout,int soTimeout);  
+    host:Redis节点的所在机器的IP；  
+    port：Redis节点的端口；  
+    connectionTimeout：客户端连接超时；  
+    soTimeout：客户端读写超时；    
+</code></pre>
+
+<h2 id="1-4-jedis直连和连接池的对比">1.4 Jedis直连和连接池的对比</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/jedispool.png"/></div>   
+ 
+
+<hr />
+
+<h1 id="2-redis的具体实现">2 redis的具体实现</h1>
+
+<h2 id="2-1-慢查询">2.1 慢查询</h2>
+
+<ul>
+<li>生命周期<br /></li>
+<li>三个命令<br /></li>
+<li>两个配置<br /></li>
+<li>运维经验<br />
+<br /></li>
+</ul>
+
+<h3 id="2-1-1-生命周期">2.1.1 生命周期</h3>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/live-redis.png"/></div>      
+  
+
+<pre><code>    两点说明：  
+    （1）慢查询发生在第三阶段  
+    （2）客户端超时不一定慢查询，但慢查询是客户端超时的一个可能因素
+</code></pre>
+
+<h3 id="2-1-2-慢查询的两个配置">2.1.2 慢查询的两个配置</h3>
+
+<h4 id="1-slowlog-log-slower-than">1. slowlog-log-slower-than</h4>
+
+<pre><code>    1. 慢查询阈值（单位：微秒）  
+    2. slowlog-log-slower-than=0：记录所有命令    
+    3. slowlog-log-slower-than&lt;0：不记录任何命令
+</code></pre>
+
+<h4 id="2-slowlog-max-len">2. slowlog-max-len</h4>
+
+<pre><code>    1. 先进先出  
+    2. 固定长度  
+    3. 保存在内存中    
+</code></pre>
+
+<h3 id="2-1-3-配置方法">2.1.3 配置方法</h3>
+
+<h4 id="1-默认值">1. 默认值</h4>
+
+<ul>
+<li>config get slowlog-max-len = 128<br /></li>
+<li>config get slowlog-log-slower-than = 10000（阈值）<br />
+<br /></li>
+</ul>
+
+<h4 id="2-修改配置文件重启">2. 修改配置文件重启</h4>
+
+<h4 id="3-动态配置">3. 动态配置</h4>
+
+<ul>
+<li>config set slowlog-max-len 1000<br /></li>
+<li>config set slowlog-log-slower-than 1000<br />
+<br /></li>
+</ul>
+
+<h3 id="2-1-4-慢查询的命令">2.1.4 慢查询的命令</h3>
+
+<h4 id="1-slowlog-get-n-获取慢查询队列">1. slowlog get[n]:获取慢查询队列</h4>
+
+<h4 id="2-slowlog-len-获取慢查询队列长度">2. slowlog len：获取慢查询队列长度</h4>
+
+<h4 id="3-slowlog-reset-清空慢查询队列">3. slowlog reset：清空慢查询队列</h4>
+
+<h3 id="2-1-5-慢查询的运维经验">2.1.5 慢查询的运维经验</h3>
+
+<ol>
+<li>slowlog-max-len不要设置过大，默认10ms，通常设置1ms。<br /></li>
+<li>slowlog-log-slower-than不要设置过小，通常设置1000左右。<br /></li>
+<li>理解命令生命周期。<br /></li>
+<li>定期持久化慢查询。<br />
+<br />
+<br /></li>
+</ol>
+
+<hr />
+
+<h1 id="3-springboot整合redis项目实战">3 SpringBoot整合Redis项目实战</h1>
+
+<h2 id="3-1-创建分布式项目">3.1 创建分布式项目</h2>
+
+<ul>
+<li>项目结构图如下<br /></li>
+<li><div align=center><img src="https://fyzn12.github.io/img/picture/springboot-redis.png"/></div><br />
+<br /></li>
+</ul>
+
+<h3 id="3-1-1-parent导入的依赖">3.1.1 parent导入的依赖</h3>
+
+<pre><code>    &lt;dependencies&gt;
+        &lt;!-- 导入springboot的启动器--&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- 导入mybatis的启动器 --&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+          &lt;version&gt;1.2.0&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- 导入jsp支持jstl--&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+          &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- springboot需要开启支持jsp，因此需要jsp的支持jar --&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
+          &lt;artifactId&gt;tomcat-embed-jasper&lt;/artifactId&gt;
+          &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- mysql的连接jar --&gt;
+        &lt;!-- mysql数据库 --&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;mysql&lt;/groupId&gt;
+          &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+          &lt;version&gt;8.0.15&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!-- mysql的连接池 --&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+          &lt;artifactId&gt;druid&lt;/artifactId&gt;
+          &lt;version&gt;${druid.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+          &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+          &lt;version&gt;1.3.1&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- 引入jedis的依赖包 --&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+          &lt;exclusions&gt;
+            &lt;exclusion&gt;
+              &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+              &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+            &lt;/exclusion&gt;
+            &lt;!--
+            &lt;exclusion&gt;
+                &lt;groupId&gt;io.lettuce&lt;/groupId&gt;
+                &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt;
+            &lt;/exclusion&gt;
+            --&gt;
+          &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+          &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+          &lt;version&gt;2.9.3&lt;/version&gt;
+          &lt;type&gt;jar&lt;/type&gt;
+          &lt;scope&gt;compile&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+          &lt;artifactId&gt;commons-pool2&lt;/artifactId&gt;
+          &lt;version&gt;2.5.0&lt;/version&gt;
+          &lt;!--&lt;version&gt;2.4.2&lt;/version&gt;--&gt;
+        &lt;/dependency&gt;
+        &lt;!-- 导入单元测试的启动器--&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;junit&lt;/groupId&gt;
+          &lt;artifactId&gt;junit&lt;/artifactId&gt;
+          &lt;version&gt;4.12&lt;/version&gt;
+          &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+      &lt;/dependencies&gt;  
+
+    注意：parent的项目打包方式是pom，其他项目依赖于该项目  
+</code></pre>
+
+<h3 id="3-1-2-创建springboot的配置文件application-properties">3.1.2 创建springboot的配置文件application.properties</h3>
+
+<p>创建该文件需要注意一下几点<br />
+* 关于springMVC、redis的配置文件必须根据全称去写如spring.mvc.view.suffix=.jsp不得随意更改=左边的值<br />
+* 该文件必须存放于classpath下也就是resources根目录下<br />
+* 命名为application.properties</p>
+
+<h4 id="文件内容如下">文件内容如下</h4>
+
+<pre><code>                    # 配置视图解析
+                    spring.mvc.view.prefix=/WEB-INF/views/
+                    spring.mvc.view.suffix=.jsp
+
+                    # 配置数据库连接参数
+                    spring.datasource.driverClassName =com.mysql.cj.jdbc.Driver
+                    spring.datasource.url=jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8
+                    spring.datasource.username=root
+                    spring.datasource.password=123456
+                    spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+                    # 指定mapper文件的位置
+                    mybatis.mapper-locations=classpath:mapper/*.xml
+
+                    # 配置Jedis
+                    #redis jedis配置
+                    # Redis数据库索引（默认为0）
+                    spring.redis.database=0
+                    # Redis服务器地址
+                    spring.redis.host=127.0.0.1
+                    # Redis服务器连接端口
+                    spring.redis.port=6379
+                    # Redis服务器连接密码（默认为空）
+                    #spring.redis.password=
+                    # 连接池最大连接数（使用负值表示没有限制）
+                    spring.redis.jedis.pool.max-active=5000
+                    # 连接池最大阻塞等待时间（使用负值表示没有限制）
+                    spring.redis.jedis.pool.max-wait=-1
+                    # 连接池中的最大空闲连接
+                    spring.redis.jedis.pool.max-idle=8
+                    # 连接池中的最小空闲连接
+                    spring.redis.jedis.pool.min-idle=0
+                    # 连接超时时间（毫秒）
+                    spring.redis.timeout=1000
+                    #spring-session 使用
+                    spring.session.store-type=none
+
+                    # 定义存放图片的key
+                    redis.key=bigImg
+
+                    # 配置静态资源放行
+                    spring.resources.static-locations=classpath*:/static/    
+</code></pre>
+
+<hr />
+
+<h2 id="3-2-创建redis的连接类redisconfig-java">3.2 创建Redis的连接类RedisConfig.java</h2>
+
+<p>在创建该类时需要了解以下几点<br />
+1. @EnableCaching的作用：开启缓存注解；
+2. Cacheable作用：把方法的返回值添加到Ehcache中做缓存Value属性：指定一个Ehcache配置文件中的缓存策略，如果么有给定value，name则表示使用默认的缓存策略。<br />
+3. @CacheEvict作用：清除缓存<br />
+4. @Configuration：具体作用请看博客：<a href="https://www.cnblogs.com/duanxz/p/7493276.html">@Configuration详解</a></p>
+
+<ol>
+<li>在SpringBoot2.x之后的版本中官网推荐使用的是lettuce连接池整合Redis，并且删除了一些整合Jedis的方法，因此这里使用Jedis整合Redis时需要重写这些方法，如CacheManager cacheManager(RedisConnectionFactory connectionFactory)方法。<br />
+<br /></li>
+</ol>
+
+<h3 id="3-2-1-创建该类的内容如下">3.2.1 创建该类的内容如下</h3>
+
+<pre><code>            /**
+             * @author fyzn12
+             * @version 1.0
+             * @date 2020/7/10 9:35
+             * @description:TODO
+             */
+            @Configuration
+            @EnableCaching
+            public class RedisConfig {
+
+                @Bean
+                    //如使用注解的话需要配置cacheManager
+                    //此处为与1.x最大的不同
+                CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+                    //初始化一个RedisCacheWriter
+                    RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(connectionFactory);
+                    RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig();
+                    //设置默认超过期时间是1天
+                    defaultCacheConfig.entryTtl(Duration.ofDays(1));
+                    //初始化RedisCacheManager
+                    RedisCacheManager cacheManager = new RedisCacheManager(redisCacheWriter, defaultCacheConfig);
+                    return cacheManager;
+                }
+
+                // 以下两种redisTemplate自由根据场景选择
+                @Bean
+                public RedisTemplate&lt;Object, Object&gt; redisTemplate(RedisConnectionFactory connectionFactory) {
+                    RedisTemplate&lt;Object, Object&gt; template = new RedisTemplate&lt;&gt;();
+                    template.setConnectionFactory(connectionFactory);
+
+                    //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值（默认使用JDK的序列化方式）
+                    Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Object.class);
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+                    mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+                    serializer.setObjectMapper(mapper);
+
+                    template.setValueSerializer(serializer);
+                    //使用StringRedisSerializer来序列化和反序列化redis的key值
+                    template.setKeySerializer(new StringRedisSerializer());
+                    template.afterPropertiesSet();
+                    return template;
+                }
+
+                @Bean
+                public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory) {
+                    StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
+                    stringRedisTemplate.setConnectionFactory(factory);
+                    return stringRedisTemplate;
+                }
+            }   
+</code></pre>
+
+<h3 id="3-2-2-创建测试类">3.2.2 创建测试类</h3>
+
+<pre><code>        /**
+         * @author fyzn12
+         * @version 1.0
+         * @date 2020/7/10 12:25
+         * @description:TODO
+         */
+
+
+        @RunWith(SpringRunner.class)
+        @SpringBootTest
+        public class RedisTest {
+
+            Logger log = LoggerFactory.getLogger(RedisTest.class);
+            @Autowired
+            RedisTemplate redisTemplate;
+            @Test
+            public void contextLoads() {
+                //这里相当于redis对String类型的set操作
+                redisTemplate.opsForValue().set(&quot;test&quot;,&quot;helloworld&quot;);
+                //这里相当于redis对String类型的get操作
+                String test = (String)redisTemplate.opsForValue().get(&quot;test&quot;);
+                System.out.println(test);
+            }
+        }  
+</code></pre>
+
+<hr />
+
+<h2 id="3-3-项目运行过程中遇到的bug总结">3.3 项目运行过程中遇到的bug总结</h2>
+
+<h3 id="3-3-1-springboot创建分布式项目时-前端访问页面显示下图">3.3.1 springboot创建分布式项目时，前端访问页面显示下图</h3>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/springboot-error1.png"/></div>   
+  
+
+<h4 id="分析上图中的error如下讨论">分析上图中的error如下讨论</h4>
+
+<ul>
+<li><p>产生404错误的原因有<br />
+    1. 配置的视图解析没有工作；但在该图中，很明显视图解析到了/WEB-INF/views/下，说明视图解析已经成功。<br />
+    2. 文件的访问路径与控制器的路径不匹配（在上图中也可以排除）<br />
+    3. springboot的启动器没有包含controller，或者与controller处于同级目录；</p></li>
+
+<li><p>以上几种原因在该项目中很明显都不是。</p></li>
+</ul>
+
+<h4 id="产生这个原因是因为分布式项目在解析控制器路径时产生的问题-具体原因我也尚未弄清楚-但目前知道有两种方式可以解决">产生这个原因是因为分布式项目在解析控制器路径时产生的问题，具体原因我也尚未弄清楚，但目前知道有两种方式可以解决</h4>
+
+<h5 id="方法一">方法一：</h5>
+
+<ul>
+<li>1. 找到项目右侧的 Maven，如图所示<br /></li>
+<li><div align=center><img src="https://fyzn12.github.io/img/picture/position-maven.png"/></div><br /></li>
+<li>2. 点检Maven之后展开项目，在Plugins下会找到一个spring-boot，将其展开，选择下面的spring-boot：run启动项目<br />
+<br /></li>
+</ul>
+
+<h5 id="方法二">方法二：</h5>
+
+<p>改变springboot的启动器的配置<br />
+1. 选择Edit Configurations 找到Environment，如下图所示
+<div align=center><img src="https://fyzn12.github.io/img/picture/edit-configuration1.png"/></div></p>
+
+<ol>
+<li>展开Environment之后，选择下面的Working directory，并在其右侧输入： $MODULE_WORKING_DIR$<br /></li>
+<li>保存点击ok，再次启动项目，访问即可成功
+
+
+
+<br />
+
+
+
+
+
+<br />
+
+<br /></li>
+</ol>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/jedis" title="jedis">jedis</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    
+<section class="ui top attached center aligned inverted segment">
+
+  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
+    <i class="bars icon" title="弹出菜单"></i>
+  </a>
+
+  <div class="ui small circular image" style="margin-top: 1rem;">
+    
+    <img src="/img/dome2.jpg">
+    
+  </div>
+  
+  <h3 class="ui inverted header">
+  fyzn12的博客<div class="sub header">路是自己走、踏破云层，也许看不到所幻想的彩虹、却能体会自己付出的汗水！</div>
+  </h3>
+
+  
+  <div class="ui inverted horizontal list">
+  
+    
+    <a class="item" href="/post">
+      <i class="archive icon" title="归档"></i>
+    </a>
+    
+    <a class="item" href="/tags">
+      <i class="tags icon" title="所有标签"></i>
+    </a>
+    <a class="item" href="/categories">
+      <i class="cube icon" title="所有分类"></i>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
+
+  
+  <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+  
+  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+  
+  <a class="ui label" href="/tags/java" title="java">java</a>
+  
+  <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
+  
+  <a class="ui label" href="/tags/jedis" title="jedis">jedis</a>
+  
+  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+  
+  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
+  
+  <a class="ui label" href="/tags/redis" title="redis">redis</a>
+  
+  <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
+  
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+
+  
+  <div class="ui inverted accordion">
+  
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/algorithm" class="item">algorithm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/database" class="item">database</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/java%E5%9F%BA%E7%A1%80" class="item">java基础</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/redis" class="item">redis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/jedis/" class="item">redis之java客户端</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssm" class="item">ssm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">mybatis之动态SQL</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/" class="item">ssm随学札记</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mybatis之mapper接口编程</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ui bottom attached center aligned inverted segment">
+
+    
+    <p>© 2019 - 2020 fyzn12个人博客</p>
+    
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:1149919071@qq.com">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/fyzn12/" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      
+      <header class="ui inverted segment">
+      
+        <h2 class="ui header">
+          喜欢的诗
+        </h2>
+      </header>
+
+      
+      <article class="ui inverted segment markdown-body">
+      
+        <div class="ui stackable three column grid">
+          <div class="column">
+              
+              (<font color="blue" face="楷体">我以为上帝为我关上了一扇门，会为我打开一扇窗，谁知再关上门的同时，把窗也锁了  可笑又可悲！</font>)<br />
+每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。<br />
+每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。<br />
+每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。<br />
+每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。<br />
+每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。<br />
+你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。<br />
+也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。<br />
+你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。<br />
+我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
+              
+          </div>
+          <div class="column">
+              
+          </div>
+          <div class="column">
+              
+          </div>
+        </div>
+      </article>
+
+      
+
+      
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

@@ -103,6 +103,8 @@
   
   <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
   
+  <a class="ui label" href="/tags/jedis" title="jedis">jedis</a>
+  
   <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
   
   <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
@@ -194,6 +196,13 @@
         </div>
       </div>
       
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/jedis/" class="item">redis之java客户端</a>
+        </div>
+      </div>
+      
       </div>
     </div>
     
@@ -266,6 +275,54 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">
+              
+              <h2 class="ui header" style="color: white;">mybatis之mapper接口编程</h2>
+              
+            </a>
+            <p style="padding: 5px;">面向接口编程的思路  创建pojo（javaBean）类
+ 创建接口
+ 创建接口对应的mapper文件
+注意：
+1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
+ 
+  如果用读取文件的方式，则不用在同一个包下如下
+&lt;mappers&gt; &lt;mapper resource=&#34;mapper/*.xml&#34;/&gt; &lt;/mappers&gt;  2）mapper文件的namespace取值必须和接口的全路径相同
+3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
+4）多参传递可以不写parameterType属性
+5）参数的下标书写 &lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
+6）参数的占位书写
+7）参数的声明书写 方法中用@Param声明。
+4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
+InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); }   </p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">1 min read</div>
+          <div class="ui bottom left attached black label">Sep 24, 2019</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default5.jpg" alt="mybatis之mapper接口编程">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/mybatis/mybatis01/">
               
               <h2 class="ui header" style="color: white;">Mybatis-的配置文件</h2>
@@ -284,7 +341,7 @@
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="Mybatis-的配置文件">
+    <img src="/img/default5.jpg" alt="Mybatis-的配置文件">
     
   </div>
 </article>
@@ -319,7 +376,7 @@
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="Emoji Support">
+    <img src="/img/default1.jpg" alt="Emoji Support">
     
   </div>
 </article>

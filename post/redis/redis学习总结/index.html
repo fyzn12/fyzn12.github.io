@@ -400,7 +400,37 @@ redis 127.0.0.1:6379&gt; PING
 <h2 id="7-5-list命令总结">7.5 list命令总结</h2>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/list-total.png"/></div>  
-        
+  
+
+<h1 id="8-redis的集合结构命令解析">8 redis的集合结构命令解析</h1>
+
+<p>集合内的API，所有的命令都是以s开头的</p>
+
+<h2 id="8-1-命令解析">8.1 命令解析</h2>
+
+<h5 id="1-sadd-key-element-向集合key添加element-如果element已经存在-添加失败-o-1">1. sadd key element：向集合key添加element（如果element已经存在，添加失败）O(1)</h5>
+
+<h5 id="2-srem-key-element-将集合key中element移除掉-o-1">2. srem key element：将集合key中element移除掉 O(1)</h5>
+
+<h5 id="3-scard-计算集合的大小">3. scard 计算集合的大小</h5>
+
+<h5 id="4-sismember-key-element-判断element是否在集合中">4. sismember key element：判断element是否在集合中</h5>
+
+<h5 id="5-srandmember-从集合中随机挑count元素-语法-srandmember-key-count">5. srandmember ：从集合中随机挑count元素；语法：srandmember key count</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/scard-sismember.png"/></div>  
+  
+
+<h5 id="6-spop-key-从集合中随机弹出一个数">6. spop key：从集合中随机弹出一个数</h5>
+
+<h5 id="7-smembers-key-获取集合中的所有数据-无序">7. smembers key ：获取集合中的所有数据 ，无序</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/smembers.png"/></div>   
+  
+
+<h2 id="8-2-set集合的总结">8.2 set集合的总结</h2>
+
+<p><div align=center><img src="https://fyzn12.github.io/img/picture/set.png "/></div></p>
 </article>
     </section>
 
@@ -465,6 +495,8 @@ redis 127.0.0.1:6379&gt; PING
   <a class="ui label" href="/tags/java" title="java">java</a>
   
   <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
+  
+  <a class="ui label" href="/tags/jedis" title="jedis">jedis</a>
   
   <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
   
@@ -554,6 +586,13 @@ redis 127.0.0.1:6379&gt; PING
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/jedis/" class="item">redis之java客户端</a>
         </div>
       </div>
       

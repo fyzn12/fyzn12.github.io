@@ -32,8 +32,7 @@ Jedis jedis = new Jedis(&amp;ldquo;127.0.0.1&amp;rdquo;,6379);
 jedis.set(&amp;ldquo;hello&amp;rdquo;,&amp;ldquo;world&amp;rdquo;);
  jedis执行get操作，value=&amp;ldquo;world&amp;rdquo;
 String value = jedis.get(&amp;ldquo;hello&amp;rdquo;);
-
-  Jedis构造函数的简单介绍  Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
+   Jedis构造函数的简单介绍  Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
  三个命令
  两个配置</description>
     </item>

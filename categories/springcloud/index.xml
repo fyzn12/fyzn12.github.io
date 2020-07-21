@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>springcloud on fyzn12个人博客</title>
+    <link>https://fyzn12.github.io/categories/springcloud/</link>
+    <description>Recent content in springcloud on fyzn12个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/categories/springcloud/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SpringCloud之Eureka2.0服务注册中心</title>
+      <link>https://fyzn12.github.io/post/springcloud/springcloud-eureka/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/springcloud/springcloud-eureka/</guid>
+      <description>SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
+ 每个服务运行在单独的进程中
+ 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
+  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http+json（restful）进行传输。
+ 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
+ SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
+  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
+ 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
+Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
+
+***
+  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件  &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-study-server&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;jar&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-study-server Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!</description>
+    </item>
+    
+  </channel>
+</rss>

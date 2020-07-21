@@ -6,17 +6,26 @@
     <description>Recent content in Categories on fyzn12个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 18 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>spring boot</title>
-      <link>https://fyzn12.github.io/categories/spring-boot/</link>
+      <title>springcloud</title>
+      <link>https://fyzn12.github.io/categories/springcloud/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/categories/springcloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>springboot</title>
+      <link>https://fyzn12.github.io/categories/springboot/</link>
       <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/categories/spring-boot/</guid>
+      <guid>https://fyzn12.github.io/categories/springboot/</guid>
       <description></description>
     </item>
     

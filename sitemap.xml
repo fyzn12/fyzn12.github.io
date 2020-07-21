@@ -4,22 +4,37 @@
   
   <url>
     <loc>https://fyzn12.github.io/categories/</loc>
-    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/</loc>
-    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/post/</loc>
-    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/spring-boot/</loc>
-    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
+    <loc>https://fyzn12.github.io/categories/springcloud/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/springcloud/springcloud-eureka/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/tags/springcloudeureka/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/tags/</loc>
+    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -33,7 +48,7 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/</loc>
+    <loc>https://fyzn12.github.io/categories/springboot/</loc>
     <lastmod>2020-07-18T00:00:00+00:00</lastmod>
   </url>
   

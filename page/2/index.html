@@ -115,6 +115,8 @@
   
   <a class="ui label" href="/tags/spring-data-jpa" title="spring-data-jpa">spring-data-jpa</a>
   
+  <a class="ui label" href="/tags/springcloudeureka" title="springcloudeureka">springcloudeureka</a>
+  
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
 </section>
@@ -212,7 +214,7 @@
     
     <div class="title">
       <i class="dropdown icon"></i>
-      <a href="/categories/spring-boot" class="item">spring-boot</a>
+      <a href="/categories/springboot" class="item">springboot</a>
     </div>
     <div class="content">
       <div class="ui link list">
@@ -221,6 +223,23 @@
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="item">Spring Boot整合Spring Data JPA</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/springcloud" class="item">springcloud</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="item">SpringCloud之Eureka2.0服务注册中心</a>
         </div>
       </div>
       
@@ -296,6 +315,40 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+              
+              <h2 class="ui header" style="color: white;">redis学习日志汇总</h2>
+              
+            </a>
+            <p style="padding: 5px;">1 Redis的简介 1.1 了解什么是redis  redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库， 并提供多种语言的API。 他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  1.2 redis的特点  * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。 * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。 * Redis支持数据的备份，即master-slave模式的数据备份。  1.3 redis的优势  * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。 * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。 * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务， 即原子性，通过MULTI和EXEC指令包起来。 * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  1.4 Redis支持的数据类型  * string（字符串） * hash（哈希） * list（列表） * set（集合） * zset或sorted set（有序集合）  2 Redis 命令 2.</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">3 min read</div>
+          <div class="ui bottom left attached black label">Jun 11, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default5.jpg" alt="redis学习日志汇总">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
               
               <h2 class="ui header" style="color: white;">多线程</h2>
@@ -353,7 +406,7 @@
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="常见算法篇">
+    <img src="/img/default1.jpg" alt="常见算法篇">
     
   </div>
 </article>
@@ -395,45 +448,7 @@ String value = jedis.get(“hello”);
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="redis之java客户端">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
-              
-              <h2 class="ui header" style="color: white;">mybatis之动态SQL</h2>
-              
-            </a>
-            <p style="padding: 5px;">动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
- &lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
- 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
- &lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">2 min read</div>
-          <div class="ui bottom left attached black label">Oct 8, 2019</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default5.jpg" alt="mybatis之动态SQL">
+    <img src="/img/default4.jpg" alt="redis之java客户端">
     
   </div>
 </article>

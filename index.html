@@ -111,6 +111,8 @@
   
   <a class="ui label" href="/tags/redis" title="redis">redis</a>
   
+  <a class="ui label" href="/tags/soa-rpc" title="soa-rpc">soa-rpc</a>
+  
   <a class="ui label" href="/tags/spring-data-jpa" title="spring-data-jpa">spring-data-jpa</a>
   
   <a class="ui label" href="/tags/springcloudeureka" title="springcloudeureka">springcloudeureka</a>
@@ -241,6 +243,13 @@
         </div>
       </div>
       
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="item">微服务架构的介绍</a>
+        </div>
+      </div>
+      
       </div>
     </div>
     
@@ -339,7 +348,7 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="SpringCloud之Eureka2.0服务注册中心">
+    <img src="/img/default1.jpg" alt="SpringCloud之Eureka2.0服务注册中心">
     
   </div>
 </article>
@@ -376,7 +385,7 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="Spring Boot整合Spring Data JPA">
+    <img src="/img/default2.jpg" alt="Spring Boot整合Spring Data JPA">
     
   </div>
 </article>
@@ -430,7 +439,7 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="数据库易忘知识点总结">
+    <img src="/img/default1.jpg" alt="数据库易忘知识点总结">
     
   </div>
 </article>
@@ -448,24 +457,26 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
           
           <div class="display-content">
           
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/">
+            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">
               
-              <h2 class="ui header" style="color: white;">java基础篇</h2>
+              <h2 class="ui header" style="color: white;">微服务架构的介绍</h2>
               
             </a>
-            <p style="padding: 5px;">JVM加载class文件的原理机制  JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。  JDK和JRE的区别  * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
-==和equals的区别 ==解读  对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读  equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.</p>
+            <p style="padding: 5px;">微服务架构的介绍 1 单体架构  单体架构也称为单体系统或者单体应用。就是一种把系统中的所有功能、模块耦合在一个应用中的架构方式  1.1 单体架构特点 1. 单体架构最终会打包成一个独立的单元(导成一个唯一的jar包或者war包) 2. 会以一个进程的方式来运行 3. 项目结构图如下图所示  
+1.2 单体架构的优点、缺点 1.2.1 优点：  1. 项目易于管理 2. 部署简单  1.2.2 缺点：  1. 测试成本高 2. 可伸缩性差 3. 可靠性差 4. 迭代困难 5. 跨语言程度差 6. 团队协作难  2 微服务架构 2.1 什么是微服务  微服务就是一种架构风格，一个大型的复杂软件应用，由一个或多个微服务组成。 系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅仅关注于完成一件任务。  2.2 什么架构风格  架构风格就是项目的一种设计模式  2.2.1 常见的架构风格  客户端与服务端
+ 基于组件模型的架构（EJB） 分层架构（MVC） 面向服务架构（SOA）
+  2.3 微服务的特点 1. 系统是由多个服务构成 2.</p>
             <p>@ fyzn12</p>
           </div>
           
-          <div class="ui top right attached black label">4 min read</div>
-          <div class="ui bottom left attached black label">Jun 11, 2020</div>
+          <div class="ui top right attached black label">1 min read</div>
+          <div class="ui bottom left attached black label">Jun 24, 2020</div>
           
         </div>
       </div>
     </div>
     
-    <img src="/img/default1.jpg" alt="java基础篇">
+    <img src="/img/default1.jpg" alt="微服务架构的介绍">
     
   </div>
 </article>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+微服务架构的介绍
+</title>
+
+  
+  
+  <meta name="author" content="fyzn12" />
+  <meta name="description" content="微服务架构的介绍 1 单体架构  单体架构也称为单体系统或者单体应用。就是一种把系统中的所有功能、模块耦合在一个应用中的架构方式  1.1 单体架构特点 1. 单体架构最终会打包成一个独立的单元(导成一个唯一的jar包或者war包) 2. 会以一个进程的方式来运行 3. 项目结构图如下图所示  
+1.2 单体架构的优点、缺点 1.2.1 优点：  1. 项目易于管理 2. 部署简单  1.2.2 缺点：  1. 测试成本高 2. 可伸缩性差 3. 可靠性差 4. 迭代困难 5. 跨语言程度差 6. 团队协作难  2 微服务架构 2.1 什么是微服务  微服务就是一种架构风格，一个大型的复杂软件应用，由一个或多个微服务组成。 系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅仅关注于完成一件任务。  2.2 什么架构风格  架构风格就是项目的一种设计模式  2.2.1 常见的架构风格  客户端与服务端
+ 基于组件模型的架构（EJB） 分层架构（MVC） 面向服务架构（SOA）
+  2.3 微服务的特点 1. 系统是由多个服务构成 2." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2" />
+
+
+<link rel="canonical" href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" />
+<link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
+
+<link href="/css/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="首页"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+
+    <section class="ui top attached segment">
+      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
+        <i class="save icon"></i>
+      </a>
+      <header>
+        <h1 class="ui header">
+          微服务架构的介绍
+          <div class="sub header">@ fyzn12 · Jun 24, 2020 · 1 min read · 更新于 Jun 26, 2020</div>
+        </h1>
+      </header>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<h1 id="微服务架构的介绍">微服务架构的介绍</h1>
+
+<hr />
+
+<h1 id="1-单体架构">1 单体架构</h1>
+
+<pre><code>    单体架构也称为单体系统或者单体应用。就是一种把系统中的所有功能、模块耦合在一个应用中的架构方式  
+</code></pre>
+
+<h2 id="1-1-单体架构特点">1.1 单体架构特点</h2>
+
+<pre><code>1. 单体架构最终会打包成一个独立的单元(导成一个唯一的jar包或者war包)  
+2. 会以一个进程的方式来运行  
+3. 项目结构图如下图所示  
+</code></pre>
+
+<p><div align=center><img src="https://fyzn12.github.io/img/picture/mvc.png"/></div></p>
+
+<h2 id="1-2-单体架构的优点-缺点">1.2 单体架构的优点、缺点</h2>
+
+<h3 id="1-2-1-优点">1.2.1 优点：</h3>
+
+<pre><code>        1. 项目易于管理  
+        2. 部署简单  
+</code></pre>
+
+<h3 id="1-2-2-缺点">1.2.2 缺点：</h3>
+
+<pre><code>        1. 测试成本高  
+        2. 可伸缩性差  
+        3. 可靠性差  
+        4. 迭代困难  
+        5. 跨语言程度差  
+        6. 团队协作难  
+</code></pre>
+
+<hr />
+
+<h1 id="2-微服务架构">2 微服务架构</h1>
+
+<h2 id="2-1-什么是微服务">2.1 什么是微服务</h2>
+
+<pre><code>        微服务就是一种架构风格，一个大型的复杂软件应用，由一个或多个微服务组成。  
+    系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅仅关注于完成一件任务。  
+</code></pre>
+
+<h2 id="2-2-什么架构风格">2.2 什么架构风格</h2>
+
+<pre><code>        架构风格就是项目的一种设计模式  
+</code></pre>
+
+<h3 id="2-2-1-常见的架构风格">2.2.1 常见的架构风格</h3>
+
+<ol>
+<li>客户端与服务端<br /></li>
+<li>基于组件模型的架构（EJB）</li>
+<li>分层架构（MVC）</li>
+<li>面向服务架构（SOA）<br />
+
+<br /></li>
+</ol>
+
+<h2 id="2-3-微服务的特点">2.3 微服务的特点</h2>
+
+<pre><code>1. 系统是由多个服务构成  
+2. 每个服务可以单独独立部署  
+3. 每个服务之间是松耦合的。服务内部是高内聚的，外部是低耦合的。高内聚就是每个服务只关注于完成一个功能  
+</code></pre>
+
+<h2 id="2-4-微服务的优点-缺点">2.4 微服务的优点、缺点</h2>
+
+<h3 id="2-4-1-优点">2.4.1 优点</h3>
+
+<ol>
+<li>测试容易<br /></li>
+<li>可伸缩性强<br /></li>
+<li>可靠性强<br /></li>
+<li>跨语言程度会更加灵活<br /></li>
+<li>团队协作更加容易<br /></li>
+<li>系统迭代容易<br /></li>
+</ol>
+
+<h3 id="2-4-2-缺点">2.4.2 缺点</h3>
+
+<ol>
+<li>运维成本过高，部署数量较多<br /></li>
+<li>接口兼容多版本<br /></li>
+<li>分布式系统的复杂性<br /></li>
+<li>分布式事务<br /></li>
+</ol>
+
+<hr />
+
+<h1 id="3-mvc-rpc-soa-微服务架构之间的区别">3 MVC、RPC、SOA、微服务架构之间的区别</h1>
+
+<h2 id="3-1-mvc架构">3.1 MVC架构</h2>
+
+<pre><code>    其实MVC架构就是一种单体架构  
+    代表技术：Struts2、SpringMVC、Spring、Mybatis等等  
+</code></pre>
+
+<h2 id="3-2-rpc架构">3.2 RPC架构</h2>
+
+<pre><code>        RPC(Remote Procedure Call)远程过程调用。他是一种通过网络从远程计算机程序上请求服务，而不需要   
+        了解底层网络技术的协议。  
+
+        代表技术：Thrift、Hessian等  
+</code></pre>
+
+<h2 id="3-3-soa架构">3.3 SOA架构</h2>
+
+<pre><code>    SOA(Service Oriented Architecture)面向服务架构  
+
+    ESB企业服务总线，服务中介。主要是提供一个服务与服务之间的交互。  
+    ESB包含的功能：负载均衡，流量控制，加密处理，服务的监控，异常处理，监控告急等等。  
+
+    代表技术：Mule、WSO2  
+</code></pre>
+
+<h2 id="3-4-微服务架构">3.4 微服务架构</h2>
+
+<pre><code>    微服务架构就是一种轻量级的服务治理方案  
+
+    代表技术：SpringCloud、Dubbo等  
+</code></pre>
+
+<h1 id="4-微服务架构的设计原则">4 微服务架构的设计原则</h1>
+
+<p>微服务架构设计遵循以下原则</p>
+
+<ol>
+<li>AKF拆分原则（重点掌握）<br /></li>
+<li>前后端分离原则<br /></li>
+<li>无状态服务<br /></li>
+<li>Restful的通信风格<br /></li>
+</ol>
+
+<h2 id="4-1-akf拆分原则">4.1 AKF拆分原则</h2>
+
+<pre><code>    业界对于可扩展的系统架构设计有一个朴素的理念,就是：通过加机器就可以解决容量和可用性问题。  
+    (如果一台不行那就两台)。我是个段子：（世界上没有什么事是一顿烧烤不能解决的。如果有，那就两  
+    顿。）这一理念在“云计算”概念疯狂流行的今天，得到了广泛的认可！对于一个规模迅速增长的系统而  
+    言，容量和性能问题当然是首当其冲的。但是随着时间的向前，系统规模的增长，除了面对性能与容量的  
+    问题外，还需要面对功能与模块数量上的增长带来的系统复杂性问题以及业务的变化带来的提供差异化服  
+    务问题。而许多系统，在架构设计时并未充分考虑到这些问题，导致系统的重构成为常态，从而影响业务  
+    交付能力，还浪费人力财力！对此，《可扩展的艺术》一书提出了一个更加系统的可扩展模型——AKF可扩展  
+    立方（ScalabilityCube）。这个立方体中沿着三个坐标轴设置分别为：X、Y、Z。  
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/AKF.png"/></div>    
+ 
+
+<h3 id="4-1-1-y轴-功能">4.1.1 Y轴（功能）</h3>
+
+<pre><code>    Y轴扩展会将庞大的整体应用拆分为多个服务。每个服务实现一组相关的功能，如订单管理、客户管理等。  
+    在工程上常见的方案是服务化架构(SOA)。比如对于一个电子商务平台，我们可以拆分成不同的服务，  
+    组成下面这样的架构：  
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/Y.png"/></div>   
+  
+
+<h4 id="总结-但通过观察上图容易发现-当服务数量增多时-服务调用关系变得复杂-为系统添加一个新功能-要调用的服务数也变得不可控-由此引发了服务管理上的混乱-所以-一般情况下-需要采用服务注册的机制形成服务网关来进行服务治理-系统的架构将变成下图所示">总结：  但通过观察上图容易发现，当服务数量增多时，服务调用关系变得复杂。为系统添加一个新功能，要调用的服务数也变得不可控，由此引发了服务管理上的混乱。所以，一般情况下，需要采用服务注册的机制形成服务网关来进行服务治理。系统的架构将变成下图所示：</h4>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/Y-getway.png"/></div>   
+  
+
+<h3 id="4-1-2-x轴-水平扩展">4.1.2 X轴（水平扩展）</h3>
+
+<pre><code>        X轴扩展与我们前面朴素理念是一致的，通过绝对平等地复制服务与数据，以解决容量和可用性的问题。  
+    其实就是将微服务运行多个实例，做集群加负载均衡的模式。为了提升单个服务的可用性和容量，  
+    对每一个服务进行X轴扩展划分。  
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/X.png"/></div>    
+  
+
+<h3 id="4-1-3-z轴-数据分区">4.1.3 Z轴（数据分区）</h3>
+
+<pre><code>    Z轴扩展通常是指基于请求者或用户独特的需求，进行系统划分，并使得划分出来的子系统是相互隔离但   
+    又是完整的。以生产汽车的工厂来举例：福特公司为了发展在中国的业务，或者利用中国的廉价劳动力，  
+    在中国建立一个完整的子工厂，与美国工厂一样，负责完整的汽车生产。这就是一种Z轴扩展。  
+</code></pre>
+
+<h4 id="工程领域常见的z轴扩展有以下两种方案">工程领域常见的Z轴扩展有以下两种方案：</h4>
+
+<h5 id="1-在分布式服务设计领域-一个单元-cell-就是满足某个分区所有业务操作的自包含闭环-如上面我们说到的y轴扩展的soa架构-客户端对服务端节点的选择一般是随机的-但是-如果在此加上z轴扩展-那服务节点的选择将不再是随机的了-而是每个单元自成一体-如下图">1. 在分布式服务设计领域，一个单元（Cell）就是满足某个分区所有业务操作的自包含闭环。如上面我们说到的Y轴扩展的SOA架构，客户端对服务端节点的选择一般是随机的，但是，如果在此加上Z轴扩展，那服务节点的选择将不再是随机的了，而是每个单元自成一体。如下图：</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/Z-1.png"/></div>    
+  
+
+<h5 id="2-数据分区-为了性能数据安全上的考虑-我们将一个完整的数据集按一定的维度划分出不同的子集-一个分区-shard-就是是整体数据集的一个子集-比如用尾号来划分用户-那同样尾号的那部分用户就可以认为是一个分区-数据分区为一般包括以下几种数据划分的方式">2. 数据分区 ：为了性能数据安全上的考虑，我们将一个完整的数据集按一定的维度划分出不同的子集。一个分区（Shard），就是是整体数据集的一个子集。比如用尾号来划分用户，那同样尾号的那部分用户就可以认为是一个分区。数据分区为一般包括以下几种数据划分的方式：</h5>
+
+<pre><code>    数据类型（如：业务类型）  
+    数据范围（如：时间段，用户ID）  
+    数据热度（如：用户活跃度，商品热度）  
+    按读写分（如：商品描述，商品库存）  
+</code></pre>
+
+<h2 id="4-2-前后端分离原则">4.2 前后端分离原则</h2>
+
+<pre><code>    何为前后端分离？前后端本来不就分离么？这要从尴尬的jsp讲起。分工精细化从来都是蛋糕做大的原则，  
+    多个领域工程师最好在不需要接触其他领域知识的情况下合作，才可能使效率越来越高，维护也会变得简  
+    单。jsp的模板技术融合了html和java代码，使得传统MVC开发中的前后端在这里如胶似漆，前端做好页  
+    面，后端转成模板，发现问题再找前端，前端又看不懂java代码......前后端分离的目的就是将这尴尬  
+    局面打破。前后端分离原则，简单来讲就是前端和后端的代码分离，我们推荐的模式是最好采用物理分离  
+    的方式部署，进一步促使更彻底的分离。如果继续直接使用服务端模板技术，如：jsp，把java、js、  
+    html、css都堆到一个页面里，稍微复杂一点的页面就无法维护了。  
+</code></pre>
+
+<h3 id="这种分离方式有几个好处">这种分离方式有几个好处：</h3>
+
+<ol>
+<li>前后端技术分离，可以由各自的专家来对各自的领域进行优化，这样前段的用户体验优化效果更好。<br /></li>
+<li>分离模式下，前后端交互界面更清晰，就剩下了接口模型，后端的接口简洁明了，更容易维护。<br /></li>
+<li>前端多渠道集成场景更容易实现，后端服务无需变更，采用统一的数据和模型，可以支持多个前端：例如：微信h5前端、PC前端、安卓前端、IOS前端。<br /></li>
+</ol>
+
+<h2 id="4-3-无状态服务">4.3 无状态服务</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/notType.png"/></div>  
+  
+
+<pre><code>    对于无状态服务，首先说一下什么是状态：如果一个数据需要被多个服务共享，才能完成一笔交易，  
+    那么这个数据被称为状态。进而依赖这个“状态”数据的服务被称为有状态服务，反之称为无状态服务。  
+    那么这个无状态服务原则并不是说在微服务架构里就不允许存在状态，表达的真实意思是要把有状态的业    
+    务服务改变为无状态的计算类服务，那么状态数据也就相应的迁移到对应的“有状态数据服务”中。场景说  
+    明：例如我们以前在本地内存中建立的数据缓存、Session缓存，到现在的微服务架构中就应该把这些数  
+    据迁移到分布式缓存中存储，让业务服务变成一个无状态的计算节点。迁移后，就可以做到按需动态伸  
+    缩，微服务应用在运行时动态增删节点，就不再需要考虑缓存数据如何同步的问题。   
+</code></pre>
+
+<h2 id="4-4-restful的通讯风格">4.4 RestFul的通讯风格</h2>
+
+<ol>
+<li>无状态协议HTTP，具备先天优势，扩展能力很强。例如需要安全加密，有现成的成熟方案HTTPS即可。<br /></li>
+<li>JSON报文序列化，轻量简单，人与机器均可读，学习成本低，搜索引擎友好。<br /></li>
+<li>语言无关，各大热门语言都提供成熟的RestfulAPI框架，相对其他的一些RPC框架生态更完善。
+
+
+<br />
+
+<br /></li>
+</ol>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/soa-rpc" title="SOA , RPC">SOA , RPC</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    
+<section class="ui top attached center aligned inverted segment">
+
+  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
+    <i class="bars icon" title="弹出菜单"></i>
+  </a>
+
+  <div class="ui small circular image" style="margin-top: 1rem;">
+    
+    <img src="/img/dome2.jpg">
+    
+  </div>
+  
+  <h3 class="ui inverted header">
+  fyzn12的博客<div class="sub header">路是自己走、踏破云层，也许看不到所幻想的彩虹、却能体会自己付出的汗水！</div>
+  </h3>
+
+  
+  <div class="ui inverted horizontal list">
+  
+    
+    <a class="item" href="/post">
+      <i class="archive icon" title="归档"></i>
+    </a>
+    
+    <a class="item" href="/tags">
+      <i class="tags icon" title="所有标签"></i>
+    </a>
+    <a class="item" href="/categories">
+      <i class="cube icon" title="所有分类"></i>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
+
+  
+  <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+  
+  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+  
+  <a class="ui label" href="/tags/java" title="java">java</a>
+  
+  <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
+  
+  <a class="ui label" href="/tags/jedis" title="jedis">jedis</a>
+  
+  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+  
+  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
+  
+  <a class="ui label" href="/tags/redis" title="redis">redis</a>
+  
+  <a class="ui label" href="/tags/soa-rpc" title="soa-rpc">soa-rpc</a>
+  
+  <a class="ui label" href="/tags/spring-data-jpa" title="spring-data-jpa">spring-data-jpa</a>
+  
+  <a class="ui label" href="/tags/springcloudeureka" title="springcloudeureka">springcloudeureka</a>
+  
+  <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
+  
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+
+  
+  <div class="ui inverted accordion">
+  
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/algorithm" class="item">algorithm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/database" class="item">database</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/java%E5%9F%BA%E7%A1%80" class="item">java基础</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/redis" class="item">redis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/jedis/" class="item">redis之java客户端</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/springboot" class="item">springboot</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="item">Spring Boot整合Spring Data JPA</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/springcloud" class="item">springcloud</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="item">SpringCloud之Eureka2.0服务注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="item">微服务架构的介绍</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssm" class="item">ssm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">mybatis之动态SQL</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/" class="item">ssm随学札记</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mybatis之mapper接口编程</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ui bottom attached center aligned inverted segment">
+
+    
+    <p>© 2019 - 2020 fyzn12个人博客</p>
+    
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:1149919071@qq.com">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/fyzn12/" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      
+      <header class="ui inverted segment">
+      
+        <h2 class="ui header">
+          喜欢的诗
+        </h2>
+      </header>
+
+      
+      <article class="ui inverted segment markdown-body">
+      
+        <div class="ui stackable three column grid">
+          <div class="column">
+              
+              <p style="text-align:center">
+每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。  
+每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。   
+每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。  
+每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。   
+每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。  
+你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。   
+也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。  
+你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。   
+我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
+              
+          </div>
+          <div class="column">
+              
+          </div>
+          <div class="column">
+              
+          </div>
+        </div>
+      </article>
+
+      
+
+      
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

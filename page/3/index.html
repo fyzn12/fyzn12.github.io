@@ -113,6 +113,8 @@
   
   <a class="ui label" href="/tags/redis" title="redis">redis</a>
   
+  <a class="ui label" href="/tags/soa-rpc" title="soa-rpc">soa-rpc</a>
+  
   <a class="ui label" href="/tags/spring-data-jpa" title="spring-data-jpa">spring-data-jpa</a>
   
   <a class="ui label" href="/tags/springcloudeureka" title="springcloudeureka">springcloudeureka</a>
@@ -243,6 +245,13 @@
         </div>
       </div>
       
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="item">微服务架构的介绍</a>
+        </div>
+      </div>
+      
       </div>
     </div>
     
@@ -315,6 +324,48 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/redis/jedis/">
+              
+              <h2 class="ui header" style="color: white;">redis之java客户端</h2>
+              
+            </a>
+            <p style="padding: 5px;">1 jedis的简单介绍 1.1 Jedis是什么  直观来说，jedis就是redis-cli   1.2 引入jedis的依赖包  &lt;!-- 引入jedis的依赖包 --&gt; &lt;dependency&gt; &lt;groupId&gt;redis.clients&lt;/groupId&gt; &lt;artifactId&gt;jedis&lt;/artifactId&gt; &lt;version&gt;2.9.3&lt;/version&gt; &lt;type&gt;jar&lt;/type&gt; &lt;scope&gt;compile&lt;/scope&gt; &lt;/dependency&gt;  1.3 jedis直连  生成一个Jedis对象，这个对象负责和指定Redis节点进行通信
+Jedis jedis = new Jedis(“127.0.0.1”,6379);
+ jedis执行set操作
+jedis.set(“hello”,“world”);
+ jedis执行get操作，value=“world”
+String value = jedis.get(“hello”);
+   Jedis构造函数的简单介绍  Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
+ 三个命令
+ 两个配置</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">3 min read</div>
+          <div class="ui bottom left attached black label">Mar 20, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default4.jpg" alt="redis之java客户端">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
               
               <h2 class="ui header" style="color: white;">mybatis之动态SQL</h2>
@@ -335,7 +386,7 @@
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="mybatis之动态SQL">
+    <img src="/img/default1.jpg" alt="mybatis之动态SQL">
     
   </div>
 </article>
@@ -425,43 +476,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default1.jpg" alt="mybatis之mapper接口编程">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/mybatis/mybatis01/">
-              
-              <h2 class="ui header" style="color: white;">Mybatis-的配置文件</h2>
-              
-            </a>
-            <p style="padding: 5px;">Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt; 1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示： &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt;  3.数据库连接的配置
- &lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。
- &lt;!-- 一定是文件格式--&gt; &lt;mappers&gt; &lt;mapper resource=&#34;com/mapper/StudentMapper.</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Sep 10, 2019</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default5.jpg" alt="Mybatis-的配置文件">
+    <img src="/img/default6.jpg" alt="mybatis之mapper接口编程">
     
   </div>
 </article>

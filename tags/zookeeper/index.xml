@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zookeeper on fyzn12个人博客</title>
+    <link>https://fyzn12.github.io/tags/zookeeper/</link>
+    <description>Recent content in Zookeeper on fyzn12个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 24 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/zookeeper/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SpringCloud整合Zookeeper注册中心</title>
+      <link>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</link>
+      <pubDate>Fri, 24 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</guid>
+      <description>前言 
+1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
+2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件  &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-zk-member&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;jar&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-zk-member Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!-- FIXME change it to the project&#39;s website --&amp;gt; &amp;lt;url&amp;gt;http://www.example.com&amp;lt;/url&amp;gt; &amp;lt;properties&amp;gt; &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt; &amp;lt;maven.compiler.source&amp;gt;1.7&amp;lt;/maven.compiler.source&amp;gt; &amp;lt;maven.compiler.target&amp;gt;1.7&amp;lt;/maven.compiler.target&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-cloud-dependencies&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;Hoxton.SR2&amp;lt;/version&amp;gt; &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt; &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; &amp;lt;/dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;!</description>
+    </item>
+    
+  </channel>
+</rss>

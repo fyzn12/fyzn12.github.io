@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>
 
-tag | spring data JPA
+tag | Zookeeper
 
 </title>
 
@@ -23,7 +23,7 @@ tag | spring data JPA
 <meta name="generator" content="Hugo 0.57.2" />
 
 
-<link rel="canonical" href="https://fyzn12.github.io/tags/spring-data-jpa/" />
+<link rel="canonical" href="https://fyzn12.github.io/tags/zookeeper/" />
 <link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
 
 <link href="/css/semantic.min.css" rel="stylesheet" />
@@ -345,26 +345,25 @@ tag | spring data JPA
           
           <div class="display-content">
           
-            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/">
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
               
-              <h2 class="ui header" style="color: white;">Spring Boot整合Spring Data JPA</h2>
+              <h2 class="ui header" style="color: white;">SpringCloud整合Zookeeper注册中心</h2>
               
             </a>
-            <p style="padding: 5px;">Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
-&lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入mybatis的启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 导入springboot整合spring Data JPA的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql数据库 --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql的连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;/dependency&gt;  
- 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
-  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。</p>
+            <p style="padding: 5px;">前言 
+1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
+2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件  &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-zk-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-zk-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!</p>
             <p>@ fyzn12</p>
           </div>
           
-          <div class="ui top right attached black label">6 min read</div>
-          <div class="ui bottom left attached black label">Jul 18, 2020</div>
+          <div class="ui top right attached black label">2 min read</div>
+          <div class="ui bottom left attached black label">Jul 24, 2020</div>
           
         </div>
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="Spring Boot整合Spring Data JPA">
+    <img src="/img/default1.jpg" alt="SpringCloud整合Zookeeper注册中心">
     
   </div>
 </article>

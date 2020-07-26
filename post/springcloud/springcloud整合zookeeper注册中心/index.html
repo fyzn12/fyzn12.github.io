@@ -6,14 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>
-Emoji Support
+SpringCloud整合Zookeeper注册中心
 </title>
 
   
   
-  <meta name="author" content="Hugo Authors" />
-  <meta name="description" content="Emoji can be enabled in a Hugo project in a number of ways.
-" />
+  <meta name="author" content="fyzn12" />
+  <meta name="description" content="前言 
+1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
+2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件  &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-zk-member&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;jar&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-zk-member Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!-- FIXME change it to the project&#39;s website --&amp;gt; &amp;lt;url&amp;gt;http://www.example.com&amp;lt;/url&amp;gt; &amp;lt;properties&amp;gt; &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt; &amp;lt;maven.compiler.source&amp;gt;1.7&amp;lt;/maven.compiler.source&amp;gt; &amp;lt;maven.compiler.target&amp;gt;1.7&amp;lt;/maven.compiler.target&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-cloud-dependencies&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;Hoxton.SR2&amp;lt;/version&amp;gt; &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt; &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; &amp;lt;/dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;!" />
 
 
 
@@ -22,7 +23,7 @@ Emoji Support
 <meta name="generator" content="Hugo 0.57.2" />
 
 
-<link rel="canonical" href="https://fyzn12.github.io/post/emoji-support/" />
+<link rel="canonical" href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" />
 <link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
 
 <link href="/css/semantic.min.css" rel="stylesheet" />
@@ -57,34 +58,265 @@ Emoji Support
       </a>
       <header>
         <h1 class="ui header">
-          Emoji Support
-          <div class="sub header">@ Hugo Authors · Mar 5, 2019 · 1 min read · 更新于 Mar 5, 2019</div>
+          SpringCloud整合Zookeeper注册中心
+          <div class="sub header">@ fyzn12 · Jul 24, 2020 · 2 min read · 更新于 Jul 26, 2020</div>
         </h1>
       </header>
-      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;"><p>Emoji can be enabled in a Hugo project in a number of ways.</p>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
 
-<p>The <a href="https://gohugo.io/functions/emojify/"><code>emojify</code></a> function can be called directly in templates or <a href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes">Inline Shortcodes</a>.</p>
+<h1 id="前言">前言</h1>
 
-<p>To enable emoji globally, set <code>enableEmoji</code> to <code>true</code> in your site’s <a href="https://gohugo.io/getting-started/configuration/">configuration</a> and then you can type emoji shorthand codes directly in content files; e.g.</p>
+<p><div align=center><img src="https://fyzn12.github.io/img/picture/注册中心的详解.png"/></div></p>
 
-<p><p><span class="nowrap"><span class="emojify">🙈</span> <code>:see_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙉</span> <code>:hear_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙊</span> <code>:speak_no_evil:</code></span></p>
-<br></p>
+<h1 id="1-使用zookeeper代替eureka作为注册中心">1 使用Zookeeper代替Eureka作为注册中心</h1>
 
-<p>The <a href="http://www.emoji-cheat-sheet.com/">Emoji cheat sheet</a> is a useful reference for emoji shorthand codes.</p>
+<h2 id="1-1-zookeeper简介">1.1 Zookeeper简介</h2>
 
-<hr />
+<h3 id="zookeeper分布式协调工具-可以实现注册中心">Zookeeper分布式协调工具，可以实现注册中心</h3>
 
-<p><strong>N.B.</strong> The above steps enable Unicode Standard emoji characters and sequences in Hugo, however the rendering of these glyphs depends on the browser and the platform. To style the emoji you can either use a third party emoji font or a font stack; e.g.</p>
+<h3 id="zookeeper节点类型-临时节点">Zookeeper节点类型：临时节点</h3>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">.emoji {
-font-family: Apple Color Emoji,Segoe UI Emoji,NotoColorEmoji,Segoe UI Symbol,Android Emoji,EmojiSymbols;
-}</code></pre></div></article>
+<h2 id="1-3-zookeeper安装与使用">1.3 Zookeeper安装与使用</h2>
+
+<h3 id="1-3-1-windows下载zookeeper">1.3.1 windows下载Zookeeper</h3>
+
+<h4 id="1-下载与安装">1. 下载与安装</h4>
+
+<p><a herf="https://blog.csdn.net/qq_33316784/article/details/88563482">博客详解（别人博客）</a></p>
+
+<h4 id="2-修改zkserver-cmd配置文件">2. 修改zkServer.cmd配置文件</h4>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/Zookeeper-install.png"/></div>   
+  
+
+<h4 id="3-下载zookeeper的图形界面的管理工具zooinspector工具-解压之后便可使用">3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用</h4>
+
+<h4 id="4-进入zookeeper解压之后的目录-直到bin目录-在该目录输入cmd进入控制台">4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台</h4>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/run-zk.png"/></div>    
+  
+
+<h4 id="5-在控制台运行zkserver-cmd便可开启zookeeper服务">5. 在控制台运行zkServer.cmd便可开启Zookeeper服务</h4>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/run-zk2.png"/></div>   
+  
+
+<h1 id="2-使用zookeeper作为注册中心步骤">2 使用Zookeeper作为注册中心步骤</h1>
+
+<h3 id="zookeeper作为注册中心与eureka作为注册中心的区别在于eureka需要编写一个服务的启动类-但zookeeper不需要">zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要</h3>
+
+<h3 id="zookeeper只需要打开zooinspector工具-连接服务即可-确保在cmd中运行zkserver-cmd">Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）</h3>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/ZooInspector.png"/></div>    
+
+<h2 id="2-1-创建会员服务">2.1 创建会员服务</h2>
+
+<h3 id="2-1-1-配置pom文件">2.1.1 配置pom文件</h3>
+
+<pre><code>     &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;2.2.2.RELEASE&lt;/version&gt;
+      &lt;/parent&gt;
+      &lt;groupId&gt;com.fyzn12&lt;/groupId&gt;
+      &lt;artifactId&gt;springcloud-zk-member&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+      &lt;packaging&gt;jar&lt;/packaging&gt;
+
+      &lt;name&gt;springcloud-zk-member Maven Webapp&lt;/name&gt;
+      &lt;!-- FIXME change it to the project's website --&gt;
+      &lt;url&gt;http://www.example.com&lt;/url&gt;
+
+      &lt;properties&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt;
+      &lt;/properties&gt;
+
+      &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+          &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;Hoxton.SR2&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+          &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+      &lt;/dependencyManagement&gt;
+      &lt;dependencies&gt;
+        &lt;!-- 导入springboot的启动器--&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- 导入springcloud整合feign客户端启动器--&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- 导入springcloud整合Zookeeper启动器--&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-cloud-starter-zookeeper-discovery&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;junit&lt;/groupId&gt;
+          &lt;artifactId&gt;junit&lt;/artifactId&gt;
+          &lt;version&gt;4.12&lt;/version&gt;
+        &lt;/dependency&gt;
+      &lt;/dependencies&gt;  
+</code></pre>
+
+<h3 id="2-1-2-创建application-yml文件">2.1.2 创建application.yml文件</h3>
+
+<pre><code>    # member服务的端口号
+    server:
+      port: 2182
+    # member服务的别名
+    spring:
+      application:
+        name: zk-member
+      cloud:
+        zookeeper:
+          # member注册到Zookeeper上的地址，也就是注册中心的地址
+          connect-string: 127.0.0.1:2181   
+</code></pre>
+
+<h3 id="2-1-3-创建controller作为测试接口">2.1.3 创建Controller作为测试接口</h3>
+
+<pre><code>        /**
+         * @author fyzn12
+         * @version 1.0
+         * @date 2020/7/26 18:02
+         * @description:TODO
+         */
+        @RestController
+        public class ZkController {
+            @Value(&quot;${server.port}&quot;)
+            private String port;
+            @RequestMapping(&quot;/getMember&quot;)
+            public String getMember() {
+                System.out.println(&quot;跳转到会员服务&quot;);
+                return &quot;我是测试zookeeper,端口号&quot;+port;
+            }
+
+        }  
+</code></pre>
+
+<h3 id="2-1-4-创建启动类-这里需要使用-enablediscoveryclient注解">2.1.4 创建启动类，这里需要使用@EnableDiscoveryClient注解</h3>
+
+<pre><code>        /**
+         * @author fyzn12
+         * @version 1.0
+         * @date 2020/7/26 18:18
+         * @description:TODO
+         */
+        @SpringBootApplication
+        @EnableDiscoveryClient
+        public class AppZkMember2 {
+            public static void main(String[] args) {
+                SpringApplication.run(AppZkMember2.class,args);
+            }
+        }         
+</code></pre>
+
+<h3 id="2-1-5-启动多个member服务作为集群-端口号分别为2182-2183">2.1.5 启动多个member服务作为集群，端口号分别为2182、2183</h3>
+
+<h2 id="2-2-创建订单服务">2.2 创建订单服务</h2>
+
+<h3 id="2-2-1-配置pom文件-如上面会员服务">2.2.1 配置pom文件（如上面会员服务）</h3>
+
+<h3 id="2-2-2-创建application-yml文件">2.2.2 创建application.yml文件</h3>
+
+<pre><code>        # 订单服务的端口号
+        server:
+          port: 2184
+        # 订单服务的别名
+        spring:
+          application:
+            name: zk-member
+          cloud:
+            zookeeper:
+              # 订单服务注册到Zookeeper上的地址，也就是注册中心的地址
+              connect-string: 127.0.0.1:2181       
+</code></pre>
+
+<h3 id="2-2-3-使用feign客户端调用">2.2.3 使用feign客户端调用</h3>
+
+<h4 id="1-创建feign客户端调用接口">1. 创建feign客户端调用接口</h4>
+
+<pre><code>        /**
+         * @author fyzn12
+         * @version 1.0
+         * @date 2020/7/26 18:28
+         * @description:TODO
+         */
+        @FeignClient(&quot;zk-member&quot;)
+        public interface MemberFeign {
+            @RequestMapping(&quot;/getMember&quot;)
+            String getMember();
+        }
+</code></pre>
+
+<h4 id="2-必要说明">2. 必要说明</h4>
+
+<ol>
+<li>在创建的feign客户端接口类中必须要使用@FeignClient注解，并且该注解中默认必须给定一个name或者value的值，该值为会员服务的别名，即会员服务配置文件application.yml中指定spring.application.name的值，这里为zk-member.<br /></li>
+<li>在该接口类中指定需要调用的接口，必须与会员服务的接口名一致（两个一致：1 @RequestMapping指定的地址一致 2 方法名一致）<br /></li>
+</ol>
+
+<h3 id="2-2-4-创建启动类">2.2.4 创建启动类</h3>
+
+<h4 id="这里与会员服务不同的是-需要在订单服务的启动类上面多加一个-enablefeignclients注解-用于开启feign客户端调用">这里与会员服务不同的是，需要在订单服务的启动类上面多加一个@EnableFeignClients注解，用于开启feign客户端调用</h4>
+
+<pre><code>        /**
+         * @author fyzn12
+         * @version 1.0
+         * @date 2020/7/26 18:25
+         * @description:TODO
+         */
+        @SpringBootApplication
+        @EnableDiscoveryClient
+        @EnableFeignClients
+        public class AppOrder {
+            public static void main(String[] args) {
+                SpringApplication.run(AppOrder.class,args);
+            }
+        }
+</code></pre>
+
+<h3 id="2-2-5-创建接口">2.2.5 创建接口</h3>
+
+<pre><code>    /**
+     * @author fyzn12
+     * @version 1.0
+     * @date 2020/7/26 18:25
+     * @description:TODO
+     */
+    @RestController
+
+    public class OrderController {
+        @Autowired
+        private MemberFeign memberFeign;
+        @RequestMapping(&quot;/getOrder&quot;)
+        public String getOrder(){
+            //String member = &quot;http:zk-member/getMember&quot;;
+            return memberFeign.getMember();
+        }
+    }  
+</code></pre>
+
+<h3 id="2-2-6-测试">2.2.6 测试</h3>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/zk-test.png"/></div>  
+</article>
     </section>
 
     <footer class="ui attached segment dream-tags">
       
       
-      <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+      <a class="ui label" href="/tags/zookeeper" title="Zookeeper">Zookeeper</a>
       
       
     </footer>

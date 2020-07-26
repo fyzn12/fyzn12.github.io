@@ -126,6 +126,8 @@ category | springcloud
   
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
+  <a class="ui label" href="/tags/zookeeper" title="zookeeper">zookeeper</a>
+  
 </section>
 
 
@@ -253,6 +255,13 @@ category | springcloud
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Zookeeper注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
           <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="item">SpringCloud之Eureka2.0服务注册中心</a>
         </div>
       </div>
@@ -336,6 +345,42 @@ category | springcloud
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
+              
+              <h2 class="ui header" style="color: white;">SpringCloud整合Zookeeper注册中心</h2>
+              
+            </a>
+            <p style="padding: 5px;">前言 
+1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
+2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件  &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-zk-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-zk-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">2 min read</div>
+          <div class="ui bottom left attached black label">Jul 24, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default4.jpg" alt="SpringCloud整合Zookeeper注册中心">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/">
               
               <h2 class="ui header" style="color: white;">SpringCloud之Eureka2.0服务注册中心</h2>
@@ -362,7 +407,7 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
       </div>
     </div>
     
-    <img src="/img/default6.jpg" alt="SpringCloud之Eureka2.0服务注册中心">
+    <img src="/img/default5.jpg" alt="SpringCloud之Eureka2.0服务注册中心">
     
   </div>
 </article>

@@ -4,22 +4,37 @@
   
   <url>
     <loc>https://fyzn12.github.io/categories/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/post/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/categories/springcloud/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/tags/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/tags/zookeeper/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -29,11 +44,6 @@
   
   <url>
     <loc>https://fyzn12.github.io/tags/springcloudeureka/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/</loc>
     <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -78,12 +88,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/algorithm/</loc>
+    <loc>https://fyzn12.github.io/tags/algorithm/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/algorithm/</loc>
+    <loc>https://fyzn12.github.io/categories/algorithm/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   

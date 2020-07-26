@@ -6,14 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>
-常见算法篇
+SpringBoot提供的五种异常机制
 </title>
 
   
   
   <meta name="author" content="fyzn12" />
-  <meta name="description" content="常见算法总结篇 递归算法  递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&amp;lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)&#43;2; }  排序算法  快速排序算法 排序步骤总结如下：
-* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&amp;quot;11&amp;quot;,&amp;quot;66&amp;quot;,&amp;quot;22&amp;quot;,&amp;quot;0&amp;quot;,&amp;quot;55&amp;quot;,&amp;quot;22&amp;quot;,&amp;quot;0&amp;quot;,&amp;quot;32&amp;quot;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //先判断左右指针是否越界 if (left&amp;gt;right){ returen; } //定义基准位置，左右移动时的指针以及中间变量 String standard,tmp; //步骤一：确定基准位置（可以随意） standard = strViod[left]; int i,j; i = left; j = right; //步骤二：初步与基准值比较，确认基准值的左右集合 while(i&amp;lt;j){ //首先进行基准值右侧值的判断,这里建议将String转为int进行判断，别用compareTo进行判断 while(Integer." />
+  <meta name="description" content="SpringBoot中的异常处理方式  自定义错误页面
+ @ExceptionHandle注解处理异常
+ @ControllerAdvice &#43; @ExceptionHandle注解处理异常
+ 配置SimpleMappingExceptionResolver处理异常
+ 自定义HandleExceptionResolver类处理异常
+  1 自定义错误页面 1.1 SpringBoot的默认异常机制详解  SpringBoot默认的异常机制：SpringBoot默认已经提供了一套处理异常的机制。 一旦程序中出现了异常，SpringBoot会向/error的url发送请求。在SpringBoot中提供了一个 叫BasicExceptionController来处理/error请求，然后跳转到默认显示的页面来展示异常信息。   1.2 自定义错误界面 如果我们需要将所有的异常统一跳转到自定义错误页面，需要在classpath下创建一个templates目录(即在resources目录下创建templates目录)，在该目录下创建一个名为error.html的页面。 2 基于@ExceptionHandler注解处理异常 2.1 创建指定处理的异常  /** *java.lang.ArithmeticException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 */ @ExceptionHandler(value={java.lang.ArithmeticException.class}) publicModelAndViewarithmeticExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&amp;quot;error&amp;quot;,e.toString()); mv.setViewName(&amp;quot;error1&amp;quot;); returnmv; } /** *java.lang.NullPointerException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 **/ @ExceptionHandler(value={java.lang.NullPointerException.class}) publicModelAndViewnullPointerExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&amp;quot;error&amp;quot;,e.toString()); mv.setViewName(&amp;quot;error2&amp;quot;); return mv； }  2.2 使用该方法的总结 使用@ExceptionHandler注解处理异常时，首先编写异常页面error.html，其次创建Controller类，编写基于注解@ExceptionHandle注解的方法，并且在该方法中必须指定想要助理异常的名称如上面的java.lang.NullPointerException.class、java.lang.ArithmeticException.class。 3 使用@ControllerAdvice &#43; @ExceptionHandler注解处理异常 3.1 创建一个全局异常类使用ControllerAdvice注解  /** *全局异常处理类 **/ @ControllerAdvice public class GlobalException { /** * java." />
 
 
 
@@ -22,7 +26,7 @@
 <meta name="generator" content="Hugo 0.57.2" />
 
 
-<link rel="canonical" href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" />
+<link rel="canonical" href="https://fyzn12.github.io/post/spring-boot/springboot-exception/" />
 <link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
 
 <link href="/css/semantic.min.css" rel="stylesheet" />
@@ -57,110 +61,183 @@
       </a>
       <header>
         <h1 class="ui header">
-          常见算法篇
-          <div class="sub header">@ fyzn12 · Jun 11, 2020 · 1 min read · 更新于 Jun 11, 2020</div>
+          SpringBoot提供的五种异常机制
+          <div class="sub header">@ fyzn12 · May 12, 2020 · 1 min read · 更新于 Jun 26, 2020</div>
         </h1>
       </header>
       <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
 
-<h1 id="常见算法总结篇">常见算法总结篇</h1>
+<h1 id="springboot中的异常处理方式">SpringBoot中的异常处理方式</h1>
 
-<h2 id="递归算法">递归算法</h2>
+<ul>
+<li>自定义错误页面<br /></li>
+<li>@ExceptionHandle注解处理异常<br /></li>
+<li>@ControllerAdvice + @ExceptionHandle注解处理异常<br /></li>
+<li>配置SimpleMappingExceptionResolver处理异常<br /></li>
+<li>自定义HandleExceptionResolver类处理异常<br />
+<br /></li>
+</ul>
 
-<pre><code>    递归算法有一下几个特点  
-    * 递归算法必须设定循环终止条件，称为递归出口
-    * 方法里调用自身
-    如下面两个例子：
-    1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。
-    例：n=1237
-    函数设定如下：
-    //编写递归函数
-    private static void getNUm(int n){
-        //设置递归终止条件
-        System.out.printl(n);
-        if（n&lt;=5000）{
-            //调用自身
-            getNum(n*2);
-            System.out.printl(n);
-        }
-    }
+<hr />
 
-    2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？
-    程序设定如下
-    //n代表传入的人的数量
-    private static int getAge(int n){
-        //设定递归终止条件
-        if（n==1）
-            return 10;
-        //调用自身并返回；
-        return getAge(n-1)+2;
-    }
+<h1 id="1-自定义错误页面">1 自定义错误页面</h1>
+
+<h2 id="1-1-springboot的默认异常机制详解">1.1 SpringBoot的默认异常机制详解</h2>
+
+<pre><code>    SpringBoot默认的异常机制：SpringBoot默认已经提供了一套处理异常的机制。  
+    一旦程序中出现了异常，SpringBoot会向/error的url发送请求。在SpringBoot中提供了一个  
+    叫BasicExceptionController来处理/error请求，然后跳转到默认显示的页面来展示异常信息。   
 </code></pre>
 
-<h2 id="排序算法">排序算法</h2>
+<div align=center><img src="https://fyzn12.github.io/img/picture/springboot-error.png"/></div>   
+  
 
-<ol>
-<li><p>快速排序算法
-排序步骤总结如下：</p>
+<h2 id="1-2-自定义错误界面">1.2 自定义错误界面</h2>
 
-<pre><code>* 从数组中挑出一个元素，称为“基准”（pivot）；
-* 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面
- （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作
-*  递归地把小于基准值元素的子数组和大于基准元素的子数组排序。
+<h3 id="如果我们需要将所有的异常统一跳转到自定义错误页面-需要在classpath下创建一个templates目录-即在resources目录下创建templates目录-在该目录下创建一个名为error-html的页面">如果我们需要将所有的异常统一跳转到自定义错误页面，需要在classpath下创建一个templates目录(即在resources目录下创建templates目录)，在该目录下创建一个名为error.html的页面。</h3>
 
-下面看一个列子：
-    请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&quot;11&quot;,&quot;66&quot;,&quot;22&quot;,&quot;0&quot;,&quot;55&quot;,&quot;22&quot;,&quot;0&quot;,&quot;32&quot;};
-代码设计如下：严格按照上面三个步骤设计
+<h1 id="2-基于-exceptionhandler注解处理异常">2 基于@ExceptionHandler注解处理异常</h1>
 
-//三个参数，排序的数组，排序左基点，排序右基点
-private static void quickSort(String[] strViod,int left,int right){
-     //先判断左右指针是否越界
-     if (left&gt;right){
+<h2 id="2-1-创建指定处理的异常">2.1 创建指定处理的异常</h2>
 
-         returen;
-     }
+<pre><code>    /**  
+     *java.lang.ArithmeticException  
+     *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定  
+     *参数Exceptione:会将产生异常对象注入到方法中  
+     */  
+    @ExceptionHandler(value={java.lang.ArithmeticException.class})    
+    publicModelAndViewarithmeticExceptionHandler(Exceptione){  
+        ModelAndViewmv=newModelAndView();  
+        mv.addObject(&quot;error&quot;,e.toString());  
+        mv.setViewName(&quot;error1&quot;);  
+        returnmv;  
+    }  
 
-     //定义基准位置，左右移动时的指针以及中间变量  
-     String standard,tmp;
-     //步骤一：确定基准位置（可以随意）
-     standard = strViod[left];
-     int i,j;
-     i = left;
-     j = right;
-     //步骤二：初步与基准值比较，确认基准值的左右集合  
-     while(i&lt;j){
-        //首先进行基准值右侧值的判断,这里建议将String转为int进行判断，别用compareTo进行判断
-        while(Integer.parseInt(standard)&lt;=Integer.parseInt(strViod[j]) &amp;&amp; i&lt;j){
+    /**  
+      *java.lang.NullPointerException  
+      *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定  
 
-           j--;
+      *参数Exceptione:会将产生异常对象注入到方法中  
+      **/  
+    @ExceptionHandler(value={java.lang.NullPointerException.class})    
+    publicModelAndViewnullPointerExceptionHandler(Exceptione){  
+        ModelAndViewmv=newModelAndView();  
+        mv.addObject(&quot;error&quot;,e.toString());  
+        mv.setViewName(&quot;error2&quot;);  
+        return mv；  
+    }  
+</code></pre>
+
+<h2 id="2-2-使用该方法的总结">2.2 使用该方法的总结</h2>
+
+<h3 id="使用-exceptionhandler注解处理异常时-首先编写异常页面error-html-其次创建controller类-编写基于注解-exceptionhandle注解的方法-并且在该方法中必须指定想要助理异常的名称如上面的java-lang-nullpointerexception-class-java-lang-arithmeticexception-class">使用@ExceptionHandler注解处理异常时，首先编写异常页面error.html，其次创建Controller类，编写基于注解@ExceptionHandle注解的方法，并且在该方法中必须指定想要助理异常的名称如上面的java.lang.NullPointerException.class、java.lang.ArithmeticException.class。</h3>
+
+<h1 id="3-使用-controlleradvice-exceptionhandler注解处理异常">3 使用@ControllerAdvice + @ExceptionHandler注解处理异常</h1>
+
+<h2 id="3-1-创建一个全局异常类使用controlleradvice注解">3.1 创建一个全局异常类使用ControllerAdvice注解</h2>
+
+<pre><code>        /**
+         *全局异常处理类
+         **/
+        @ControllerAdvice
+        public class GlobalException {
+            /**
+             * java.lang.ArithmeticException
+             * 该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定
+             * 参数Exceptione:会将产生异常对象注入到方法中
+             **/
+            @ExceptionHandler(value = {java.lang.ArithmeticException.class})
+            public ModelAndView arithmeticExceptionHandler(Exceptione) {
+                ModelAndViewmv = newModelAndView();
+                mv.addObject(&quot;error&quot;, e.toString());
+                mv.setViewName(&quot;error1&quot;);
+                returnmv;
+            }
+
+            /**
+             * java.lang.NullPointerException
+             * 该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定
+             * 参数Exceptione:会将产生异常对象注入到方法中
+             **/
+            @ExceptionHandler(value = {java.lang.NullPointerException.class})
+            public ModelAndView nullPointerExceptionHandler(Exceptione) {
+                ModelAndViewmv = newModelAndView();
+                mv.addObject(&quot;error&quot;, e.toString());
+                mv.setViewName(&quot;error2&quot;);
+            }
         }
-        //再进行基准值左侧的判断
-        while(Integer.parseInt(standard)&gt;=Integer.parseInt(strViod[i]) &amp;&amp; i&lt;j){
-           i++;
+</code></pre>
+
+<h3 id="3-1-1-创建时首先定义一个使用-controlleradvice注解的类">3.1.1 创建时首先定义一个使用@ControllerAdvice注解的类</h3>
+
+<h3 id="3-1-2-在类中使用-exceptionhandler注解标识需要处理的异常">3.1.2 在类中使用@ExceptionHandler注解标识需要处理的异常</h3>
+
+<h3 id="总结-使用-controlleradvice-exceptionhandler注解可以解决全局问题">总结：使用@ControllerAdvice + @ExceptionHandler注解可以解决全局问题。</h3>
+
+<h1 id="4-配置simplemappingexceptionresolver处理异常">4 配置SimpleMappingExceptionResolver处理异常</h1>
+
+<h2 id="4-1-创建一个使用-configuration注解的全局类globalexception类">4.1 创建一个使用@Configuration注解的全局类GlobalException类</h2>
+
+<h2 id="4-2-在该类中创建一个-ben注解的方法-返回值为simplemappingexceptionresolver的方法-在该方法体中添加需要处理的异常即可">4.2 在该类中创建一个@Ben注解的方法，返回值为SimpleMappingExceptionResolver的方法，在该方法体中添加需要处理的异常即可</h2>
+
+<pre><code>       /**
+         *通过SimpleMappingExceptionResolver做全局异常处理
+         **/
+        @Configuration
+        public class GlobalException {
+            /**
+             * 该方法必须要有返回值。返回值类型必须是：SimpleMappingExceptionResolver
+             **/
+            @Bean
+            public SimpleMappingExceptionResolver getSimpleMappingExceptionResolver() {
+                SimpleMappingExceptionResolverresolver = newSimpleMappingExceptionResolver();
+                Propertiesmappings = newProperties();
+                /**
+                 * 参数一：异常的类型，注意必须是异常类型的全名
+                 * 参数二：视图名称
+                 **/
+                mappings.put(&quot;java.lang.ArithmeticException&quot;, &quot;error1&quot;);
+                mappings.put(&quot;java.lang.NullPointerException&quot;, &quot;error2&quot;);
+                //设置异常与视图映射信息的
+                resolver.setExceptionMappings(mappings);
+                return resolver;
+            }
+        }    
+</code></pre>
+
+<h1 id="5-自定义handleexceptionresolver类处理异常">5 自定义HandleExceptionResolver类处理异常</h1>
+
+<h2 id="5-1-创建一个使用-configuration标识的类-并实现handleexceptionresolver接口">5.1 创建一个使用@Configuration标识的类，并实现HandleExceptionResolver接口</h2>
+
+<h2 id="5-2-在该接口中重写resolveexception方法-在该方法体中标明异常跳转的error页面即可">5.2 在该接口中重写resolveException方法，在该方法体中标明异常跳转的error页面即可</h2>
+
+<pre><code>        /**
+         *通过实现HandlerExceptionResolver接口做全局异常处理
+         **/
+        @Configuration
+        public class GlobalExceptionimplementsHandlerExceptionResolver{
+            @Override
+            public ModelAndView resolveException(HttpServletRequestrequest,HttpServletResponseresponse,Objecthandler,Exceptionex){
+                ModelAndViewmv=newModelAndView();
+                //判断不同异常类型，做不同视图跳转
+                if(exinstanceofArithmeticException){
+                    mv.setViewName(&quot;error1&quot;);
+                }
+                if(exinstanceofNullPointerException){
+                    mv.setViewName(&quot;error2&quot;);
+                }
+                mv.addObject(&quot;error&quot;,ex.toString());
+                return mv;
+            }
         }
-        //初步跟换基准值左右两侧的值
-        if(i&lt;j){
-           tmp = strViod[i];
-           strViod[i] = strViod[j];
-           strViod[j] = tmp;
-        }
-    }
-    //步骤三：进行左右集合的排序，递归调用 
-    //重新确认基准位  
-    strViod[left] = strViod[i];
-    strViod[i] = standard;
-    quickSort(strViod,left,j-1);
-    quickSort(strViod,j+1,right);
-}
-</code></pre></li>
-</ol>
+</code></pre>
 </article>
     </section>
 
     <footer class="ui attached segment dream-tags">
       
       
-      <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+      <a class="ui label" href="/tags/exception" title="Exception">Exception</a>
       
       
     </footer>

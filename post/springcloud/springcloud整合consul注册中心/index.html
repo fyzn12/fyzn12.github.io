@@ -6,15 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>
-SpringCloud整合Zookeeper注册中心
+SpringCloud整合Consul注册中心
 </title>
 
   
   
   <meta name="author" content="fyzn12" />
-  <meta name="description" content="前言 
-1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
-2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件  &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-zk-member&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;jar&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-zk-member Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!-- FIXME change it to the project&#39;s website --&amp;gt; &amp;lt;url&amp;gt;http://www.example.com&amp;lt;/url&amp;gt; &amp;lt;properties&amp;gt; &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt; &amp;lt;maven.compiler.source&amp;gt;1.7&amp;lt;/maven.compiler.source&amp;gt; &amp;lt;maven.compiler.target&amp;gt;1.7&amp;lt;/maven.compiler.target&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-cloud-dependencies&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;Hoxton.SR2&amp;lt;/version&amp;gt; &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt; &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; &amp;lt;/dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;!" />
+  <meta name="description" content="1 Consul简介  Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：
+ * 分布一致性协议实现、 * 健康检查、 * Key/Value存储、 * 多数据中心方案， * 不再需要依赖其他工具（比如ZooKeeper等）。  Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。
+ 基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对. 一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制. Consul 的使用场景
+ * docker 实例的注册与配置共享 * coreos 实例的注册与配置共享 * vitess 集群 * SaaS 应用的配置共享 * 与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件  Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接." />
 
 
 
@@ -23,7 +24,7 @@ SpringCloud整合Zookeeper注册中心
 <meta name="generator" content="Hugo 0.57.2" />
 
 
-<link rel="canonical" href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" />
+<link rel="canonical" href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" />
 <link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
 
 <link href="/css/semantic.min.css" rel="stylesheet" />
@@ -58,60 +59,55 @@ SpringCloud整合Zookeeper注册中心
       </a>
       <header>
         <h1 class="ui header">
-          SpringCloud整合Zookeeper注册中心
-          <div class="sub header">@ fyzn12 · Jul 24, 2020 · 2 min read · 更新于 Jul 26, 2020</div>
+          SpringCloud整合Consul注册中心
+          <div class="sub header">@ fyzn12 · Jun 24, 2020 · 3 min read · 更新于 Jun 26, 2020</div>
         </h1>
       </header>
       <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
 
-<h1 id="前言">前言</h1>
+<h1 id="1-consul简介">1 Consul简介</h1>
 
-<p><div align=center><img src="https://fyzn12.github.io/img/picture/注册中心的详解.png"/></div></p>
+<ol>
+<li><p>Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：</p>
 
-<h1 id="1-使用zookeeper代替eureka作为注册中心">1 使用Zookeeper代替Eureka作为注册中心</h1>
+<pre><code>        * 分布一致性协议实现、
+        * 健康检查、
+        * Key/Value存储、
+        * 多数据中心方案，
+        * 不再需要依赖其他工具（比如ZooKeeper等）。
+</code></pre></li>
 
-<h2 id="1-1-zookeeper简介">1.1 Zookeeper简介</h2>
+<li><p>Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。</p></li>
 
-<h3 id="zookeeper分布式协调工具-可以实现注册中心">Zookeeper分布式协调工具，可以实现注册中心</h3>
+<li><p>基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对.
+一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制.
+Consul 的使用场景</p>
 
-<h3 id="zookeeper节点类型-临时节点">Zookeeper节点类型：临时节点</h3>
+<pre><code>        * docker 实例的注册与配置共享
+        * coreos 实例的注册与配置共享
+        * vitess 集群
+        * SaaS 应用的配置共享
+        * 与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件
+</code></pre></li>
 
-<h2 id="1-3-zookeeper安装与使用">1.3 Zookeeper安装与使用</h2>
+<li><p>Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接. 相比较而言, zookeeper 采用的是 Paxos, 而 etcd 使用的则是 Raft。支持多数据中心，内外网的服务采用不同的端口进行监听。 多数据中心集群可以避免单数据中心的单点故障,而其部署则需要考虑网络延迟, 分片等情况等. zookeeper 和 etcd 均不提供多数据中心功能的支持.
+支持健康检查. etcd 不提供此功能.
+支持 http 和 dns 协议接口. zookeeper 的集成较为复杂, etcd 只支持 http 协议.
+官方提供web管理界面, etcd 无此功能.
+Consul 的角色</p></li>
 
-<h3 id="1-3-1-windows下载zookeeper">1.3.1 windows下载Zookeeper</h3>
+<li><p>client: 客户端, 无状态, 将 HTTP 和 DNS 接口请求转发给局域网内的服务端集群.server: 服务端, 保存配置信息, 高可用集群, 在局域网内与本地客户端通讯, 通过广域网与其他数据中心通讯. 每个数据中心的 server 数量推荐为 3 个或是 5 个.</p></li>
+</ol>
 
-<h4 id="1-下载与安装">1. 下载与安装</h4>
+<p>由于Spring Cloud Consul项目的实现，我们可以轻松的将基于Spring Boot的微服务应用注册到Consul上，并通过此实现微服务架构中的服务治理。</p>
 
-<p><a herf="https://blog.csdn.net/qq_33316784/article/details/88563482">博客详解（别人博客）</a></p>
+<hr />
 
-<h4 id="2-修改zkserver-cmd配置文件">2. 修改zkServer.cmd配置文件</h4>
-
-<div align=center><img src="https://fyzn12.github.io/img/picture/Zookeeper-install.png"/></div>   
-  
-
-<h4 id="3-下载zookeeper的图形界面的管理工具zooinspector工具-解压之后便可使用">3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用</h4>
-
-<h4 id="4-进入zookeeper解压之后的目录-直到bin目录-在该目录输入cmd进入控制台">4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台</h4>
-
-<div align=center><img src="https://fyzn12.github.io/img/picture/run-zk.png"/></div>    
-  
-
-<h4 id="5-在控制台运行zkserver-cmd便可开启zookeeper服务">5. 在控制台运行zkServer.cmd便可开启Zookeeper服务</h4>
-
-<div align=center><img src="https://fyzn12.github.io/img/picture/run-zk2.png"/></div>   
-  
-
-<h1 id="2-使用zookeeper作为注册中心步骤">2 使用Zookeeper作为注册中心步骤</h1>
-
-<h3 id="zookeeper作为注册中心与eureka作为注册中心的区别在于eureka需要编写一个服务的启动类-但zookeeper不需要">zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要</h3>
-
-<h3 id="zookeeper只需要打开zooinspector工具-连接服务即可-确保在cmd中运行zkserver-cmd">Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）</h3>
-
-<div align=center><img src="https://fyzn12.github.io/img/picture/ZooInspector.png"/></div>    
+<h1 id="2-springcloud整合consul">2 SpringCloud整合Consul</h1>
 
 <h2 id="2-1-创建会员服务">2.1 创建会员服务</h2>
 
-<h3 id="2-1-1-配置pom文件">2.1.1 配置pom文件</h3>
+<h3 id="2-1-1-配置会员服务的pom文件">2.1.1 配置会员服务的pom文件</h3>
 
 <pre><code>     &lt;parent&gt;
         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -119,11 +115,11 @@ SpringCloud整合Zookeeper注册中心
         &lt;version&gt;2.2.2.RELEASE&lt;/version&gt;
       &lt;/parent&gt;
       &lt;groupId&gt;com.fyzn12&lt;/groupId&gt;
-      &lt;artifactId&gt;springcloud-zk-member&lt;/artifactId&gt;
+      &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt;
       &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-      &lt;packaging&gt;jar&lt;/packaging&gt;
+      &lt;packaging&gt;war&lt;/packaging&gt;
 
-      &lt;name&gt;springcloud-zk-member Maven Webapp&lt;/name&gt;
+      &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt;
       &lt;!-- FIXME change it to the project's website --&gt;
       &lt;url&gt;http://www.example.com&lt;/url&gt;
 
@@ -150,173 +146,280 @@ SpringCloud整合Zookeeper注册中心
           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
           &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
         &lt;/dependency&gt;
-        &lt;!-- 导入springcloud整合feign客户端启动器--&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-          &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
-        &lt;/dependency&gt;
         &lt;!-- 导入springcloud整合Zookeeper启动器--&gt;
         &lt;dependency&gt;
           &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-          &lt;artifactId&gt;spring-cloud-starter-zookeeper-discovery&lt;/artifactId&gt;
+          &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
         &lt;/dependency&gt;
         &lt;dependency&gt;
           &lt;groupId&gt;junit&lt;/groupId&gt;
           &lt;artifactId&gt;junit&lt;/artifactId&gt;
           &lt;version&gt;4.12&lt;/version&gt;
         &lt;/dependency&gt;
-      &lt;/dependencies&gt;  
+      &lt;/dependencies&gt;
+
+
+    这里注意一个bug，在最后会认真分析我在创建该项目过程中遇到的bug  
 </code></pre>
 
 <h3 id="2-1-2-创建application-yml文件">2.1.2 创建application.yml文件</h3>
 
-<pre><code>    # member服务的端口号
-    server:
-      port: 2182
-    # member服务的别名
-    spring:
-      application:
-        name: zk-member
-      cloud:
-        zookeeper:
-          # member注册到Zookeeper上的地址，也就是注册中心的地址
-          connect-string: 127.0.0.1:2181   
+<pre><code>        server:
+          port: 8000
+        spring:
+          application:
+            name: cs-member
+          cloud:
+            consul:
+              host: localhost
+              # 注册中心的端口号
+              port: 8500
+              discovery:
+                hostname: 192.168.1.105
+        cs-member:
+          ribbon:
+            listOfServers: http://localhost:8100  
 </code></pre>
 
-<h3 id="2-1-3-创建controller作为测试接口">2.1.3 创建Controller作为测试接口</h3>
+<h3 id="2-1-3-创建访问接口">2.1.3 创建访问接口</h3>
 
 <pre><code>        /**
          * @author fyzn12
          * @version 1.0
-         * @date 2020/7/26 18:02
+         * @date 2020/7/26 22:16
          * @description:TODO
          */
         @RestController
-        public class ZkController {
+        public class MemberController {
             @Value(&quot;${server.port}&quot;)
             private String port;
-            @RequestMapping(&quot;/getMember&quot;)
-            public String getMember() {
-                System.out.println(&quot;跳转到会员服务&quot;);
-                return &quot;我是测试zookeeper,端口号&quot;+port;
+            @RequestMapping(value = &quot;/getConsulMember&quot;)
+            public String getConsulMember(){
+                return &quot;this is consul member，端口号：&quot;+port;
             }
-
-        }  
+        }   
 </code></pre>
 
-<h3 id="2-1-4-创建启动类-这里需要使用-enablediscoveryclient注解">2.1.4 创建启动类，这里需要使用@EnableDiscoveryClient注解</h3>
+<h3 id="2-1-4-创建启动类">2.1.4 创建启动类</h3>
 
 <pre><code>        /**
          * @author fyzn12
          * @version 1.0
-         * @date 2020/7/26 18:18
+         * @date 2020/7/26 22:10
          * @description:TODO
          */
         @SpringBootApplication
         @EnableDiscoveryClient
-        public class AppZkMember2 {
+        public class AppConsulMember {
             public static void main(String[] args) {
-                SpringApplication.run(AppZkMember2.class,args);
+                SpringApplication.run(AppConsulMember.class,args);
             }
-        }         
+        }  
 </code></pre>
-
-<h3 id="2-1-5-启动多个member服务作为集群-端口号分别为2182-2183">2.1.5 启动多个member服务作为集群，端口号分别为2182、2183</h3>
 
 <h2 id="2-2-创建订单服务">2.2 创建订单服务</h2>
 
-<h3 id="2-2-1-配置pom文件-如上面会员服务">2.2.1 配置pom文件（如上面会员服务）</h3>
+<h3 id="2-2-1-配置会员服务的pom文件">2.2.1 配置会员服务的pom文件</h3>
 
-<h3 id="2-2-2-创建application-yml文件">2.2.2 创建application.yml文件</h3>
+<pre><code>         &lt;parent&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+            &lt;version&gt;2.2.2.RELEASE&lt;/version&gt;
+          &lt;/parent&gt;
+          &lt;groupId&gt;com.fyzn12&lt;/groupId&gt;
+          &lt;artifactId&gt;springcloud-consul-order&lt;/artifactId&gt;
+          &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+          &lt;packaging&gt;war&lt;/packaging&gt;
 
-<pre><code>        # 订单服务的端口号
-        server:
-          port: 2184
-        # 订单服务的别名
-        spring:
-          application:
-            name: zk-order
-          cloud:
-            zookeeper:
-              # 订单服务注册到Zookeeper上的地址，也就是注册中心的地址
-              connect-string: 127.0.0.1:2181       
+          &lt;name&gt;springcloud-consul-order Maven Webapp&lt;/name&gt;
+          &lt;!-- FIXME change it to the project's website --&gt;
+          &lt;url&gt;http://www.example.com&lt;/url&gt;
+
+          &lt;properties&gt;
+            &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+            &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt;
+            &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt;
+          &lt;/properties&gt;
+
+          &lt;dependencyManagement&gt;
+            &lt;dependencies&gt;
+              &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+                &lt;version&gt;Hoxton.SR2&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+              &lt;/dependency&gt;
+            &lt;/dependencies&gt;
+          &lt;/dependencyManagement&gt;
+          &lt;dependencies&gt;
+            &lt;!-- 导入springboot的启动器--&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+            &lt;/dependency&gt;
+            &lt;!-- 导入springcloud整合feign客户端启动器--&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+            &lt;/dependency&gt;
+            &lt;!-- 导入springcloud整合Zookeeper启动器--&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;junit&lt;/groupId&gt;
+              &lt;artifactId&gt;junit&lt;/artifactId&gt;
+              &lt;version&gt;4.12&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+            &lt;/dependency&gt;
+          &lt;/dependencies&gt;  
 </code></pre>
 
-<h3 id="2-2-3-使用feign客户端调用">2.2.3 使用feign客户端调用</h3>
+<h3 id="2-2-2-创建订单服务application-yml文件">2.2.2 创建订单服务application.yml文件</h3>
 
-<h4 id="1-创建feign客户端调用接口">1. 创建feign客户端调用接口</h4>
+<pre><code>        server:
+          port: 8100
+        spring:
+          application:
+            name: cs-order
+          cloud:
+            consul:
+              host: 127.0.0.1
+              port: 8500
+              discovery:
+                hostname: 192.168.1.105
+        cs-member:
+          ribbon:
+            listOfServers: http://localhost:8100  
+</code></pre>
+
+<h3 id="2-2-3-创建feign客户端调用接口">2.2.3 创建feign客户端调用接口</h3>
 
 <pre><code>        /**
          * @author fyzn12
          * @version 1.0
-         * @date 2020/7/26 18:28
+         * @date 2020/7/26 22:24
          * @description:TODO
          */
-        @FeignClient(&quot;zk-member&quot;)
-        public interface MemberFeign {
-            @RequestMapping(&quot;/getMember&quot;)
-            String getMember();
-        }
+        @FeignClient(&quot;cs-member&quot;)
+        public interface ConsulOrderFeign {
+            @RequestMapping(&quot;/getConsulMember&quot;)
+            String getConsulMember();
+        }    
 </code></pre>
-
-<h4 id="2-必要说明">2. 必要说明</h4>
-
-<ol>
-<li>在创建的feign客户端接口类中必须要使用@FeignClient注解，并且该注解中默认必须给定一个name或者value的值，该值为会员服务的别名，即会员服务配置文件application.yml中指定spring.application.name的值，这里为zk-member.<br /></li>
-<li>在该接口类中指定需要调用的接口，必须与会员服务的接口名一致（两个一致：1 @RequestMapping指定的地址一致 2 方法名一致）<br /></li>
-</ol>
 
 <h3 id="2-2-4-创建启动类">2.2.4 创建启动类</h3>
 
-<h4 id="这里与会员服务不同的是-需要在订单服务的启动类上面多加一个-enablefeignclients注解-用于开启feign客户端调用">这里与会员服务不同的是，需要在订单服务的启动类上面多加一个@EnableFeignClients注解，用于开启feign客户端调用</h4>
-
 <pre><code>        /**
          * @author fyzn12
          * @version 1.0
-         * @date 2020/7/26 18:25
+         * @date 2020/7/26 22:24
          * @description:TODO
          */
         @SpringBootApplication
         @EnableDiscoveryClient
         @EnableFeignClients
-        public class AppOrder {
+        public class AppConsulOrder {
             public static void main(String[] args) {
-                SpringApplication.run(AppOrder.class,args);
+                SpringApplication.run(AppConsulOrder.class,args);
             }
-        }
+
+        }  
 </code></pre>
 
-<h3 id="2-2-5-创建接口">2.2.5 创建接口</h3>
+<h3 id="2-2-5-创建访问接口">2.2.5 创建访问接口</h3>
 
-<pre><code>    /**
-     * @author fyzn12
-     * @version 1.0
-     * @date 2020/7/26 18:25
-     * @description:TODO
-     */
-    @RestController
-
-    public class OrderController {
-        @Autowired
-        private MemberFeign memberFeign;
-        @RequestMapping(&quot;/getOrder&quot;)
-        public String getOrder(){
-            //String member = &quot;http:zk-member/getMember&quot;;
-            return memberFeign.getMember();
-        }
-    }  
+<pre><code>        /**
+         * @author fyzn12
+         * @version 1.0
+         * @date 2020/7/26 22:26
+         * @description:TODO
+         */
+        @RestController
+        public class ConsulOrderController {
+            @Autowired
+            private ConsulOrderFeign consulOrderFeign;
+            @RequestMapping(value = &quot;/getConsulOrder&quot;)
+            public String getConsulOrder(){
+                return consulOrderFeign.getConsulMember();
+            }
+        }  
 </code></pre>
 
-<h3 id="2-2-6-测试">2.2.6 测试</h3>
+<h2 id="2-3-启动会员服务和订单服务-访问http-localhost-8500查看服务是否注册到consul上">2.3 启动会员服务和订单服务，访问http:localhost:8500查看服务是否注册到consul上</h2>
 
-<div align=center><img src="https://fyzn12.github.io/img/picture/zk-test.png"/></div>  
+<div align=center><img src="https://fyzn12.github.io/img/picture/consul.png"/></div>   
+   
+
+<h2 id="2-4-访问测试">2.4 访问测试</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/consul-test.png"/></div>    
+  
+
+<h2 id="2-5-总结">2.5 总结</h2>
+
+<h4 id="通过访问订单服务的路径-读取出会员服务的数据-说明使用feign客户端调用成功-整合consul注册中心成功">通过访问订单服务的路径，读取出会员服务的数据，说明使用feign客户端调用成功，整合Consul注册中心成功。</h4>
+
+<hr />
+
+<h1 id="3-在整合过程中遇到的bug与解决方法">3 在整合过程中遇到的bug与解决方法</h1>
+
+<h2 id="3-1-bug出现的错误提示">3.1 bug出现的错误提示</h2>
+
+<h3 id="3-1-1-首先查看consul注册中心提示">3.1.1 首先查看consul注册中心提示</h3>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/consul-bug1.png"/></div>   
+  
+
+<h5 id="如图上面在consul注册中心上面可以看到提示会员服务和订单服务都以注册到上面-但是存在错误接下来点击会员服务查看在注册中心上面的错误提示">如图上面在consul注册中心上面可以看到提示会员服务和订单服务都以注册到上面，但是存在错误接下来点击会员服务查看在注册中心上面的错误提示</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/consul-bug2.png"/></div>     
+  
+
+<h5 id="如图上面提示可以看出-对于会员服务和订单服务的output可以很明显的看出-对于顶大服务报http-get-http-192-168-1-105-8100-actuator-health-404-造成这个问题的很大一种原因就是没有引入actuator的依赖-导致该路径找不到">如图上面提示可以看出，对于会员服务和订单服务的output可以很明显的看出，对于顶大服务报HTTP GET <a href="http://192.168.1.105:8100/actuator/health:">http://192.168.1.105:8100/actuator/health:</a> 404，造成这个问题的很大一种原因就是没有引入actuator的依赖，导致该路径找不到</h5>
+
+<h3 id="3-1-2-访问订单服务查看错误提示">3.1.2 访问订单服务查看错误提示</h3>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/consul-bug3.png"/></div> 
+  
+
+<h5 id="对于错误load-balancer-does-not-have-available-server-for-client-cs-member造成的原因有很多如下是可能会造成这个错误的原因部分列举">对于错误Load balancer does not have available server for client: cs-member造成的原因有很多如下是可能会造成这个错误的原因部分列举</h5>
+
+<ol>
+<li>在创建feign客户端调用的接口时，@FeignClient内给定的名称与会员服务的别名不相同<br /></li>
+<li>会员服务可能没哟给定别名<br /></li>
+</ol>
+
+<h5 id="对于上面我知道的这两种原因显然都不是-因此引入actuator的依赖">对于上面我知道的这两种原因显然都不是，因此引入actuator的依赖</h5>
+
+<pre><code>        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+        &lt;/dependency&gt;  
+</code></pre>
+
+<h5 id="在会员服务和订单服务上面引入上面的依赖再次查看consul的注册中心发现错误提示消失">在会员服务和订单服务上面引入上面的依赖再次查看consul的注册中心发现错误提示消失</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/consul-bug5.png"/></div>      
+  
+
+<h5 id="访问订单服务的路径正常显示信息-bug解决">访问订单服务的路径正常显示信息，bug解决</h5>
 </article>
     </section>
 
     <footer class="ui attached segment dream-tags">
       
       
-      <a class="ui label" href="/tags/zookeeper" title="Zookeeper">Zookeeper</a>
+      <a class="ui label" href="/tags/consul" title="Consul">Consul</a>
       
       
     </footer>

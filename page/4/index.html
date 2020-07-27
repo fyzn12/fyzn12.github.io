@@ -48,7 +48,9 @@
   </div>
   <div class="item">
     
-    <i class="disabled inverted big arrow alternate circle outline right icon" title="后一页"></i>
+    <a href="/page/5/">
+      <i class="inverted big arrow alternate circle outline right icon" title="后一页"></i>
+    </a>
     
   </div>
 </div>
@@ -96,6 +98,8 @@
 
   
   <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+  
+  <a class="ui label" href="/tags/consul" title="consul">consul</a>
   
   <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
   
@@ -264,6 +268,13 @@
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Consul注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
           <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="item">微服务架构的介绍</a>
         </div>
       </div>
@@ -328,6 +339,44 @@
 
     <div class="ui two stackable cards">
       
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
+            <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
+              
+              <h2 class="ui header" style="color: white;">mybatis之动态SQL</h2>
+              
+            </a>
+            <p style="padding: 5px;">动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+ &lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+ 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+ &lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">2 min read</div>
+          <div class="ui bottom left attached black label">Oct 8, 2019</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default4.jpg" alt="mybatis之动态SQL">
+    
+  </div>
+</article>
+
+
       
 
         <article class="card" style="box-shadow: none;">
@@ -448,42 +497,7 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="Mybatis-的配置文件">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/emoji-support/">
-              
-              <h2 class="ui header" style="color: white;">Emoji Support</h2>
-              
-            </a>
-            <p style="padding: 5px;">Emoji can be enabled in a Hugo project in a number of ways.
-</p>
-            <p>@ Hugo Authors</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Mar 5, 2019</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default2.jpg" alt="Emoji Support">
+    <img src="/img/default1.jpg" alt="Mybatis-的配置文件">
     
   </div>
 </article>

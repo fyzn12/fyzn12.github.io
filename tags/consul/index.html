@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>
 
-category | springcloud
+tag | Consul
 
 </title>
 
@@ -23,7 +23,7 @@ category | springcloud
 <meta name="generator" content="Hugo 0.57.2" />
 
 
-<link rel="canonical" href="https://fyzn12.github.io/categories/springcloud/" />
+<link rel="canonical" href="https://fyzn12.github.io/tags/consul/" />
 <link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
 
 <link href="/css/semantic.min.css" rel="stylesheet" />
@@ -354,86 +354,6 @@ category | springcloud
           
           <div class="display-content">
           
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
-              
-              <h2 class="ui header" style="color: white;">SpringCloud整合Zookeeper注册中心</h2>
-              
-            </a>
-            <p style="padding: 5px;">前言 
-1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
-2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件  &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-zk-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-zk-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">2 min read</div>
-          <div class="ui bottom left attached black label">Jul 24, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default5.jpg" alt="SpringCloud整合Zookeeper注册中心">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/">
-              
-              <h2 class="ui header" style="color: white;">SpringCloud之Eureka2.0服务注册中心</h2>
-              
-            </a>
-            <p style="padding: 5px;">SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
- 每个服务运行在单独的进程中
- 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
-  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http&#43;json（restful）进行传输。
- 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
- SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
-  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
- 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
-Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
-
-  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件  &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">2 min read</div>
-          <div class="ui bottom left attached black label">Jul 20, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default2.jpg" alt="SpringCloud之Eureka2.0服务注册中心">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
             <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
               
               <h2 class="ui header" style="color: white;">SpringCloud整合Consul注册中心</h2>
@@ -454,43 +374,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
     </div>
     
     <img src="/img/default1.jpg" alt="SpringCloud整合Consul注册中心">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">
-              
-              <h2 class="ui header" style="color: white;">微服务架构的介绍</h2>
-              
-            </a>
-            <p style="padding: 5px;">微服务架构的介绍 1 单体架构  单体架构也称为单体系统或者单体应用。就是一种把系统中的所有功能、模块耦合在一个应用中的架构方式  1.1 单体架构特点 1. 单体架构最终会打包成一个独立的单元(导成一个唯一的jar包或者war包) 2. 会以一个进程的方式来运行 3. 项目结构图如下图所示  
-1.2 单体架构的优点、缺点 1.2.1 优点：  1. 项目易于管理 2. 部署简单  1.2.2 缺点：  1. 测试成本高 2. 可伸缩性差 3. 可靠性差 4. 迭代困难 5. 跨语言程度差 6. 团队协作难  2 微服务架构 2.1 什么是微服务  微服务就是一种架构风格，一个大型的复杂软件应用，由一个或多个微服务组成。 系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅仅关注于完成一件任务。  2.2 什么架构风格  架构风格就是项目的一种设计模式  2.2.1 常见的架构风格  客户端与服务端
- 基于组件模型的架构（EJB） 分层架构（MVC） 面向服务架构（SOA）
-  2.3 微服务的特点 1. 系统是由多个服务构成 2.</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Jun 24, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default5.jpg" alt="微服务架构的介绍">
     
   </div>
 </article>

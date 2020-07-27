@@ -99,6 +99,8 @@
   
   <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
   
+  <a class="ui label" href="/tags/consul" title="consul">consul</a>
+  
   <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
   
   <a class="ui label" href="/tags/exception" title="exception">exception</a>
@@ -266,6 +268,13 @@
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Consul注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
           <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="item">微服务架构的介绍</a>
         </div>
       </div>
@@ -342,6 +351,43 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
+              
+              <h2 class="ui header" style="color: white;">SpringCloud整合Consul注册中心</h2>
+              
+            </a>
+            <p style="padding: 5px;">1 Consul简介  Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：
+ * 分布一致性协议实现、 * 健康检查、 * Key/Value存储、 * 多数据中心方案， * 不再需要依赖其他工具（比如ZooKeeper等）。  Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。
+ 基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对. 一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制. Consul 的使用场景
+ * docker 实例的注册与配置共享 * coreos 实例的注册与配置共享 * vitess 集群 * SaaS 应用的配置共享 * 与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件  Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接.</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">3 min read</div>
+          <div class="ui bottom left attached black label">Jun 24, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default4.jpg" alt="SpringCloud整合Consul注册中心">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">
               
               <h2 class="ui header" style="color: white;">微服务架构的介绍</h2>
@@ -361,7 +407,7 @@
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="微服务架构的介绍">
+    <img src="/img/default1.jpg" alt="微服务架构的介绍">
     
   </div>
 </article>
@@ -396,7 +442,7 @@
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="java基础篇">
+    <img src="/img/default5.jpg" alt="java基础篇">
     
   </div>
 </article>
@@ -430,47 +476,7 @@
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="redis学习日志汇总">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-              
-              <h2 class="ui header" style="color: white;">多线程</h2>
-              
-            </a>
-            <p style="padding: 5px;">java多线程总结 多线程的几种实现方式  继承Thread类 重写run（）方法定义线程的行为；
-如下图所示  实现Runnable接口
-如下图所示
-    实现 Callable 接口，该接口中的 call方法可以在线程执行结束时产生一个返回值。
-使用总结：因为 Java 中的继承是单继承，一个类有一个父类，如果继承了 Thread 类就无法再继承其 他类了，显然使用 Runnable 接口更为灵活。
-实现Runnable接口比继承Thread类所具有的优势：
- 1）：适合多个相同的程序代码的线程去处理同一个资源 2）：可以避免java中的单继承的限制 3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立 4）：线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类 创建多线程的三种方式:两个接口（Runnable、Callable）一个类（Thread）  实例变量与线程安全 自定义线程类中的实例变量针对其他线程可以有共享与不共享之分。当每个线程都有各自的实例变量时，就是变量不共享。共享数据的情况就是多个线程可以访问同一个变量。 来看下面的示例：    打印的结果中存在多个线程同时对count进行操作，产生了&#34;非线程安全&#34;问题 * 在某些JVM中，i--的操作要分成如下3步： * 取得原有变量的值。计算i-1。对i进行赋值。 * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。 解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：     synchronized 关键字的用法  在上面提到&#34;同步&#34;关键字，synchronized关键字可以将方法或者对象标记为同步，以实现对对象和法 的互斥访问，可以用synchronized(对象) { … }定义同步代码块，或者在声明方法时将 synchronized 作为方法的修饰符。 如果系统中存在临界资源（资源数量少于竞争资源的线程数量的资源），例如正在写的数据以后可能被另 一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就必须进行同步存取（数 据库操作中的排他锁就是最好的例子）。当应用程序在对象上调用了一个需要花费很长时间来执行的方 法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效 率。事实上，所谓的同步就是指阻塞式操作，而异步就是非阻塞式操作。  线程的状态变化  要想实现多线程，必须在主线程中创建新的线程对象。任何线程一般具有5种状态，即创建，就绪，运行 阻塞，终止。下面分别介绍一下这几种状态：   创建状态</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Jun 11, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default5.jpg" alt="多线程">
+    <img src="/img/default4.jpg" alt="redis学习日志汇总">
     
   </div>
 </article>

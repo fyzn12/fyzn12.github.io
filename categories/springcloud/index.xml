@@ -42,6 +42,18 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
     </item>
     
     <item>
+      <title>SpringCloud整合Consul注册中心</title>
+      <link>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</link>
+      <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</guid>
+      <description>1 Consul简介  Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：
+ * 分布一致性协议实现、 * 健康检查、 * Key/Value存储、 * 多数据中心方案， * 不再需要依赖其他工具（比如ZooKeeper等）。  Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。
+ 基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对. 一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制. Consul 的使用场景
+ * docker 实例的注册与配置共享 * coreos 实例的注册与配置共享 * vitess 集群 * SaaS 应用的配置共享 * 与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件  Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接.</description>
+    </item>
+    
+    <item>
       <title>微服务架构的介绍</title>
       <link>https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>

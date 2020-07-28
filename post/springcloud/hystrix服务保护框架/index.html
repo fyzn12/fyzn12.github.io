@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+SpringCloud整合Hystrix服务保护框架
+</title>
+
+  
+  
+  <meta name="author" content="fyzn12" />
+  <meta name="description" content="1 引入Hystrix需要了解的知识点 1.1 服务的雪崩效应  服务的雪崩效应：默认情况下，tomcat只有一个线程池去处理所有客户端发生的所有请求，这样在高并发下的情况下， 如果客户端所有的请求堆积到同一个接口上（也就是客户端访问同一个接口），tomcat的所有线程去处理请求，可能 会导致其他服务接口无法访问。 假设tomcat最大请求数为20，客户端发送的请求数为100，会发生80个请求产生延迟等待  1.2 Hystrix服务保护框架能解决什么问题  断路器
+ 服务降级
+ 服务熔断
+ 服务隔离机制
+ 服务雪崩效应，连环雪崩效应
+注意：如果雪崩效应严重的话，可能会造成整个服务崩溃   1.3 Hystrix解决雪崩效应的原理  服务降级 &amp;mdash;-友好提示
+在高并发的情况下，防止用户一直等待，在tomcat中没有线程处理客户端发生的请求时，不应该让客户端一直在等待， 使用服务降级（返回一个友好的提示给客户端），目的是为了用户的体验，调用fallback本地方法  服务隔离 &amp;mdash;-线程池隔离和信号量隔离
+信号量的使用示意图：当n个并发请求去调用一个目标服务接口时，都要获取一个信号量才能真正去调用 目标服务接口，但信号量有限，默认是10个，可以使用maxConcurrentRequests参数配置，如果并发请求数多于 信号量个数，就有线程需要进入队列排队，但排队队列也有上限，默认是 5，如果排队队列也满，则必定有请求线 程会走fallback流程，从而达到限流和防止雪崩的目的。 信号量模式从始至终都只有请求线程自身，是同步调用模式，不支持超时调用，不支持直接熔断，由于没有线程的 切换，开销非常小。 线程池的使用示意图如下图所示，当n个请求线程并发对某个接口请求调用时，会先从hystrix管理的线程池里面 获得一个线程，然后将参数传递给这个线程去执行真正调用。线程池的大小有限，默认是10个线程，可以使用 maxConcurrentRequests参数配置，如果并发请求数多于线程池线程个数，就有线程需要进入队列排队，但排队 队列也有上限，默认是 5，如果排队队列也满，则必定有请求线程会走fallback流程。 线程池模式可以支持异步调用，支持超时调用，支持直接熔断，存在线程切换，开销大。     服务熔断
+服务熔断目的是为了保护服务，在高并发的情况下，如果请求达到一定得极限（可以设置阈值），如果流量超过 了这是的阈值，自动开启保护服务的功能，使用服务降级方式返回一个友好的提示。服务熔断和服务降级一起使用   2 搭建Hystrix服务保护框架 2.1 feign客户端超时设置 首先了解feign客户端默认超时时间是1秒  ribbon: # 建立连接所用的时间 ReadTimeout: 5000 # 建立之后读取所用的时间 ConnectTimeout: 5000  2." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2" />
+
+
+<link rel="canonical" href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" />
+<link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
+
+<link href="/css/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="首页"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+
+    <section class="ui top attached segment">
+      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
+        <i class="save icon"></i>
+      </a>
+      <header>
+        <h1 class="ui header">
+          SpringCloud整合Hystrix服务保护框架
+          <div class="sub header">@ fyzn12 · Jun 28, 2020 · 2 min read · 更新于 Jul 26, 2020</div>
+        </h1>
+      </header>
+      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<h1 id="1-引入hystrix需要了解的知识点">1 引入Hystrix需要了解的知识点</h1>
+
+<h2 id="1-1-服务的雪崩效应">1.1 服务的雪崩效应</h2>
+
+<pre><code>    服务的雪崩效应：默认情况下，tomcat只有一个线程池去处理所有客户端发生的所有请求，这样在高并发下的情况下，  
+    如果客户端所有的请求堆积到同一个接口上（也就是客户端访问同一个接口），tomcat的所有线程去处理请求，可能  
+    会导致其他服务接口无法访问。  
+
+    假设tomcat最大请求数为20，客户端发送的请求数为100，会发生80个请求产生延迟等待  
+</code></pre>
+
+<h2 id="1-2-hystrix服务保护框架能解决什么问题">1.2 Hystrix服务保护框架能解决什么问题</h2>
+
+<ol>
+<li>断路器<br /></li>
+<li>服务降级<br /></li>
+<li>服务熔断<br /></li>
+<li>服务隔离机制<br /></li>
+
+<li><p>服务雪崩效应，连环雪崩效应</p>
+
+<pre><code>注意：如果雪崩效应严重的话，可能会造成整个服务崩溃  
+</code></pre></li>
+</ol>
+
+<h2 id="1-3-hystrix解决雪崩效应的原理">1.3 Hystrix解决雪崩效应的原理</h2>
+
+<ul>
+<li><p>服务降级 &mdash;-友好提示</p>
+
+<pre><code>在高并发的情况下，防止用户一直等待，在tomcat中没有线程处理客户端发生的请求时，不应该让客户端一直在等待，  
+使用服务降级（返回一个友好的提示给客户端），目的是为了用户的体验，调用fallback本地方法  
+</code></pre></li>
+
+<li><p>服务隔离 &mdash;-线程池隔离和信号量隔离</p>
+
+<pre><code>信号量的使用示意图：当n个并发请求去调用一个目标服务接口时，都要获取一个信号量才能真正去调用  
+目标服务接口，但信号量有限，默认是10个，可以使用maxConcurrentRequests参数配置，如果并发请求数多于  
+信号量个数，就有线程需要进入队列排队，但排队队列也有上限，默认是 5，如果排队队列也满，则必定有请求线  
+程会走fallback流程，从而达到限流和防止雪崩的目的。  
+
+信号量模式从始至终都只有请求线程自身，是同步调用模式，不支持超时调用，不支持直接熔断，由于没有线程的  
+切换，开销非常小。  
+
+
+线程池的使用示意图如下图所示，当n个请求线程并发对某个接口请求调用时，会先从hystrix管理的线程池里面  
+获得一个线程，然后将参数传递给这个线程去执行真正调用。线程池的大小有限，默认是10个线程，可以使用  
+maxConcurrentRequests参数配置，如果并发请求数多于线程池线程个数，就有线程需要进入队列排队，但排队  
+队列也有上限，默认是 5，如果排队队列也满，则必定有请求线程会走fallback流程。
+
+线程池模式可以支持异步调用，支持超时调用，支持直接熔断，存在线程切换，开销大。
+</code></pre></li>
+</ul>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix1.png"/></div>   
+  
+
+<ul>
+<li><p>服务熔断</p>
+
+<pre><code>服务熔断目的是为了保护服务，在高并发的情况下，如果请求达到一定得极限（可以设置阈值），如果流量超过  
+了这是的阈值，自动开启保护服务的功能，使用服务降级方式返回一个友好的提示。服务熔断和服务降级一起使用
+</code></pre></li>
+</ul>
+
+<h1 id="2-搭建hystrix服务保护框架">2 搭建Hystrix服务保护框架</h1>
+
+<h2 id="2-1-feign客户端超时设置">2.1 feign客户端超时设置</h2>
+
+<h5 id="首先了解feign客户端默认超时时间是1秒">首先了解feign客户端默认超时时间是1秒</h5>
+
+<pre><code>    ribbon:
+      # 建立连接所用的时间
+      ReadTimeout: 5000
+      # 建立之后读取所用的时间
+      ConnectTimeout: 5000  
+</code></pre>
+
+<h2 id="2-3-开启hystrix断路器">2.3 开启hystrix断路器</h2>
+
+<pre><code>        feign.hystrix.enabled=true  
+</code></pre>
+
+<h2 id="2-4-在已经创建的微服务项目中整合hystrix框架">2.4 在已经创建的微服务项目中整合Hystrix框架</h2>
+
+<h3 id="2-4-1-添加hystrix的依赖">2.4.1 添加hystrix的依赖</h3>
+
+<pre><code>        &lt;!-- 导入springcloud整合hystrix启动器--&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
+        &lt;/dependency&gt;  
+</code></pre>
+
+<h3 id="2-4-2-hystrix整合的两种方式">2.4.2 hystrix整合的两种方式</h3>
+
+<h4 id="修改订单服务配置文件">修改订单服务配置文件</h4>
+
+<pre><code>                    # 项目的端口号
+                    server.port=8001
+                    # 服务别名--服务注册到注册中心的名称
+                    spring.application.name=app-test-order
+                    # 当前服务注册到eureka服务地址
+                    eureka.client.service-url.defaultZone=http://localhost:8100/eureka
+                    # 需要将服务注册到eureka上面
+                    eureka.client.register-with-eureka=true
+                    # 是否需要检索服务
+                    eureka.client.fetch-registry=true
+                    spring.main.allow-bean-definition-overriding=true  
+
+                    #feign客户端建立连接超时时间
+                    feign.client.config.default.connect-timeout=10000
+                    #feign客户端建立连接后读取资源超时时间
+                    feign.client.config.default.read-timeout=10000
+
+                    #开启Hystrix断路器
+                    feign.hystrix.enabled=true
+                    #配置Hystrix 超时时间   超时关闭
+                    #hystrix.command.default.execution.timeout.enabled=false
+                    #超时时间（默认1000ms）在调用方配置，被该调用方的所有方法的超时时间都是该值，优先级低于下边的指定配置
+                    hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=3000
+                    #在调用方配置，被该调用方的指定方法（HystrixCommandKey方法名）的超时时间是该值
+                    hystrix.command.HystrixCommandKey.execution.isolation.thread.timeoutInMilliseconds=4000
+                    #线程池核心线程数 默认为10
+                    hystrix.threadpool.default.coreSize=10
+                    #最大排队长度。默认-1  如果要从-1换成其他值则需重启，即该值不能动态调整，若要动态调整，需要使用到下边这个配置
+                    hystrix.threadpool.default.maxQueueSize=100
+                    #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
+                    hystrix.threadpool.default.queueSizeRejectionThreshold=5
+                    # 简言之，10s内请求失败数量达到20个，断路器开。  当在配置时间窗口内达到此数量的失败后，进行短路。默认20个
+                    hystrix.command.default.circuitBreaker.requestVolumeThreshold=20
+                    #短路多久以后开始尝试是否恢复，默认5s
+                    hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds=5
+                    #出错百分比阈值，当达到此阈值后，开始短路。默认50%
+                    hystrix.command.default.circuitBreaker.errorThresholdPercentage=50%
+                    #调用线程允许请求HystrixCommand.GetFallback()的最大数量，默认10。超出时将会有异常抛出，注意：该项配置对于THREAD隔离模式也起作用
+                    hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests=50000
+</code></pre>
+
+<h4 id="方法一-采用新建fallbackmethod指定服务降级的方式">方法一：采用新建fallbackMethod指定服务降级的方式</h4>
+
+<h5 id="1-使用-hystrixcommand注解指定fallbackmethod方法">1.使用@HystrixCommand注解指定fallbackMethod方法</h5>
+
+<pre><code>        /**
+         * 解决服务的雪崩效应
+         * @HystrixCommand:默认开启服务隔离方式（以线程池方式）、服务降级、熔断机制
+         *
+         * Hystrix提供两种方式解决服务的雪崩效应
+         * 方法一：自定义方法
+         * */
+        @RequestMapping(&quot;orderToMemberHystrix&quot;)
+        @HystrixCommand(fallbackMethod = &quot;getFallBack&quot;)
+        public Map&lt;String,Object&gt; orderToMemberHystrix(){
+            Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+            System.out.println(&quot;orderToMemberHystrix :线程池名称 &quot;+Thread.currentThread().getName());
+            String member = memberFeign.getMember(&quot;张三&quot;);
+            map.put(&quot;name&quot;,member);
+            map.put(&quot;state&quot;,&quot;200&quot;);
+            return map;
+        }
+        public Map&lt;String,Object&gt;  getFallBack(){
+            Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+            map.put(&quot;msg&quot;,&quot;返回一个友好的提示：服务器忙，请稍后提示&quot;);
+            map.put(&quot;state&quot;,&quot;400&quot;);
+            return map;
+        }
+
+
+        注意：这里需要明确几个点  
+
+            1. @HystrixCommand注解默认开启服务隔离（以线程池方式）、服务降级、服务熔断机制  
+            2. fallbackMethod指定的方法的返回值必须与@HystrixCommand注解标识的方法的返回值一致  
+</code></pre>
+
+<h5 id="2-在订单服务的启动类上开启hystrix并启动eureka服务-会员服务-订单服务">2. 在订单服务的启动类上开启Hystrix并启动Eureka服务、会员服务、订单服务</h5>
+
+<pre><code>        /**
+         * @author fyzn12
+         * @version 1.0
+         * @date 2020/7/23 10:18
+         * @description:TODO
+         */
+        @SpringBootApplication
+        @EnableEurekaClient
+        @EnableFeignClients
+        @EnableHystrix
+        public class OrderApp {
+            public static void main(String[] args) {
+                SpringApplication.run(OrderApp.class,args);
+            }
+        }  
+</code></pre>
+
+<h5 id="3-使用工具apache-jemeter进行测试">3.使用工具Apache Jemeter进行测试</h5>
+
+<h6 id="1-首先指定线程组每次执行多少条请求-以及循环多少次">1). 首先指定线程组每次执行多少条请求，以及循环多少次</h6>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-test1.png"/></div>     
+  
+
+<h6 id="2-指定访问的路径并启动http-localhost-8001-ordertomemberhystrix">2). 指定访问的路径并启动http:localhost:8001/orderToMemberHystrix</h6>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-test2.png"/></div>   
+  
+
+<h6 id="3-在该工具启动之后再次在浏览器端访问http-localhost-8001-ordertomemberhystrix-目的就是模拟高并发情况下-是否开启hystrix服务保护功能">3). 在该工具启动之后再次在浏览器端访问http:localhost:8001/orderToMemberHystrix，目的就是模拟高并发情况下，是否开启hystrix服务保护功能</h6>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-test3.png"/></div>    
+  
+
+<h5 id="4-通过上图可以看出-当高并发情况下-服务开启了服务降级-查看控制台是否开启服务隔离机制">4). 通过上图可以看出，当高并发情况下，服务开启了服务降级。查看控制台是否开启服务隔离机制</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-test4.png"/></div>   
+  
+
+<pre><code>    从图中可以得出，@HystrixCommand默认开启服务降级、隔离、熔断机制  
+    另外，从控制台打印的结果得出，tomcat线程池默认每次执行请求的条数为10条请求  
+</code></pre>
+
+<h5 id="5-这种方法总结">5). 这种方法总结</h5>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-sum1.png"/></div>   
+  
+
+<h5 id="如上图所示-在使用这种方式整合hystrix服务保护框架时-他的服务隔离机制是同步线程池-即整个方法体都是一个线程池执行处理-真正开发中需要做到只有在调用getmember这个借口时才更换另外的线程池去处理-做到异步线程池隔离-显然这种方法不能做到-效率自然也没有那么高">如上图所示，在使用这种方式整合hystrix服务保护框架时，他的服务隔离机制是同步线程池，即整个方法体都是一个线程池执行处理，真正开发中需要做到只有在调用getMember这个借口时才更换另外的线程池去处理，做到异步线程池隔离，显然这种方法不能做到，效率自然也没有那么高。</h5>
+
+<h5 id="6-这种方法优化">6). 这种方法优化</h5>
+
+<pre><code>        类上添加@DefaultProperties注解指定默认的熔断处理方法后，只需要在方法上添加@HystrixCommand注解即可：  
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-sum2.png"/></div>  
+  
+
+<h4 id="方法二-定义统一的fallback接口-类的方式">方法二：定义统一的fallback接口&mdash;-类的方式</h4>
+
+<h5 id="1-定义一个类实现feign客户端调用接口并将其注入到spring容器中">1  定义一个类实现feign客户端调用接口并将其注入到Spring容器中</h5>
+
+<pre><code>    @Component
+    public class ImemberFallBackService implements MemberFeign {
+        @Override
+        public String getMember(@RequestParam(&quot;name&quot;) String name){
+            System.out.println(&quot;ImemberFallBackService---线程池名称：&quot;+Thread.currentThread().getName()+&quot;name&quot;+name);
+            return &quot;采用类的方式做服务降级---服务器忙请稍后重试&quot;;
+        }
+    }  
+</code></pre>
+
+<h5 id="2-修改其注入feign接口的注解为-resource-因为使用-autowired时-当接口存在歧义时容易出错">2 修改其注入feign接口的注解为@Resource，因为使用@Autowired时，当接口存在歧义时容易出错</h5>
+
+<pre><code>     @Resource
+     private MemberFeign memberFeign;  
+</code></pre>
+
+<h5 id="3调用该接口">3调用该接口</h5>
+
+<pre><code>        @Override
+        @RequestMapping(&quot;/orderToMember&quot;)
+        public String orderToMember(@RequestParam(&quot;name&quot;) String name) {
+
+            System.out.println(&quot;orderToMember---线程池名称：&quot;+Thread.currentThread().getName()+&quot; name &quot;+name);
+            return memberFeign.getMember(name);
+        }
+</code></pre>
+</article>
+    </section>
+
+    <footer class="ui attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/hystrix" title="Hystrix">Hystrix</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    
+<section class="ui top attached center aligned inverted segment">
+
+  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
+    <i class="bars icon" title="弹出菜单"></i>
+  </a>
+
+  <div class="ui small circular image" style="margin-top: 1rem;">
+    
+    <img src="/img/dome2.jpg">
+    
+  </div>
+  
+  <h3 class="ui inverted header">
+  fyzn12的博客<div class="sub header">路是自己走、踏破云层，也许看不到所幻想的彩虹、却能体会自己付出的汗水！</div>
+  </h3>
+
+  
+  <div class="ui inverted horizontal list">
+  
+    
+    <a class="item" href="/post">
+      <i class="archive icon" title="归档"></i>
+    </a>
+    
+    <a class="item" href="/tags">
+      <i class="tags icon" title="所有标签"></i>
+    </a>
+    <a class="item" href="/categories">
+      <i class="cube icon" title="所有分类"></i>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
+
+  
+  <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
+  
+  <a class="ui label" href="/tags/consul" title="consul">consul</a>
+  
+  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
+  
+  <a class="ui label" href="/tags/exception" title="exception">exception</a>
+  
+  <a class="ui label" href="/tags/hystrix" title="hystrix">hystrix</a>
+  
+  <a class="ui label" href="/tags/java" title="java">java</a>
+  
+  <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
+  
+  <a class="ui label" href="/tags/jedis" title="jedis">jedis</a>
+  
+  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+  
+  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
+  
+  <a class="ui label" href="/tags/redis" title="redis">redis</a>
+  
+  <a class="ui label" href="/tags/soa-rpc" title="soa-rpc">soa-rpc</a>
+  
+  <a class="ui label" href="/tags/spring-data-jpa" title="spring-data-jpa">spring-data-jpa</a>
+  
+  <a class="ui label" href="/tags/springcloudeureka" title="springcloudeureka">springcloudeureka</a>
+  
+  <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
+  
+  <a class="ui label" href="/tags/zookeeper" title="zookeeper">zookeeper</a>
+  
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+
+  
+  <div class="ui inverted accordion">
+  
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/algorithm" class="item">algorithm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/database" class="item">database</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/java%E5%9F%BA%E7%A1%80" class="item">java基础</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/redis" class="item">redis</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/redis/jedis/" class="item">redis之java客户端</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/springboot" class="item">springboot</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="item">Spring Boot整合Spring Data JPA</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/" class="item">SpringBoot提供的五种异常机制</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/springcloud" class="item">springcloud</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Zookeeper注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="item">SpringCloud之Eureka2.0服务注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="item">SpringCloud整合Hystrix服务保护框架</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Consul注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="item">微服务架构的介绍</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ssm" class="item">ssm</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">mybatis之动态SQL</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/" class="item">ssm随学札记</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mybatis之mapper接口编程</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ui bottom attached center aligned inverted segment">
+
+    
+    <p>© 2019 - 2020 fyzn12个人博客</p>
+    
+    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:1149919071@qq.com">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/fyzn12/" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      
+      <header class="ui inverted segment">
+      
+        <h2 class="ui header">
+          喜欢的诗
+        </h2>
+      </header>
+
+      
+      <article class="ui inverted segment markdown-body">
+      
+        <div class="ui stackable three column grid">
+          <div class="column">
+              
+              <p style="text-align:center">
+每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。  
+每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。   
+每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。  
+每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。   
+每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。  
+你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。   
+也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。  
+你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。   
+我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
+              
+          </div>
+          <div class="column">
+              
+          </div>
+          <div class="column">
+              
+          </div>
+        </div>
+      </article>
+
+      
+
+      
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

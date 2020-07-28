@@ -83,15 +83,29 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
     </item>
     
     <item>
+      <title>SpringCloud整合Hystrix服务保护框架</title>
+      <link>https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Sun, 28 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/</guid>
+      <description>1 引入Hystrix需要了解的知识点 1.1 服务的雪崩效应  服务的雪崩效应：默认情况下，tomcat只有一个线程池去处理所有客户端发生的所有请求，这样在高并发下的情况下， 如果客户端所有的请求堆积到同一个接口上（也就是客户端访问同一个接口），tomcat的所有线程去处理请求，可能 会导致其他服务接口无法访问。 假设tomcat最大请求数为20，客户端发送的请求数为100，会发生80个请求产生延迟等待  1.2 Hystrix服务保护框架能解决什么问题  断路器
+ 服务降级
+ 服务熔断
+ 服务隔离机制
+ 服务雪崩效应，连环雪崩效应
+注意：如果雪崩效应严重的话，可能会造成整个服务崩溃   1.3 Hystrix解决雪崩效应的原理  服务降级 &amp;mdash;-友好提示
+在高并发的情况下，防止用户一直等待，在tomcat中没有线程处理客户端发生的请求时，不应该让客户端一直在等待， 使用服务降级（返回一个友好的提示给客户端），目的是为了用户的体验，调用fallback本地方法  服务隔离 &amp;mdash;-线程池隔离和信号量隔离
+信号量的使用示意图：当n个并发请求去调用一个目标服务接口时，都要获取一个信号量才能真正去调用 目标服务接口，但信号量有限，默认是10个，可以使用maxConcurrentRequests参数配置，如果并发请求数多于 信号量个数，就有线程需要进入队列排队，但排队队列也有上限，默认是 5，如果排队队列也满，则必定有请求线 程会走fallback流程，从而达到限流和防止雪崩的目的。 信号量模式从始至终都只有请求线程自身，是同步调用模式，不支持超时调用，不支持直接熔断，由于没有线程的 切换，开销非常小。 线程池的使用示意图如下图所示，当n个请求线程并发对某个接口请求调用时，会先从hystrix管理的线程池里面 获得一个线程，然后将参数传递给这个线程去执行真正调用。线程池的大小有限，默认是10个线程，可以使用 maxConcurrentRequests参数配置，如果并发请求数多于线程池线程个数，就有线程需要进入队列排队，但排队 队列也有上限，默认是 5，如果排队队列也满，则必定有请求线程会走fallback流程。 线程池模式可以支持异步调用，支持超时调用，支持直接熔断，存在线程切换，开销大。     服务熔断
+服务熔断目的是为了保护服务，在高并发的情况下，如果请求达到一定得极限（可以设置阈值），如果流量超过 了这是的阈值，自动开启保护服务的功能，使用服务降级方式返回一个友好的提示。服务熔断和服务降级一起使用   2 搭建Hystrix服务保护框架 2.1 feign客户端超时设置 首先了解feign客户端默认超时时间是1秒  ribbon: # 建立连接所用的时间 ReadTimeout: 5000 # 建立之后读取所用的时间 ConnectTimeout: 5000  2.</description>
+    </item>
+    
+    <item>
       <title>SpringCloud整合Consul注册中心</title>
       <link>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</link>
       <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</guid>
-      <description>SpringCloud整合Consul注册中心 1 Consul简介  Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：
- 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。  Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。
- 基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对. 一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制. Consul 的使用场景
- docker 实例的注册与配置共享 coreos 实例的注册与配置共享 vitess 集群 SaaS 应用的配置共享 与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件  Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接.</description>
+      <description>SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：  分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。  2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件  &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-consul-member&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-consul-member Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!-- FIXME change it to the project&#39;s website --&amp;gt; &amp;lt;url&amp;gt;http://www.example.com&amp;lt;/url&amp;gt; &amp;lt;properties&amp;gt; &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt; &amp;lt;maven.compiler.source&amp;gt;1.7&amp;lt;/maven.compiler.source&amp;gt; &amp;lt;maven.compiler.target&amp;gt;1.7&amp;lt;/maven.compiler.target&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-cloud-dependencies&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;Hoxton.SR2&amp;lt;/version&amp;gt; &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt; &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; &amp;lt;/dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;!-- 导入springboot的启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 导入springcloud整合Zookeeper启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.</description>
     </item>
     
     <item>

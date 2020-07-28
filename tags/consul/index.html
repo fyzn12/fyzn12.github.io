@@ -108,6 +108,8 @@ tag | Consul
   
   <a class="ui label" href="/tags/exception" title="exception">exception</a>
   
+  <a class="ui label" href="/tags/hystrix" title="hystrix">hystrix</a>
+  
   <a class="ui label" href="/tags/java" title="java">java</a>
   
   <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
@@ -271,6 +273,13 @@ tag | Consul
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="item">SpringCloud整合Hystrix服务保护框架</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
           <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Consul注册中心</a>
         </div>
       </div>
@@ -359,21 +368,18 @@ tag | Consul
               <h2 class="ui header" style="color: white;">SpringCloud整合Consul注册中心</h2>
               
             </a>
-            <p style="padding: 5px;">SpringCloud整合Consul注册中心 1 Consul简介  Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：
- 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。  Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。
- 基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对. 一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制. Consul 的使用场景
- docker 实例的注册与配置共享 coreos 实例的注册与配置共享 vitess 集群 SaaS 应用的配置共享 与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件  Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接.</p>
+            <p style="padding: 5px;">SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：  分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。  2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件  &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入springcloud整合Zookeeper启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.</p>
             <p>@ fyzn12</p>
           </div>
           
-          <div class="ui top right attached black label">3 min read</div>
+          <div class="ui top right attached black label">2 min read</div>
           <div class="ui bottom left attached black label">Jun 24, 2020</div>
           
         </div>
       </div>
     </div>
     
-    <img src="/img/default4.jpg" alt="SpringCloud整合Consul注册中心">
+    <img src="/img/default6.jpg" alt="SpringCloud整合Consul注册中心">
     
   </div>
 </article>

@@ -12,10 +12,7 @@ SpringCloud整合Consul注册中心
   
   
   <meta name="author" content="fyzn12" />
-  <meta name="description" content="SpringCloud整合Consul注册中心 1 Consul简介  Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：
- 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。  Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。
- 基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对. 一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制. Consul 的使用场景
- docker 实例的注册与配置共享 coreos 实例的注册与配置共享 vitess 集群 SaaS 应用的配置共享 与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件  Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接." />
+  <meta name="description" content="SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：  分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。  2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件  &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-consul-member&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-consul-member Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!-- FIXME change it to the project&#39;s website --&amp;gt; &amp;lt;url&amp;gt;http://www.example.com&amp;lt;/url&amp;gt; &amp;lt;properties&amp;gt; &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt; &amp;lt;maven.compiler.source&amp;gt;1.7&amp;lt;/maven.compiler.source&amp;gt; &amp;lt;maven.compiler.target&amp;gt;1.7&amp;lt;/maven.compiler.target&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-cloud-dependencies&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;Hoxton.SR2&amp;lt;/version&amp;gt; &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt; &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; &amp;lt;/dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;!-- 导入springboot的启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 导入springcloud整合Zookeeper启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org." />
 
 
 
@@ -60,7 +57,7 @@ SpringCloud整合Consul注册中心
       <header>
         <h1 class="ui header">
           SpringCloud整合Consul注册中心
-          <div class="sub header">@ fyzn12 · Jun 24, 2020 · 3 min read · 更新于 Jun 26, 2020</div>
+          <div class="sub header">@ fyzn12 · Jun 24, 2020 · 2 min read · 更新于 Jun 26, 2020</div>
         </h1>
       </header>
       <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
@@ -69,37 +66,14 @@ SpringCloud整合Consul注册中心
 
 <h1 id="1-consul简介">1 Consul简介</h1>
 
-<ol>
-<li><p>Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：</p>
+<h4 id="consul-是-hashicorp-公司推出的开源工具-用于实现分布式系统的服务发现与配置-与其他分布式服务注册与发现的方案-consul的方案更-一站式-内置了服务注册与发现框-架-具有以下性质">Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质：</h4>
 
-<pre><code>        分布一致性协议实现、
-        健康检查、
-        Key/Value存储、
-        多数据中心方案，
-        不再需要依赖其他工具（比如ZooKeeper等）。
-</code></pre></li>
-
-<li><p>Consul使用Go语言编写，因此具有天然可移植性(支持Linux、windows和Mac OS X)；安装包仅包含一个可执行文件，方便部署，与Docker等轻量级容器可无缝配合 。</p></li>
-
-<li><p>基于 Mozilla Public License 2.0 的协议进行开源. Consul 支持健康检查,并允许 HTTP 和 DNS 协议调用 API 存储键值对.
-一致性协议采用 Raft 算法,用来保证服务的高可用. 使用 GOSSIP 协议管理成员和广播消息, 并且支持 ACL 访问控制.
-Consul 的使用场景</p>
-
-<pre><code>        docker 实例的注册与配置共享
-        coreos 实例的注册与配置共享
-        vitess 集群
-        SaaS 应用的配置共享
-        与 confd 服务集成，动态生成 nginx 和 haproxy 配置文件
-</code></pre></li>
-
-<li><p>Consul 的优势：使用 Raft 算法来保证一致性, 比复杂的 Paxos 算法更直接. 相比较而言, zookeeper 采用的是 Paxos, 而 etcd 使用的则是 Raft。支持多数据中心，内外网的服务采用不同的端口进行监听。 多数据中心集群可以避免单数据中心的单点故障,而其部署则需要考虑网络延迟, 分片等情况等. zookeeper 和 etcd 均不提供多数据中心功能的支持.
-支持健康检查. etcd 不提供此功能.
-支持 http 和 dns 协议接口. zookeeper 的集成较为复杂, etcd 只支持 http 协议.
-官方提供web管理界面, etcd 无此功能.
-Consul 的角色</p></li>
-
-<li><p>client: 客户端, 无状态, 将 HTTP 和 DNS 接口请求转发给局域网内的服务端集群.server: 服务端, 保存配置信息, 高可用集群, 在局域网内与本地客户端通讯, 通过广域网与其他数据中心通讯. 每个数据中心的 server 数量推荐为 3 个或是 5 个.由于Spring Cloud Consul项目的实现，我们可以轻松的将基于Spring Boot的微服务应用注册到Consul上，并通过此实现微服务架构中的服务治理。</p></li>
-</ol>
+<pre><code>            分布一致性协议实现、
+            健康检查、
+            Key/Value存储、
+            多数据中心方案，
+            不再需要依赖其他工具（比如ZooKeeper等）。
+</code></pre>
 
 <hr />
 
@@ -478,6 +452,8 @@ Consul 的角色</p></li>
   
   <a class="ui label" href="/tags/exception" title="exception">exception</a>
   
+  <a class="ui label" href="/tags/hystrix" title="hystrix">hystrix</a>
+  
   <a class="ui label" href="/tags/java" title="java">java</a>
   
   <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
@@ -635,6 +611,13 @@ Consul 的角色</p></li>
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="item">SpringCloud之Eureka2.0服务注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="item">SpringCloud整合Hystrix服务保护框架</a>
         </div>
       </div>
       

@@ -129,6 +129,8 @@
   
   <a class="ui label" href="/tags/zookeeper" title="zookeeper">zookeeper</a>
   
+  <a class="ui label" href="/tags/zuul" title="zuul">zuul</a>
+  
 </section>
 
 
@@ -263,6 +265,13 @@
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="item">SpringCloud微服务网关技术Zuul</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
           <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="item">SpringCloud之Eureka2.0服务注册中心</a>
         </div>
       </div>
@@ -360,6 +369,60 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/">
+              
+              <h2 class="ui header" style="color: white;">数据库易忘知识点总结</h2>
+              
+            </a>
+            <p style="padding: 5px;">1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令  create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+语法：
+delete from 表名 [where 条件]
+注意：
+* 如果不加条件，则删除表中所有记录。
+* 如果要删除所有记录
+delete from 表名—不推荐使用。有多少条记录就会执行多少次删除操作。
+* TRUNCATE TABLE 表名；–推荐使用，效率更高，先删除表，然后创建相同的表。
+ update 表名 set 列名1 = 值1，列名2 = 值2，…[where 条件]; 注意：如果不加条件，则会修改所有的记录；
+ 多表查询取出重复的行
+ 关键字 distinct  DQL：查询语句
+ 排序查询
+语法：order by 子句
+排序方式： ASC：升序；DESC：降序
+注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。
+ 聚合函数：
+（1）count：计算个数
+（2）max
+（3）min
+（4）sum
+（5）avg</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">2 min read</div>
+          <div class="ui bottom left attached black label">Jul 1, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default4.jpg" alt="数据库易忘知识点总结">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/">
               
               <h2 class="ui header" style="color: white;">SpringCloud整合Hystrix服务保护框架</h2>
@@ -384,7 +447,7 @@
       </div>
     </div>
     
-    <img src="/img/default2.jpg" alt="SpringCloud整合Hystrix服务保护框架">
+    <img src="/img/default5.jpg" alt="SpringCloud整合Hystrix服务保护框架">
     
   </div>
 </article>
@@ -418,7 +481,7 @@
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="SpringCloud整合Consul注册中心">
+    <img src="/img/default1.jpg" alt="SpringCloud整合Consul注册中心">
     
   </div>
 </article>
@@ -455,42 +518,7 @@
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="微服务架构的介绍">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/">
-              
-              <h2 class="ui header" style="color: white;">java基础篇</h2>
-              
-            </a>
-            <p style="padding: 5px;">JVM加载class文件的原理机制  JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。  JDK和JRE的区别  * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
-==和equals的区别 ==解读  对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读  equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">4 min read</div>
-          <div class="ui bottom left attached black label">Jun 11, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default6.jpg" alt="java基础篇">
+    <img src="/img/default2.jpg" alt="微服务架构的介绍">
     
   </div>
 </article>

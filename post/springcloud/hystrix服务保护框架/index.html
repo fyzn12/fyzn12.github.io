@@ -324,7 +324,7 @@ maxConcurrentRequests参数配置，如果并发请求数多于线程池线程�
      private MemberFeign memberFeign;  
 </code></pre>
 
-<h5 id="3调用该接口">3调用该接口</h5>
+<h5 id="3-调用该接口">3 调用该接口</h5>
 
 <pre><code>        @Override
         @RequestMapping(&quot;/orderToMember&quot;)
@@ -332,8 +332,56 @@ maxConcurrentRequests参数配置，如果并发请求数多于线程池线程�
 
             System.out.println(&quot;orderToMember---线程池名称：&quot;+Thread.currentThread().getName()+&quot; name &quot;+name);
             return memberFeign.getMember(name);
-        }
+        }  
 </code></pre>
+
+<h5 id="4-总结">4 总结</h5>
+
+<pre><code>    采用类方法时，当高并发的情况下，隔离机制采用的是信号量隔离，当请求数超过默认的阈值时（默认是10），  
+    会有请求进入到队列中进行等待（默认为5），但排队队列也有上限，默认是 5，如果排队队列也满，则必定有  
+    请求线程会走fallback流程，从而达到限流和防止雪崩的目的。  
+
+    当请求超时时，会采用线程池隔离机制（采用的是异步线程），具体证明如下  
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-sum5.png"/></div>   
+  
+
+<pre><code>    控制台打印结果如下  
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-sum6.png"/></div>   
+  
+
+<pre><code>    这里演示的是当请求超时时，hystrix采用的隔离、降级机制，在配置文件中设置了请求超时时间为5秒，但是在   
+    会员服务的接口中我设置了休眠时间为6秒，这导致了在订单服务端调用时，请求超时，从而证明了在不同情况下  
+    hystrix采用的隔离机制是什么，这种方式采用的异步线程池隔离机制比较符合实际开发。  
+
+        @RestController
+        public class IMemberServiceImpl  implements IMemberService {
+            @Override
+            @RequestMapping(&quot;/getMember&quot;)
+            public String getMember(@RequestParam(&quot;name&quot;) String name) {
+                System.out.println(&quot;跳转到会员服务&quot;);
+                IUser user = new IUser();
+                user.setName(name);
+                user.setAge(23);
+                try {
+                    Thread.sleep(6000);
+                }catch (Exception e){
+
+                }
+                System.out.println(&quot;IMemberServiceImpl :线程池名称 &quot;+Thread.currentThread().getName());
+                System.out.println(&quot;跳转到会员服务：&quot;+user.toString()+&quot;---------------------------------*******************************************&quot;);
+                return user.toString();
+            }
+        }
+
+    删掉上面代码中try-catch部分，即去掉相应超时，再次测试   
+</code></pre>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/hystrix-sum7.png"/></div>   
+ 
 </article>
     </section>
 
@@ -422,6 +470,8 @@ maxConcurrentRequests参数配置，如果并发请求数多于线程池线程�
   <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
   
   <a class="ui label" href="/tags/zookeeper" title="zookeeper">zookeeper</a>
+  
+  <a class="ui label" href="/tags/zuul" title="zuul">zuul</a>
   
 </section>
 
@@ -551,6 +601,13 @@ maxConcurrentRequests参数配置，如果并发请求数多于线程池线程�
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Zookeeper注册中心</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="item">SpringCloud微服务网关技术Zuul</a>
         </div>
       </div>
       

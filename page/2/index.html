@@ -186,6 +186,13 @@
       <div class="item" style="padding-left: 24px;">
         <i class="gem outline grey icon"></i>
         <div class="content">
+          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="item">java一些常见基础</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
           <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
         </div>
       </div>
@@ -369,6 +376,43 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/">
+              
+              <h2 class="ui header" style="color: white;">Spring Boot整合Spring Data JPA</h2>
+              
+            </a>
+            <p style="padding: 5px;">Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
+&lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入mybatis的启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 导入springboot整合spring Data JPA的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql数据库 --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql的连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;/dependency&gt;  
+ 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
+  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">6 min read</div>
+          <div class="ui bottom left attached black label">Jul 18, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default3.jpg" alt="Spring Boot整合Spring Data JPA">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/">
               
               <h2 class="ui header" style="color: white;">数据库易忘知识点总结</h2>
@@ -447,7 +491,7 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
       </div>
     </div>
     
-    <img src="/img/default5.jpg" alt="SpringCloud整合Hystrix服务保护框架">
+    <img src="/img/default2.jpg" alt="SpringCloud整合Hystrix服务保护框架">
     
   </div>
 </article>
@@ -481,44 +525,7 @@ delete from 表名—不推荐使用。有多少条记录就会执行多少次�
       </div>
     </div>
     
-    <img src="/img/default1.jpg" alt="SpringCloud整合Consul注册中心">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">
-              
-              <h2 class="ui header" style="color: white;">微服务架构的介绍</h2>
-              
-            </a>
-            <p style="padding: 5px;">微服务架构的介绍 1 单体架构  单体架构也称为单体系统或者单体应用。就是一种把系统中的所有功能、模块耦合在一个应用中的架构方式  1.1 单体架构特点 1. 单体架构最终会打包成一个独立的单元(导成一个唯一的jar包或者war包) 2. 会以一个进程的方式来运行 3. 项目结构图如下图所示  
-1.2 单体架构的优点、缺点 1.2.1 优点：  1. 项目易于管理 2. 部署简单  1.2.2 缺点：  1. 测试成本高 2. 可伸缩性差 3. 可靠性差 4. 迭代困难 5. 跨语言程度差 6. 团队协作难  2 微服务架构 2.1 什么是微服务  微服务就是一种架构风格，一个大型的复杂软件应用，由一个或多个微服务组成。 系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅仅关注于完成一件任务。  2.2 什么架构风格  架构风格就是项目的一种设计模式  2.2.1 常见的架构风格  客户端与服务端
- 基于组件模型的架构（EJB） 分层架构（MVC） 面向服务架构（SOA）
-  2.3 微服务的特点 1. 系统是由多个服务构成 2.</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Jun 24, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default2.jpg" alt="微服务架构的介绍">
+    <img src="/img/default4.jpg" alt="SpringCloud整合Consul注册中心">
     
   </div>
 </article>

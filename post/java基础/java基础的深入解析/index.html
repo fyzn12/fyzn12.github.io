@@ -6,17 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>
-mybatis之动态SQL
+java一些常见基础
 </title>
 
   
   
   <meta name="author" content="fyzn12" />
-  <meta name="description" content="动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
- &amp;lt;select id=&amp;quot;selectUserById&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;quot;name !=null and name !=&#39;&#39;&amp;quot;&amp;gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;quot;sex !=null and sex !=&#39;&#39;&amp;quot;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
- 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&amp;lt;choose&amp;gt;元素，如下例子。
- &amp;lt;select id = &amp;quot;selectUserBychoose&amp;quot; resultType=&amp;quot;MyUser&amp;quot; parameterType=&amp;quot;MyUser&amp;quot;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;quot;name !" />
+  <meta name="description" content="java面试基础 1 JVM的解析 1.1 JVM的结构图   大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区） ,Heap（堆） , Program Counter Register （程序计数器） , VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的）,Native Method Stack （ 本地方法栈 ） ，其中Method Area 和 Heap 是线程共享的 ，VM Stack，Native Method Stack 和Program Counter Register 是非线程共享的。为什么分为 线程共享和非线程共享的呢?请继续往下看。 首先我们熟悉一下一个一般性的 Java 程序的工作过程。一个 Java 源程序文件，会被编译为字节码文件 （以 class 为扩展名），每个java程序都需要运行在自己的JVM上，然后告知 JVM 程序的运行入口，再被 JVM 通过字 节码解释器加载运行。那么程序开始运行后，都是如何涉及到各内存区域的呢？ 概括地说来，JVM初始运行的时候都会分配好 Method Area（方法区） 和Heap（堆） ，而JVM 每遇到一个线程， 就为其分配一个 Program Counter Register（程序计数器） , VM Stack（虚拟机栈）和Native Method Stack （本地方法栈）， 当线程终止时，三者（虚拟机栈，本地方法栈和程序计数器）所占用的内存空间也会被释放 掉。这也是为什么我把内存区域分为线程共享和非线程共享的原因，非线程共享的那三个区域的生命周期与所属线程相 同，而线程共享的区域与JAVA程序运行的生命周期相同，所以这也是系统垃圾回收的场所只发生在线程共享的区域 （实际上对大部分虚拟机来说知发生在Heap上）的原因。  1." />
 
 
 
@@ -25,7 +21,7 @@ mybatis之动态SQL
 <meta name="generator" content="Hugo 0.57.2" />
 
 
-<link rel="canonical" href="https://fyzn12.github.io/post/mybatis/dynamicsql/" />
+<link rel="canonical" href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" />
 <link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
 
 <link href="/css/semantic.min.css" rel="stylesheet" />
@@ -60,216 +56,76 @@ mybatis之动态SQL
       </a>
       <header>
         <h1 class="ui header">
-          mybatis之动态SQL
-          <div class="sub header">@ fyzn12 · Oct 8, 2019 · 2 min read · 更新于 Oct 8, 2019</div>
+          java一些常见基础
+          <div class="sub header">@ fyzn12 · Jul 20, 2020 · 1 min read · 更新于 Jul 21, 2020</div>
         </h1>
       </header>
       <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
 
-<h1 id="动态sql语句总结">动态SQL语句总结</h1>
+<h1 id="java面试基础">java面试基础</h1>
 
-<h2 id="主要内容">主要内容</h2>
+<h1 id="1-jvm的解析">1 JVM的解析</h1>
+
+<h2 id="1-1-jvm的结构图">1.1 JVM的结构图</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/JVM.png.png"/></div>     
+   
+
+<pre><code>        大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区） ,Heap（堆） , Program Counter Register  
+        （程序计数器） ,   VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的）,Native Method Stack  （ 本地方法栈 ）  
+        ，其中Method Area 和  Heap 是线程共享的  ，VM Stack，Native Method Stack  和Program Counter Register     
+        是非线程共享的。为什么分为 线程共享和非线程共享的呢?请继续往下看。
+
+        首先我们熟悉一下一个一般性的 Java 程序的工作过程。一个 Java 源程序文件，会被编译为字节码文件  
+        （以 class 为扩展名），每个java程序都需要运行在自己的JVM上，然后告知 JVM 程序的运行入口，再被 JVM 通过字  
+        节码解释器加载运行。那么程序开始运行后，都是如何涉及到各内存区域的呢？  
+
+        概括地说来，JVM初始运行的时候都会分配好 Method Area（方法区） 和Heap（堆） ，而JVM 每遇到一个线程，  
+        就为其分配一个 Program Counter Register（程序计数器） ,   VM Stack（虚拟机栈）和Native Method   
+        Stack  （本地方法栈）， 当线程终止时，三者（虚拟机栈，本地方法栈和程序计数器）所占用的内存空间也会被释放  
+        掉。这也是为什么我把内存区域分为线程共享和非线程共享的原因，非线程共享的那三个区域的生命周期与所属线程相  
+        同，而线程共享的区域与JAVA程序运行的生命周期相同，所以这也是系统垃圾回收的场所只发生在线程共享的区域  
+        （实际上对大部分虚拟机来说知发生在Heap上）的原因。
+</code></pre>
+
+<h2 id="1-2-jvm更直观的功能导图">1.2 JVM更直观的功能导图</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/JVM2.png"/></div>   
+  
+
+<pre><code>        方法区域存放了所加载的类的信息（名称、修饰符等）、类中的静态变量、类中定义为final类型的常量、类中的Field信  
+        息、类中的方法信息，当开发人员在程序中通过Class对象中的getName、isInterface等方法来获取信息时，这些数据都  
+        来源于方法区域，同时方法区域也是全局共享的，在一定的条件下它也会被GC，当方法区域需要使用的内存超过其允许的  
+        大小时，会抛出OutOfMemory的错误信息  
+</code></pre>
+
+<h1 id="2-spring相关易错点">2 Spring相关易错点</h1>
+
+<h2 id="2-1-spring的事务">2.1 Spring的事务</h2>
 
 <ul>
-<li>if元素<br /></li>
-<li>choose、when、otherwise元素</li>
-<li>trim、where、set元素</li>
-<li>foreach元素</li>
+<li>PROPAGATION_SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行<br /></li>
+<li>PROPAGATION_REQUIRED：必须的。说明必须要有事物，没有就新建事物。</li>
+<li>PROPAGATION_REQUIRES_NEW：新建事务，如果当前存在事务，把当前事务挂起<br /></li>
+
+<li><p>PROPAGATION_NESTED：支持当前事务，新增Savepoint点，与当前事务同步提交或回滚</p>
+
+<pre><code>mandatory:强制的。说明一定要有事务，没有事务就抛出异常。required_new:必须新建事物。如果当前存在事物就挂起。  
+not_supported:不支持事物，如果存在事物就挂起。never:绝不有事务。如果存在事物就抛出异常  
+</code></pre></li>
 </ul>
 
-<hr />
+<div align=center><img src="https://fyzn12.github.io/img/picture/spring1.png"/></div>    
+  
 
-<h2 id="if-元素">if 元素</h2>
-
-<p>下面先看一个例子</p>
-
-<pre><code>    &lt;select id=&quot;selectUserById&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
-        select * from user where 1=1
-        &lt;if test =&quot;name !=null and name !=''&quot;&gt;
-            and name like concat('%',#{name},'%')
-        &lt;/if&gt;
-        &lt;if test = &quot;sex !=null and sex !=''&quot;&gt;
-            and sex = #{sex}
-        &lt;/if&gt;
-    &lt;/select&gt;  
-</code></pre>
-
-<p>在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：</p>
-
-<pre><code>    1. resultType与resultMap不能同时使用  
-    2. #{xxx}与${vlaue}的使用看上一篇博客  
-    3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：  
-
-    1）对象作为参数，则test里面的参数为对象的属性  
-    2)@Param声明的参数  
-    3)map方式键值对  
-</code></pre>
-
-<hr />
-
-<h2 id="choose-when-otherwise元素">choose、when 、otherwise元素</h2>
-
-<p>有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了<code>&lt;choose&gt;</code>元素，如下例子。</p>
-
-<pre><code>    &lt;select id = &quot;selectUserBychoose&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
-        select * from user where 1=1
-        &lt;choose&gt;
-            &lt;when test=&quot;name !=null and name !=''&quot;&gt;
-                and name like concat('%',#{name},'%')
-            &lt;/when&gt;
-            &lt;when test=&quot;sex != null and sex !='' &quot;
-                and sex=#{sex}
-            &lt;/when&gt;
-            &lt;otherwise&gt;
-                and id&gt;10
-            &lt;/otherwise&gt;
-        &lt;/choose&gt;  
-</code></pre>
-
-<p>上面sql语句的含义是当满足test里面的其中之一时，执行when子句，两者都不满足时执行otherwise子句，这样做就可以实现if元素没法实现的一些选择功能。</p>
-
-<hr />
-
-<h2 id="trim-where-set元素">trim、where、set元素</h2>
-
-<p>trim 的主要功能是可以在自己包含的内容上加上某些前缀，也可以在后面加上某些后缀，与之对应的属性是prefix和suffix；可以把包含内容的首部某些内容覆盖，及忽略，也可以把尾部的某些内容覆盖，对应的属性是prefixOverrides和suffixOverrides。正因为<code>&lt;trim&gt;</code>元素有这样的功能，所以也可以非常简单利用<code>&lt;trim&gt;</code>来代替<code>&lt;where&gt;</code>元素功能。代码如下：</p>
-
-<p>trim应用</p>
-
-<pre><code>    &lt;select id=&quot;selectByTrim&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
-        select * from user
-        &lt;trim prefix=&quot;where&quot; prefixOverrides=&quot;and | or&quot;&gt;
-            &lt;if test=&quot;name !=null and name !=''&quot;&gt;
-                and name like concat('%',#{name},'%')
-            &lt;/if&gt;
-            &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
-                and sex=#{sex}
-            &lt;/if&gt;
-        &lt;/trim&gt;
-    &lt;/select&gt;  
-
-    &lt;!-- sql动态中的trim标签
-    prefix&quot;在前面进行添加&quot;
-    prefixOverreds=&quot;在前面进行去掉&quot;
-    suffix=&quot;在后面进行添加&quot;
-    suffixOverreds=&quot;在后面进行去掉&quot;
-    重点：执行的重点，先去除，在添加
-    使用trim 会在prefix设置的值后面添加空格  在使用trim进行模糊查询不可取
-    --&gt;
-
-    &lt;update id=&quot;upid&quot; parameterType=&quot;Teacher&quot;&gt;   
-        update Teacher
-        &lt;trim prefix=&quot;set&quot; suffixOverreds&quot;,&quot;&gt;
-            name=#{name},age=#{age}
-        &lt;/trim&gt;
-        where id=#{id}
-    &lt;/update&gt;
-</code></pre>
-
-<p>where子句的应用</p>
-
-<pre><code>&lt;select id=&quot;selectByWhere&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
-    select * from user
-    &lt;where&gt;
-        &lt;if test=&quot;name !=null and name !=''&quot;&gt;
-            and name like concat('%',#{name},'%')
-        &lt;/if&gt;
-        &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
-            and sex=#{sex}
-        &lt;/if&gt;
-    &lt;/where&gt;
-&lt;/select&gt;  
-</code></pre>
-
-<p>set元素的应用：</p>
-
-<pre><code>&lt;select id=&quot;selectBySet&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
-    update user
-    &lt;set&gt;
-        &lt;if test=&quot;name !=null and name !=''&quot;
-            name like concat('%',#{name},'%')
-        &lt;/if&gt;
-        &lt;if test=&quot;sex !=null and sex !=''&quot;
-            sex like concat('%',#{sex},'%')
-        &lt;/if&gt;
-    &lt;/set&gt;
-    where id=#{id}
-&lt;/select&gt;
-</code></pre>
-
-<p>set 子句会在update的sql语句中用到，对应的值千万别忘了where限定。</p>
-
-<p>foreach元素的应用:<br />
-        foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集合，<code>&lt;foreach&gt;</code>元素的属性主要有item、index、collection、open、separator、close。item表示集合中每个元素进行迭代时的别名，index指定一个名字，用于表示在迭代过程中每次迭代到的位置，open表示该语句以什么开始，separator表示在每次进行迭代之间以什么符号进行分隔符，close表示以什么结束。在使用<code>&lt;foreach&gt;</code>元素时最关键，最容易出错的是collection属性，该属性是必选的，但在不同情况下值不同，有以下几种情况：</p>
-
-<pre><code>    * 如果传入的是单参数且参数类型是一个List，collection属性值为list  
-    * 如果传入的参数是单参数且参数类型是一个arry数组，collection值为arry
-    * 如果传入的参数是多个，需要把她们封装成一个Map，当然单参数也可以封装成Map。map的key值参数名，collection属性值是传入的List或者arry对象在封装的Map中的key  
-</code></pre>
-
-<p>具体例子如下：</p>
-
-<pre><code>&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameterType=&quot;List&quot;&gt;
-    select *from user
-    &lt;foreach item=&quot;item&quot; index='index' collection='list' open=&quot;(&quot;separator='',&quot;close=&quot;)&quot;&gt;
-        #{item}
-    &lt;/foreach&gt;
-&lt;/select&gt; 
-&lt;!-- 
-    foreach的作用：
-        1.查询中的使用 多值查询 in
-        2.批量添加
---&gt;
-&lt;!-- in的使用 --&gt;
-&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameterType=&quot;List&quot;&gt;
-    select * from user where age in
-        &lt;foreach collection=&quot;list&quot; item=&quot;age&quot; open=&quot;(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
-            #{age}
-        &lt;/foreach&gt;
-&lt;/select&gt;
-
-&lt;!-- 使用foreach与trim联合使用 批量添加--&gt;
-&lt;!-- sql的声明字段 --&gt;
-&lt;sql id=&quot;fileName&quot;&gt;
-    (id,name,age,sex)
-&lt;/sql&gt;
-&lt;insert id=&quot;insertByForeach&quot; parameterType=&quot;list&quot;&gt;
-    insert into teacher &lt;include refid=&quot;fileName&quot;/&gt;  values
-        &lt;trim suffixOverreds=&quot;,&quot;&gt;&lt;!-- 去掉最后一个&quot;,&quot; --&gt;
-            &lt;foreach collection=&quot;list&quot; item=&quot;user&quot;&gt;
-                (id,#{user.name},#{user.age},#{user.sex}),
-            &lt;/foreach&gt;
-        &lt;/trim&gt;
-&lt;/insert&gt;
-</code></pre>
-
-<hr />
-
-<h2 id="bind元素">bind元素</h2>
-
-<p>在进行模糊查询时，如果使用&rdquo;${}&ldquo;拼接字符串，则无法防止SQL注入问题；bind使用可以一定程度上避免这个问题。代码演示如下：</p>
-
-<pre><code>    &lt;select id=&quot;selectByBind&quot; resultType=&quot;MyUser&quot; parameType=&quot;List&quot;&gt;
-        &lt;bind name =&quot;paran_uname&quot; vlaue = &quot;'%'+uname+'%' &quot;/&gt;
-        select * from user
-            where name like #{paran_uname}
-    &lt;/select&gt;
-
-    &lt;!-- 
-        sql动态中的bind标签对变量或者查询的条件进行重新定义,模糊查询中trim的prefix和suffix使用后会在后面添加空格，显然不适合模糊查询。  
-    --&gt;
-    &lt;select id=&quot;selectBind&quot; parameterType=&quot;&quot;Teacher resultType=&quot;Teacher&quot;&gt;
-        &lt;bind name=&quot;name&quot; vlaue=&quot;'%'+name+'%'&quot;/&gt;
-        select * from teacher where name like #{name}
-    &lt;/select&gt;
-</code></pre>
+<div align=center><img src="https://fyzn12.github.io/img/picture/spring2.png"/></div>   
 </article>
     </section>
 
     <footer class="ui attached segment dream-tags">
       
       
-      <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
+      <a class="ui label" href="/tags/java" title="java">java</a>
       
       
     </footer>

@@ -129,6 +129,8 @@
   
   <a class="ui label" href="/tags/zuul" title="zuul">zuul</a>
   
+  <a class="ui label" href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F" title="策略模式">策略模式</a>
+  
 </section>
 
 
@@ -168,6 +170,23 @@
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/design_mode" class="item">design_mode</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="item">策略模式</a>
         </div>
       </div>
       
@@ -374,6 +393,44 @@
           
           <div class="display-content">
           
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/">
+              
+              <h2 class="ui header" style="color: white;">策略模式</h2>
+              
+            </a>
+            <p style="padding: 5px;">1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
+ 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
+ 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
+ 接口隔离原则：多个和客户相关的接口要好于一个通用接口
+  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口  package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); }  2.</p>
+            <p>@ fyzn12</p>
+          </div>
+          
+          <div class="ui top right attached black label">4 min read</div>
+          <div class="ui bottom left attached black label">Sep 1, 2020</div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <img src="/img/default3.jpg" alt="策略模式">
+    
+  </div>
+</article>
+
+
+      
+
+        <article class="card" style="box-shadow: none;">
+  <div class="image">
+    
+    <div class="ui dimmer">
+    
+      <div class="content">
+        <div class="center">
+          
+          <div class="display-content">
+          
             <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
               
               <h2 class="ui header" style="color: white;">SpringCloud整合Zookeeper注册中心</h2>
@@ -462,51 +519,7 @@
       </div>
     </div>
     
-    <img src="/img/default3.jpg" alt="java一些常见基础">
-    
-  </div>
-</article>
-
-
-      
-
-        <article class="card" style="box-shadow: none;">
-  <div class="image">
-    
-    <div class="ui dimmer">
-    
-      <div class="content">
-        <div class="center">
-          
-          <div class="display-content">
-          
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/">
-              
-              <h2 class="ui header" style="color: white;">SpringCloud之Eureka2.0服务注册中心</h2>
-              
-            </a>
-            <p style="padding: 5px;">SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
- 每个服务运行在单独的进程中
- 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
-  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http&#43;json（restful）进行传输。
- 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
- SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
-  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
- 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
-Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
-
-  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件  &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!</p>
-            <p>@ fyzn12</p>
-          </div>
-          
-          <div class="ui top right attached black label">2 min read</div>
-          <div class="ui bottom left attached black label">Jul 20, 2020</div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default3.jpg" alt="SpringCloud之Eureka2.0服务注册中心">
+    <img src="/img/default6.jpg" alt="java一些常见基础">
     
   </div>
 </article>

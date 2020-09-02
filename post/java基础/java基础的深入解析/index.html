@@ -131,7 +131,8 @@ java一些常见基础
 
                                     java栈是每个线程的私有区域，他的生命周期与线程相同，一个线程对应一个java  
                                     栈，每执行一个方法就会往栈中压入一个元素，这个元素叫 “栈帧” ，而栈帧中包含  
-                                    了方法中的局部变量、用于存放中间状态值的操作栈。如果java栈空间不足了，程序会抛StackOverflowError异常，  
+                                    了方法中的局部变量、用于存放中间状态值的操作栈。如果java栈空间不足了，程序会抛  
+                                    StackOverflowError异常，  
 
                                     想一想什么情况下会容易产生这个错误，对，递归，递归如果深度很深，就会执行大量
 
@@ -175,9 +176,13 @@ java一些常见基础
 
 <h4 id="基本类型的变量和对象的引用变量都是在函数的栈内存中分配">基本类型的变量和对象的引用变量都是在函数的栈内存中分配。</h4>
 
-<h1 id="2-spring相关易错点">2 Spring相关易错点</h1>
+<h1 id="2-gc的解析">2 GC的解析</h1>
 
-<h2 id="2-1-spring的事务">2.1 Spring的事务</h2>
+<h2 id="2-1-垃圾回收与算法结构图">2.1 垃圾回收与算法结构图</h2>
+
+<h1 id="3-spring相关易错点">3 Spring相关易错点</h1>
+
+<h2 id="3-1-spring的事务">3.1 Spring的事务</h2>
 
 <ul>
 <li>PROPAGATION_SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行<br /></li>
@@ -195,6 +200,11 @@ not_supported:不支持事物，如果存在事物就挂起。never:绝不有事
   
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/spring2.png"/></div>   
+
+<h1 id="2-springmvc的原理">2 SpringMVC的原理</h1>
+
+<pre><code>        客户端发送请求————&gt;
+</code></pre>
 </article>
     </section>
 
@@ -286,6 +296,8 @@ not_supported:不支持事物，如果存在事物就挂起。never:绝不有事
   
   <a class="ui label" href="/tags/zuul" title="zuul">zuul</a>
   
+  <a class="ui label" href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F" title="策略模式">策略模式</a>
+  
 </section>
 
 
@@ -325,6 +337,23 @@ not_supported:不支持事物，如果存在事物就挂起。never:绝不有事
         <i class="gem outline grey icon"></i>
         <div class="content">
           <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/design_mode" class="item">design_mode</a>
+    </div>
+    <div class="content">
+      <div class="ui link list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="gem outline grey icon"></i>
+        <div class="content">
+          <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="item">策略模式</a>
         </div>
       </div>
       

@@ -1,87 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on fyzn12个人博客</title>
+    <title>Categories on 首页</title>
     <link>https://fyzn12.github.io/categories/</link>
-    <description>Recent content in Categories on fyzn12个人博客</description>
+    <description>Recent content in Categories on 首页</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>design_mode</title>
-      <link>https://fyzn12.github.io/categories/design_mode/</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/design_mode/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>springcloud</title>
-      <link>https://fyzn12.github.io/categories/springcloud/</link>
-      <pubDate>Fri, 24 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/springcloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>java基础</title>
-      <link>https://fyzn12.github.io/categories/java%E5%9F%BA%E7%A1%80/</link>
-      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/java%E5%9F%BA%E7%A1%80/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>springboot</title>
-      <link>https://fyzn12.github.io/categories/springboot/</link>
-      <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/springboot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Database</title>
-      <link>https://fyzn12.github.io/categories/database/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/database/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>algorithm</title>
-      <link>https://fyzn12.github.io/categories/algorithm/</link>
-      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>redis</title>
-      <link>https://fyzn12.github.io/categories/redis/</link>
-      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/redis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SSM</title>
-      <link>https://fyzn12.github.io/categories/ssm/</link>
-      <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/ssm/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

@@ -1,69 +1,56 @@
 <!DOCTYPE html>
-<html lang="zh">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>
-Spring Boot整合Spring Data JPA
-</title>
-
-  
-  
-  <meta name="author" content="fyzn12" />
-  <meta name="description" content="Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
-&amp;lt;dependencies&amp;gt; &amp;lt;!-- 导入springboot的启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 导入mybatis的启动器 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis.spring.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring-boot-starter&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.2.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 导入springboot整合spring Data JPA的启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-data-jpa&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- mysql数据库 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- mysql的连接池 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.alibaba&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;druid&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${druid.version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt;  
- 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
-  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。" />
-
-
-
-
-
-<meta name="generator" content="Hugo 0.57.2" />
-
-
-<link rel="canonical" href="https://fyzn12.github.io/post/spring-boot/spring-data/" />
-<link rel="alternative" href="/index.xml" title="fyzn12个人博客" type="application/atom+xml" />
-
-<link href="/css/semantic.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="/css/site.css" />
-<link rel="stylesheet" href="/css/github-markdown.css" />
-
-
+<html lang="en"><head>
+    <title>首页</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://fyzn12.github.io/favicon.ico">
+    <link rel="canonical" href="https://fyzn12.github.io">
+    
+    
 </head>
-
 <body>
-  <div class="flip-container">
-    <div class="flipper">
-      <section class="front">
-        
-<nav class="ui top secondary menu">
-  <div class="item">
-    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
-  </div>
-  <div class="item">
-    <a href="/">
-      <i class="inverted big link home icon" title="首页"></i>
-    </a>
-  </div>
-</nav>
- 
-<div class="ui centered grid">
-  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list post-single-main">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://fyzn12.github.io">首页</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/post/">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav><div id="content" class="container">
 
-    <section class="ui top attached segment">
-      <a class="ui black right corner label" href="javascript:void(0)" onclick="savePostAsImg()">
-        <i class="save icon"></i>
-      </a>
-      <header>
-        <h1 class="ui header">
-          Spring Boot整合Spring Data JPA
-          <div class="sub header">@ fyzn12 · Jul 18, 2020 · 6 min read · 更新于 Jul 18, 2020</div>
-        </h1>
-      </header>
-      <article class="markdown-body" style="margin-top: 2rem; font-size: 1.4rem;">
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>Spring Boot整合Spring Data JPA - Sat, Jul 18, 2020</h1>
+    </div>
+    <p class="lead">Spring Boot整合Spring Data JPA环境的搭建和测试......</p>
+    
 
 <h1 id="spring-boot整合spring-data-jpa">Spring Boot整合Spring Data JPA</h1>
 
@@ -813,433 +800,65 @@ public void testCurdRepositorySave(){
 </ol>
 
 <hr />
-</article>
-    </section>
 
-    <footer class="ui attached segment dream-tags">
-      
-      
-      <a class="ui label" href="/tags/spring-data-jpa" title="spring data JPA">spring data JPA</a>
-      
-      
-    </footer>
-
-    
-
-    
-
-  </div>
-  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
-
-    
-<section class="ui top attached center aligned inverted segment">
-
-  <a id="tag-category-pop" class="ui right ribbon label" style="width: 1px;">
-    <i class="bars icon" title="弹出菜单"></i>
-  </a>
-
-  <div class="ui small circular image" style="margin-top: 1rem;">
-    
-    <img src="/img/dome2.jpg">
-    
-  </div>
-  
-  <h3 class="ui inverted header">
-  fyzn12的博客<div class="sub header">路是自己走、踏破云层，也许看不到所幻想的彩虹、却能体会自己付出的汗水！</div>
-  </h3>
-
-  
-  <div class="ui inverted horizontal list">
-  
-    
-    <a class="item" href="/post">
-      <i class="archive icon" title="归档"></i>
-    </a>
-    
-    <a class="item" href="/tags">
-      <i class="tags icon" title="所有标签"></i>
-    </a>
-    <a class="item" href="/categories">
-      <i class="cube icon" title="所有分类"></i>
-    </a>
-  </div>
-</section>
-
-
-
-<section class="ui attached center aligned inverted segment dream-header-tags dream-tags">
-
-  
-  <a class="ui label" href="/tags/algorithm" title="algorithm">algorithm</a>
-  
-  <a class="ui label" href="/tags/consul" title="consul">consul</a>
-  
-  <a class="ui label" href="/tags/emoji" title="emoji">emoji</a>
-  
-  <a class="ui label" href="/tags/exception" title="exception">exception</a>
-  
-  <a class="ui label" href="/tags/hystrix" title="hystrix">hystrix</a>
-  
-  <a class="ui label" href="/tags/java" title="java">java</a>
-  
-  <a class="ui label" href="/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="java-多线程">java-多线程</a>
-  
-  <a class="ui label" href="/tags/jedis" title="jedis">jedis</a>
-  
-  <a class="ui label" href="/tags/mybatis" title="mybatis">mybatis</a>
-  
-  <a class="ui label" href="/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96" title="mysql事务数据库优化">mysql事务数据库优化</a>
-  
-  <a class="ui label" href="/tags/redis" title="redis">redis</a>
-  
-  <a class="ui label" href="/tags/soa-rpc" title="soa-rpc">soa-rpc</a>
-  
-  <a class="ui label" href="/tags/spring-data-jpa" title="spring-data-jpa">spring-data-jpa</a>
-  
-  <a class="ui label" href="/tags/springcloudeureka" title="springcloudeureka">springcloudeureka</a>
-  
-  <a class="ui label" href="/tags/ssm" title="ssm">ssm</a>
-  
-  <a class="ui label" href="/tags/zookeeper" title="zookeeper">zookeeper</a>
-  
-  <a class="ui label" href="/tags/zuul" title="zuul">zuul</a>
-  
-  <a class="ui label" href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F" title="策略模式">策略模式</a>
-  
-</section>
-
-
-
-
-<section class="ui attached inverted segment dream-categories">
-
-  
-  <div class="ui inverted accordion">
-  
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/algorithm" class="item">algorithm</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/" class="item">常见算法篇</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/database" class="item">database</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/" class="item">数据库易忘知识点总结</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/design_mode" class="item">design_mode</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="item">策略模式</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/java%E5%9F%BA%E7%A1%80" class="item">java基础</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="item">java一些常见基础</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="item">java基础篇</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="item">多线程</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/redis" class="item">redis</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="item">redis学习日志汇总</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/redis/jedis/" class="item">redis之java客户端</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/springboot" class="item">springboot</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="item">Spring Boot整合Spring Data JPA</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/" class="item">SpringBoot提供的五种异常机制</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/springcloud" class="item">springcloud</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Zookeeper注册中心</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="item">SpringCloud微服务网关技术Zuul</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="item">SpringCloud之Eureka2.0服务注册中心</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="item">SpringCloud整合Hystrix服务保护框架</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="item">SpringCloud整合Consul注册中心</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="item">微服务架构的介绍</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-    <div class="title">
-      <i class="dropdown icon"></i>
-      <a href="/categories/ssm" class="item">ssm</a>
-    </div>
-    <div class="content">
-      <div class="ui link list">
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/" class="item">mybatis之动态SQL</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/" class="item">ssm随学札记</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/" class="item">mybatis之mapper接口编程</a>
-        </div>
-      </div>
-      
-      <div class="item" style="padding-left: 24px;">
-        <i class="gem outline grey icon"></i>
-        <div class="content">
-          <a href="https://fyzn12.github.io/post/mybatis/mybatis01/" class="item">Mybatis-的配置文件</a>
-        </div>
-      </div>
-      
-      </div>
-    </div>
-    
-  </div>
-</section>
-
-
-
-<section class="ui bottom attached center aligned inverted segment">
-
-    
-    <p>© 2019 - 2020 fyzn12个人博客</p>
-    
-    <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
-</section>
-
-
-  </div>
+    <h4><a href="https://fyzn12.github.io">Back to Home</a></h4>
 </div>
 
-      </section>
-      <section class="back">
-        <nav class="ui top secondary menu" style="overflow-x: auto">
-  <div class="item">
-    <i class="inverted big link bullseye icon dream-flip-toggle" title="翻转！"></i>
-  </div>
-  
-  <div class="item">
-    <a href="mailto:1149919071@qq.com">
-      <i class="inverted big mail icon" title="email"></i>
-    </a>
-  </div>
-  
-  
-  <div class="item">
-    <a href="https://github.com/fyzn12/" target="_blank">
-      <i class="inverted big github icon" title="github"></i>
-    </a>
-  </div>
-  
-  
-  
-  
-</nav>
 
-<div class="ui centered grid about">
-  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
 
-    <section class="ui stacked segments">
-      
-      <header class="ui inverted segment">
-      
-        <h2 class="ui header">
-          喜欢的诗
-        </h2>
-      </header>
+    <a href="https://fyzn12.github.io">fyzn12</a> | 
 
-      
-      <article class="ui inverted segment markdown-body">
-      
-        <div class="ui stackable three column grid">
-          <div class="column">
-              
-              <p style="text-align:center">
-每个人都有一个死角， 自己走不出来，别人也闯不进去。 我把最深沉的秘密放在那里。 你不懂我，我不怪你。  
-每个人都有一道伤口， 或深或浅，盖上布，以为不存在。 我把最殷红的鲜血涂在那里。 你不懂我，我不怪你。   
-每个人都有一场爱恋， 用心、用情、用力，感动也感伤。 我把最炙热的心情藏在那里。 你不懂我，我不怪你。  
-每个人都有一行眼泪， 喝下的冰冷的水，酝酿成的热泪。 我把最心酸的委屈汇在那里。 你不懂我，我不怪你。   
-每个人都有一段告白， 忐忑、不安，却饱含真心和勇气。 我把最抒情的语言用在那里。 你不懂我，我不怪你。  
-你永远也看不见我最爱你的时候， 因为我只有在看不见你的时候，才最爱你。 同样， 你永远也看不见我最寂寞的时候， 因为我只有在你看不见我的时候，我才最寂寞。   
-也许，我太会隐藏自己的悲伤。 也许，我太会安慰自己的伤痕。 也许，你眼中的我，太会照顾自己， 所以，你从不考虑我的感受。  
-你以为，我可以很迅速的恢复过来，有些自私的以为。 从阴雨走到艳阳，我路过泥泞、路过风。 一路走来，你不曾懂我，我亦不曾怪你。   
-我不是为了显示自己的大度， 也不是为了体现自己的大方。 只想让你知道，感情不在，责备也不存在。
-              
-          </div>
-          <div class="column">
-              
-          </div>
-          <div class="column">
-              
-          </div>
-        </div>
-      </article>
+&copy; 
+<a href="https://fyzn12.github.io" target="_blank">
+    fyzn12
+</a>
+<span id="thisyear">2020</span>
 
-      
-
-      
-      
-    </section>
-
-  </div>
-</div>
-
-      </section>
-    </div>
-  </div>
-
-  
-<script src="/js/jquery.min.js"></script>
-<script src="/js/semantic.min.js"></script>
-<script src="/js/html2canvas.min.js"></script>
-<script src="/js/bg.js"></script>
-<script src="/js/site.js"></script>
+    | @
 
 
+        | Built on <a href="//gohugo.io" target="_blank">Hugo</a>
+</p>
+    <p class="text-center">
+        <a href="https://facebook.com">Facebook</a> 
+        <a href="https://twitter.com">Twitter</a> 
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
 
-</body>
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
 
-</html>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
+<script>
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
+    };
+
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>

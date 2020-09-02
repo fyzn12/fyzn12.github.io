@@ -3,32 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://fyzn12.github.io/categories/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/categories/design_mode/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://fyzn12.github.io/post/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,7 +13,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/springcloud/</loc>
+    <loc>https://fyzn12.github.io/</loc>
+    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/</loc>
     <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,32 +28,7 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/zookeeper/</loc>
-    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/</loc>
-    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/zuul/</loc>
-    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/java/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/categories/java%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -83,63 +38,23 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/springcloudeureka/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://fyzn12.github.io/post/spring-boot/spring-data/</loc>
     <lastmod>2020-07-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/spring-data-jpa/</loc>
-    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/categories/springboot/</loc>
-    <lastmod>2020-07-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/categories/database/</loc>
-    <lastmod>2020-07-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/mysql%E4%BA%8B%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2020-07-02T00:00:00+00:00</lastmod>
+    <loc>https://fyzn12.github.io/post/redis/jedis/</loc>
+    <lastmod>2020-07-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/database/</loc>
-    <lastmod>2020-07-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/hystrix/</loc>
-    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/consul/</loc>
-    <lastmod>2020-06-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/soa-rpc/</loc>
-    <lastmod>2020-06-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</loc>
-    <lastmod>2020-06-26T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -148,17 +63,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/algorithm/</loc>
-    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
+    <loc>https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</loc>
+    <lastmod>2020-06-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/algorithm/</loc>
-    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
+    <loc>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -168,22 +78,7 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/redis/</loc>
-    <lastmod>2020-07-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/redis/</loc>
-    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2020-06-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -193,42 +88,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/exception/</loc>
-    <lastmod>2020-06-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://fyzn12.github.io/post/spring-boot/springboot-exception/</loc>
-    <lastmod>2020-06-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/jedis/</loc>
-    <lastmod>2020-07-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/post/redis/jedis/</loc>
-    <lastmod>2020-07-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/mybatis/</loc>
-    <lastmod>2019-10-08T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/post/mybatis/dynamicsql/</loc>
-    <lastmod>2019-10-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/categories/ssm/</loc>
-    <lastmod>2019-10-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/ssm/</loc>
     <lastmod>2019-10-08T00:00:00+00:00</lastmod>
   </url>
   
@@ -238,18 +103,13 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/</loc>
+    <loc>https://fyzn12.github.io/post/mybatis/mybatis01/</loc>
     <lastmod>2019-09-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/post/mybatis/mybatis01/</loc>
-    <lastmod>2019-09-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/emoji/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
+    <loc>https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2019-09-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -264,6 +124,10 @@
   
   <url>
     <loc>https://fyzn12.github.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/categories/</loc>
   </url>
   
 </urlset>

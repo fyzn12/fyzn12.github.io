@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>Mybatis-的配置文件 - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+<title>Mybatis-的配置文件 - fyzn12的博客</title>
 
 <meta name="description" content="Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &amp;lt;configuration&amp;gt;&amp;lt;/configuration&amp;gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &amp;lt;configuration&amp;gt; 1.配置日志（开启日志）通过```&amp;lt;settings&amp;gt;&amp;lt;/settings&amp;gt;```标签配置，如下所示： &amp;lt;!-- 开启日志 --&amp;gt; &amp;lt;settings&amp;gt; &amp;lt;setting name=&amp;#34;logImpl&amp;#34; value=&amp;#34;LOG4J&amp;#34;/&amp;gt; &amp;lt;/settings&amp;gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &amp;lt;typeAliases&amp;gt; &amp;lt;typeAlia type=&amp;#34;com.pojo.Student&amp;#34;alias=&amp;#34;Student&amp;#34;/&amp;gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &amp;lt;!-- 或者&amp;lt;package name=&amp;#34;com.pojo/&amp;gt;&amp;#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &amp;lt;/typeAliases&amp;gt; 3.数据库连接的配置
 &amp;lt;environments default=&amp;#34;default&amp;#34;&amp;gt; &amp;lt;!--配置多个数据源,但只能指定一个使用 --&amp;gt; &amp;lt;!-- Mysql的数据库链接 --&amp;gt; &amp;lt;environment id=&amp;#34;default&amp;#34;&amp;gt; &amp;lt;transactionManager type=&amp;#34;JDBC&amp;#34;/&amp;gt;&amp;lt;!-- 指定当前数据库的事务管理方式 --&amp;gt; &amp;lt;dataSource type=&amp;#34;POOLED&amp;#34;&amp;gt;&amp;lt;!-- 数据源的管理方式为连接池 --&amp;gt; &amp;lt;property name=&amp;#34;driver&amp;#34; value=&amp;#34;com.mysql.jdbc.Driver&amp;#34;/&amp;gt; &amp;lt;property name=&amp;#34;url&amp;#34; value=&amp;#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&amp;#34;/&amp;gt; &amp;lt;property name=&amp;#34;username&amp;#34; value=&amp;#34;root&amp;#34;/&amp;gt; &amp;lt;property name=&amp;#34;password&amp;#34; value=&amp;#34;1234&amp;#34;/&amp;gt; &amp;lt;!-- 设定数据库的链接4要素 --&amp;gt; &amp;lt;/dataSource&amp;gt; &amp;lt;/environment&amp;gt;  4.映射文件的扫面通过标签配置。
@@ -70,7 +70,7 @@
     <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
     
     <nav class="site-nav">
-        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
     </nav>
 </div>
 
@@ -220,7 +220,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -235,6 +235,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
         </li>
         
         <li>
@@ -287,10 +291,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
         </li>
         
     </ul>

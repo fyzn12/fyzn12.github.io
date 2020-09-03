@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>ssm随学札记 - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+<title>ssm随学札记 - fyzn12的博客</title>
 
 <meta name="description" content="使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
 java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
@@ -94,7 +94,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
     <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
     
     <nav class="site-nav">
-        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
     </nav>
 </div>
 
@@ -760,7 +760,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -775,6 +775,10 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
         </li>
         
         <li>
@@ -827,10 +831,6 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         
         <li>
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
         </li>
         
     </ul>

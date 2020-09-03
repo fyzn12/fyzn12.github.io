@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+<title>fyzn12的博客</title>
 
 <meta name="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." /><meta name="keywords"
   content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
@@ -22,17 +22,17 @@
 
 
 
-<meta property="og:title" content="fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全" />
+<meta property="og:title" content="fyzn12的博客" />
 <meta property="og:description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
 <meta property="og:updated_time" content="2020-09-02T00:00:00+00:00" />
-<meta itemprop="name" content="fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全">
+<meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全"/>
+<meta name="twitter:title" content="fyzn12的博客"/>
 <meta name="twitter:description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全."/>
 
 <!--[if lte IE 9]>
@@ -55,7 +55,7 @@
     <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
     
     <nav class="site-nav">
-        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
     </nav>
 </div>
 
@@ -74,6 +74,22 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/">SpringCloud整合Hystrix服务保护框架</a></h2>
+            <div class="post-meta">Jun 28, 2020</div>
+            <div class="post-excerpt">
+                1 引入Hystrix需要了解的知识点 1.1 服务的雪崩效应 服务的雪崩效应：默认情况下，tomcat只有一个线程池去处理所有客户端发生的所有请求，这样在高并发下的情况下， 如果客户端所有的请求堆积到同一个接口上（也就是客户端访问同一个接口），tomcat的所有线程去处理请求，可能 会导致其他服务接口无法访问。 假设tomcat最大请求数为20，客户端发送的请求数为100，会发生80个请求产生延迟等待  1.2 Hystrix服务保护框架能解决什么问题  断路器
+ 服务降级
+ 服务熔断
+ 服务隔离机制
+ 服务雪崩效应，连环雪崩效应
+注意：如果雪崩效应严重的话，可能会造成整个服务崩溃   1.3 Hystrix解决雪崩效应的原理  服务降级 &mdash;-友好提示
+在高并发的情况下，防止用户一直等待，在tomcat中没有线程处理客户端发生的请求时，不应该让客户端一直在等待， 使用服务降级（返回一个友好的提示给客户端），目的是为了用户的体验，调用fallback本地方法  服务隔离 &mdash;-线程池隔离和信号量隔离
+信号量的使用示意图：当n个并发请求去调用一个目标服务接口时，都要获取一个信号量才能真正去调用 目标服务接口，但信号量有限，默认是10个，可以使用maxConcurrentRequests参数配置，如果并发请求数多于 信号量个数，就有线程需要进入队列排队，但排队队列也有上限，默认是 5，如果排队队列也满，则必定有请求线 程会走fallback流程，从而达到限流和防止雪崩的目的。 信号量模式从始至终都只有请求线程自身，是同步调用模式，不支持超时调用，不支持直接熔断，由于没有线程的 切换，开销非常小。 线程池的使用示意图如下图所示，当n个请求线程并发对某个接口请求调用时，会先从hystrix管理的线程池里面 获得一个线程，然后将参数传递给这个线程去执行真正调用。线程池的大小有限，默认是10个线程，可以使用 maxConcurrentRequests参数配置，如果并发请求数多于线程池线程个数，就有线程需要进入队列排队，但排队 队列也有上限，默认是 5，如果排队队列也满，则必定有请求线程会走fallback流程。 线程池模式可以支持异步调用，支持超时调用，支持直接熔断，存在线程切换，开销大。    服务熔断
+服务熔断目的是为了保护服务，在高并发的情况下，如果请求达到一定得极限（可以设置阈值），如果流量超过 了这是的阈值，自动开启保护服务的功能，使用服务降级方式返回一个友好的提示。服务熔断和服务降级一起使用  2 搭建Hystrix服务保护框架 2.1 feign客户端超时设置 首先了解feign客户端默认超时时间是1秒 ribbon: # 建立连接所用的时间 ReadTimeout: 5000 # 建立之后读取所用的时间 ConnectTimeout: 5000  2.
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">微服务架构的介绍</a></h2>
@@ -104,14 +120,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Consul注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
-            <div class="post-excerpt">
-                SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质： 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。 2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入springcloud整合Zookeeper启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -124,7 +132,7 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -139,6 +147,10 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
         </li>
         
         <li>
@@ -191,10 +203,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
         </li>
         
     </ul>

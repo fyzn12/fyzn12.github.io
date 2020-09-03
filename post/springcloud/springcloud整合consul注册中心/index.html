@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>SpringCloud整合Consul注册中心 - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+<title>SpringCloud整合Consul注册中心 - fyzn12的博客</title>
 
 <meta name="description" content="SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质： 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。 2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件 &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-consul-member&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-consul-member Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!-- FIXME change it to the project&amp;#39;s website --&amp;gt; &amp;lt;url&amp;gt;http://www.example.com&amp;lt;/url&amp;gt; &amp;lt;properties&amp;gt; &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt; &amp;lt;maven.compiler.source&amp;gt;1.7&amp;lt;/maven.compiler.source&amp;gt; &amp;lt;maven.compiler.target&amp;gt;1.7&amp;lt;/maven.compiler.target&amp;gt; &amp;lt;/properties&amp;gt; &amp;lt;dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-cloud-dependencies&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;Hoxton.SR2&amp;lt;/version&amp;gt; &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt; &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; &amp;lt;/dependencyManagement&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;!-- 导入springboot的启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 导入springcloud整合Zookeeper启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-cloud-starter-consul-discovery&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org." /><meta name="keywords"
   content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
@@ -62,7 +62,7 @@
     <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
     
     <nav class="site-nav">
-        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
     </nav>
 </div>
 
@@ -429,7 +429,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -444,6 +444,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
         </li>
         
         <li>
@@ -496,10 +500,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
         </li>
         
     </ul>

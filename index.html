@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+<title>fyzn12的博客</title>
 
 <meta name="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." /><meta name="keywords"
   content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
@@ -22,17 +22,17 @@
 
 
 
-<meta property="og:title" content="fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全" />
+<meta property="og:title" content="fyzn12的博客" />
 <meta property="og:description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
 <meta property="og:updated_time" content="2020-09-02T00:00:00+00:00" />
-<meta itemprop="name" content="fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全">
+<meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全"/>
+<meta name="twitter:title" content="fyzn12的博客"/>
 <meta name="twitter:description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全."/>
 
 <!--[if lte IE 9]>
@@ -55,7 +55,7 @@
     <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
     
     <nav class="site-nav">
-        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
     </nav>
 </div>
 
@@ -74,6 +74,17 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-information/">SpringBoot优点</a></h2>
+            <div class="post-meta">Sep 02, 2020</div>
+            <div class="post-excerpt">
+                 1. SpringBoot简介 1.1 SpringBoot的优点  创建独立的Spring应用程序
+ 嵌入Tomcat、Jetty或者Undertow，无序部署WAR文件
+ 允许通过Maven来根据需要获取starter； 尽可能自动部署Spring； 提供生产就绪功能，如指标、健康检查和外部配置； 绝对没有代码生成，对XMl没有要求配置。
+  1.2 传统SpringMVC和SpringBoot的对比 1.2.1 SpringMVC的工作原理  1.2.2 两者的对比 在传统的SpringMVC项目开发中，开发一个简易的SpringMVC项目，需要配置DispatcherServlet, 也需要配置SpringIoC的容器。你可以选择使用web.xml的配置来实现，当然，如果你使用的是 Servlet 3.1规范，也可以继承由SpringMVC提供的 AbstractAnnotationConfigDispatcherServletlnitializer来配置SpringMVC项目。 
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/design_mode/strategypattern/">策略模式</a></h2>
@@ -97,16 +108,6 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Zookeeper注册中心</a></h2>
-            <div class="post-meta">Jul 26, 2020</div>
-            <div class="post-excerpt">
-                前言 
-1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
-2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-zk-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-zk-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -119,7 +120,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -134,6 +135,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
         </li>
         
         <li>
@@ -186,10 +191,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
         </li>
         
     </ul>

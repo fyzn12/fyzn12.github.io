@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+    <title>Categories on fyzn12的博客</title>
     <link>https://fyzn12.github.io/categories/</link>
-    <description>Recent content in Categories on fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</description>
+    <description>Recent content in Categories on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 02 Sep 2020 00:00:00 +0000</lastBuildDate>
@@ -17,6 +17,15 @@
       <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/categories/design_mode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpringBoot</title>
+      <link>https://fyzn12.github.io/categories/springboot/</link>
+      <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/categories/springboot/</guid>
       <description></description>
     </item>
     
@@ -35,15 +44,6 @@
       <pubDate>Tue, 21 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/categories/java%E5%9F%BA%E7%A1%80/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SpringBoot</title>
-      <link>https://fyzn12.github.io/categories/springboot/</link>
-      <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/springboot/</guid>
       <description></description>
     </item>
     

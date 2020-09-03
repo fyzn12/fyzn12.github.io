@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>单体架构 on fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+    <link>https://fyzn12.github.io/tags/%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84/</link>
+    <description>Recent content in 单体架构 on fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 26 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>微服务架构的介绍</title>
+      <link>https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Fri, 26 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/</guid>
+      <description>微服务架构的介绍 1 单体架构 单体架构也称为单体系统或者单体应用。就是一种把系统中的所有功能、模块耦合在一个应用中的架构方式  1.1 单体架构特点 1. 单体架构最终会打包成一个独立的单元(导成一个唯一的jar包或者war包) 2. 会以一个进程的方式来运行 3. 项目结构图如下图所示  
+1.2 单体架构的优点、缺点 1.2.1 优点： 1. 项目易于管理 2. 部署简单  1.2.2 缺点： 1. 测试成本高 2. 可伸缩性差 3. 可靠性差 4. 迭代困难 5. 跨语言程度差 6. 团队协作难  2 微服务架构 2.1 什么是微服务 微服务就是一种架构风格，一个大型的复杂软件应用，由一个或多个微服务组成。 系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅仅关注于完成一件任务。  2.2 什么架构风格 架构风格就是项目的一种设计模式  2.2.1 常见的架构风格  客户端与服务端
+ 基于组件模型的架构（EJB） 分层架构（MVC） 面向服务架构（SOA）
+  2.3 微服务的特点 1. 系统是由多个服务构成 2. 每个服务可以单独独立部署 3. 每个服务之间是松耦合的。服务内部是高内聚的，外部是低耦合的。高内聚就是每个服务只关注于完成一个功能  2.</description>
+    </item>
+    
+  </channel>
+</rss>

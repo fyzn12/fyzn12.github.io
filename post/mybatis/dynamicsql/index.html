@@ -1,56 +1,108 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>首页</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://fyzn12.github.io/favicon.ico">
-    <link rel="canonical" href="https://fyzn12.github.io">
-    
-    
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://fyzn12.github.io">首页</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/post/">
-                                    
-                                    <span>All posts</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>mybatis之动态SQL - Tue, Oct 8, 2019</h1>
-    </div>
-    <p class="lead">动态SQL语句总结</p>
+<head>
     
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>mybatis之动态SQL - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+
+<meta name="description" content="动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+&amp;lt;select id=&amp;#34;selectUserById&amp;#34; resultType=&amp;#34;MyUser&amp;#34; parameterType=&amp;#34;MyUser&amp;#34;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;#34;name !=null and name !=&amp;#39;&amp;#39;&amp;#34;&amp;gt; and name like concat(&amp;#39;%&amp;#39;,#{name},&amp;#39;%&amp;#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;#34;sex !=null and sex !=&amp;#39;&amp;#39;&amp;#34;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&amp;lt;choose&amp;gt;元素，如下例子。
+&amp;lt;select id = &amp;#34;selectUserBychoose&amp;#34; resultType=&amp;#34;MyUser&amp;#34; parameterType=&amp;#34;MyUser&amp;#34;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;#34;name !" /><meta name="keywords"
+  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="mybatis之动态SQL" />
+<meta property="og:description" content="动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/mybatis/dynamicsql/" />
+<meta property="article:published_time" content="2019-10-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-08T00:00:00+00:00" />
+<meta itemprop="name" content="mybatis之动态SQL">
+<meta itemprop="description" content="动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !">
+
+
+<meta itemprop="datePublished" content="2019-10-08T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-10-08T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="353">
+
+
+
+<meta itemprop="keywords" content="动态SQL," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mybatis之动态SQL"/>
+<meta name="twitter:description" content="动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Mybatis之动态SQL</h1>
+        <p class="post-meta">Oct 08, 2019</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
 
 <h1 id="动态sql语句总结">动态SQL语句总结</h1>
 
@@ -68,50 +120,41 @@
 <h2 id="if-元素">if 元素</h2>
 
 <p>下面先看一个例子</p>
-
-<pre><code>    &lt;select id=&quot;selectUserById&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+<div class="highlight"><pre class="chroma">    &lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt;
         select * from user where 1=1
-        &lt;if test =&quot;name !=null and name !=''&quot;&gt;
-            and name like concat('%',#{name},'%')
+        &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt;
+            and name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
         &lt;/if&gt;
-        &lt;if test = &quot;sex !=null and sex !=''&quot;&gt;
+        &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt;
             and sex = #{sex}
         &lt;/if&gt;
-    &lt;/select&gt;  
-</code></pre>
-
+    &lt;/select&gt;  </pre></div>
 <p>在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：</p>
-
-<pre><code>    1. resultType与resultMap不能同时使用  
+<div class="highlight"><pre class="chroma">    1. resultType与resultMap不能同时使用  
     2. #{xxx}与${vlaue}的使用看上一篇博客  
     3. if的判断条件的test里面的参数目前我知道有三种声明方式如下：  
 
     1）对象作为参数，则test里面的参数为对象的属性  
     2)@Param声明的参数  
-    3)map方式键值对  
-</code></pre>
-
+    3)map方式键值对  </pre></div>
 <hr />
 
 <h2 id="choose-when-otherwise元素">choose、when 、otherwise元素</h2>
 
 <p>有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了<code>&lt;choose&gt;</code>元素，如下例子。</p>
-
-<pre><code>    &lt;select id = &quot;selectUserBychoose&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+<div class="highlight"><pre class="chroma">    &lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt;
         select * from user where 1=1
         &lt;choose&gt;
-            &lt;when test=&quot;name !=null and name !=''&quot;&gt;
-                and name like concat('%',#{name},'%')
+            &lt;when test=&#34;name !=null and name !=&#39;&#39;&#34;&gt;
+                and name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
             &lt;/when&gt;
-            &lt;when test=&quot;sex != null and sex !='' &quot;
+            &lt;when test=&#34;sex != null and sex !=&#39;&#39; &#34;
                 and sex=#{sex}
             &lt;/when&gt;
             &lt;otherwise&gt;
                 and id&gt;10
             &lt;/otherwise&gt;
-        &lt;/choose&gt;  
-</code></pre>
-
+        &lt;/choose&gt;  </pre></div>
 <p>上面sql语句的含义是当满足test里面的其中之一时，执行when子句，两者都不满足时执行otherwise子句，这样做就可以实现if元素没法实现的一些选择功能。</p>
 
 <hr />
@@ -121,83 +164,70 @@
 <p>trim 的主要功能是可以在自己包含的内容上加上某些前缀，也可以在后面加上某些后缀，与之对应的属性是prefix和suffix；可以把包含内容的首部某些内容覆盖，及忽略，也可以把尾部的某些内容覆盖，对应的属性是prefixOverrides和suffixOverrides。正因为<code>&lt;trim&gt;</code>元素有这样的功能，所以也可以非常简单利用<code>&lt;trim&gt;</code>来代替<code>&lt;where&gt;</code>元素功能。代码如下：</p>
 
 <p>trim应用</p>
-
-<pre><code>    &lt;select id=&quot;selectByTrim&quot; resultType=&quot;MyUser&quot; parameterType=&quot;MyUser&quot;&gt;
+<div class="highlight"><pre class="chroma">    &lt;select id=&#34;selectByTrim&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt;
         select * from user
-        &lt;trim prefix=&quot;where&quot; prefixOverrides=&quot;and | or&quot;&gt;
-            &lt;if test=&quot;name !=null and name !=''&quot;&gt;
-                and name like concat('%',#{name},'%')
+        &lt;trim prefix=&#34;where&#34; prefixOverrides=&#34;and | or&#34;&gt;
+            &lt;if test=&#34;name !=null and name !=&#39;&#39;&#34;&gt;
+                and name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
             &lt;/if&gt;
-            &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
+            &lt;if test=&#34;sex !=null and sex !=&#39;&#39;&#34;&gt;
                 and sex=#{sex}
             &lt;/if&gt;
         &lt;/trim&gt;
     &lt;/select&gt;  
 
     &lt;!-- sql动态中的trim标签
-    prefix&quot;在前面进行添加&quot;
-    prefixOverreds=&quot;在前面进行去掉&quot;
-    suffix=&quot;在后面进行添加&quot;
-    suffixOverreds=&quot;在后面进行去掉&quot;
+    prefix&#34;在前面进行添加&#34;
+    prefixOverreds=&#34;在前面进行去掉&#34;
+    suffix=&#34;在后面进行添加&#34;
+    suffixOverreds=&#34;在后面进行去掉&#34;
     重点：执行的重点，先去除，在添加
     使用trim 会在prefix设置的值后面添加空格  在使用trim进行模糊查询不可取
     --&gt;
 
-    &lt;update id=&quot;upid&quot; parameterType=&quot;Teacher&quot;&gt;   
+    &lt;update id=&#34;upid&#34; parameterType=&#34;Teacher&#34;&gt;   
         update Teacher
-        &lt;trim prefix=&quot;set&quot; suffixOverreds&quot;,&quot;&gt;
+        &lt;trim prefix=&#34;set&#34; suffixOverreds&#34;,&#34;&gt;
             name=#{name},age=#{age}
         &lt;/trim&gt;
         where id=#{id}
-    &lt;/update&gt;
-</code></pre>
-
+    &lt;/update&gt;</pre></div>
 <p>where子句的应用</p>
-
-<pre><code>&lt;select id=&quot;selectByWhere&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
+<div class="highlight"><pre class="chroma">&lt;select id=&#34;selectByWhere&#34; resultType=&#34;MyUser&#34; parameType=&#34;MyUser&#34;&gt;
     select * from user
     &lt;where&gt;
-        &lt;if test=&quot;name !=null and name !=''&quot;&gt;
-            and name like concat('%',#{name},'%')
+        &lt;if test=&#34;name !=null and name !=&#39;&#39;&#34;&gt;
+            and name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
         &lt;/if&gt;
-        &lt;if test=&quot;sex !=null and sex !=''&quot;&gt;
+        &lt;if test=&#34;sex !=null and sex !=&#39;&#39;&#34;&gt;
             and sex=#{sex}
         &lt;/if&gt;
     &lt;/where&gt;
-&lt;/select&gt;  
-</code></pre>
-
+&lt;/select&gt;  </pre></div>
 <p>set元素的应用：</p>
-
-<pre><code>&lt;select id=&quot;selectBySet&quot; resultType=&quot;MyUser&quot; parameType=&quot;MyUser&quot;&gt;
+<div class="highlight"><pre class="chroma">&lt;select id=&#34;selectBySet&#34; resultType=&#34;MyUser&#34; parameType=&#34;MyUser&#34;&gt;
     update user
     &lt;set&gt;
-        &lt;if test=&quot;name !=null and name !=''&quot;
-            name like concat('%',#{name},'%')
+        &lt;if test=&#34;name !=null and name !=&#39;&#39;&#34;
+            name like concat(&#39;%&#39;,#{name},&#39;%&#39;)
         &lt;/if&gt;
-        &lt;if test=&quot;sex !=null and sex !=''&quot;
-            sex like concat('%',#{sex},'%')
+        &lt;if test=&#34;sex !=null and sex !=&#39;&#39;&#34;
+            sex like concat(&#39;%&#39;,#{sex},&#39;%&#39;)
         &lt;/if&gt;
     &lt;/set&gt;
     where id=#{id}
-&lt;/select&gt;
-</code></pre>
-
+&lt;/select&gt;</pre></div>
 <p>set 子句会在update的sql语句中用到，对应的值千万别忘了where限定。</p>
 
 <p>foreach元素的应用:<br />
         foreach主要用在构建in条件中，它可以在SQL语句中迭代一个集合，<code>&lt;foreach&gt;</code>元素的属性主要有item、index、collection、open、separator、close。item表示集合中每个元素进行迭代时的别名，index指定一个名字，用于表示在迭代过程中每次迭代到的位置，open表示该语句以什么开始，separator表示在每次进行迭代之间以什么符号进行分隔符，close表示以什么结束。在使用<code>&lt;foreach&gt;</code>元素时最关键，最容易出错的是collection属性，该属性是必选的，但在不同情况下值不同，有以下几种情况：</p>
-
-<pre><code>    * 如果传入的是单参数且参数类型是一个List，collection属性值为list  
+<div class="highlight"><pre class="chroma">    * 如果传入的是单参数且参数类型是一个List，collection属性值为list  
     * 如果传入的参数是单参数且参数类型是一个arry数组，collection值为arry
-    * 如果传入的参数是多个，需要把她们封装成一个Map，当然单参数也可以封装成Map。map的key值参数名，collection属性值是传入的List或者arry对象在封装的Map中的key  
-</code></pre>
-
+    * 如果传入的参数是多个，需要把她们封装成一个Map，当然单参数也可以封装成Map。map的key值参数名，collection属性值是传入的List或者arry对象在封装的Map中的key  </pre></div>
 <p>具体例子如下：</p>
-
-<pre><code>&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameterType=&quot;List&quot;&gt;
+<div class="highlight"><pre class="chroma">&lt;select id=&#34;selectByForeach&#34; resultType=&#34;MyUser&#34; parameterType=&#34;List&#34;&gt;
     select *from user
-    &lt;foreach item=&quot;item&quot; index='index' collection='list' open=&quot;(&quot;separator='',&quot;close=&quot;)&quot;&gt;
+    &lt;foreach item=&#34;item&#34; index=&#39;index&#39; collection=&#39;list&#39; open=&#34;(&#34;separator=&#39;&#39;,&#34;close=&#34;)&#34;&gt;
         #{item}
     &lt;/foreach&gt;
 &lt;/select&gt; 
@@ -207,36 +237,33 @@
         2.批量添加
 --&gt;
 &lt;!-- in的使用 --&gt;
-&lt;select id=&quot;selectByForeach&quot; resultType=&quot;MyUser&quot; parameterType=&quot;List&quot;&gt;
+&lt;select id=&#34;selectByForeach&#34; resultType=&#34;MyUser&#34; parameterType=&#34;List&#34;&gt;
     select * from user where age in
-        &lt;foreach collection=&quot;list&quot; item=&quot;age&quot; open=&quot;(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;
+        &lt;foreach collection=&#34;list&#34; item=&#34;age&#34; open=&#34;(&#34; close=&#34;)&#34; separator=&#34;,&#34;&gt;
             #{age}
         &lt;/foreach&gt;
 &lt;/select&gt;
 
 &lt;!-- 使用foreach与trim联合使用 批量添加--&gt;
 &lt;!-- sql的声明字段 --&gt;
-&lt;sql id=&quot;fileName&quot;&gt;
+&lt;sql id=&#34;fileName&#34;&gt;
     (id,name,age,sex)
 &lt;/sql&gt;
-&lt;insert id=&quot;insertByForeach&quot; parameterType=&quot;list&quot;&gt;
-    insert into teacher &lt;include refid=&quot;fileName&quot;/&gt;  values
-        &lt;trim suffixOverreds=&quot;,&quot;&gt;&lt;!-- 去掉最后一个&quot;,&quot; --&gt;
-            &lt;foreach collection=&quot;list&quot; item=&quot;user&quot;&gt;
+&lt;insert id=&#34;insertByForeach&#34; parameterType=&#34;list&#34;&gt;
+    insert into teacher &lt;include refid=&#34;fileName&#34;/&gt;  values
+        &lt;trim suffixOverreds=&#34;,&#34;&gt;&lt;!-- 去掉最后一个&#34;,&#34; --&gt;
+            &lt;foreach collection=&#34;list&#34; item=&#34;user&#34;&gt;
                 (id,#{user.name},#{user.age},#{user.sex}),
             &lt;/foreach&gt;
         &lt;/trim&gt;
-&lt;/insert&gt;
-</code></pre>
-
+&lt;/insert&gt;</pre></div>
 <hr />
 
 <h2 id="bind元素">bind元素</h2>
 
 <p>在进行模糊查询时，如果使用&rdquo;${}&ldquo;拼接字符串，则无法防止SQL注入问题；bind使用可以一定程度上避免这个问题。代码演示如下：</p>
-
-<pre><code>    &lt;select id=&quot;selectByBind&quot; resultType=&quot;MyUser&quot; parameType=&quot;List&quot;&gt;
-        &lt;bind name =&quot;paran_uname&quot; vlaue = &quot;'%'+uname+'%' &quot;/&gt;
+<div class="highlight"><pre class="chroma">    &lt;select id=&#34;selectByBind&#34; resultType=&#34;MyUser&#34; parameType=&#34;List&#34;&gt;
+        &lt;bind name =&#34;paran_uname&#34; vlaue = &#34;&#39;%&#39;+uname+&#39;%&#39; &#34;/&gt;
         select * from user
             where name like #{paran_uname}
     &lt;/select&gt;
@@ -244,70 +271,174 @@
     &lt;!-- 
         sql动态中的bind标签对变量或者查询的条件进行重新定义,模糊查询中trim的prefix和suffix使用后会在后面添加空格，显然不适合模糊查询。  
     --&gt;
-    &lt;select id=&quot;selectBind&quot; parameterType=&quot;&quot;Teacher resultType=&quot;Teacher&quot;&gt;
-        &lt;bind name=&quot;name&quot; vlaue=&quot;'%'+name+'%'&quot;/&gt;
+    &lt;select id=&#34;selectBind&#34; parameterType=&#34;&#34;Teacher resultType=&#34;Teacher&#34;&gt;
+        &lt;bind name=&#34;name&#34; vlaue=&#34;&#39;%&#39;+name+&#39;%&#39;&#34;/&gt;
         select * from teacher where name like #{name}
-    &lt;/select&gt;
-</code></pre>
-
-    <h4><a href="https://fyzn12.github.io">Back to Home</a></h4>
-</div>
-
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-
-    <a href="https://fyzn12.github.io">fyzn12</a> | 
-
-&copy; 
-<a href="https://fyzn12.github.io" target="_blank">
-    fyzn12
-</a>
-<span id="thisyear">2020</span>
-
-    | @
-
-
-        | Built on <a href="//gohugo.io" target="_blank">Hugo</a>
-</p>
-    <p class="text-center">
-        <a href="https://facebook.com">Facebook</a> 
-        <a href="https://twitter.com">Twitter</a> 
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
-
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+    &lt;/select&gt;</pre></div>
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/">
+            Ssm随学札记
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/">
+            SpringBoot提供的五种异常机制
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="post-link">SpringCloud微服务网关技术Zuul</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Zookeeper注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="post-link">Java基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="post-link">Spring Boot整合Spring Data JPA</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

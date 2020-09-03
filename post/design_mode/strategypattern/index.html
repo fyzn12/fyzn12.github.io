@@ -1,56 +1,108 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>首页</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://fyzn12.github.io/favicon.ico">
-    <link rel="canonical" href="https://fyzn12.github.io">
-    
-    
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://fyzn12.github.io">首页</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/post/">
-                                    
-                                    <span>All posts</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>策略模式 - Wed, Sep 2, 2020</h1>
-    </div>
-    <p class="lead">设计模式————策略模式</p>
+<head>
     
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>策略模式 - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+
+<meta name="description" content="1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
+ 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
+ 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
+ 接口隔离原则：多个和客户相关的接口要好于一个通用接口
+  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2." /><meta name="keywords"
+  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="策略模式" />
+<meta property="og:description" content="1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
+ 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
+ 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
+ 接口隔离原则：多个和客户相关的接口要好于一个通用接口
+  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/design_mode/strategypattern/" />
+<meta property="article:published_time" content="2020-09-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-02T00:00:00+00:00" />
+<meta itemprop="name" content="策略模式">
+<meta itemprop="description" content="1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
+ 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
+ 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
+ 接口隔离原则：多个和客户相关的接口要好于一个通用接口
+  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2.">
+
+
+<meta itemprop="datePublished" content="2020-09-02T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-09-02T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="799">
+
+
+
+<meta itemprop="keywords" content="策略模式," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="策略模式"/>
+<meta name="twitter:description" content="1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
+ 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
+ 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
+ 接口隔离原则：多个和客户相关的接口要好于一个通用接口
+  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">策略模式</h1>
+        <p class="post-meta">Sep 02, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
 
 <h1 id="1-oo設計原則">1 OO設計原則</h1>
 
@@ -79,36 +131,32 @@
 <h2 id="2-2-策略模式设计的代码分析-模拟鸭子项目">2.2 策略模式设计的代码分析————模拟鸭子项目</h2>
 
 <h3 id="2-2-1-抽象出鸭子的行为-鸭子具有飞行能力和叫声-抽象出该接口">2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口</h3>
+<div class="highlight"><pre class="chroma">            <span class="kn">package</span> <span class="nx">com</span><span class="p">.</span><span class="nx">fyzn12</span><span class="p">.</span><span class="nx">api</span><span class="p">;</span>
 
-<pre><code>            package com.fyzn12.api;
-
-            /**
-             * @author ZhangRongJun
-             * @version 1.0
-             * @date 2020/9/2 10:42
-             * @description:会飞的鸭子
-             */
-            public interface FlyBehavior {
-                void fly();
-            }  
+            <span class="cm">/**
+</span><span class="cm">             * @author ZhangRongJun
+</span><span class="cm">             * @version 1.0
+</span><span class="cm">             * @date 2020/9/2 10:42
+</span><span class="cm">             * @description:会飞的鸭子
+</span><span class="cm">             */</span>
+            <span class="nx">public</span> <span class="kd">interface</span> <span class="nx">FlyBehavior</span> <span class="p">{</span>
+                <span class="nx">void</span> <span class="nf">fly</span><span class="p">();</span>
+            <span class="p">}</span>  
 
 
-            package com.fyzn12.api;
+            <span class="kn">package</span> <span class="nx">com</span><span class="p">.</span><span class="nx">fyzn12</span><span class="p">.</span><span class="nx">api</span><span class="p">;</span>
 
-            /**
-             * @author ZhangRongJun
-             * @version 1.0
-             * @date 2020/9/2 10:43
-             * @description:叫声
-             */
-            public interface QuackBehavior {
-                void quack();
-            }
-</code></pre>
-
+            <span class="cm">/**
+</span><span class="cm">             * @author ZhangRongJun
+</span><span class="cm">             * @version 1.0
+</span><span class="cm">             * @date 2020/9/2 10:43
+</span><span class="cm">             * @description:叫声
+</span><span class="cm">             */</span>
+            <span class="nx">public</span> <span class="kd">interface</span> <span class="nx">QuackBehavior</span> <span class="p">{</span>
+                <span class="nx">void</span> <span class="nf">quack</span><span class="p">();</span>
+            <span class="p">}</span></pre></div>
 <h3 id="2-2-2-对鸭子抽象出来的具体行为进行实现">2.2.2 对鸭子抽象出来的具体行为进行实现</h3>
-
-<pre><code>            /**
+<div class="highlight"><pre class="chroma">            /**
              * @author ZhangRongJun
              * @version 1.0
              * @date 2020/9/2 10:51
@@ -117,7 +165,7 @@
             public class GoodFlyBehavio implements FlyBehavior {
                 @Override
                 public void fly() {
-                    System.out.println(&quot;会飞鸭子的实现&quot;);
+                    System.out.println(&#34;会飞鸭子的实现&#34;);
                 }
             }  
 
@@ -131,14 +179,11 @@
             public class GaGaQuackBehavio implements QuackBehavior {
                 @Override
                 public void quack() {
-                    System.out.println(&quot;叫声不同的体现&quot;);
+                    System.out.println(&#34;叫声不同的体现&#34;);
                 }
-            }  
-</code></pre>
-
+            }  </pre></div>
 <h3 id="2-2-3-对鸭子抽象总行为">2.2.3 对鸭子抽象总行为</h3>
-
-<pre><code>            /**
+<div class="highlight"><pre class="chroma">            /**
              * @author ZhangRongJun
              * @version 1.0
              * @date 2020/9/2 10:44
@@ -160,12 +205,9 @@
                 }
 
                 public abstract void display();
-            }   
-</code></pre>
-
+            }   </pre></div>
 <h3 id="2-2-3-对鸭子抽象总行为进行实现">2.2.3 对鸭子抽象总行为进行实现</h3>
-
-<pre><code>            /**
+<div class="highlight"><pre class="chroma">            /**
              * @author ZhangRongJun
              * @version 1.0
              * @date 2020/9/2 10:47
@@ -188,9 +230,7 @@
                     GreenHeadDuck duck = new GreenHeadDuck();
                     duck.display();
                 }
-            }    
-</code></pre>
-
+            }    </pre></div>
 <h2 id="2-3-策略模式的优缺点">2.3 策略模式的优缺点</h2>
 
 <h3 id="优点-1-算法可以自由切换-2-避免使用多重条件判断-3-扩展性好">优点：1. 算法可以自由切换；2. 避免使用多重条件判断；3. 扩展性好</h3>
@@ -210,18 +250,17 @@
 <h2 id="2-5-策略模式的核心实现项目">2.5 策略模式的核心实现项目</h2>
 
 <h3 id="2-5-1-定义一个事件-使用枚举类型进行包装">2.5.1 定义一个事件，使用枚举类型进行包装</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author ZhangRongJun
          * @version 1.0
          * @date 2020/9/2 14:52
          * @description:事件的定义
          */
         public enum EventEnum {
-            ERROR(&quot;error&quot;, &quot;异常中断&quot;),
-            CLOSE(&quot;close&quot;, &quot;正常关闭&quot;),
-            LOGIN(&quot;login&quot;, &quot;登录&quot;),
-            HEALTHY(&quot;healthy&quot;, &quot;健康监测&quot;);
+            ERROR(&#34;error&#34;, &#34;异常中断&#34;),
+            CLOSE(&#34;close&#34;, &#34;正常关闭&#34;),
+            LOGIN(&#34;login&#34;, &#34;登录&#34;),
+            HEALTHY(&#34;healthy&#34;, &#34;健康监测&#34;);
             private String value;
             private String desc;
 
@@ -245,12 +284,9 @@
             public void setDesc(String desc) {
                 this.desc = desc;
             }
-        }  
-</code></pre>
-
+        }  </pre></div>
 <h3 id="2-5-2-首先编写参数类-返回结果类">2.5.2 首先编写参数类、返回结果类</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author ZhangRongJun
          * @version 1.0
          * @date 2020/9/2 15:00
@@ -293,17 +329,14 @@
 
             @Override
             public String toString() {
-                return &quot;HandlerParam{&quot; +
-                        &quot;event=&quot; + event +
-                        &quot;, param=&quot; + param +
-                        '}';
+                return &#34;HandlerParam{&#34; +
+                        &#34;event=&#34; + event +
+                        &#34;, param=&#34; + param +
+                        &#39;}&#39;;
             }
-        }   
-</code></pre>
-
+        }   </pre></div>
 <h4 id="该类包装了一个返回值事件evenenum以及请求参数类型-t">该类包装了一个返回值事件EvenEnum以及请求参数类型 T</h4>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author ZhangRongJun
          * @version 1.0
          * @date 2020/9/2 14:47
@@ -338,18 +371,15 @@
 
             @Override
             public String toString() {
-                return &quot;HandlerResult{&quot; +
-                        &quot;result=&quot; + result +
-                        '}';
+                return &#34;HandlerResult{&#34; +
+                        &#34;result=&#34; + result +
+                        &#39;}&#39;;
             }
-        }
-</code></pre>
-
+        }</pre></div>
 <h4 id="该类主要返回一个-t-的类型的返回值">该类主要返回一个 T 的类型的返回值</h4>
 
 <h3 id="2-5-3-编写抽象策略对象-抽象策略对象">2.5.3 编写抽象策略对象————抽象策略对象</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author ZhangRongJun
          * @version 1.0
          * @date 2020/9/2 14:44
@@ -372,12 +402,9 @@
             public abstract List&lt;EventEnum&gt; eventTypes();
 
 
-        }  
-</code></pre>
-
+        }  </pre></div>
 <h3 id="2-5-4-编写抽象策略对象的子类-具体策略对象">2.5.4 编写抽象策略对象的子类————具体策略对象</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author ZhangRongJun
          * @version 1.0
          * @date 2020/9/2 15:28
@@ -388,24 +415,21 @@
             @Override
             public HandlerResult strategy(HandlerParam param) {
                 //根据参数进行业务处理
-                System.out.println(&quot;业务处理&quot;);
+                System.out.println(&#34;业务处理&#34;);
 
                 //返回结果
-                return new HandlerResult&lt;String&gt;(&quot;业务处理完毕&quot;);
+                return new HandlerResult&lt;String&gt;(&#34;业务处理完毕&#34;);
             }
 
             @Override
             public List&lt;EventEnum&gt; eventTypes() {
                 return Arrays.asList(EventEnum.LOGIN, EventEnum.HEALTHY);
             }
-        }
-</code></pre>
-
+        }</pre></div>
 <h4 id="这里多个子类的区分主要是通过eventtypes方法中定义的集合区分">这里多个子类的区分主要是通过eventTypes方法中定义的集合区分</h4>
 
 <h3 id="2-5-5-编写暴露接口-环境对象">2.5.5 编写暴露接口————环境对象</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author ZhangRongJun
          * @version 1.0
          * @date 2020/9/2 15:13
@@ -458,12 +482,9 @@
                 }
                 return abstractHandler.strategy(param);
             }
-        }  
-</code></pre>
-
+        }  </pre></div>
 <h3 id="2-5-6-编写测试类">2.5.6 编写测试类</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author ZhangRongJun
          * @version 1.0
          * @date 2020/9/2 15:30
@@ -471,7 +492,7 @@
          */
         @RunWith(SpringRunner.class)
         @SpringBootTest(classes = StrategyTest.class)
-        @ComponentScan(basePackages = &quot;com.fyzn12.service&quot;)
+        @ComponentScan(basePackages = &#34;com.fyzn12.service&#34;)
         public class StrategyTest {
 
             @Autowired
@@ -481,78 +502,176 @@
             @Test
             public void test() {
                 if (service==null){
-                    System.out.println(&quot;空&quot;);
+                    System.out.println(&#34;空&#34;);
                 }
                 //定于路由参数即可
-                HandlerParam&lt;String&gt; param = new HandlerParam&lt;&gt;(EventEnum.HEALTHY, &quot;我是参数&quot;);
-                System.out.println(&quot;请求参数：&quot; + param);
+                HandlerParam&lt;String&gt; param = new HandlerParam&lt;&gt;(EventEnum.HEALTHY, &#34;我是参数&#34;);
+                System.out.println(&#34;请求参数：&#34; + param);
                 HandlerResult result = service.strategy(param);
-                System.out.println(&quot;返回结果&quot; + result);
+                System.out.println(&#34;返回结果&#34; + result);
 
             }
-        }
-</code></pre>
-
+        }</pre></div>
 <h4 id="这个位置值得注意的是-当测试类并不是在测试环境下时-要求加上-componentscan-basepackages-com-fyzn12-service-对暴露接口类的扫描-不然在注入private-contexthandlerservice-service时会提示找不到contexthandlerservice类">这个位置值得注意的是，当测试类并不是在测试环境下时，要求加上@ComponentScan(basePackages = &ldquo;com.fyzn12.service&rdquo;)对暴露接口类的扫描，不然在注入private ContextHandlerService service时会提示找不到ContextHandlerService类。</h4>
 
-    <h4><a href="https://fyzn12.github.io">Back to Home</a></h4>
-</div>
-
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-
-    <a href="https://fyzn12.github.io">fyzn12</a> | 
-
-&copy; 
-<a href="https://fyzn12.github.io" target="_blank">
-    fyzn12
-</a>
-<span id="thisyear">2020</span>
-
-    | @
-
-
-        | Built on <a href="//gohugo.io" target="_blank">Hugo</a>
-</p>
-    <p class="text-center">
-        <a href="https://facebook.com">Facebook</a> 
-        <a href="https://twitter.com">Twitter</a> 
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
-
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/">
+            SpringCloud微服务网关技术Zuul
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="post-link">SpringCloud微服务网关技术Zuul</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Zookeeper注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="post-link">Java基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="post-link">Spring Boot整合Spring Data JPA</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

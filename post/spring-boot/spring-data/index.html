@@ -1,56 +1,104 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>首页</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://fyzn12.github.io/favicon.ico">
-    <link rel="canonical" href="https://fyzn12.github.io">
-    
-    
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://fyzn12.github.io">首页</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/post/">
-                                    
-                                    <span>All posts</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>Spring Boot整合Spring Data JPA - Sat, Jul 18, 2020</h1>
-    </div>
-    <p class="lead">Spring Boot整合Spring Data JPA环境的搭建和测试......</p>
+<head>
     
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Spring Boot整合Spring Data JPA - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+
+<meta name="description" content="Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
+&amp;lt;dependencies&amp;gt; &amp;lt;!-- 导入springboot的启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 导入mybatis的启动器 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis.spring.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring-boot-starter&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.2.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 导入springboot整合spring Data JPA的启动器--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-data-jpa&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- mysql数据库 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- mysql的连接池 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.alibaba&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;druid&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${druid.version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; 
+ 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
+  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。" /><meta name="keywords"
+  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="Spring Boot整合Spring Data JPA" />
+<meta property="og:description" content="Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
+&lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入mybatis的启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 导入springboot整合spring Data JPA的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql数据库 --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql的连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;/dependency&gt; 
+ 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
+  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/spring-boot/spring-data/" />
+<meta property="article:published_time" content="2020-07-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-07-18T00:00:00+00:00" />
+<meta itemprop="name" content="Spring Boot整合Spring Data JPA">
+<meta itemprop="description" content="Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
+&lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入mybatis的启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 导入springboot整合spring Data JPA的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql数据库 --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql的连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;/dependency&gt; 
+ 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
+  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。">
+
+
+<meta itemprop="datePublished" content="2020-07-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-07-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1085">
+
+
+
+<meta itemprop="keywords" content="SpringBoot," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Boot整合Spring Data JPA"/>
+<meta name="twitter:description" content="Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
+&lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入mybatis的启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 导入springboot整合spring Data JPA的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql数据库 --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql的连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;/dependency&gt; 
+ 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
+  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Spring Boot整合Spring Data JPA</h1>
+        <p class="post-meta">Jul 18, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
 
 <h1 id="spring-boot整合spring-data-jpa">Spring Boot整合Spring Data JPA</h1>
 
@@ -62,8 +110,7 @@
 
 <ol>
 <li><p>Spring Boot整合Spring Data JPA时需要添加一下依赖包</p>
-
-<pre><code>&lt;dependencies&gt;
+<div class="highlight"><pre class="chroma">&lt;dependencies&gt;
 &lt;!-- 导入springboot的启动器--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -94,9 +141,7 @@
 &lt;dependency&gt;
   &lt;groupId&gt;junit&lt;/groupId&gt;
   &lt;artifactId&gt;junit&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre>
-
+&lt;/dependency&gt;</pre></div>
 <p></dependencies></p></li>
 
 <li><p>该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。</p></li>
@@ -111,8 +156,7 @@
 <li>配置正向工程和sql语句的显示。<br /></li>
 
 <li><p>配置文件如下：</p>
-
-<pre><code>    # 数据库的连接
+<div class="highlight"><pre class="chroma">    # 数据库的连接
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     spring.datasource.url=jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8
     spring.datasource.username=root
@@ -124,31 +168,29 @@
     # 开启正向工程
     spring.jpa.hibernate.ddl-auto=update
     # 显示sql语句
-    spring.jpa.show-sql=true  
-</code></pre></li>
+    spring.jpa.show-sql=true  </pre></div></li>
 </ol>
 
 <h3 id="1-3-创建实体类users">1.3 创建实体类Users</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author fyzn12
          * @version 1.0
          * @date 2020/7/18 10:13
-         * @Table(name = &quot;t_users&quot;)：指明正向工程执行时在数据库中创建的数据表名称
+         * @Table(name = &#34;t_users&#34;)：指明正向工程执行时在数据库中创建的数据表名称
          * @description:TODO
          */
         @Entity
-        @Table(name = &quot;t_users&quot;)
+        @Table(name = &#34;t_users&#34;)
         public class Users {
             @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
-            @Column(name = &quot;id&quot;)
+            @Column(name = &#34;id&#34;)
             private Integer id;
-            @Column(name = &quot;name&quot;)
+            @Column(name = &#34;name&#34;)
             private String name;
-            @Column(name = &quot;age&quot;)
+            @Column(name = &#34;age&#34;)
             private Integer age;
-            @Column(name = &quot;address&quot;)
+            @Column(name = &#34;address&#34;)
             private String address;
 
             public Integer getId() {
@@ -182,12 +224,9 @@
             public void setAddress(String address) {
                 this.address = address;
             }
-        }
-</code></pre>
-
+        }</pre></div>
 <h3 id="1-4-创建dao接口">1.4 创建dao接口</h3>
-
-<pre><code>    /**
+<div class="highlight"><pre class="chroma">    /**
      * @author fyzn12
      * @version 1.0
      * @date 2020/7/18 10:20
@@ -199,12 +238,9 @@
 
     }  
 
-    注意：这里使用JpaRepository接口，里面的方法我们都不需要编写，可以直接调用  
-</code></pre>
-
+    注意：这里使用JpaRepository接口，里面的方法我们都不需要编写，可以直接调用  </pre></div>
 <h3 id="1-5-编写启动器">1.5 编写启动器</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author fyzn12
          * @version 1.0
          * @date 2020/7/18 10:12
@@ -215,12 +251,9 @@
             public static void main(String[] args) {
                 SpringApplication.run(App.class,args);
             }
-        }
-</code></pre>
-
+        }</pre></div>
 <h3 id="1-6-编写测试方法">1.6 编写测试方法</h3>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author fyzn12
          * @version 1.0
          * @date 2020/7/18 10:22
@@ -234,16 +267,14 @@
             @Test
             public void testSave(){
                 Users users = new Users();
-                users.setAddress(&quot;天津&quot;);
+                users.setAddress(&#34;天津&#34;);
                 users.setAge(20);
-                users.setName(&quot;张三&quot;);
+                users.setName(&#34;张三&#34;);
                 this.usersRepository.save(users);
             }
 
 
-        }  
-</code></pre>
-
+        }  </pre></div>
 <h3 id="1-7-运行测试方法效果图如下">1.7 运行测试方法效果图如下</h3>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/spring_data-test1.png"/></div>    
@@ -285,8 +316,7 @@
 <h4 id="2-1-1-方法名称命名查询方式">2.1.1 方法名称命名查询方式</h4>
 
 <h5 id="1-创建接口dao">1 创建接口dao</h5>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author fyzn12
          * @version 1.0
          * @date 2020/7/18 11:01
@@ -310,17 +340,14 @@
             List&lt;Users&gt; findByNameLike(String name);
 
 
-        } 
-</code></pre>
-
+        } </pre></div>
 <h5 id="2-编写测试代码">2 编写测试代码</h5>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * 方法名称命名测试
          * */
         @Test
         public void testFinByName(){
-            List&lt;Users&gt; list = this.usersRepositoryByName.findByName(&quot;张三&quot;);
+            List&lt;Users&gt; list = this.usersRepositoryByName.findByName(&#34;张三&#34;);
             for (Users users:list) {
                 System.out.println(users);
             }
@@ -330,7 +357,7 @@
          * */
         @Test
         public void testFinByNameAndAge(){
-            List&lt;Users&gt; list = this.usersRepositoryByName.findByNameAndAge(&quot;张三&quot;,20);
+            List&lt;Users&gt; list = this.usersRepositoryByName.findByNameAndAge(&#34;张三&#34;,20);
             for (Users users:list) {
                 System.out.println(users);
             }
@@ -340,13 +367,11 @@
          * */
         @Test
         public void testFinByNameLike(){
-            List&lt;Users&gt; list = this.usersRepositoryByName.findByNameLike(&quot;张%&quot;);
+            List&lt;Users&gt; list = this.usersRepositoryByName.findByNameLike(&#34;张%&#34;);
             for (Users users:list) {
                 System.out.println(users);
             }
-        }  
-</code></pre>
-
+        }  </pre></div>
 <h5 id="3-运行结果显示">3 运行结果显示</h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/spring_data-test2.png"/></div>  
@@ -363,8 +388,7 @@
 <h4 id="2-1-2-基于-query注解查询与更新">2.1.2 基于@Query注解查询与更新</h4>
 
 <h5 id="1-创建dao接口">1. 创建dao接口</h5>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author fyzn12
          * @version 1.0
          * @date 2020/7/18 15:53
@@ -376,33 +400,30 @@
              * 这里注意几点：在低版本的spring boot中在HQL语句后面不需要加上版本号，
              * 但是在Spring Boot2.x之后的版本在使用@Query注解时需要加上版本号
              * */
-            @Query(&quot;from Users where name=?1&quot;)
+            @Query(&#34;from Users where name=?1&#34;)
             List&lt;Users&gt; list(String name);
             /**
              * 使用标准的SQL语句
              * */
-            @Query(value=&quot;select * from t_users where name=?1&quot;,nativeQuery=true)
+            @Query(value=&#34;select * from t_users where name=?1&#34;,nativeQuery=true)
             List&lt;Users&gt; queryByNameUserSQL(String name);  
 
             /**
              * @Query注解用于更新操作
              * @Modifying：需要执行一个更新操作
              * */
-            @Query(&quot;update Users set name =?1 where id=?1&quot;)
+            @Query(&#34;update Users set name =?1 where id=?1&#34;)
             @Modifying
             void updateUsersById(String name,Integer id);
 
-        }  
-</code></pre>
-
+        }  </pre></div>
 <h5 id="2-创建测试方法">2. 创建测试方法</h5>
-
-<pre><code>             /**
+<div class="highlight"><pre class="chroma">             /**
              * @Query注解的测试1
              * */
             @Test
             public void testQuery(){
-                List&lt;Users&gt; list = this.usersRepositoryQueryAnnotation.list(&quot;张三&quot;);
+                List&lt;Users&gt; list = this.usersRepositoryQueryAnnotation.list(&#34;张三&#34;);
                 for (Users users:list) {
                     System.out.println(users);
                 }
@@ -412,7 +433,7 @@
              * */
             @Test
             public void testQueryByNameSQL(){
-                List&lt;Users&gt; list = this.usersRepositoryQueryAnnotation.queryByNameUserSQL(&quot;张三&quot;);
+                List&lt;Users&gt; list = this.usersRepositoryQueryAnnotation.queryByNameUserSQL(&#34;张三&#34;);
                 for (Users users:list) {
                     System.out.println(users);
                 }
@@ -424,10 +445,8 @@
              * */
             @Test
             public void testQueryUpdate(){
-               this.usersRepositoryQueryAnnotation.updateUsersById(&quot;张三三&quot;,1);
-            }  
-</code></pre>
-
+               this.usersRepositoryQueryAnnotation.updateUsersById(&#34;张三三&#34;,1);
+            }  </pre></div>
 <h5 id="3-运行截图如下">3. 运行截图如下</h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/spring_data-test3.png"/></div>     
@@ -449,17 +468,15 @@
 <li>@Test注解和@Transactional注解一起使用时，默认是自动回滚的，因此上面看到提示成功，但是数据库里的数据并没有修改<br /></li>
 
 <li><p>在测试方法上面加上一个注解@Rollback</p>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @Query注解的用于更新测试1
          * */
         @Test
         @Transactional
         @Rollback(false)
         public void testQueryUpdate(){
-           this.usersRepositoryQueryAnnotation.updateUsersById(&quot;张三三&quot;,1);
-        }  
-</code></pre></li>
+           this.usersRepositoryQueryAnnotation.updateUsersById(&#34;张三三&#34;,1);
+        }  </pre></div></li>
 </ul>
 
 <hr />
@@ -483,30 +500,26 @@
 <li>查看该源码知道，对一个事务进行保存和更新操作时，首先会进行判断数据库中是否存在这一条数据，如果存在，则判断此次事务为update操作，不存在则是insert操作，下面进行测试 ；<br /></li>
 
 <li><p>编写dao接口如下</p>
-
-<pre><code>    /**
+<div class="highlight"><pre class="chroma">    /**
      * @author fyzn12
      * @version 1.0
      * @date 2020/7/18 17:56
      * @description:TODO
      */
     public interface UsersCurdRepository extends CrudRepository&lt;Users,Integer&gt; {
-    }  
-</code></pre></li>
+    }  </pre></div></li>
 
 <li><p>编写测试save方法如下</p>
-
-<pre><code> @Test
+<div class="highlight"><pre class="chroma"> @Test
 public void testCurdRepositorySave(){
 
     Users users = new Users();
-    users.setName(&quot;李四&quot;);
+    users.setName(&#34;李四&#34;);
     users.setAge(22);
-    users.setAddress(&quot;天津&quot;);
+    users.setAddress(&#34;天津&#34;);
     this.usersCurdRepository.save(users);
 
-}  
-</code></pre></li>
+}  </pre></div></li>
 
 <li><p>代码执行如下图所示<br />
 <div align=center><img src="https://fyzn12.github.io/img/picture/curd-save-test.png "/></div></p></li>
@@ -518,8 +531,7 @@ public void testCurdRepositorySave(){
 
 <ul>
 <li><p>编写测试update方法如下</p>
-
-<pre><code>    @Test
+<div class="highlight"><pre class="chroma">    @Test
     public void testCurdRepositoryUpdate(){
 
         /*
@@ -527,9 +539,8 @@ public void testCurdRepositorySave(){
         * */
         Users users = new Users();
         users.setId(2);
-        users.setAddress(&quot;北京&quot;);
-    }   
-</code></pre></li>
+        users.setAddress(&#34;北京&#34;);
+    }   </pre></div></li>
 
 <li><p>方法测试运行图如下图所示</p></li>
 </ul>
@@ -558,23 +569,19 @@ public void testCurdRepositorySave(){
 <h4 id="2-3-2-pagingandsortingrepository接口中排序功能的测试">2.3.2 PagingAndSortingRepository接口中排序功能的测试</h4>
 
 <h5 id="1-编写dao接口">1. 编写dao接口</h5>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author fyzn12
          * @version 1.0
          * @date 2020/7/18 18:30
          * @description:TODO
          */
         public interface UserPagingAndSortingRepository  extends PagingAndSortingRepository&lt;Users,Integer&gt;{
-        }
-</code></pre>
-
+        }</pre></div>
 <h5 id="2-编写测试方法">2. 编写测试方法</h5>
-
-<pre><code>        @Test
+<div class="highlight"><pre class="chroma">        @Test
         public void testPaginAndSprtingRepositorySort(){
             //定义排序规则
-            Order order = new Order(Direction.DESC,&quot;id&quot;);
+            Order order = new Order(Direction.DESC,&#34;id&#34;);
             /**
              * SpringBoot 2.2.1之后，Sort的构造方法变成私有了，不能通过构造方法实例化
              *
@@ -586,9 +593,7 @@ public void testCurdRepositorySave(){
                 System.out.println(users);
             }
 
-        }    
-</code></pre>
-
+        }    </pre></div>
 <h5 id="3-测试方法执行如下">3. 测试方法执行如下</h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/paging-sort.png"/></div>  
@@ -599,8 +604,7 @@ public void testCurdRepositorySave(){
 <h5 id="1-编写dao接口接口和排序接口一样">1. 编写dao接口接口和排序接口一样</h5>
 
 <h5 id="2-编写测试方法-1">2. 编写测试方法</h5>
-
-<pre><code>        @Test
+<div class="highlight"><pre class="chroma">        @Test
         public void testPaginAndSprtingRepositoryPage(){
             //Pageable封装了分页的参数：当前页，每页显示的条数
             //注意：当前页是从0开始（切记）
@@ -609,17 +613,15 @@ public void testCurdRepositorySave(){
             Page&lt;Users&gt; page = this.userPagingAndSortingRepository.findAll(pageable);
             List&lt;Users&gt; list = page.getContent();
 
-            System.out.println(&quot;总共有：&quot;+page.getTotalElements()+&quot;条数据&quot;);
-            System.out.println(&quot;共有：&quot;+page.getTotalPages()+&quot;页&quot;);
-            System.out.println(&quot;当前是第 &quot;+1+&quot;页&quot;);
+            System.out.println(&#34;总共有：&#34;+page.getTotalElements()+&#34;条数据&#34;);
+            System.out.println(&#34;共有：&#34;+page.getTotalPages()+&#34;页&#34;);
+            System.out.println(&#34;当前是第 &#34;+1+&#34;页&#34;);
 
             for (Users users:list) {
                 System.out.println(users);
             }
 
-        }    
-</code></pre>
-
+        }    </pre></div>
 <h5 id="3-测试方法执行如下-1">3. 测试方法执行如下</h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/paging2.png"/></div>   
@@ -655,20 +657,16 @@ public void testCurdRepositorySave(){
 <h4 id="2-5-2-jpaspecificationexecutor接口的单条件查询测试">2.5.2 JpaSpecificationExecutor接口的单条件查询测试</h4>
 
 <h5 id="1-编写dao接口-下面测试接口相同将不再重写">1. 编写dao接口（下面测试接口相同将不再重写）</h5>
-
-<pre><code>    /**
+<div class="highlight"><pre class="chroma">    /**
      * @author fyzn12
      * @version 1.0
      * @date 2020/7/18 19:41
      * @description:TODO
      */
     public interface UsersJPASpecificationExecutor extends JpaSpecificationExecutor&lt;Users&gt; , JpaRepository&lt;Users,Integer&gt; {
-    }   
-</code></pre>
-
+    }   </pre></div>
 <h5 id="2-编写测试方法-2">2. 编写测试方法</h5>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * JpaSpecificationExecutor   单条件测试
          *
          * **/
@@ -687,13 +685,13 @@ public void testCurdRepositorySave(){
                      * CriteriaQuery&lt;?&gt; criteriaQuery：封装了要执行的查询中的各个部分的信息如select、form、order by
                      * CriteriaBuilder criteriaBuilder：查询条件的构造器，定义不同的查询条件
                      * */
-                    //如现在要查询where name = &quot;张三&quot;
+                    //如现在要查询where name = &#34;张三&#34;
                     /**
                      * 参数一：查询的条件属性
                      * 参数二：条件的值
                      *
                      * */
-                    Predicate predicate = criteriaBuilder.equal(root.get(&quot;name&quot;), &quot;张三&quot;);
+                    Predicate predicate = criteriaBuilder.equal(root.get(&#34;name&#34;), &#34;张三&#34;);
                     return predicate;
                 }
             };
@@ -702,9 +700,7 @@ public void testCurdRepositorySave(){
                 System.out.println(users);
             }
 
-        }
-</code></pre>
-
+        }</pre></div>
 <h5 id="3-测试方法运行如下">3. 测试方法运行如下</h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/specification-test1.png"/></div>    
@@ -715,8 +711,7 @@ public void testCurdRepositorySave(){
 <h5 id="1-编写dao接口-1">1. 编写dao接口</h5>
 
 <h5 id="2-编写测试方法-3">2. 编写测试方法</h5>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * JpaSpecificationExecutor   多条件测试
          *
          * **/
@@ -735,13 +730,13 @@ public void testCurdRepositorySave(){
                      * CriteriaQuery&lt;?&gt; criteriaQuery：封装了要执行的查询中的各个部分的信息如select、form、order by
                      * CriteriaBuilder criteriaBuilder：查询条件的构造器，定义不同的查询条件
                      * */
-                    //如现在要查询where name = &quot;张三&quot; and age =20
+                    //如现在要查询where name = &#34;张三&#34; and age =20
                     /**
                      * 参数一：查询的条件属性
                      * 参数二：条件的值
                      *
                      * */
-                    return criteriaBuilder.and(criteriaBuilder.equal(root.get(&quot;name&quot;),&quot;张三&quot;),criteriaBuilder.equal(root.get(&quot;age&quot;),20));
+                    return criteriaBuilder.and(criteriaBuilder.equal(root.get(&#34;name&#34;),&#34;张三&#34;),criteriaBuilder.equal(root.get(&#34;age&#34;),20));
                 }
             };
             List&lt;Users&gt; list = this.usersJPASpecificationExecutor.findAll(spec);
@@ -769,14 +764,14 @@ public void testCurdRepositorySave(){
                      * CriteriaQuery&lt;?&gt; criteriaQuery：封装了要执行的查询中的各个部分的信息如select、form、order by
                      * CriteriaBuilder criteriaBuilder：查询条件的构造器，定义不同的查询条件
                      * */
-                    //如现在要查询where name = &quot;张三&quot; or age =20 or id=2
+                    //如现在要查询where name = &#34;张三&#34; or age =20 or id=2
                     /**
                      * 参数一：查询的条件属性
                      * 参数二：条件的值
                      *
                      * */
 
-                    return criteriaBuilder.or(criteriaBuilder.and(criteriaBuilder.equal(root.get(&quot;name&quot;),&quot;张三&quot;),criteriaBuilder.equal(root.get(&quot;age&quot;),20)),criteriaBuilder.equal(root.get(&quot;id&quot;),2));
+                    return criteriaBuilder.or(criteriaBuilder.and(criteriaBuilder.equal(root.get(&#34;name&#34;),&#34;张三&#34;),criteriaBuilder.equal(root.get(&#34;age&#34;),20)),criteriaBuilder.equal(root.get(&#34;id&#34;),2));
                 }
             };
             List&lt;Users&gt; list = this.usersJPASpecificationExecutor.findAll(spec);
@@ -784,9 +779,7 @@ public void testCurdRepositorySave(){
                 System.out.println(users);
             }
 
-        }
-</code></pre>
-
+        }</pre></div>
 <h5 id="3-测试方法运行如下-1">3. 测试方法运行如下</h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/specification-test2.png"/></div>    
@@ -801,64 +794,170 @@ public void testCurdRepositorySave(){
 
 <hr />
 
-    <h4><a href="https://fyzn12.github.io">Back to Home</a></h4>
-</div>
-
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-
-    <a href="https://fyzn12.github.io">fyzn12</a> | 
-
-&copy; 
-<a href="https://fyzn12.github.io" target="_blank">
-    fyzn12
-</a>
-<span id="thisyear">2020</span>
-
-    | @
-
-
-        | Built on <a href="//gohugo.io" target="_blank">Hugo</a>
-</p>
-    <p class="text-center">
-        <a href="https://facebook.com">Facebook</a> 
-        <a href="https://twitter.com">Twitter</a> 
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
-
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/redis/jedis/">
+            Redis之java客户端
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+            多线程
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="post-link">SpringCloud微服务网关技术Zuul</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Zookeeper注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="post-link">Java基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="post-link">Spring Boot整合Spring Data JPA</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

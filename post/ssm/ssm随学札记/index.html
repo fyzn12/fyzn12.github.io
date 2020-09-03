@@ -1,61 +1,128 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>首页</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://fyzn12.github.io/favicon.ico">
-    <link rel="canonical" href="https://fyzn12.github.io">
-    
-    
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://fyzn12.github.io">首页</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/post/">
-                                    
-                                    <span>All posts</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>ssm随学札记 - Tue, Oct 8, 2019</h1>
-    </div>
-    <p class="lead">ssm随学札记.....</p>
+<head>
     
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>ssm随学札记 - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+
+<meta name="description" content="使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
+java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
+1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
+2. 期待转成的对象与json对应的属性不匹配。
+3. 真正的空指针，既json为空。
+ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
+* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
+* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
+/** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &amp;#34;XMLHttpRequest&amp;#34;; String header = &amp;#34;X-Requested-With&amp;#34;; if(ajax." /><meta name="keywords"
+  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="ssm随学札记" />
+<meta property="og:description" content="使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
+java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
+1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
+2. 期待转成的对象与json对应的属性不匹配。
+3. 真正的空指针，既json为空。
+ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
+* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
+* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
+/** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/" />
+<meta property="article:published_time" content="2019-10-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-08T00:00:00+00:00" />
+<meta itemprop="name" content="ssm随学札记">
+<meta itemprop="description" content="使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
+java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
+1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
+2. 期待转成的对象与json对应的属性不匹配。
+3. 真正的空指针，既json为空。
+ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
+* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
+* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
+/** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax.">
+
+
+<meta itemprop="datePublished" content="2019-10-08T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-10-08T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1169">
+
+
+
+<meta itemprop="keywords" content="ssm," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ssm随学札记"/>
+<meta name="twitter:description" content="使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
+java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
+1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
+2. 期待转成的对象与json对应的属性不匹配。
+3. 真正的空指针，既json为空。
+ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
+* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
+* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
+/** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Ssm随学札记</h1>
+        <p class="post-meta">Oct 08, 2019</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
 
 <ol>
 <li><p>使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：</p>
-
-<pre><code>    java.lang.NullPointerException
+<div class="highlight"><pre class="chroma">    java.lang.NullPointerException
     at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889)
     at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004)
     at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48)
@@ -72,8 +139,7 @@
     at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
     at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
     at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
-    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
-</code></pre></li>
+    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)</pre></div></li>
 </ol>
 
 <p>这个错误产生的原因有三个：<br />
@@ -87,8 +153,7 @@
 <li><p>通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：<br />
      * 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。<br />
      * 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。</p>
-
-<pre><code>            /**
+<div class="highlight"><pre class="chroma">            /**
                 *@author fyzn12
                 *@version 1.0
                 *@date 2020/4/18 13:46
@@ -103,15 +168,15 @@
                 /*
                 *如果是ajax请求
                 **/
-                    String ajax = &quot;XMLHttpRequest&quot;;
-                    String header = &quot;X-Requested-With&quot;;
+                    String ajax = &#34;XMLHttpRequest&#34;;
+                    String header = &#34;X-Requested-With&#34;;
                     if(ajax.equals(request.getHeader(header))){
-                        System.out.println(&quot;执行ajax请求&quot;);
+                        System.out.println(&#34;执行ajax请求&#34;);
                         sendRedirect(response,redirectUrl);
                     } //如果是浏览器地址栏请求
                         else {
-                        System.out.println(&quot;执行普通请求&quot;);
-                        log.debug(&quot;normal redirect &quot;);
+                        System.out.println(&#34;执行普通请求&#34;);
+                        log.debug(&#34;normal redirect &#34;);
                         response.sendRedirect(redirectUrl);
                     }
                 }catch (Exception e){
@@ -128,43 +193,39 @@
                 try {
                     //这里并不是设置跳转页面，而是将重定向的地址发给前端，让前端执行重定向
                     //告诉ajax我是重定向
-                    response.setHeader(&quot;REDIRECT&quot;, &quot;redirect&quot;);
+                    response.setHeader(&#34;REDIRECT&#34;, &#34;redirect&#34;);
                     //设置跳转地址
-                    response.setHeader(&quot;redirectUrl&quot;, redirectUrl);
+                    response.setHeader(&#34;redirectUrl&#34;, redirectUrl);
                     //设置跳转使能
-                    response.setHeader(&quot;enableRedirect&quot;,&quot;true&quot;);
+                    response.setHeader(&#34;enableRedirect&#34;,&#34;true&#34;);
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     response.flushBuffer();
-                    System.out.println(&quot;跳转&quot;);
+                    System.out.println(&#34;跳转&#34;);
                 } catch (IOException ex) {
-                    log.error(&quot;Could not redirect to: &quot; + redirectUrl, ex);
+                    log.error(&#34;Could not redirect to: &#34; + redirectUrl, ex);
                     System.out.println(ex.getMessage());
                     }
                 }
 
-            }  
-</code></pre>
-
+            }  </pre></div>
 <ul>
 <li><p>前端进行处理，这里我推荐运用全局的ajax处理，这样就不用每一个ajax都运用complete进行处理。</p>
-
-<pre><code>    $(document).ajaxComplete(function (event, xhr, settings) {
-        console.log(&quot;ajaxComplete &quot;)
+<div class="highlight"><pre class="chroma">    $(document).ajaxComplete(function (event, xhr, settings) {
+        console.log(&#34;ajaxComplete &#34;)
         redirectHandle(xhr);
     })
     function redirectHandle(xhr) {
         //获取后台返回的参数
-        var url = xhr.getResponseHeader(&quot;redirectUrl&quot;);
-        console.log(&quot;redirectUrl = &quot; + url);
-        var enable = xhr.getResponseHeader(&quot;enableRedirect&quot;);
-        if((enable == &quot;true&quot;) &amp;&amp; (url != &quot;&quot;)){
+        var url = xhr.getResponseHeader(&#34;redirectUrl&#34;);
+        console.log(&#34;redirectUrl = &#34; + url);
+        var enable = xhr.getResponseHeader(&#34;enableRedirect&#34;);
+        if((enable == &#34;true&#34;) &amp;&amp; (url != &#34;&#34;)){
             var win = window;
             while(win != win.top){
             win = win.top;
         }
         win.location.href = url;
-    }
-</code></pre></li>
+    }</pre></div></li>
 </ul></li>
 </ol>
 
@@ -175,19 +236,17 @@
 数据结构的说明：在设计数据库的时候需要设置一个唯一标识的主建comment_id，其次需要一个字段用于评论查找的parent_comment_id,该字段主要作用标识子评论，这里我设计当parent_comment_id为
 0时，表示该条评论为父级评论。
 具体数据结构如下</p>
-
-<pre><code>        CREATE TABLE `comment`  (
-          `id` int(11) NOT NULL COMMENT '评论id',
-          `user_id` int(11) NOT NULL COMMENT '用户评论的id',
-         `replyid` int(11) NOT NULL DEFAULT 0 COMMENT '该评论回复的评论id，没有则为0',
-         `demandId` int(11) NOT NULL COMMENT '该评论的需求订单号',
-         `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论内容',
-         `time` char(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论时间',
-         `pic` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '评论图片',
-         `score` int(11) NULL DEFAULT NULL COMMENT '评分',
+<div class="highlight"><pre class="chroma">        CREATE TABLE `comment`  (
+          `id` int(11) NOT NULL COMMENT &#39;评论id&#39;,
+          `user_id` int(11) NOT NULL COMMENT &#39;用户评论的id&#39;,
+         `replyid` int(11) NOT NULL DEFAULT 0 COMMENT &#39;该评论回复的评论id，没有则为0&#39;,
+         `demandId` int(11) NOT NULL COMMENT &#39;该评论的需求订单号&#39;,
+         `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT &#39;评论内容&#39;,
+         `time` char(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT &#39;评论时间&#39;,
+         `pic` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT &#39;评论图片&#39;,
+         `score` int(11) NULL DEFAULT NULL COMMENT &#39;评分&#39;,
          PRIMARY KEY (`id`) USING BTREE
-        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-</code></pre></li>
+        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;</pre></div></li>
 
 <li><p>编写dao层，这里主要运用逆向工程生成的文件，不做详细说明。</p></li>
 
@@ -199,8 +258,7 @@
 
 <ul>
 <li><p>改写逆向工程生成的Comment.java的pojo类，主要是添加三个属性，以便实现递归，具体更改如下：</p>
-
-<pre><code>    @Data
+<div class="highlight"><pre class="chroma">    @Data
     public class Comment implements Serializable {
          /**
           * 评论id
@@ -255,16 +313,13 @@
         private Comment parentComment;
         private String parentNickname;
         private static final long serialVersionUID = 1L;
-    }
-</code></pre>
-
+    }</pre></div>
 <ul>
 <li>首先查询出所有的父级评论，也就是parent_comment_id为0的记录。</li>
 <li>其次通过父级索引的commentid查询出所有的一级评论，就是当一级评论的parent_comment_id等于父级评论的commentid时即为一级评论。</li>
 
 <li><p>最后检索出所有的二级及以上的评论。实现代码如下：</p>
-
-<pre><code>    @Override
+<div class="highlight"><pre class="chroma">    @Override
     public DataTableResult listComment(int page, int rows) {
 
         //1.初始化分页插件
@@ -332,104 +387,100 @@
                 recursively(replayId,parentNickname);
             }
         }
-    }
-</code></pre></li>
+    }</pre></div></li>
 </ul></li>
 </ul></li>
 
 <li><p>编写controller层
 主要是将评论信息传回前端</p>
-
-<pre><code>    @RequestMapping(value = &quot;/aa&quot;)
+<div class="highlight"><pre class="chroma">    @RequestMapping(value = &#34;/aa&#34;)
     public String getComment(Model model){
         DataTableResult dataTableResult = commentService.listComment(1,12);
-        model.addAttribute(&quot;comments&quot;,dataTableResult.getData());
+        model.addAttribute(&#34;comments&#34;,dataTableResult.getData());
         /*
         * 为了前端能显示当前评论回复者的头像，必须将当前用户的头像地址传回前端
         * */
-        model.addAttribute(&quot;pic&quot;,user.getPic());
-        model.addAttribute(&quot;nickname&quot;,user.getNickname());
+        model.addAttribute(&#34;pic&#34;,user.getPic());
+        model.addAttribute(&#34;nickname&#34;,user.getNickname());
 
-        return &quot;user/comment&quot;;
-    }
-</code></pre></li>
+        return &#34;user/comment&#34;;
+    }</pre></div></li>
 
 <li><p>前端显示。</p>
-
-<pre><code>        &lt;!--显示评论--&gt;
-        &lt;div class=&quot;container&quot;&gt;
-            &lt;input type=&quot;text&quot; id=&quot;pic&quot; style=&quot;display: none&quot; value=&quot;${pic}&quot;/&gt;
-            &lt;input type=&quot;text&quot; id=&quot;nickname&quot; style=&quot;display: none&quot; value=&quot;${nickname}&quot;/&gt;
-            &lt;div class=&quot;row&quot;&gt;
-                &lt;div class=&quot;col-md-10&quot;&gt;
-                    &lt;c:forEach var=&quot;comment&quot; items=&quot;${comments}&quot;&gt;
-                        &lt;div class=&quot;comments&quot; style=&quot;margin-top: 20px&quot;&gt;
-                            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;
-                                &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;${comment.avatar}&quot; alt=&quot;&quot;/&gt;
+<div class="highlight"><pre class="chroma">        &lt;!--显示评论--&gt;
+        &lt;div class=&#34;container&#34;&gt;
+            &lt;input type=&#34;text&#34; id=&#34;pic&#34; style=&#34;display: none&#34; value=&#34;${pic}&#34;/&gt;
+            &lt;input type=&#34;text&#34; id=&#34;nickname&#34; style=&#34;display: none&#34; value=&#34;${nickname}&#34;/&gt;
+            &lt;div class=&#34;row&#34;&gt;
+                &lt;div class=&#34;col-md-10&#34;&gt;
+                    &lt;c:forEach var=&#34;comment&#34; items=&#34;${comments}&#34;&gt;
+                        &lt;div class=&#34;comments&#34; style=&#34;margin-top: 20px&#34;&gt;
+                            &lt;a class=&#34;comments-avatar&#34; style=&#34;float: left&#34;&gt;
+                                &lt;img style=&#34;width: 40px;height: 40px&#34; class=&#34;img-circle&#34; src=&#34;${comment.avatar}&#34; alt=&#34;&#34;/&gt;
                             &lt;/a&gt;
-                            &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;
-                                &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt;
+                            &lt;div class=&#34;content&#34; style=&#34;margin-left: 60px&#34;&gt;
+                                &lt;a class=&#34;author-name&#34; style=&#34;float: left;&#34;&gt;
                                     &lt;span&gt;${comment.nickname}&lt;/span&gt;
                                  &lt;/a&gt;
-                                &lt;div class=&quot;metadata&quot; style=&quot;margin-left: 70px&quot;&gt;
-                                    &lt;span class=&quot;date&quot;&gt;${comment.time}&lt;/span&gt;
+                                &lt;div class=&#34;metadata&#34; style=&#34;margin-left: 70px&#34;&gt;
+                                    &lt;span class=&#34;date&#34;&gt;${comment.time}&lt;/span&gt;
                                 &lt;/div&gt;
-                                 &lt;div class=&quot;text&quot;&gt;
-                                    &lt;span style=&quot;float:left;&quot;&gt;${comment.content}&lt;/span&gt;
-                                    &lt;div style=&quot;float: right;margin-right:20px;&quot;&gt;
-                                    &lt;span&gt;&lt;a href=&quot;javascript:reply('${comment.commentId}','${comment.nickname}')&quot;&gt;回复&lt;/a&gt;&lt;/span&gt;
+                                 &lt;div class=&#34;text&#34;&gt;
+                                    &lt;span style=&#34;float:left;&#34;&gt;${comment.content}&lt;/span&gt;
+                                    &lt;div style=&#34;float: right;margin-right:20px;&#34;&gt;
+                                    &lt;span&gt;&lt;a href=&#34;javascript:reply(&#39;${comment.commentId}&#39;,&#39;${comment.nickname}&#39;)&#34;&gt;回复&lt;/a&gt;&lt;/span&gt;
                                 &lt;/div&gt;
                              &lt;/div&gt;
                     &lt;/div&gt;
                 &lt;!-- 用于显示提交新评论的位置 --&gt;
-                &lt;div id=&quot;${comment.commentId}&quot;&gt;&lt;/div&gt;
+                &lt;div id=&#34;${comment.commentId}&#34;&gt;&lt;/div&gt;
                 &lt;!--子级评论--&gt;
-                &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;childComment&quot;&gt;
-                    &lt;div class=&quot;comments&quot; style=&quot;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&quot;&gt;
+                &lt;c:forEach items=&#34;${comment.replyComments}&#34; var=&#34;childComment&#34;&gt;
+                    &lt;div class=&#34;comments&#34; style=&#34;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&#34;&gt;
                         &lt;!-- 用于显示提交新评论的位置 --&gt;
-                        &lt;div id=&quot;child-${childComment.commentId}&quot;&gt;&lt;/div&gt;
+                        &lt;div id=&#34;child-${childComment.commentId}&#34;&gt;&lt;/div&gt;
                         &lt;!-- 父级评论 --&gt;
-                        &lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;
-                             &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;
-                                &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;${childComment.avatar}&quot;&gt;
+                        &lt;div class=&#34;comment&#34; style=&#34;margin-top: 20px;margin-bottom: 20px;&#34;&gt;
+                             &lt;a class=&#34;comments-avatar&#34; style=&#34;float: left&#34;&gt;
+                                &lt;img style=&#34;width: 40px;height: 40px&#34; class=&#34;img-circle&#34; src=&#34;${childComment.avatar}&#34;&gt;
                              &lt;/a&gt;
-                            &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;
-                                &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt;
+                            &lt;div class=&#34;content&#34; style=&#34;margin-left: 60px&#34;&gt;
+                                &lt;a class=&#34;author-name&#34; style=&#34;float: left;&#34;&gt;
                                     &lt;span&gt;${childComment.nickname}&lt;/span&gt;
                                 &lt;/a&gt;
-                                &lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;
+                                &lt;a class=&#34;author-name&#34; style=&#34;float: left;margin-right: 10px&#34;&gt;
                                     &lt;span&gt;&amp;nbsp;回复&amp;nbsp;
                                         &lt;!-- 父级评论回复子集评论--&gt;
-                                        &lt;c:if test=&quot;${childComment.commentId==comment.commentId}&quot;&gt;
-                                            &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;ch_comment&quot;&gt;
-                                                &lt;c:if test=&quot;${ch_comment.commentId==childComment.parentCommitId}&quot;&gt;
+                                        &lt;c:if test=&#34;${childComment.commentId==comment.commentId}&#34;&gt;
+                                            &lt;c:forEach items=&#34;${comment.replyComments}&#34; var=&#34;ch_comment&#34;&gt;
+                                                &lt;c:if test=&#34;${ch_comment.commentId==childComment.parentCommitId}&#34;&gt;
                                                     ${ch_comment.nickname}
                                                 &lt;/c:if&gt;
                                             &lt;/c:forEach&gt;
                                         &lt;/c:if&gt;
                                         &lt;!-- 子级评论回复父级评论或者子级评论之间的回复--&gt;
-                                        &lt;c:if test=&quot;${childComment.commentId!=comment.commentId}&quot;&gt;
-                                            &lt;c:forEach items=&quot;${comment.replyComments}&quot; var=&quot;ch_comment&quot;&gt;
+                                        &lt;c:if test=&#34;${childComment.commentId!=comment.commentId}&#34;&gt;
+                                            &lt;c:forEach items=&#34;${comment.replyComments}&#34; var=&#34;ch_comment&#34;&gt;
                                                 &lt;!-- 子级评论之间的回复--&gt;
-                                                &lt;c:if test=&quot;${ch_comment.commentId==childComment.parentCommitId}&quot;&gt;
+                                                &lt;c:if test=&#34;${ch_comment.commentId==childComment.parentCommitId}&#34;&gt;
                                                     ${ch_comment.nickname}
                                                 &lt;/c:if&gt;
                                             &lt;/c:forEach&gt;
                                             &lt;!-- 子级评论回复父集评论 --&gt;
-                                            &lt;c:if test=&quot;${childComment.parentCommitId==comment.commentId}&quot;&gt;
+                                            &lt;c:if test=&#34;${childComment.parentCommitId==comment.commentId}&#34;&gt;
                                                 ${comment.nickname}
                                             &lt;/c:if&gt;
 
                                         &lt;/c:if&gt;
                                     &lt;/span&gt;
                                 &lt;/a&gt;
-                                &lt;div class=&quot;date-picker-popup&quot; &gt;
-                                    &lt;a class=&quot;date-cell&quot;&gt;${childComment.time}&lt;/a&gt;
+                                &lt;div class=&#34;date-picker-popup&#34; &gt;
+                                    &lt;a class=&#34;date-cell&#34;&gt;${childComment.time}&lt;/a&gt;
                                 &lt;/div&gt;
-                                &lt;div class=&quot;text&quot;&gt;
-                                       &lt;span style=&quot;float: left&quot;&gt; ${childComment.content}&lt;/span&gt;
-                                       &lt;div style=&quot;float: right;margin-right:20px;&quot;&gt;
-                                           &lt;span&gt;&lt;a href=&quot;javascript:childrenReply('${childComment.commentId}','${childComment.nickname}')&quot;&gt;回复&lt;/a&gt;&lt;/span&gt;
+                                &lt;div class=&#34;text&#34;&gt;
+                                       &lt;span style=&#34;float: left&#34;&gt; ${childComment.content}&lt;/span&gt;
+                                       &lt;div style=&#34;float: right;margin-right:20px;&#34;&gt;
+                                           &lt;span&gt;&lt;a href=&#34;javascript:childrenReply(&#39;${childComment.commentId}&#39;,&#39;${childComment.nickname}&#39;)&#34;&gt;回复&lt;/a&gt;&lt;/span&gt;
                                        &lt;/div&gt;
                                 &lt;/div&gt;
                             &lt;/div&gt;
@@ -439,100 +490,98 @@
             &lt;/div&gt;
         &lt;/c:forEach&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
-</code></pre></li>
+    &lt;/div&gt;</pre></div></li>
 
 <li><p>js的实现</p>
-
-<pre><code>        /**************************************时间格式化处理************************************/
+<div class="highlight"><pre class="chroma">        /**************************************时间格式化处理************************************/
         function dateFtt(fmt,date) {
             var o = {
-                &quot;M+&quot; : date.getMonth()+1,     //月份
-                &quot;d+&quot; : date.getDate(),     //日
-                &quot;h+&quot; : date.getHours(),     //小时
-                &quot;m+&quot; : date.getMinutes(),     //分
-                &quot;s+&quot; : date.getSeconds(),     //秒
-                &quot;q+&quot; : Math.floor((date.getMonth()+3)/3), //季度
-                &quot;S&quot; : date.getMilliseconds()    //毫秒
+                &#34;M+&#34; : date.getMonth()+1,     //月份
+                &#34;d+&#34; : date.getDate(),     //日
+                &#34;h+&#34; : date.getHours(),     //小时
+                &#34;m+&#34; : date.getMinutes(),     //分
+                &#34;s+&#34; : date.getSeconds(),     //秒
+                &#34;q+&#34; : Math.floor((date.getMonth()+3)/3), //季度
+                &#34;S&#34; : date.getMilliseconds()    //毫秒
             };
             if(/(y+)/.test(fmt))
-                fmt=fmt.replace(RegExp.$1, (date.getFullYear()+&quot;&quot;).substr(4 - RegExp.$1.length));
+                fmt=fmt.replace(RegExp.$1, (date.getFullYear()+&#34;&#34;).substr(4 - RegExp.$1.length));
             for(var k in o)
-                if(new RegExp(&quot;(&quot;+ k +&quot;)&quot;).test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : ((&quot;00&quot;+ o[k]).substr((&quot;&quot;+ o[k]).length)));
+                if(new RegExp(&#34;(&#34;+ k +&#34;)&#34;).test(fmt))
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : ((&#34;00&#34;+ o[k]).substr((&#34;&#34;+ o[k]).length)));
         return fmt;
         }
         //创建时间格式化显示
         function crtTimeFtt(date){
-            return top.dateFtt(&quot;yyyy-MM-dd hh:mm:ss&quot;,date);//直接调用公共JS里面的时间类处理的办法
+            return top.dateFtt(&#34;yyyy-MM-dd hh:mm:ss&#34;,date);//直接调用公共JS里面的时间类处理的办法
         }
         function reply(replyCommentId,nickname){
             var commentId = replyCommentId;
             //弹出alert
             swal({
-                title:'评论回复',
-                text:'请输入回复内容~',
-                type:'input',
+                title:&#39;评论回复&#39;,
+                text:&#39;请输入回复内容~&#39;,
+                type:&#39;input&#39;,
                 showCancelButton:true,
-                confirmButtonColor:'#33ccff',
+                confirmButtonColor:&#39;#33ccff&#39;,
                 closeOnConfirm: false,
                 closeOnCancel: false,
-                confirmButtonText:'回复',
-                cancelButtonText:'取消',
-                inputPlaceholder:'已回复......',
+                confirmButtonText:&#39;回复&#39;,
+                cancelButtonText:&#39;取消&#39;,
+                inputPlaceholder:&#39;已回复......&#39;,
                 showLoaderOnConfirm:true
             },function(inputValue){
                 //console.debug(inputValue);
-                if(jQuery.trim(inputValue)!=''&amp;&amp;inputValue==false){
-                    swal(&quot;取消回复&quot;, &quot;你没有进行回复！&quot;, &quot;info&quot;);
+                if(jQuery.trim(inputValue)!=&#39;&#39;&amp;&amp;inputValue==false){
+                    swal(&#34;取消回复&#34;, &#34;你没有进行回复！&#34;, &#34;info&#34;);
                     return;
                 }
-                if(inputValue==''){
-                    swal.showInputError('你没有填写任何回复信息！');
+                if(inputValue==&#39;&#39;){
+                    swal.showInputError(&#39;你没有填写任何回复信息！&#39;);
                     return;
                 }
                 //将父评论的commentId作为回复评论的
                 //发送ajax
                 $.ajax({
-                    type:&quot;post&quot;,
-                    url:'user/comment',
+                    type:&#34;post&#34;,
+                    url:&#39;user/comment&#39;,
                     traditional: true,
-                    data:{&quot;parentCommitId&quot;:commentId,&quot;content&quot;:inputValue},
+                    data:{&#34;parentCommitId&#34;:commentId,&#34;content&#34;:inputValue},
                     success:function (data) {
                         if(data.status==200){
-                            swal(&quot;回复成功!&quot;, &quot;您已进行此用户评论的回复！&quot;, &quot;success&quot;);
+                            swal(&#34;回复成功!&#34;, &#34;您已进行此用户评论的回复！&#34;, &#34;success&#34;);
                             //修改显示评论的
                             var time = crtTimeFtt(new Date());
-                            $(&quot;#&quot;+commentId).html('&lt;div class=&quot;comments&quot; style=&quot;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&quot;&gt; ' +
-                                '&lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;' +
-                                '            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;' +
-                                '                 &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;'+$(&quot;#pic&quot;).val()+'&quot;&gt;' +
-                                '            &lt;/a&gt;' +
-                                ' &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;'+
-                                '               &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt; '+
-                                '&lt;span&gt;'+$(&quot;#nickname&quot;).val()+'&lt;/span&gt;' +
-                                '&lt;/a&gt;'+
-                                '&lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;' +
-                                '                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;'+
+                            $(&#34;#&#34;+commentId).html(&#39;&lt;div class=&#34;comments&#34; style=&#34;margin-left: 35px;margin-top: 30px;margin-bottom: 30px;&#34;&gt; &#39; +
+                                &#39;&lt;div class=&#34;comment&#34; style=&#34;margin-top: 20px;margin-bottom: 20px;&#34;&gt;&#39; +
+                                &#39;            &lt;a class=&#34;comments-avatar&#34; style=&#34;float: left&#34;&gt;&#39; +
+                                &#39;                 &lt;img style=&#34;width: 40px;height: 40px&#34; class=&#34;img-circle&#34; src=&#34;&#39;+$(&#34;#pic&#34;).val()+&#39;&#34;&gt;&#39; +
+                                &#39;            &lt;/a&gt;&#39; +
+                                &#39; &lt;div class=&#34;content&#34; style=&#34;margin-left: 60px&#34;&gt;&#39;+
+                                &#39;               &lt;a class=&#34;author-name&#34; style=&#34;float: left;&#34;&gt; &#39;+
+                                &#39;&lt;span&gt;&#39;+$(&#34;#nickname&#34;).val()+&#39;&lt;/span&gt;&#39; +
+                                &#39;&lt;/a&gt;&#39;+
+                                &#39;&lt;a class=&#34;author-name&#34; style=&#34;float: left;margin-right: 10px&#34;&gt;&#39; +
+                                &#39;                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;&#39;+
                                 nickname+
-                                '&lt;/span&gt;'+
-                                '&lt;/a&gt;'+
-                                '&lt;div class=&quot;date-picker-popup&quot; &gt;'+
-                                '&lt;a class=&quot;date-cell&quot;&gt;'+time+'&lt;/a&gt;'+
-                                '&lt;/div&gt;'+
-                                ' &lt;div class=&quot;text&quot;&gt;'+
-                                '&lt;span style=&quot;float: left&quot;&gt;'+ inputValue+'&lt;/span&gt;'+
-                                '&lt;/div&gt;'+
-                                '&lt;/div&gt;'+
-                                '&lt;/div&gt;'+
-                                '&lt;/div&gt;')
+                                &#39;&lt;/span&gt;&#39;+
+                                &#39;&lt;/a&gt;&#39;+
+                                &#39;&lt;div class=&#34;date-picker-popup&#34; &gt;&#39;+
+                                &#39;&lt;a class=&#34;date-cell&#34;&gt;&#39;+time+&#39;&lt;/a&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;+
+                                &#39; &lt;div class=&#34;text&#34;&gt;&#39;+
+                                &#39;&lt;span style=&#34;float: left&#34;&gt;&#39;+ inputValue+&#39;&lt;/span&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;)
                             return  ;
                         }else{
-                            swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                            swal(&#34;回复失败！&#34;, &#34;回复失败，请检查网络配置后重试！&#34;, &#34;error&#34;);
                         }
                     },
                     error:function (data) {
-                        swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                        swal(&#34;回复失败！&#34;, &#34;回复失败，请检查网络配置后重试！&#34;, &#34;error&#34;);
                     }
                 });
             }
@@ -543,76 +592,75 @@
              var commentId = replyCommentId;
             //弹出alert
             swal({
-                title:'评论回复',
-                text:'请输入回复内容~',
-                type:'input',
+                title:&#39;评论回复&#39;,
+                text:&#39;请输入回复内容~&#39;,
+                type:&#39;input&#39;,
                 showCancelButton:true,
-                confirmButtonColor:'#33ccff',
+                confirmButtonColor:&#39;#33ccff&#39;,
                 closeOnConfirm: false,
                 closeOnCancel: false,
-                confirmButtonText:'回复',
-                cancelButtonText:'取消',
-                inputPlaceholder:'已回复......',
+                confirmButtonText:&#39;回复&#39;,
+                cancelButtonText:&#39;取消&#39;,
+                inputPlaceholder:&#39;已回复......&#39;,
                 showLoaderOnConfirm:true
             },function(inputValue){
                 //console.debug(inputValue);
-                if(jQuery.trim(inputValue)!=''&amp;&amp;inputValue==false){
-                    swal(&quot;取消回复&quot;, &quot;你没有进行回复！&quot;, &quot;info&quot;);
+                if(jQuery.trim(inputValue)!=&#39;&#39;&amp;&amp;inputValue==false){
+                    swal(&#34;取消回复&#34;, &#34;你没有进行回复！&#34;, &#34;info&#34;);
                     return;
                 }
-                if(inputValue==''){
-                    swal.showInputError('你没有填写任何回复信息！');
+                if(inputValue==&#39;&#39;){
+                    swal.showInputError(&#39;你没有填写任何回复信息！&#39;);
                     return;
                 }
                 //将父评论的commentId作为回复评论的
                 //发送ajax
                 $.ajax({
-                    type:&quot;post&quot;,
-                    url:'user/comment',
+                    type:&#34;post&#34;,
+                    url:&#39;user/comment&#39;,
                     traditional: true,
-                    data:{&quot;parentCommitId&quot;:commentId,&quot;content&quot;:inputValue},
+                    data:{&#34;parentCommitId&#34;:commentId,&#34;content&#34;:inputValue},
                     success:function (data) {
                         if(data.status==200){
-                            swal(&quot;回复成功!&quot;, &quot;您已进行此用户评论的回复！&quot;, &quot;success&quot;);
+                            swal(&#34;回复成功!&#34;, &#34;您已进行此用户评论的回复！&#34;, &#34;success&#34;);
                             //修改显示评论的
                             var time = crtTimeFtt(new Date());
-                            $(&quot;#child-&quot;+commentId).html(
-                                '&lt;div class=&quot;comment&quot; style=&quot;margin-top: 20px;margin-bottom: 20px;&quot;&gt;' +
-                                '            &lt;a class=&quot;comments-avatar&quot; style=&quot;float: left&quot;&gt;' +
-                                '                 &lt;img style=&quot;width: 40px;height: 40px&quot; class=&quot;img-circle&quot; src=&quot;'+$(&quot;#pic&quot;).val()+'&quot;&gt;' +
-                                '            &lt;/a&gt;' +
-                                ' &lt;div class=&quot;content&quot; style=&quot;margin-left: 60px&quot;&gt;'+
-                                '               &lt;a class=&quot;author-name&quot; style=&quot;float: left;&quot;&gt; '+
-                                '&lt;span&gt;'+$(&quot;#nickname&quot;).val()+'&lt;/span&gt;' +
-                                '&lt;/a&gt;'+
-                                '&lt;a class=&quot;author-name&quot; style=&quot;float: left;margin-right: 10px&quot;&gt;' +
-                                '                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;'+
+                            $(&#34;#child-&#34;+commentId).html(
+                                &#39;&lt;div class=&#34;comment&#34; style=&#34;margin-top: 20px;margin-bottom: 20px;&#34;&gt;&#39; +
+                                &#39;            &lt;a class=&#34;comments-avatar&#34; style=&#34;float: left&#34;&gt;&#39; +
+                                &#39;                 &lt;img style=&#34;width: 40px;height: 40px&#34; class=&#34;img-circle&#34; src=&#34;&#39;+$(&#34;#pic&#34;).val()+&#39;&#34;&gt;&#39; +
+                                &#39;            &lt;/a&gt;&#39; +
+                                &#39; &lt;div class=&#34;content&#34; style=&#34;margin-left: 60px&#34;&gt;&#39;+
+                                &#39;               &lt;a class=&#34;author-name&#34; style=&#34;float: left;&#34;&gt; &#39;+
+                                &#39;&lt;span&gt;&#39;+$(&#34;#nickname&#34;).val()+&#39;&lt;/span&gt;&#39; +
+                                &#39;&lt;/a&gt;&#39;+
+                                &#39;&lt;a class=&#34;author-name&#34; style=&#34;float: left;margin-right: 10px&#34;&gt;&#39; +
+                                &#39;                  &lt;span&gt;&amp;nbsp;回复&amp;nbsp;&#39;+
                                 nickname+
-                                '&lt;/span&gt;'+
-                                '&lt;/a&gt;'+
-                                '&lt;div class=&quot;date-picker-popup&quot; &gt;'+
-                                '&lt;a class=&quot;date-cell&quot;&gt;'+time+'&lt;/a&gt;'+
-                                '&lt;/div&gt;'+
-                                ' &lt;div class=&quot;text&quot;&gt;'+
-                                '&lt;span style=&quot;float: left&quot;&gt;'+ inputValue+'&lt;/span&gt;'+
-                                '&lt;/div&gt;'+
-                                '&lt;/div&gt;'+
-                                '&lt;/div&gt;'
+                                &#39;&lt;/span&gt;&#39;+
+                                &#39;&lt;/a&gt;&#39;+
+                                &#39;&lt;div class=&#34;date-picker-popup&#34; &gt;&#39;+
+                                &#39;&lt;a class=&#34;date-cell&#34;&gt;&#39;+time+&#39;&lt;/a&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;+
+                                &#39; &lt;div class=&#34;text&#34;&gt;&#39;+
+                                &#39;&lt;span style=&#34;float: left&#34;&gt;&#39;+ inputValue+&#39;&lt;/span&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;+
+                                &#39;&lt;/div&gt;&#39;
                             )
                             return  ;
                         }else{
-                            swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                            swal(&#34;回复失败！&#34;, &#34;回复失败，请检查网络配置后重试！&#34;, &#34;error&#34;);
                         }
                     },
                     error:function (data) {
-                        swal(&quot;回复失败！&quot;, &quot;回复失败，请检查网络配置后重试！&quot;, &quot;error&quot;);
+                        swal(&#34;回复失败！&#34;, &#34;回复失败，请检查网络配置后重试！&#34;, &#34;error&#34;);
                     }
                 });
                }
             );
 
-         }
-</code></pre></li>
+         }</pre></div></li>
 
 <li><p>效果图显示</p></li>
 </ol>
@@ -621,117 +669,213 @@
 
 <ol>
 <li><p>配置消息通知的类</p>
-
-<pre><code>    &lt;!-- 配置消息通知aop--&gt;
-    &lt;bean id=&quot;myadvice&quot; class=&quot;com.express.advice.advice&quot;/&gt;
-</code></pre></li>
+<div class="highlight"><pre class="chroma">    &lt;!-- 配置消息通知aop--&gt;
+    &lt;bean id=&#34;myadvice&#34; class=&#34;com.express.advice.advice&#34;/&gt;</pre></div></li>
 
 <li><p>配置切面</p>
-
-<pre><code>    &lt;!-- 切面 --&gt;
+<div class="highlight"><pre class="chroma">    &lt;!-- 切面 --&gt;
      &lt;aop:config&gt;
 
-    &lt;/aop:config&gt;
-</code></pre></li>
+    &lt;/aop:config&gt;</pre></div></li>
 
 <li><p>指定通知类</p>
-
-<pre><code>     &lt;!-- 切面 --&gt;
+<div class="highlight"><pre class="chroma">     &lt;!-- 切面 --&gt;
      &lt;aop:config&gt;
         &lt;!-- 指定通知类
-        &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
+        &lt;aop:aspect ref=&#34;myadvice&#34;&gt;
 
         &lt;/aop:aspect&gt;
 
-    &lt;/aop:config&gt;
-</code></pre></li>
+    &lt;/aop:config&gt;</pre></div></li>
 
 <li><p>指定切点</p>
-
-<pre><code>     &lt;!-- 切面 --&gt;
+<div class="highlight"><pre class="chroma">     &lt;!-- 切面 --&gt;
      &lt;aop:config&gt;
         &lt;!-- 指定通知类
-        &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
+        &lt;aop:aspect ref=&#34;myadvice&#34;&gt;
             指定切点
-            &lt;aop:pointcut id=&quot;checkComment&quot; expression=&quot;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&quot;/&gt; 
+            &lt;aop:pointcut id=&#34;checkComment&#34; expression=&#34;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&#34;/&gt; 
         &lt;/aop:aspect&gt;
 
-    &lt;/aop:config&gt;
-</code></pre></li>
+    &lt;/aop:config&gt;</pre></div></li>
 
 <li><p>切点织入</p>
-
-<pre><code>      &lt;!-- 切面 --&gt;
+<div class="highlight"><pre class="chroma">      &lt;!-- 切面 --&gt;
      &lt;aop:config&gt;
         &lt;!-- 指定通知类
-        &lt;aop:aspect ref=&quot;myadvice&quot;&gt;
+        &lt;aop:aspect ref=&#34;myadvice&#34;&gt;
             指定切点
-            &lt;aop:pointcut id=&quot;checkComment&quot; expression=&quot;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&quot;/&gt;
+            &lt;aop:pointcut id=&#34;checkComment&#34; expression=&#34;execution(* com.express.service.CommentService.addComment(com.express.domain.Comment)) and args(comment)&#34;/&gt;
             切点织入
-            &lt;aop:after method=&quot;after&quot; arg-names=&quot;comment&quot; pointcut-ref=&quot;checkComment&quot;/&gt; 
+            &lt;aop:after method=&#34;after&#34; arg-names=&#34;comment&#34; pointcut-ref=&#34;checkComment&#34;/&gt; 
         &lt;/aop:aspect&gt;
-    &lt;/aop:config&gt;
-</code></pre></li>
+    &lt;/aop:config&gt;</pre></div></li>
 </ol>
 
-    <h4><a href="https://fyzn12.github.io">Back to Home</a></h4>
-</div>
-
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-
-    <a href="https://fyzn12.github.io">fyzn12</a> | 
-
-&copy; 
-<a href="https://fyzn12.github.io" target="_blank">
-    fyzn12
-</a>
-<span id="thisyear">2020</span>
-
-    | @
-
-
-        | Built on <a href="//gohugo.io" target="_blank">Hugo</a>
-</p>
-    <p class="text-center">
-        <a href="https://facebook.com">Facebook</a> 
-        <a href="https://twitter.com">Twitter</a> 
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
-
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/mybatis/mybatis01/">
+            Mybatis-的配置文件
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">
+            Mybatis之动态SQL
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="post-link">SpringCloud微服务网关技术Zuul</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Zookeeper注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="post-link">Java基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="post-link">Spring Boot整合Spring Data JPA</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

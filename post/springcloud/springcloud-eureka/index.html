@@ -1,56 +1,132 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>首页</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://fyzn12.github.io/favicon.ico">
-    <link rel="canonical" href="https://fyzn12.github.io">
-    
-    
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://fyzn12.github.io">首页</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/post/">
-                                    
-                                    <span>All posts</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>SpringCloud之Eureka2.0服务注册中心 - Tue, Jul 21, 2020</h1>
-    </div>
-    <p class="lead">SpringCloud之Eureka2.0服务注册中心... ...</p>
+<head>
     
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>SpringCloud之Eureka2.0服务注册中心 - fyzn12的博客 | 伪程序员,信安爱好者,专注于网络攻防和信息安全</title>
+
+<meta name="description" content="SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
+ 每个服务运行在单独的进程中
+ 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
+  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http&#43;json（restful）进行传输。
+ 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
+ SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
+  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
+ 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
+Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
+
+  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &amp;lt;parent&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-parent&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/parent&amp;gt; &amp;lt;groupId&amp;gt;com.fyzn12&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springcloud-study-server&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;jar&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;springcloud-study-server Maven Webapp&amp;lt;/name&amp;gt; &amp;lt;!" /><meta name="keywords"
+  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="SpringCloud之Eureka2.0服务注册中心" />
+<meta property="og:description" content="SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
+ 每个服务运行在单独的进程中
+ 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
+  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http&#43;json（restful）进行传输。
+ 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
+ SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
+  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
+ 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
+Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
+
+  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" />
+<meta property="article:published_time" content="2020-06-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-24T00:00:00+00:00" />
+<meta itemprop="name" content="SpringCloud之Eureka2.0服务注册中心">
+<meta itemprop="description" content="SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
+ 每个服务运行在单独的进程中
+ 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
+  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http&#43;json（restful）进行传输。
+ 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
+ SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
+  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
+ 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
+Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
+
+  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!">
+
+
+<meta itemprop="datePublished" content="2020-06-24T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-06-24T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="415">
+
+
+
+<meta itemprop="keywords" content="eureka," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SpringCloud之Eureka2.0服务注册中心"/>
+<meta name="twitter:description" content="SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
+ 每个服务运行在单独的进程中
+ 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
+  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http&#43;json（restful）进行传输。
+ 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
+ SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
+  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
+ 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
+Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
+
+  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a><a class="page-link" href="http://www.chabug.org">ChaBug</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">SpringCloud之Eureka2.0服务注册中心</h1>
+        <p class="post-meta">Jun 24, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
 
 <h1 id="springcloud之eureka2-0服务注册中心">SpringCloud之Eureka2.0服务注册中心</h1>
 
@@ -91,12 +167,10 @@
 <li>注册中心的概念：存放服务地址相关信息（接口地址）</li>
 
 <li><p>SpringCloud中支持一下三种注册中心</p>
-
-<pre><code>Eureka  
+<div class="highlight"><pre class="chroma">Eureka  
 Consul（go语言编写）  
 Zookerper  
-注意：Dubbo支持两种Redis和Zookeeper    
-</code></pre></li>
+注意：Dubbo支持两种Redis和Zookeeper    </pre></div></li>
 </ol>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/server-register.png"/></div>  
@@ -116,8 +190,7 @@ Zookerper
 <h3 id="2-1-1-配置基于单集群的环境">2.1.1 配置基于单集群的环境</h3>
 
 <h4 id="1-配置pom文件">1. 配置pom文件</h4>
-
-<pre><code>          &lt;parent&gt;
+<div class="highlight"><pre class="chroma">          &lt;parent&gt;
             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
             &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
             &lt;version&gt;2.2.2.RELEASE&lt;/version&gt;
@@ -128,7 +201,7 @@ Zookerper
           &lt;packaging&gt;jar&lt;/packaging&gt;
 
           &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt;
-          &lt;!-- FIXME change it to the project's website --&gt;
+          &lt;!-- FIXME change it to the project&#39;s website --&gt;
           &lt;url&gt;http://www.example.com&lt;/url&gt;
 
           &lt;properties&gt;
@@ -168,9 +241,7 @@ Zookerper
               &lt;version&gt;4.12&lt;/version&gt;
             &lt;/dependency&gt;
 
-          &lt;/dependencies&gt;  
-</code></pre>
-
+          &lt;/dependencies&gt;  </pre></div>
 <h5 id="注意-springcloud与springboot版本具有适配-a-href-https-spring-io-projects-spring-cloud-版本适配路径-a">注意：SpringCloud与SpringBoot版本具有适配<a href="https://spring.io/projects/spring-cloud">版本适配路径</a></h5>
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/version.png"/></div>   
@@ -182,8 +253,7 @@ Zookerper
   
 
 <h4 id="2-添加application-properties文件">2. 添加application.properties文件</h4>
-
-<pre><code>            # 项目的端口号
+<div class="highlight"><pre class="chroma">            # 项目的端口号
             server.port=8100
             # 服务的注册中心ip
             eureka.instance.hostname=127.0.0.1
@@ -194,12 +264,9 @@ Zookerper
             # 是否需要检索服务
             eureka.client.fetch-registry=false
             # 运行出bug可添加
-            spring.main.allow-bean-definition-overriding=true  
-</code></pre>
-
+            spring.main.allow-bean-definition-overriding=true  </pre></div>
 <h4 id="3-编写注册中心服务的启动类">3. 编写注册中心服务的启动类</h4>
-
-<pre><code>        /**
+<div class="highlight"><pre class="chroma">        /**
          * @author fyzn12
          * @version 1.0
          * @date 2020/7/20 18:55
@@ -214,17 +281,14 @@ Zookerper
             public static void main(String[] args) {
                 SpringApplication.run(AppEureka.class,args);
             }
-        } 
-</code></pre>
-
+        } </pre></div>
 <h4 id="4-编写会员服务项目">4.编写会员服务项目</h4>
 
 <ol>
 <li>配置会员服务项目的pom文件（同上面pom文件配置，需要修改<artifactId>springcloud-study-server</artifactId>即可）<br /></li>
 
 <li><p>添加application.properties文件</p>
-
-<pre><code>    # 项目的端口号
+<div class="highlight"><pre class="chroma">    # 项目的端口号
     server.port=8000
     # 服务别名--服务注册到注册中心的名称
     spring.application.name=app-test-member
@@ -233,12 +297,10 @@ Zookerper
     # 需要将服务注册到eureka上面
     eureka.client.register-with-eureka=true
     # 是否需要检索服务
-    eureka.client.fetch-registry=true  
-</code></pre></li>
+    eureka.client.fetch-registry=true  </pre></div></li>
 
 <li><p>编写会员服务启动类</p>
-
-<pre><code>/**
+<div class="highlight"><pre class="chroma">/**
  * @author fyzn12
  * @version 1.0
  * @date 2020/7/20 21:34
@@ -250,12 +312,10 @@ public class AppTest {
     public static void main(String[] args) {
         SpringApplication.run(AppTest.class,args);
     }
-}
-</code></pre></li>
+}</pre></div></li>
 
 <li><p>编写访问接口MemberController</p>
-
-<pre><code>/**
+<div class="highlight"><pre class="chroma">/**
  * @author fyzn12
  * @version 1.0
  * @date 2020/7/20 22:57
@@ -263,14 +323,13 @@ public class AppTest {
  */
 @RestController
 public class MemberController {
-    @Value(&quot;${server.port}&quot;)
+    @Value(&#34;${server.port}&#34;)
     String port;
-    @RequestMapping(&quot;/getMember&quot;)
+    @RequestMapping(&#34;/getMember&#34;)
     public String getMember(){
-        return &quot;this is a member 我是会员服务，端口号：&quot;+port;
+        return &#34;this is a member 我是会员服务，端口号：&#34;+port;
     }
-}  
-</code></pre></li>
+}  </pre></div></li>
 </ol>
 
 <h4 id="5-编写订单服务项目">5.编写订单服务项目</h4>
@@ -279,8 +338,7 @@ public class MemberController {
 <li>配置会员服务项目的pom文件（同上面pom文件配置，需要修改<artifactId>springcloud-study-server</artifactId>即可）<br /></li>
 
 <li><p>添加application.properties文件</p>
-
-<pre><code>    # 项目的端口号
+<div class="highlight"><pre class="chroma">    # 项目的端口号
     server.port=8001
     # 服务别名--服务注册到注册中心的名称
     spring.application.name=app-test-order
@@ -290,12 +348,10 @@ public class MemberController {
     eureka.client.register-with-eureka=true
     # 是否需要检索服务
     eureka.client.fetch-registry=true
-    spring.main.allow-bean-definition-overriding=true    
-</code></pre></li>
+    spring.main.allow-bean-definition-overriding=true    </pre></div></li>
 
 <li><p>编写订单服务启动类</p>
-
-<pre><code>    /**
+<div class="highlight"><pre class="chroma">    /**
      * @author fyzn12
      * @version 1.0
      * @date 2020/7/21 9:03
@@ -317,12 +373,10 @@ public class MemberController {
             return new RestTemplate();
         }
 
-    }  
-</code></pre></li>
+    }  </pre></div></li>
 
 <li><p>编写访问接口OrderController</p>
-
-<pre><code>/**
+<div class="highlight"><pre class="chroma">/**
  * @author fyzn12
  * @version 1.0
  * @date 2020/7/21 9:09
@@ -335,19 +389,18 @@ public class OrderController {
      * rest方式
      *
      * */
-    @Value(&quot;${server.port}&quot;)
+    @Value(&#34;${server.port}&#34;)
     String port;
     @Autowired
     private RestTemplate restTemplate;
-    @RequestMapping(&quot;/getOrder&quot;)
+    @RequestMapping(&#34;/getOrder&#34;)
     public String getOrder(){
-        String url = &quot;http://app-test-member/getMember&quot;;
-        String result = &quot;我是订单服务获取会员服务信息：&quot;+restTemplate.getForObject(url, String.class);
-        System.out.println(&quot;订单服务result:&quot;+result);
+        String url = &#34;http://app-test-member/getMember&#34;;
+        String result = &#34;我是订单服务获取会员服务信息：&#34;+restTemplate.getForObject(url, String.class);
+        System.out.println(&#34;订单服务result:&#34;+result);
         return result;
     }
-}
-</code></pre></li>
+}</pre></div></li>
 </ol>
 
 <h4 id="6-测试">6.测试</h4>
@@ -376,8 +429,7 @@ public class OrderController {
 <h5 id="1-创建一个项目为springcloud-study-server2">(1)创建一个项目为springcloud-study-server2</h5>
 
 <h5 id="2-更改application-properties文件">(2)更改application.properties文件</h5>
-
-<pre><code>    springcloud-study-server的application.properties文件如下  
+<div class="highlight"><pre class="chroma">    springcloud-study-server的application.properties文件如下  
 
         # 项目的端口号
         server.port=9100
@@ -409,9 +461,7 @@ public class OrderController {
         eureka.client.register-with-eureka=true
         # 是否需要检索服务
         eureka.client.fetch-registry=true
-        spring.main.allow-bean-definition-overriding=true  
-</code></pre>
-
+        spring.main.allow-bean-definition-overriding=true  </pre></div>
 <h5 id="3-启动所有项目">(3)启动所有项目</h5>
 
 <h5 id="4-故意停掉springcloud-study-server项目-再次测试">(4)故意停掉springcloud-study-server项目，再次测试</h5>
@@ -434,64 +484,170 @@ public class OrderController {
 
 <div align=center><img src="https://fyzn12.github.io/img/picture/服务隔离.png"/></div>   
 
-    <h4><a href="https://fyzn12.github.io">Back to Home</a></h4>
-</div>
-
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-
-    <a href="https://fyzn12.github.io">fyzn12</a> | 
-
-&copy; 
-<a href="https://fyzn12.github.io" target="_blank">
-    fyzn12
-</a>
-<span id="thisyear">2020</span>
-
-    | @
-
-
-        | Built on <a href="//gohugo.io" target="_blank">Hugo</a>
-</p>
-    <p class="text-center">
-        <a href="https://facebook.com">Facebook</a> 
-        <a href="https://twitter.com">Twitter</a> 
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
-
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
+            SpringCloud整合Consul注册中心
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">
+            微服务架构的介绍
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="images/avatar.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="post-link">SpringCloud微服务网关技术Zuul</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Zookeeper注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="post-link">Java基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="post-link">Spring Boot整合Spring Data JPA</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-link">Redis基础知识</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

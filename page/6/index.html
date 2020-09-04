@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-02T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-09-04T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,14 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">Redis基础知识</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                1 Redis的简介 1.1 了解什么是redis redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库， 并提供多种语言的API。 他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  1.2 redis的特点 * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。 * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。 * Redis支持数据的备份，即master-slave模式的数据备份。  1.3 redis的优势 * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。 * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。 * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务， 即原子性，通过MULTI和EXEC指令包起来。 * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  1.4 Redis支持的数据类型 * string（字符串） * hash（哈希） * list（列表） * set（集合） * zset或sorted set（有序集合）  2 Redis 命令 2.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">常见算法篇</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
@@ -97,23 +105,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">Mybatis之动态SQL</a></h2>
-            <div class="post-meta">Oct 08, 2019</div>
-            <div class="post-excerpt">
-                动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
-&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
-1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
-&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/5/" class="previous">PREV</a>
-        <span class="page_number ">6 of 8</span>
+        <span class="page_number ">6 of 9</span>
         <a href="/page/7/" class="next">NEXT</a>
     </div>
 </div>
@@ -136,6 +132,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
         </li>
         
         <li>
@@ -188,10 +188,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
         </li>
         
     </ul>

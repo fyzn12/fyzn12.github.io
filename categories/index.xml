@@ -6,10 +6,19 @@
     <description>Recent content in Categories on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 02 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>BataBase</title>
+      <link>https://fyzn12.github.io/categories/batabase/</link>
+      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/categories/batabase/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>design_mode</title>

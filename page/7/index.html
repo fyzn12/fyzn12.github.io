@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-02T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-09-04T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,18 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">Mybatis之动态SQL</a></h2>
+            <div class="post-meta">Oct 08, 2019</div>
+            <div class="post-excerpt">
+                动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/">Ssm随学札记</a></h2>
             <div class="post-meta">Oct 08, 2019</div>
             <div class="post-excerpt">
@@ -101,33 +113,11 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">Mybatis之mapper接口编程</a></h2>
-            <div class="post-meta">Sep 24, 2019</div>
-            <div class="post-excerpt">
-                面向接口编程的思路  创建pojo（javaBean）类
- 创建接口
- 创建接口对应的mapper文件
-注意：
-1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
- 
-  如果用读取文件的方式，则不用在同一个包下如下
-&lt;mappers&gt; &lt;mapper resource=&#34;mapper/*.xml&#34;/&gt; &lt;/mappers&gt; 2）mapper文件的namespace取值必须和接口的全路径相同
-3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
-4）多参传递可以不写parameterType属性
-5）参数的下标书写 &lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
-6）参数的占位书写
-7）参数的声明书写 方法中用@Param声明。
-4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
-InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); } &emsp;
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/6/" class="previous">PREV</a>
-        <span class="page_number ">7 of 8</span>
+        <span class="page_number ">7 of 9</span>
         <a href="/page/8/" class="next">NEXT</a>
     </div>
 </div>
@@ -150,6 +140,10 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
         </li>
         
         <li>
@@ -202,10 +196,6 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/" class="post-link">Java基础篇</a>
         </li>
         
     </ul>

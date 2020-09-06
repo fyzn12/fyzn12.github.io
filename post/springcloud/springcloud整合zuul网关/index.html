@@ -14,7 +14,7 @@
 <meta name="description" content="1 网关的简介 1.1 网关API（接口） Gateway（网关） 网关的概念：相当于客户端请求统一请求到网关服务器上，再由网关服务器进行转发请求到实际的服务器地址上， 类似于Nginx。 网关的作用：网关可以拦截客户端所有请求，对该请求进行权限控制、负载均衡、日志管理、接口调用监控等 网关和过滤器的区别：过滤器适合于单个tomcat服务器进行拦截请求，网关是拦截整个微服务所有请求。 网关分为内网网关和外网网关 Nginx和Zuul网关的区别： 1. Zuul和Nginx都可以实现负载均衡、反向代理、过滤请求、实现网关效果 2. 不同点 （1）Nginx采用C语言编写，Zuul采用java语言编写，Zuul的负载均衡实现是采用Ribbon &#43; eureka实现本地负载均衡 （2）Nginx负载均衡实现采用服务器端实现负载均衡 （3）Nginx比Zuul功能更加强大，因为Nginx整合一些脚本语言（Nginx &#43; Lua） （4）Nginx适合于服务器端负载均衡 （5）Zuul适合服务中实现网关，而且使用技术是java 最好建议nginx &#43; zuul实现网关 nginx作用实现反向代理 zuul对微服务实现网关拦截  1.2 接口在什么背景下产生的 在面向服务架构和微服务背景下差生，目的是为了解耦。  1.3 接口分类  开放接口&amp;mdash;&amp;ndash;其他机构合作伙伴进行调用（必须在外网访问），如微信公众号开发，需要通过appid &#43; appsocket 生成accessToken 进行通信。对接支付宝开发、微信开发；目的可以授权，遵循OAuth2.0协议方式
  内部接口
 一般只能在局域网中进行访问，服务调用之间关系都在同一个微服务系统中 目的：保证安全问题   1.3.1 设计一套项目接口需要考虑的点 接口权限（开放接口|内部接口） 考虑幂等性 安全性（https）防止串改数据（验证签名） 使用网关拦截 接口实现黑名单和白名单、接口使用http协议 &#43; json格式，符合restful风格，目的是为了跨平台。 考虑高并发对接口服务实现保护服务降级、熔断、隔离之类 最后使用统一的API管理平台  2 搭建一个Zuul网关系统 2.1 zuul网关搭建示意图  2.2 创建zuul网关项目，在parent中添加一下依赖 &amp;lt;!-- 导入springcloud整合zuul启动器 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org." /><meta name="keywords"
-  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
@@ -388,7 +388,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
+    <img class="avatar" src="images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -403,6 +403,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
         </li>
         
         <li>
@@ -455,10 +459,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
         </li>
         
     </ul>

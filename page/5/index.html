@@ -13,7 +13,7 @@
 <title>fyzn12的博客</title>
 
 <meta name="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." /><meta name="keywords"
-  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-04T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-09-06T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,37 +76,98 @@
         
         
         <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/">SpringCloud之Eureka2.0服务注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
+            <h2><a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/">Ssm随学札记</a></h2>
+            <div class="post-meta">Oct 08, 2019</div>
             <div class="post-excerpt">
-                SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
- 每个服务运行在单独的进程中
- 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
-  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http+json（restful）进行传输。
- 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
- SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
-  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
- 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
-Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
-
-  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!
+                使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
+java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
+1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
+2. 期待转成的对象与json对应的属性不匹配。
+3. 真正的空指针，既json为空。
+ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
+* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
+* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
+/** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax.
             </div>
         </li>
         
         <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Consul注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
+            <h2><a href="https://fyzn12.github.io/post/mybatis/mybatis01/">Mybatis-的配置文件</a></h2>
+            <div class="post-meta">Sep 24, 2019</div>
             <div class="post-excerpt">
-                SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质： 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。 2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入springcloud整合Zookeeper启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.
+                Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt; 1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示： &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt; 3.数据库连接的配置
+&lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。
+&lt;!-- 一定是文件格式--&gt; &lt;mappers&gt; &lt;mapper resource=&#34;com/mapper/StudentMapper.xml&#34;/&gt; &lt;/mappers&gt; &lt;/configuration&gt; &lt;mapper&gt;&lt;/mapper&gt;  mapper文件配置以及对应方法的讲解  mapper配置时设置的属性namespace定义一个操作包，是映射文件匹配的重要点；
             </div>
         </li>
         
         <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/">Java基础篇</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
+            <h2><a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">Mybatis之mapper接口编程</a></h2>
+            <div class="post-meta">Sep 24, 2019</div>
             <div class="post-excerpt">
-                JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
-==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.
+                面向接口编程的思路  创建pojo（javaBean）类
+ 创建接口
+ 创建接口对应的mapper文件
+注意：
+1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
+ 
+  如果用读取文件的方式，则不用在同一个包下如下
+&lt;mappers&gt; &lt;mapper resource=&#34;mapper/*.xml&#34;/&gt; &lt;/mappers&gt; 2）mapper文件的namespace取值必须和接口的全路径相同
+3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
+4）多参传递可以不写parameterType属性
+5）参数的下标书写 &lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
+6）参数的占位书写
+7）参数的声明书写 方法中用@Param声明。
+4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
+InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); } &emsp;
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/english-preview/">[English] Creating a New Theme</a></h2>
+            <div class="post-meta">Aug 31, 2017</div>
+            <div class="post-excerpt">
+                Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&rsquo;t cover using CSS to style your theme.
+We&rsquo;ll start with creating a new site with a very basic template.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/chinese-preview/">[中文] 《长恨歌》</a></h2>
+            <div class="post-meta">Aug 30, 2017</div>
+            <div class="post-excerpt">
+                《长恨歌》是中国唐朝诗人白居易的一首长篇叙事诗。
+ 第一段：贵妃受宠爱 汉皇重色思倾国，御宇多年求不得。杨家有女初长成，养在深闺人未识。
+天生丽质难自弃，一朝选在君王侧。回眸一笑百媚生，六宫粉黛无颜色。
+春寒赐浴华清池，温泉水滑洗凝脂。侍儿扶起娇无力，始是新承恩泽时。
+云鬓花颜金步摇，芙蓉帐暖度春宵。春宵苦短日高起，从此君王不早朝。
+承欢侍宴无闲暇，春从春游夜专夜。后宫佳丽三千人，三千宠爱在一身。
+金屋妆成娇侍夜，玉楼宴罢醉和春。姊妹弟兄皆列士，可怜光彩生门户。
+遂令天下父母心，不重生男重生女。骊宫高处入青云，仙乐风飘处处闻。
+缓歌慢舞凝丝竹，尽日君王看不足。渔阳鼙鼓动地来，惊破霓裳羽衣曲。
+第二段：马嵬惊变 九重城阙烟尘生，千乘万骑西南行。翠华摇摇行复止，西出都门百余里。
+六军不发无奈何，宛转蛾眉马前死。花钿委地无人收，翠翘金雀玉搔头。
+君王掩面救不得，回看血泪相和流。黄埃散漫风萧索，云栈萦纡登剑阁。
+峨嵋山下少人行，旌旗无光日色薄。蜀江水碧蜀山青，圣主朝朝暮暮情。
+行宫见月伤心色，夜雨闻铃肠断声。
+第三段：玄宗皇帝思念 天旋地转回龙驭，到此踌躇不能去。马嵬坡下泥土中，不见玉颜空死处。
+君臣相顾尽霑衣，东望都门信马归。归来池苑皆依旧，太液芙蓉未央柳。
+芙蓉如面柳如眉，对此如何不泪垂。春风桃李花开日，秋雨梧桐叶落时。
+西宫南内多秋草，落叶满阶红不扫。梨园弟子白发新，椒房阿监青娥老。
+夕殿萤飞思悄然，孤灯挑尽未成眠。迟迟钟鼓初长夜，耿耿星河欲曙天。
+鸳鸯瓦冷霜华重，翡翠衾寒谁与共。悠悠生死别经年，魂魄不曾来入梦。
+第四段：仙界寻妃 临邛道士鸿都客，能以精诚致魂魄。为感君王辗转思，遂教方士殷勤觅。
+排空驭气奔如电，升天入地求之遍。上穷碧落下黄泉，两处茫茫皆不见。
+忽闻海上有仙山，山在虚无缥缈间。楼阁玲珑五云起，其中绰约多仙子。
+中有一人字太真，雪肤花貌参差是。金阙西厢叩玉扃，转教小玉报双成。
+闻道汉家天子使，九华帐里梦魂惊。揽衣推枕起徘徊，珠箔银屏迤逦开。
+云髻(鬓?)半偏新睡觉，花冠不整下堂来。风吹仙袂飘飘(飖)举，犹似霓裳羽衣舞。
+玉容寂寞泪阑干，梨花一枝春带雨。含情凝睇谢君王，一别音容两渺茫。
+昭阳殿里恩爱绝，蓬莱宫中日月长。回头下望人寰处，不见长安见尘雾。
+唯将旧物表深情，钿合金钗寄将去。钗留一股合一扇，钗擘黄金合分钿。
+但教心似金钿坚，天上人间会相见。临别殷勤重寄词，词中有誓两心知。
+七月七日长生殿，夜半无人私语时。在天愿作比翼鸟，在地愿为连理枝。
+天长地久有时尽，此恨绵绵无绝期。
             </div>
         </li>
         
@@ -114,7 +175,7 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
     
     <div class="pagination">
         <a href="/page/4/" class="previous">PREV</a>
-        <span class="page_number ">5 of 9</span>
+        <span class="page_number ">5 of 6</span>
         <a href="/page/6/" class="next">NEXT</a>
     </div>
 </div>
@@ -122,7 +183,7 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
+    <img class="avatar" src="images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -137,6 +198,10 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
         </li>
         
         <li>
@@ -189,10 +254,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
         </li>
         
     </ul>

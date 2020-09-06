@@ -13,7 +13,7 @@
 <title>fyzn12的博客</title>
 
 <meta name="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." /><meta name="keywords"
-  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-04T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-09-06T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,32 +76,13 @@
         
         
         <li>
-            <h2><a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">Redis基础知识</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
+            <h2><a href="https://fyzn12.github.io/post/syntax-highlighting/">Syntax Highlighting</a></h2>
+            <div class="post-meta">Aug 30, 2011</div>
             <div class="post-excerpt">
-                1 Redis的简介 1.1 了解什么是redis redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库， 并提供多种语言的API。 他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  1.2 redis的特点 * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。 * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。 * Redis支持数据的备份，即master-slave模式的数据备份。  1.3 redis的优势 * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。 * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。 * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务， 即原子性，通过MULTI和EXEC指令包起来。 * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  1.4 Redis支持的数据类型 * string（字符串） * hash（哈希） * list（列表） * set（集合） * zset或sorted set（有序集合）  2 Redis 命令 2.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">常见算法篇</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                常见算法总结篇 递归算法 递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)+2; } 排序算法  快速排序算法 排序步骤总结如下：
-* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&#34;11&#34;,&#34;66&#34;,&#34;22&#34;,&#34;0&#34;,&#34;55&#34;,&#34;22&#34;,&#34;0&#34;,&#34;32&#34;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //先判断左右指针是否越界 if (left&gt;right){ returen; } //定义基准位置，左右移动时的指针以及中间变量 String standard,tmp; //步骤一：确定基准位置（可以随意） standard = strViod[left]; int i,j; i = left; j = right; //步骤二：初步与基准值比较，确认基准值的左右集合 while(i&lt;j){ //首先进行基准值右侧值的判断,这里建议将String转为int进行判断，别用compareTo进行判断 while(Integer.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/">SpringBoot提供的五种异常机制</a></h2>
-            <div class="post-meta">May 12, 2020</div>
-            <div class="post-excerpt">
-                SpringBoot中的异常处理方式  自定义错误页面
- @ExceptionHandle注解处理异常
- @ControllerAdvice + @ExceptionHandle注解处理异常
- 配置SimpleMappingExceptionResolver处理异常
- 自定义HandleExceptionResolver类处理异常
-  1 自定义错误页面 1.1 SpringBoot的默认异常机制详解 SpringBoot默认的异常机制：SpringBoot默认已经提供了一套处理异常的机制。 一旦程序中出现了异常，SpringBoot会向/error的url发送请求。在SpringBoot中提供了一个 叫BasicExceptionController来处理/error请求，然后跳转到默认显示的页面来展示异常信息。   1.2 自定义错误界面 如果我们需要将所有的异常统一跳转到自定义错误页面，需要在classpath下创建一个templates目录(即在resources目录下创建templates目录)，在该目录下创建一个名为error.html的页面。 2 基于@ExceptionHandler注解处理异常 2.1 创建指定处理的异常 /** *java.lang.ArithmeticException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 */ @ExceptionHandler(value={java.lang.ArithmeticException.class}) publicModelAndViewarithmeticExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error1&#34;); returnmv; } /** *java.lang.NullPointerException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 **/ @ExceptionHandler(value={java.lang.NullPointerException.class}) publicModelAndViewnullPointerExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error2&#34;); return mv； }  2.2 使用该方法的总结 使用@ExceptionHandler注解处理异常时，首先编写异常页面error.html，其次创建Controller类，编写基于注解@ExceptionHandle注解的方法，并且在该方法中必须指定想要助理异常的名称如上面的java.lang.NullPointerException.class、java.lang.ArithmeticException.class。 3 使用@ControllerAdvice + @ExceptionHandler注解处理异常 3.1 创建一个全局异常类使用ControllerAdvice注解 /** *全局异常处理类 **/ @ControllerAdvice public class GlobalException { /** * java.
+                <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">helloWorld</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;Hello, World!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
             </div>
         </li>
         
@@ -109,15 +90,15 @@
     
     <div class="pagination">
         <a href="/page/5/" class="previous">PREV</a>
-        <span class="page_number ">6 of 9</span>
-        <a href="/page/7/" class="next">NEXT</a>
+        <span class="page_number ">6 of 6</span>
+        
     </div>
 </div>
             </div>
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
+    <img class="avatar" src="images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -132,6 +113,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
         </li>
         
         <li>
@@ -184,10 +169,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
         </li>
         
     </ul>

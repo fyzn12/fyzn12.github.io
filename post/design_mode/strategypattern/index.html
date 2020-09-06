@@ -16,7 +16,7 @@
  依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
  接口隔离原则：多个和客户相关的接口要好于一个通用接口
   2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2." /><meta name="keywords"
-  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
@@ -562,7 +562,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
+    <img class="avatar" src="images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -577,6 +577,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
         </li>
         
         <li>
@@ -629,10 +633,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
         </li>
         
     </ul>

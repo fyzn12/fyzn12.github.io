@@ -17,7 +17,7 @@
  配置SimpleMappingExceptionResolver处理异常
  自定义HandleExceptionResolver类处理异常
   1 自定义错误页面 1.1 SpringBoot的默认异常机制详解 SpringBoot默认的异常机制：SpringBoot默认已经提供了一套处理异常的机制。 一旦程序中出现了异常，SpringBoot会向/error的url发送请求。在SpringBoot中提供了一个 叫BasicExceptionController来处理/error请求，然后跳转到默认显示的页面来展示异常信息。   1.2 自定义错误界面 如果我们需要将所有的异常统一跳转到自定义错误页面，需要在classpath下创建一个templates目录(即在resources目录下创建templates目录)，在该目录下创建一个名为error.html的页面。 2 基于@ExceptionHandler注解处理异常 2.1 创建指定处理的异常 /** *java.lang.ArithmeticException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 */ @ExceptionHandler(value={java.lang.ArithmeticException.class}) publicModelAndViewarithmeticExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&amp;#34;error&amp;#34;,e.toString()); mv.setViewName(&amp;#34;error1&amp;#34;); returnmv; } /** *java.lang.NullPointerException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 **/ @ExceptionHandler(value={java.lang.NullPointerException.class}) publicModelAndViewnullPointerExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&amp;#34;error&amp;#34;,e.toString()); mv.setViewName(&amp;#34;error2&amp;#34;); return mv； }  2.2 使用该方法的总结 使用@ExceptionHandler注解处理异常时，首先编写异常页面error.html，其次创建Controller类，编写基于注解@ExceptionHandle注解的方法，并且在该方法中必须指定想要助理异常的名称如上面的java.lang.NullPointerException.class、java.lang.ArithmeticException.class。 3 使用@ControllerAdvice &#43; @ExceptionHandler注解处理异常 3.1 创建一个全局异常类使用ControllerAdvice注解 /** *全局异常处理类 **/ @ControllerAdvice public class GlobalException { /** * java." /><meta name="keywords"
-  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
@@ -306,7 +306,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
+    <img class="avatar" src="images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -321,6 +321,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
         </li>
         
         <li>
@@ -373,10 +377,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
         </li>
         
     </ul>

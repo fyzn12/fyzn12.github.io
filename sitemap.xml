@@ -9,26 +9,41 @@
   
   <url>
     <loc>https://fyzn12.github.io/categories/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/database/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+    <loc>https://fyzn12.github.io/categories/design_mode/</loc>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/post/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/tags/</loc>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/design_mode/observer/</loc>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/categories/database/</loc>
     <lastmod>2020-09-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -40,11 +55,6 @@
   <url>
     <loc>https://fyzn12.github.io/post/database/transaction/</loc>
     <lastmod>2020-09-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/categories/design_mode/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -64,11 +74,6 @@
   
   <url>
     <loc>https://fyzn12.github.io/tags/springmvc%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -338,12 +343,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/syntax-highlighting/</loc>
+    <loc>https://fyzn12.github.io/tags/syntax-highlighting/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/syntax-highlighting/</loc>
+    <loc>https://fyzn12.github.io/categories/syntax-highlighting/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
   </url>
   

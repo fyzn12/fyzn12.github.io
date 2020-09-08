@@ -33,7 +33,7 @@
 
 <meta itemprop="datePublished" content="2020-09-08T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-09-08T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="364">
+<meta itemprop="wordCount" content="466">
 
 
 
@@ -331,7 +331,14 @@
 <span class="kd">public</span> <span class="nf">Object</span> <span class="n">strategy</span><span class="p">(</span><span class="n">HandlerParam</span> <span class="nf">param</span><span class="p">)</span>  <span class="p">{</span>
     <span class="kt">int</span> <span class="nf">count</span> <span class="o">=</span> <span class="n">users20174046Mapper</span><span class="p">.</span><span class="na">insertUsers</span><span class="p">((</span><span class="n">Users20174046</span><span class="p">)</span> <span class="n">param</span><span class="p">.</span><span class="na">getParam</span><span class="p">());</span>
     <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-<span class="p">}</span>  
+<span class="p">}</span>    
+  
+	<span class="cm">/*
+</span><span class="cm">
+</span><span class="cm">	在插入数据库前，对应的用户是没有id的，而这个id值会在插入数据库后由MyBatis的机制回填，  
+</span><span class="cm">	所以我们希望使用返回结果，这样使用＃result就代表返回的结果对象了，它是一个User对象，  
+</span><span class="cm">	所以＃result.id是取出它的属性id，这样就可以引用这个由数据库生成的id了。	
+</span><span class="cm">	*/</span>
   </code></pre></div></li>
 
 <li><p>用于修改时的用法</p>
@@ -361,7 +368,14 @@
         <span class="p">}</span>
         <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;执行修改完成&#34;</span><span class="p">);</span>
         <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-<span class="p">}</span>  
+<span class="p">}</span>    
+  
+	<span class="cm">/*
+</span><span class="cm">	从代码中可以看到方法，可能返回null。如果为null，则不需要缓存数据，所以在注解＠CachePut中加入了condition  
+</span><span class="cm">	配置工页，它也是一个SpringEL表达式，这个表达式要求返回Boolean类型值，如果为仕ue，则使用缓存操作，否则就不使用。  
+</span><span class="cm">	这里的表达式为＃result！＝’null’，意味着如果返回null，则方法结束后不再操作缓存。同样地，＠Cacheable和  
+</span><span class="cm">	@CacheEvict也具备这个配置项。
+</span><span class="cm">	*/</span>
   </code></pre></div></li>
 </ol>
 
@@ -369,6 +383,49 @@
 
 <h4 id="该注解用于方法体上会清除与该方法体有关的缓存">该注解用于方法体上会清除与该方法体有关的缓存</h4>
 
+<h1 id="3-在启动类上开启缓存">3 在启动类上开启缓存</h1>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * @author ZhangRongjun
+</span><span class="cm"> * @EnableCaching ：开启缓存
+</span><span class="cm"> */</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@MapperScan</span><span class="p">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.fyzn12.mapper&#34;</span><span class="p">,</span><span class="n">annotationClass</span> <span class="o">=</span> <span class="n">Repository</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="nd">@EnableCaching</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">SpringbootDemoApplication</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">SpringbootDemoApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+ </code></pre></div>
+<h1 id="4-自调用使注解失效">4 自调用使注解失效</h1>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+<span class="c1">//获取id，取参数id缓存用户
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="nd">@Transactional</span>
+    <span class="nd">@Cacheable</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;redisCache&#34;</span><span class="p">,</span><span class="n">key</span> <span class="o">=</span><span class="s">&#34;&#39;redis_user_&#39;+#id&#34;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="nf">User</span> <span class="n">getUser</span> <span class="p">(</span><span class="n">Long</span> <span class="nf">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">userDao</span><span class="p">.</span><span class="na">getUser</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">//更新数据后，更新缓存，如果condition配置项使结果返回为null，不缓存
+</span><span class="c1"></span>    <span class="n">Override</span>
+    <span class="nd">@Transactional</span>
+    <span class="nd">@CachePut</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;redisCache&#34;</span> <span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="s">&#34;#result == null &#34;</span><span class="p">,</span><span class="n">key</span> <span class="o">==</span><span class="s">&#34;&#39;redis_user_&#39;+＃id&#34;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="nf">User</span> <span class="n">updateUserName</span> <span class="p">(</span><span class="n">Long</span> <span class="nf">id</span><span class="p">,</span> <span class="n">String</span> <span class="nf">userName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//此处调用getUser方法，该方法缓存注解失效，
+</span><span class="c1"></span>        <span class="c1">// 所以这里还会执行SQL，将查询到数据库最新数据
+</span><span class="c1"></span>        <span class="n">User</span> <span class="nf">user</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">getUser</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">user</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">user</span><span class="p">.</span><span class="na">setUserName</span><span class="p">(</span><span class="n">userName</span><span class="p">);</span>
+        <span class="n">userDao</span><span class="p">.</span><span class="na">updateUser</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">user</span><span class="p">;</span> <span class="c1">//命中率低，所以不采用缓存机制
+</span><span class="c1"></span>    <span class="p">}</span>  </code></pre></div><div class="highlight"><pre class="chroma">为什么会这样呢？其实在数据库事务中已经探讨过其原理，只要回顾一下就清楚了，那是因为Spring的缓存机制也是  
+基于SpringAOP的原理，而在Spring中AOP是通过动态代理技术来实现的，这里的updateUserName方法调用getUser    
+方法是类内部的自调用，并不存在代理对象的调用，这样便不会出现AOP，也就不会使用到标注在getUser上的缓存注解  
+去获取缓存的值了，这是需要注意的地方。要克服这个问题，可以参考《数据库的事务》一文中关于数据库事务那样用两个  
+服务(Service）类相互调用，或者直接从SpringIoC容器中获取代理对象来操作，这样就能成功克服自调用的问题了。</pre></div>
     </article>
 
     

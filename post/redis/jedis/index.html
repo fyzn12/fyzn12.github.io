@@ -63,7 +63,7 @@ String value = jedis.get(&ldquo;hello&rdquo;);
 
 <meta itemprop="datePublished" content="2020-07-08T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-07-08T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="483">
+<meta itemprop="wordCount" content="448">
 
 
 
@@ -256,91 +256,69 @@ String value = jedis.get(&ldquo;hello&rdquo;);
 
 <h3 id="3-1-1-parent导入的依赖">3.1.1 parent导入的依赖</h3>
 <div class="highlight"><pre class="chroma">    &lt;dependencies&gt;
-        &lt;!-- 导入springboot的启动器--&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-          &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-        &lt;!-- 导入mybatis的启动器 --&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
-          &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
-          &lt;version&gt;1.2.0&lt;/version&gt;
-        &lt;/dependency&gt;
 
-        &lt;!-- 导入jsp支持jstl--&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
-          &lt;artifactId&gt;jstl&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-        &lt;!-- springboot需要开启支持jsp，因此需要jsp的支持jar --&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
-          &lt;artifactId&gt;tomcat-embed-jasper&lt;/artifactId&gt;
-          &lt;scope&gt;provided&lt;/scope&gt;
-        &lt;/dependency&gt;
+    &lt;!-- 配置web启动器--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 配置mybatis--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;8.0.15&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+        &lt;version&gt;1.2.0&lt;/version&gt;
+    &lt;/dependency&gt;
 
-        &lt;!-- mysql的连接jar --&gt;
-        &lt;!-- mysql数据库 --&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;mysql&lt;/groupId&gt;
-          &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-          &lt;version&gt;8.0.15&lt;/version&gt;
-        &lt;/dependency&gt;
-        &lt;!-- mysql的连接池 --&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
-          &lt;artifactId&gt;druid&lt;/artifactId&gt;
-          &lt;version&gt;${druid.version}&lt;/version&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-          &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
-          &lt;version&gt;1.3.1&lt;/version&gt;
-        &lt;/dependency&gt;
-
-        &lt;!-- 引入jedis的依赖包 --&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-          &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
-          &lt;exclusions&gt;
+    &lt;!-- 配置数据库连接池 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+        &lt;artifactId&gt;druid&lt;/artifactId&gt;
+        &lt;version&gt;${druid.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+        &lt;exclusions&gt;
             &lt;exclusion&gt;
-              &lt;groupId&gt;redis.clients&lt;/groupId&gt;
-              &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+                &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt;
+                &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt;
             &lt;/exclusion&gt;
-            &lt;!--
+        &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.12&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+        &lt;exclusions&gt; &lt;!--不依赖Redis的异步客户端lettuce--&gt;
             &lt;exclusion&gt;
                 &lt;groupId&gt;io.lettuce&lt;/groupId&gt;
                 &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt;
             &lt;/exclusion&gt;
-            --&gt;
-          &lt;/exclusions&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;redis.clients&lt;/groupId&gt;
-          &lt;artifactId&gt;jedis&lt;/artifactId&gt;
-          &lt;version&gt;2.9.3&lt;/version&gt;
-          &lt;type&gt;jar&lt;/type&gt;
-          &lt;scope&gt;compile&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
-          &lt;artifactId&gt;commons-pool2&lt;/artifactId&gt;
-          &lt;version&gt;2.5.0&lt;/version&gt;
-          &lt;!--&lt;version&gt;2.4.2&lt;/version&gt;--&gt;
-        &lt;/dependency&gt;
-        &lt;!-- 导入单元测试的启动器--&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-          &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-          &lt;groupId&gt;junit&lt;/groupId&gt;
-          &lt;artifactId&gt;junit&lt;/artifactId&gt;
-          &lt;version&gt;4.12&lt;/version&gt;
-          &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-      &lt;/dependencies&gt;  
+        &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+    &lt;!--引入Redis的客户端驱动jedis--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+        &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
 
     注意：parent的项目打包方式是pom，其他项目依赖于该项目  </pre></div>
 <h3 id="3-1-2-创建springboot的配置文件application-properties">3.1.2 创建springboot的配置文件application.properties</h3>
@@ -605,6 +583,10 @@ String value = jedis.get(&ldquo;hello&rdquo;);
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
         </li>
         
@@ -654,10 +636,6 @@ String value = jedis.get(&ldquo;hello&rdquo;);
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
         </li>
         
     </ul>

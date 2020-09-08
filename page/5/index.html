@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-06T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-09-08T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -74,6 +74,18 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">Mybatis之动态SQL</a></h2>
+            <div class="post-meta">Oct 08, 2019</div>
+            <div class="post-excerpt">
+                动态SQL语句总结 主要内容  if元素
+ choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
+&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
+1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
+&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/">Ssm随学札记</a></h2>
@@ -132,45 +144,6 @@ We&rsquo;ll start with creating a new site with a very basic template.
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/chinese-preview/">[中文] 《长恨歌》</a></h2>
-            <div class="post-meta">Aug 30, 2017</div>
-            <div class="post-excerpt">
-                《长恨歌》是中国唐朝诗人白居易的一首长篇叙事诗。
- 第一段：贵妃受宠爱 汉皇重色思倾国，御宇多年求不得。杨家有女初长成，养在深闺人未识。
-天生丽质难自弃，一朝选在君王侧。回眸一笑百媚生，六宫粉黛无颜色。
-春寒赐浴华清池，温泉水滑洗凝脂。侍儿扶起娇无力，始是新承恩泽时。
-云鬓花颜金步摇，芙蓉帐暖度春宵。春宵苦短日高起，从此君王不早朝。
-承欢侍宴无闲暇，春从春游夜专夜。后宫佳丽三千人，三千宠爱在一身。
-金屋妆成娇侍夜，玉楼宴罢醉和春。姊妹弟兄皆列士，可怜光彩生门户。
-遂令天下父母心，不重生男重生女。骊宫高处入青云，仙乐风飘处处闻。
-缓歌慢舞凝丝竹，尽日君王看不足。渔阳鼙鼓动地来，惊破霓裳羽衣曲。
-第二段：马嵬惊变 九重城阙烟尘生，千乘万骑西南行。翠华摇摇行复止，西出都门百余里。
-六军不发无奈何，宛转蛾眉马前死。花钿委地无人收，翠翘金雀玉搔头。
-君王掩面救不得，回看血泪相和流。黄埃散漫风萧索，云栈萦纡登剑阁。
-峨嵋山下少人行，旌旗无光日色薄。蜀江水碧蜀山青，圣主朝朝暮暮情。
-行宫见月伤心色，夜雨闻铃肠断声。
-第三段：玄宗皇帝思念 天旋地转回龙驭，到此踌躇不能去。马嵬坡下泥土中，不见玉颜空死处。
-君臣相顾尽霑衣，东望都门信马归。归来池苑皆依旧，太液芙蓉未央柳。
-芙蓉如面柳如眉，对此如何不泪垂。春风桃李花开日，秋雨梧桐叶落时。
-西宫南内多秋草，落叶满阶红不扫。梨园弟子白发新，椒房阿监青娥老。
-夕殿萤飞思悄然，孤灯挑尽未成眠。迟迟钟鼓初长夜，耿耿星河欲曙天。
-鸳鸯瓦冷霜华重，翡翠衾寒谁与共。悠悠生死别经年，魂魄不曾来入梦。
-第四段：仙界寻妃 临邛道士鸿都客，能以精诚致魂魄。为感君王辗转思，遂教方士殷勤觅。
-排空驭气奔如电，升天入地求之遍。上穷碧落下黄泉，两处茫茫皆不见。
-忽闻海上有仙山，山在虚无缥缈间。楼阁玲珑五云起，其中绰约多仙子。
-中有一人字太真，雪肤花貌参差是。金阙西厢叩玉扃，转教小玉报双成。
-闻道汉家天子使，九华帐里梦魂惊。揽衣推枕起徘徊，珠箔银屏迤逦开。
-云髻(鬓?)半偏新睡觉，花冠不整下堂来。风吹仙袂飘飘(飖)举，犹似霓裳羽衣舞。
-玉容寂寞泪阑干，梨花一枝春带雨。含情凝睇谢君王，一别音容两渺茫。
-昭阳殿里恩爱绝，蓬莱宫中日月长。回头下望人寰处，不见长安见尘雾。
-唯将旧物表深情，钿合金钗寄将去。钗留一股合一扇，钗擘黄金合分钿。
-但教心似金钿坚，天上人间会相见。临别殷勤重寄词，词中有誓两心知。
-七月七日长生殿，夜半无人私语时。在天愿作比翼鸟，在地愿为连理枝。
-天长地久有时尽，此恨绵绵无绝期。
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -198,6 +171,10 @@ We&rsquo;ll start with creating a new site with a very basic template.
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
         </li>
         
         <li>
@@ -250,10 +227,6 @@ We&rsquo;ll start with creating a new site with a very basic template.
         
         <li>
             <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
         </li>
         
     </ul>

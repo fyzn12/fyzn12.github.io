@@ -6,10 +6,43 @@
     <description>Recent content in design_mode on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 06 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/design_mode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>单例模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/singleton/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/singleton/</guid>
+      <description>单例模式的介绍
+ 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
+  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题</description>
+    </item>
+    
+    <item>
+      <title>工厂模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/factory-pattern/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/factory-pattern/</guid>
+      <description>  工厂模式的简单介绍
+ 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  </description>
+    </item>
+    
+    <item>
+      <title>装饰者模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/decorator_design/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/decorator_design/</guid>
+      <description>  装饰者模式的简单实现
+ 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
+ 别人写了一篇易懂的文章装饰者模式
+  </description>
+    </item>
     
     <item>
       <title>观察者模式</title>

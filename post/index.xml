@@ -6,10 +6,43 @@
     <description>Recent content in Posts on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>单例模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/singleton/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/singleton/</guid>
+      <description>单例模式的介绍
+ 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
+  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题</description>
+    </item>
+    
+    <item>
+      <title>工厂模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/factory-pattern/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/factory-pattern/</guid>
+      <description>  工厂模式的简单介绍
+ 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  </description>
+    </item>
+    
+    <item>
+      <title>装饰者模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/decorator_design/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/decorator_design/</guid>
+      <description>  装饰者模式的简单实现
+ 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
+ 别人写了一篇易懂的文章装饰者模式
+  </description>
+    </item>
     
     <item>
       <title>SpringBoot整合Redis使用注解实现同步缓存</title>
@@ -252,6 +285,17 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
       
       <guid>https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</guid>
       <description>1 Redis的简介 1.1 了解什么是redis redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库， 并提供多种语言的API。 他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  1.2 redis的特点 * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。 * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。 * Redis支持数据的备份，即master-slave模式的数据备份。  1.3 redis的优势 * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。 * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。 * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务， 即原子性，通过MULTI和EXEC指令包起来。 * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  1.4 Redis支持的数据类型 * string（字符串） * hash（哈希） * list（列表） * set（集合） * zset或sorted set（有序集合）  2 Redis 命令 2.</description>
+    </item>
+    
+    <item>
+      <title>几种结构</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <description>  数据结构的分析
+ 1 队列 队列采用先进先出策略的集合类型，如图所示
+1.1 队列的入队演示 如图将 89 添加到队列中，采用的是 ： 在队列队尾添加，整个事件时间复杂度为O(1)  1.2 队列的出队演示 当队列收到出队的命令后，会将指针指向head，从而移除head的值，原先head值指向的下一个值变为head，整个事件时间复杂度为 O(1)  注意：java中还有先进先出队列，策略和基本队列相反，和下面的栈的策略相同 1.3 队列的总结，队列是采用先进先出的策略，添加元素时是在队尾添加，出队时是在队头移除或出队 2 链表 2.1 链表插入策略的演示 2.1.1 头插  2.1.2 尾插  2.1.3 中间任意部位插入 任意部位的插入首先要指定一个插入点，在插入过程中会先遍历插入点前面的元素，找到插入点元素 之后在修改插入点元素的指针，让其指向新增元素   3 栈 栈采用的是先进先出策略  3.1 入栈与出栈 栈的出栈与入栈都是从head进行，因此叫先进先出策略 注意：下压栈是一种基于后进先出策略的集合类型</description>
     </item>
     
     <item>

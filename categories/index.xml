@@ -6,10 +6,19 @@
     <description>Recent content in Categories on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>design_mode</title>
+      <link>https://fyzn12.github.io/categories/design_mode/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/categories/design_mode/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>redis</title>
@@ -17,15 +26,6 @@
       <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/categories/redis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>design_mode</title>
-      <link>https://fyzn12.github.io/categories/design_mode/</link>
-      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/design_mode/</guid>
       <description></description>
     </item>
     

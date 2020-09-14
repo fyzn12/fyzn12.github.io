@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-08T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-09-10T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,36 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/singleton/">单例模式</a></h2>
+            <div class="post-meta">Sep 10, 2020</div>
+            <div class="post-excerpt">
+                单例模式的介绍
+ 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
+  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/factory-pattern/">工厂模式</a></h2>
+            <div class="post-meta">Sep 10, 2020</div>
+            <div class="post-excerpt">
+                  工厂模式的简单介绍
+ 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/decorator_design/">装饰者模式</a></h2>
+            <div class="post-meta">Sep 09, 2020</div>
+            <div class="post-excerpt">
+                  装饰者模式的简单实现
+ 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
+ 别人写了一篇易懂的文章装饰者模式
+  
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/">SpringBoot整合Redis使用注解实现同步缓存</a></h2>
             <div class="post-meta">Sep 08, 2020</div>
             <div class="post-excerpt">
@@ -95,46 +125,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/database/transaction/">数据库的事务</a></h2>
-            <div class="post-meta">Sep 04, 2020</div>
-            <div class="post-excerpt">
-                1. 数据库的事务 1.1 什么是事务 作为单个逻辑工作单位的一系列操作，要么完全成功，要么完全失败。  1.2 事务的四大特征ACID  A Atomic(原子性)
-事务中包含的操作被看作一个整体的业务单元，这样业务单元要么完全成功，要么完全失败。最小的单元  C Consistency(一致性)
-事务在完成时，必须使所有的数据都保持一致状态，在数据库中所有的修改都基于事务，保证了数据的完整性  I Isolation(隔离性)
-下面将会重点讲解隔离  D Durability(持久性)
-事务结束后，所有的数据会固化到一个地方，如保存到磁盘中，即使断电后也可以提供给相应程序访问   1.3 事务的隔离级别  1.3.1 读未提交造成的脏读 是最低的隔离级别，其含义是允许一个事务读取另外一个事务没有提交的数据。未提交读是一种危险 的隔离级别，所以一般在我们实际的开发中应用不广，但是它的优点在于并发能力高，适合那些对数据 一致性没有要求而追求高并发的场景，它的最大坏处是出现脏读。让我们看看可能发生的脏读场景， 如表所示。   T3时刻，因为采用未提交读，所以事务2可以读取事务l未提交的库存数据为1,这里当它扣减 库存后则数据为0，然后它提交了事务，库存就变为了。，而事务l在TS时刻回滚事 务，因为第一类丢失更新已经被克服，所以它不会将库存回滚到2，那么最后的结果就变为了 0，这样就出现了错误。脏读一般是比较危险的隔离级别，在我们实际应用中采用得不多。 为了克服脏读的问题，数据库隔离级别还提供了读已提交（readcommited）的级别， 下面我们时论它。  1.3.2 读已提交 读已提交解决了读未提交造成的脏读问题，但读已提交依然造成了另外一个问题&ndash;不可重复读 读已提交： 是指一个事务只能读取另外一个事务已经提交的数据，不能读取未提交的数据。   在T3时刻事务2读取库存的时候，因为事务l未提交事务，所以读出的库存为l，于是事务2 认为当前可扣减库存；在T4时刻，事务l己经提交事务，所以在TS时刻，它扣减库存的时候 就发现库存为0，于是就无法扣减库存了。这里的问题在于事务2之前认为可以扣减，而到扣 减那一步却发现已经不可以扣减，于是库存对于事务2而言是一个可变化的值，这样的现象 我们称为不可重复读，这就是读写提交的一个不足。为了克服这个不足，数据库的隔离级别 还提出了可重复读的隔离级别，它能够消除不可重读的问题。  1.3.3 可重复读  可以看到，事务2在T3时刻尝试读取库存，但是此时这个库存己经被事务1事先读取，所以这 个时候数据库就阻塞它的读取，直至事务1提交，事务2才能读取库存的值。此时己经是TS时 刻，而读取到的值为0，这时就已经无法扣减了，显然在读写提交中出现的不可重复读的场 景被消除了。但是这样也会引发新的问题的出现，这就是幻读。  下面演示造成幻读的实战  1.3.4 序列化 (串行化) 串行化（Serializable):是数据库最高的隔离级别，它会要求所有的SQL都会按照顺序执 行，这样就可以克服上述隔离级别出现的各种问题，所以它能够完全保证数据的一致性。 2.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-information/">SpringBoot优点</a></h2>
-            <div class="post-meta">Sep 02, 2020</div>
-            <div class="post-excerpt">
-                 1. SpringBoot简介 1.1 SpringBoot的优点  创建独立的Spring应用程序
- 嵌入Tomcat、Jetty或者Undertow，无序部署WAR文件
- 允许通过Maven来根据需要获取starter； 尽可能自动部署Spring； 提供生产就绪功能，如指标、健康检查和外部配置； 绝对没有代码生成，对XMl没有要求配置。
-  1.2 传统SpringMVC和SpringBoot的对比 1.2.1 SpringMVC的工作原理  1.2.2 两者的对比 在传统的SpringMVC项目开发中，开发一个简易的SpringMVC项目，需要配置DispatcherServlet, 也需要配置SpringIoC的容器。你可以选择使用web.xml的配置来实现，当然，如果你使用的是 Servlet 3.1规范，也可以继承由SpringMVC提供的 AbstractAnnotationConfigDispatcherServletlnitializer来配置SpringMVC项目。 
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/strategypattern/">策略模式</a></h2>
-            <div class="post-meta">Sep 02, 2020</div>
-            <div class="post-excerpt">
-                1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
- 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
- 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
- 接口隔离原则：多个和客户相关的接口要好于一个通用接口
-  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         
-        <span class="page_number ">1 of 6</span>
+        <span class="page_number ">1 of 7</span>
         <a href="/page/2/" class="next">NEXT</a>
     </div>
 </div>
@@ -142,7 +137,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="images/header.jpg" alt="fyzn12">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -157,6 +152,18 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
         </li>
         
         <li>
@@ -201,18 +208,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
         </li>
         
     </ul>

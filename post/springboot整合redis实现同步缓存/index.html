@@ -333,12 +333,12 @@
     <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
 <span class="p">}</span>    
   
-	<span class="cm">/*
+<span class="cm">/*
 </span><span class="cm">
-</span><span class="cm">	在插入数据库前，对应的用户是没有id的，而这个id值会在插入数据库后由MyBatis的机制回填，  
-</span><span class="cm">	所以我们希望使用返回结果，这样使用＃result就代表返回的结果对象了，它是一个User对象，  
-</span><span class="cm">	所以＃result.id是取出它的属性id，这样就可以引用这个由数据库生成的id了。	
-</span><span class="cm">	*/</span>
+</span><span class="cm">在插入数据库前，对应的用户是没有id的，而这个id值会在插入数据库后由MyBatis的机制回填，  
+</span><span class="cm">所以我们希望使用返回结果，这样使用＃result就代表返回的结果对象了，它是一个User对象，  
+</span><span class="cm">所以＃result.id是取出它的属性id，这样就可以引用这个由数据库生成的id了。	
+</span><span class="cm">*/</span>
   </code></pre></div></li>
 
 <li><p>用于修改时的用法</p>
@@ -370,12 +370,12 @@
         <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
 <span class="p">}</span>    
   
-	<span class="cm">/*
-</span><span class="cm">	从代码中可以看到方法，可能返回null。如果为null，则不需要缓存数据，所以在注解＠CachePut中加入了condition  
-</span><span class="cm">	配置工页，它也是一个SpringEL表达式，这个表达式要求返回Boolean类型值，如果为仕ue，则使用缓存操作，否则就不使用。  
-</span><span class="cm">	这里的表达式为＃result！＝’null’，意味着如果返回null，则方法结束后不再操作缓存。同样地，＠Cacheable和  
-</span><span class="cm">	@CacheEvict也具备这个配置项。
-</span><span class="cm">	*/</span>
+<span class="cm">/*
+</span><span class="cm">从代码中可以看到方法，可能返回null。如果为null，则不需要缓存数据，所以在注解＠CachePut中加入了condition  
+</span><span class="cm">配置工页，它也是一个SpringEL表达式，这个表达式要求返回Boolean类型值，如果为仕ue，则使用缓存操作，否则就不使用。  
+</span><span class="cm">这里的表达式为＃result！＝’null’，意味着如果返回null，则方法结束后不再操作缓存。同样地，＠Cacheable和  
+</span><span class="cm">@CacheEvict也具备这个配置项。
+</span><span class="cm">*/</span>
   </code></pre></div></li>
 </ol>
 
@@ -443,6 +443,12 @@
     </li>
     
     
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/design_mode/decorator_design/">
+            装饰者模式
+        </a>
+    </li>
+    
 </ul>
 
     </div>
@@ -468,7 +474,7 @@
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="images/header.jpg" alt="fyzn12">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -483,6 +489,18 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
         </li>
         
         <li>
@@ -527,18 +545,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
         </li>
         
     </ul>

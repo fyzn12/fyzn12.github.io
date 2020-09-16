@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>排序 - fyzn12的博客</title>
+<title>排序算法 - fyzn12的博客</title>
 
 <meta name="description" content="排序算法的简单介绍
  1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &amp;lt; N; i&#43;&#43;) { int min = i; for (int j = i&#43;1;j&amp;lt;N;j&#43;&#43;){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v." /><meta name="keywords"
@@ -22,27 +22,27 @@
 
 
 
-<meta property="og:title" content="排序" />
+<meta property="og:title" content="排序算法" />
 <meta property="og:description" content="排序算法的简单介绍
  1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &lt; N; i&#43;&#43;) { int min = i; for (int j = i&#43;1;j&lt;N;j&#43;&#43;){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://fyzn12.github.io/post/algorithm/selectionsorted/" />
 <meta property="article:published_time" content="2020-06-11T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-06-11T00:00:00+00:00" />
-<meta itemprop="name" content="排序">
+<meta itemprop="name" content="排序算法">
 <meta itemprop="description" content="排序算法的简单介绍
  1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &lt; N; i&#43;&#43;) { int min = i; for (int j = i&#43;1;j&lt;N;j&#43;&#43;){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v.">
 
 
 <meta itemprop="datePublished" content="2020-06-11T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-06-11T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="129">
+<meta itemprop="wordCount" content="291">
 
 
 
 <meta itemprop="keywords" content="选择排序," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="排序"/>
+<meta name="twitter:title" content="排序算法"/>
 <meta name="twitter:description" content="排序算法的简单介绍
  1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &lt; N; i&#43;&#43;) { int min = i; for (int j = i&#43;1;j&lt;N;j&#43;&#43;){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v."/>
 
@@ -80,7 +80,7 @@
                 <div class="post">
     
     <header class="post-header">
-        <h1 class="post-title">排序</h1>
+        <h1 class="post-title">排序算法</h1>
         <p class="post-meta">Jun 11, 2020</p>
     </header>
     <article class="post-content">
@@ -148,6 +148,59 @@
 
     <span class="p">}</span>
 <span class="p">}</span>  </code></pre></div>
+<h1 id="2-快速排序">2 快速排序</h1>
+
+<h2 id="2-1-快速排序的实现">2.1 快速排序的实现</h2>
+
+<h3 id="这里实现的快速排序是采用三分法实现的-找取一个基准值-当小于基准值分一个区间-等于分一个区间-大于分一个区间">这里实现的快速排序是采用三分法实现的，找取一个基准值，当小于基准值分一个区间，等于分一个区间，大于分一个区间</h3>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/quick3.png"/></div> 
+  
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+<span class="cm">/**
+</span><span class="cm"> * @author ZhangRongJun
+</span><span class="cm"> * @version 1.0
+</span><span class="cm"> * @date 2020/9/15 19:58
+</span><span class="cm"> * @description:快速排序
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">QuickSort</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">sort2</span><span class="p">(</span><span class="n">Comparable</span><span class="p">[]</span> <span class="nf">a</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">left</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="nf">lt</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="p">,</span> <span class="n">gt</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+        <span class="c1">//基准值
+</span><span class="c1"></span>        <span class="n">Comparable</span> <span class="nf">v</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">gt</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="nf">tmp</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="na">compareTo</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tmp</span> <span class="o">&lt;</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">exch</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">lt</span><span class="o">++</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">tmp</span> <span class="o">&gt;</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">exch</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">gt</span><span class="o">--</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">sort2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">lt</span> <span class="o">-</span> <span class="n">1</span><span class="p">);</span>
+        <span class="n">sort2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">gt</span> <span class="o">+</span> <span class="n">1</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">exch</span><span class="p">(</span><span class="n">Comparable</span><span class="p">[]</span> <span class="nf">a</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">i</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Comparable</span> <span class="nf">t</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Integer</span><span class="p">[]</span> <span class="nf">a</span> <span class="o">=</span> <span class="p">{</span><span class="n">4</span><span class="p">,</span> <span class="n">5</span><span class="p">,</span> <span class="n">6</span><span class="p">,</span> <span class="n">8</span><span class="p">,</span> <span class="n">1</span><span class="p">,</span> <span class="n">2</span><span class="p">,</span> <span class="n">4</span><span class="p">,</span> <span class="n">3</span><span class="p">,</span> <span class="n">9</span><span class="p">,</span> <span class="n">0</span><span class="p">,</span> <span class="n">1</span><span class="p">,</span> <span class="n">0</span><span class="p">,</span> <span class="n">5</span><span class="p">};</span>
+        <span class="n">sort2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">0</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">Integer</span> <span class="nf">i</span> <span class="o">:</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&#34;  &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>  
+   </code></pre></div>
     </article>
 
     

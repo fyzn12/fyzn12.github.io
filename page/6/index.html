@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-11T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-09-19T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -74,6 +74,15 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/selectionsorted/">排序算法</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                排序算法的简单介绍
+ 1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &lt; N; i++) { int min = i; for (int j = i+1;j&lt;N;j++){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v.
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/">SpringBoot提供的五种异常机制</a></h2>
@@ -126,28 +135,6 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">Mybatis之mapper接口编程</a></h2>
-            <div class="post-meta">Sep 24, 2019</div>
-            <div class="post-excerpt">
-                面向接口编程的思路  创建pojo（javaBean）类
- 创建接口
- 创建接口对应的mapper文件
-注意：
-1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
- 
-  如果用读取文件的方式，则不用在同一个包下如下
-&lt;mappers&gt; &lt;mapper resource=&#34;mapper/*.xml&#34;/&gt; &lt;/mappers&gt; 2）mapper文件的namespace取值必须和接口的全路径相同
-3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
-4）多参传递可以不写parameterType属性
-5）参数的下标书写 &lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
-6）参数的占位书写
-7）参数的声明书写 方法中用@Param声明。
-4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
-InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); } &emsp;
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -175,6 +162,10 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
         </li>
         
         <li>
@@ -227,10 +218,6 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
         
         <li>
             <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="post-link">Spring Boot整合Spring Data JPA</a>
         </li>
         
     </ul>

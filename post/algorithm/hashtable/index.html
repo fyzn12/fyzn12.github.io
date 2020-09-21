@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>哈希检索 - fyzn12的博客</title>
+
+<meta name="description" content="哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key &#43; b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d&#43;1, d&#43;2, &amp;hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)&#43;i)%m ， 其中i=1,2,&amp;hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d&#43;i，其中i取 1^2,-1^2,2^2,-2^2,&amp;hellip;, 公式：d = (h(key)&#43;i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。" /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="哈希检索" />
+<meta property="og:description" content="哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key &#43; b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d&#43;1, d&#43;2, &hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)&#43;i)%m ， 其中i=1,2,&hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d&#43;i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)&#43;i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/algorithm/hashtable/" />
+<meta property="article:published_time" content="2020-09-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-19T00:00:00+00:00" />
+<meta itemprop="name" content="哈希检索">
+<meta itemprop="description" content="哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key &#43; b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d&#43;1, d&#43;2, &hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)&#43;i)%m ， 其中i=1,2,&hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d&#43;i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)&#43;i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。">
+
+
+<meta itemprop="datePublished" content="2020-09-19T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-09-19T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="69">
+
+
+
+<meta itemprop="keywords" content="哈希检索,哈希表," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="哈希检索"/>
+<meta name="twitter:description" content="哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key &#43; b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d&#43;1, d&#43;2, &hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)&#43;i)%m ， 其中i=1,2,&hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d&#43;i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)&#43;i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">哈希检索</h1>
+        <p class="post-meta">Sep 19, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<p>哈希检索算法的深度学习</p>
+</blockquote>
+
+<h1 id="1-相关概念的理解">1 相关概念的理解</h1>
+
+<h2 id="1-1-哈希检索">1.1 哈希检索</h2>
+
+<ol>
+<li>概念：  哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。</li>
+<li>哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key)</li>
+
+<li><p>哈希检索技术必须解决的两个问题</p>
+
+<p>（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；<br />
+（2）在出现地址冲突时采用什么办法解决冲突</p></li>
+</ol>
+
+<h2 id="1-2-哈希函数的构建方法">1.2 哈希函数的构建方法</h2>
+
+<ol>
+<li>直接定址法：h(key) = a*key + b</li>
+<li>数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数；</li>
+<li>平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；<br /></li>
+<li>折叠法</li>
+<li>除留余数法：h(key) = key % p</li>
+<li>余取整法</li>
+<li>随机数法：h(key) = random(key)<br /></li>
+</ol>
+
+<h1 id="2-地址冲突的消解策略">2 地址冲突的消解策略</h1>
+
+<h2 id="2-1-开放地址法">2.1 开放地址法</h2>
+
+<p>把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。</p>
+
+<h3 id="2-1-1-线性探查法">2.1.1 线性探查法</h3>
+
+<ul>
+<li><p>线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d+1, d+2, &hellip;,直到找到一个空闲位置为止。</p></li>
+
+<li><p>公式：（地址）d = (h(key)+i)%m ， 其中i=1,2,&hellip;,m-1</p></li>
+
+<li><p>缺点：线性探查法易造成堆积现象。</p></li>
+</ul>
+
+<h3 id="2-1-2-平方探查法">2.1.2 平方探查法</h3>
+
+<ul>
+<li>平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d+i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;,</li>
+<li>公式：d = (h(key)+i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。<br /></li>
+</ul>
+
+<h3 id="2-1-3-随机探查法">2.1.3 随机探查法</h3>
+
+<ul>
+<li>随机探查法是采用一个随机数作为地址位移来计算下一个位置的地址<br /></li>
+<li>d = (h(key) + r)%m  其中r表示随机数，范围为 1~m-1<br />
+
+<br /></li>
+</ul>
+
+<h2 id="2-2-拉链法">2.2 拉链法</h2>
+
+<ul>
+<li>拉链法是将哈希地址相同的关键字的记录链接到同一个单链表中</li>
+</ul>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/algorithm/linkedlist/">
+            LinkedList以及栈的深度理解
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="post-link">SpringCloud微服务网关技术Zuul</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Zookeeper注册中心</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="post-link">Java基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

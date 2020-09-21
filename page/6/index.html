@@ -85,6 +85,20 @@
         </li>
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/faceword/firstday/">认真刷面试题的第一天</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                牛客网的第一天
+ 1 关于java的异常处理机制：当某个线程抛出OutOfmemberError时，其他线程有可能不收影响 2 关于运算的理解  与运算（&amp;）
+进行运算的两个数据，按二进制位进行“与”运算。 规则：0&amp;0=0; 0&amp;1=0; 1&amp;0=0; 1&amp;1=1; 即： 两位同时为“1”，结果才为“1”，否则为0  或运算（|）
+进行运算的两个数据，按二进制位进行“或”运算。 运算规则：0|0=0； 0|1=1； 1|0=1； 1|1=1； 即 ：参加运算的两个对象只要有一个为1，其值为1。  非运算：~
+1取0，0取1 ~1 = 0, ~0 = 1 ~(10001) = 01110  异或运算（^）
+参加运算的两个数据，按二进制位进行&#34;异或&#34;运算 参加运算的两个对象，如果两个相应位为“异”（值不同），则该位结果为1，否则为0。 考点：交换两个变量的值（不借助第三个变量） 使用异或运算符： 例：a=6,b=5 核心代码： a = a ^ b; b = a ^ b; a = a ^ b;   经过上面的介绍下面这些运算应该就能理解了java中的 |= 、&amp;= 、^= 运算符的理解
+3 filesort 并不是磁盘文件进行排序，只是进行了一个排序操作，但是查询次数过多确实会对性能造成影响 4 在java中是不能强制垃圾回收器立即执行的，system.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/">SpringBoot提供的五种异常机制</a></h2>
             <div class="post-meta">May 12, 2020</div>
             <div class="post-excerpt">
@@ -122,16 +136,6 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
 * 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
 * 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
 /** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/mybatis01/">Mybatis-的配置文件</a></h2>
-            <div class="post-meta">Sep 24, 2019</div>
-            <div class="post-excerpt">
-                Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt; 1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示： &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt; 3.数据库连接的配置
-&lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。
-&lt;!-- 一定是文件格式--&gt; &lt;mappers&gt; &lt;mapper resource=&#34;com/mapper/StudentMapper.xml&#34;/&gt; &lt;/mappers&gt; &lt;/configuration&gt; &lt;mapper&gt;&lt;/mapper&gt;  mapper文件配置以及对应方法的讲解  mapper配置时设置的属性namespace定义一个操作包，是映射文件匹配的重要点；
             </div>
         </li>
         

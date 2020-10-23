@@ -13,7 +13,7 @@
 <title>fyzn12的博客</title>
 
 <meta name="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." /><meta name="keywords"
-  content="fyzn12, 信息安全, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-09-04T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-10-02T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -145,19 +145,51 @@ We&rsquo;ll start with creating a new site with a very basic template.
             </div>
         </li>
         
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/syntax-highlighting/">Syntax Highlighting</a></h2>
+            <div class="post-meta">Aug 30, 2011</div>
+            <div class="post-excerpt">
+                <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">helloWorld</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;Hello, World!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%B9%B6%E5%8F%91/"></a></h2>
+            <div class="post-meta">Jan 01, 0001</div>
+            <div class="post-excerpt">
+                1 并发的原理解析 1.1 并发会造成什么问题  死锁
+ 资源占用 线程安全
+&hellip;
+  1.2 并发的根本问题  原子性
+ 可见性
+ 有序性
+  以上三个是造成线程安全的主要原因
+1.2.1 线程在那里创建的 线程在CPU上开启和执行
+在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI
+1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
+关键值在反射的标识是二进制
+java中8个高级指令 lock unlock &hellip;.
+1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
+volatile解决不了原子性
+            </div>
+        </li>
+        
     </ul>
     
     <div class="pagination">
         <a href="/page/7/" class="previous">PREV</a>
-        <span class="page_number ">8 of 9</span>
-        <a href="/page/9/" class="next">NEXT</a>
+        <span class="page_number ">8 of 8</span>
+        
     </div>
 </div>
             </div>
             
             <div class="col-second">
                 <div class="col-box col-box-author">
-    <img class="avatar" src="img/hand.jpg" alt="fyzn12">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
     <div class="col-box-title name">fyzn12</div>
     <p>哀吾生之须臾,羡长江之无穷.</p>
     <p class="contact">
@@ -175,6 +207,50 @@ We&rsquo;ll start with creating a new site with a very basic template.
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
         </li>
         
@@ -184,50 +260,6 @@ We&rsquo;ll start with creating a new site with a very basic template.
         
         <li>
             <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/" class="post-link">SpringCloud微服务网关技术Zuul</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Zookeeper注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/" class="post-link">Java基础底层</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-link">多线程</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/spring-boot/spring-data/" class="post-link">Spring Boot整合Spring Data JPA</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/redis/jedis/" class="post-link">Redis之java客户端</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/database/" class="post-link">数据库易忘知识点总结</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/" class="post-link">SpringCloud整合Hystrix服务保护框架</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="post-link">微服务架构的介绍</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/" class="post-link">SpringCloud之Eureka2.0服务注册中心</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-link">SpringCloud整合Consul注册中心</a>
         </li>
         
     </ul>

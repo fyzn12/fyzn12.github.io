@@ -6,10 +6,20 @@
     <description>Recent content in design_mode on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/design_mode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>命令模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/command-design/</link>
+      <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/command-design/</guid>
+      <description>  命令模式的简单介绍
+ 1 命令模式的介绍 1.1 命令模式的结构 </description>
+    </item>
     
     <item>
       <title>单例模式</title>

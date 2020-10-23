@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>二叉树 - fyzn12的博客</title>
+
+<meta name="description" content="二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&amp;gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&amp;gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash; 算法实现 &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;
+public class Tree { private class Bitree&amp;lt;T&amp;gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="二叉树" />
+<meta property="og:description" content="二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/algorithm/tree/" />
+<meta property="article:published_time" content="2020-09-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-23T00:00:00+00:00" />
+<meta itemprop="name" content="二叉树">
+<meta itemprop="description" content="二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2.">
+
+
+<meta itemprop="datePublished" content="2020-09-23T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-09-23T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="352">
+
+
+
+<meta itemprop="keywords" content="二叉树," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="二叉树"/>
+<meta name="twitter:description" content="二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">二叉树</h1>
+        <p class="post-meta">Sep 23, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<p>二叉树的简单介绍</p>
+</blockquote>
+
+<h2 id="二叉树的定义">二叉树的定义</h2>
+
+<p>二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。</p>
+
+<h2 id="2-二叉树的遍历">2 二叉树的遍历</h2>
+
+<h3 id="2-1-前序遍历">2.1 前序遍历</h3>
+
+<h4 id="递归实现的算法分析">递归实现的算法分析</h4>
+
+<p>前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则<br />
+1. 访问根节点<br />
+2. 前序遍历根节点的左子树<br />
+3. 前序遍历根节点的右子树</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">Tree</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="nf">class</span> <span class="n">Bitree</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span>
+        <span class="n">T</span> <span class="nf">data</span><span class="p">;</span>
+        <span class="n">Bitree</span> <span class="nf">lchild</span><span class="p">;</span>
+        <span class="n">Bitree</span> <span class="nf">rchild</span><span class="p">;</span>
+        <span class="kd">public</span> <span class="nf">Bitree</span><span class="p">(</span><span class="n">T</span> <span class="nf">data</span><span class="p">,</span><span class="n">Bitree</span> <span class="nf">lchild</span><span class="p">,</span><span class="n">Bitree</span> <span class="nf">rchild</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">lchild</span> <span class="o">=</span> <span class="n">lchild</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">rchild</span> <span class="o">=</span> <span class="n">rchild</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kd">private</span> <span class="nf">void</span> <span class="n">preorder</span><span class="p">(</span><span class="n">Bitree</span> <span class="nf">bt</span><span class="p">){</span>
+        <span class="c1">//设置递归终止条件
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">bt</span><span class="o">==</span><span class="kc">null</span><span class="p">){</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//输出 跟节点
+</span><span class="c1"></span>        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">data</span><span class="p">);</span>
+        <span class="c1">//前序遍历左子树
+</span><span class="c1"></span>        <span class="n">preorder</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">lchild</span><span class="p">);</span>
+        <span class="c1">//前序遍历右子树
+</span><span class="c1"></span>        <span class="n">preorder</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">rchild</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+   </code></pre></div>
+<h3 id="2-2-中序遍历">2.2 中序遍历</h3>
+
+<h4 id="递归实现的算法分析-1">递归实现的算法分析</h4>
+
+<p>中序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则<br />
+1. 中序遍历根节点的左子树<br />
+2. 访问跟节点<br />
+3. 中序遍历根节点的右子树</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">void</span> <span class="n">inorder</span><span class="p">(</span><span class="n">Bitree</span> <span class="nf">bt</span><span class="p">){</span>
+        <span class="c1">//设置递归终止条件
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">bt</span><span class="o">==</span><span class="kc">null</span><span class="p">){</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//1 中序遍历根节点的左子树
+</span><span class="c1"></span>        <span class="n">inorder</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">lchild</span><span class="p">);</span>
+        <span class="c1">//2 访问根节点
+</span><span class="c1"></span>        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">data</span><span class="p">);</span>
+        <span class="c1">//3 中序遍历根节点的右子树
+</span><span class="c1"></span>        <span class="n">inorder</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">rchild</span><span class="p">);</span>
+
+    <span class="p">}</span>  </code></pre></div>
+<h3 id="2-3-后序遍历">2.3 后序遍历</h3>
+
+<h4 id="递归实现的算法分析-2">递归实现的算法分析</h4>
+
+<p>后序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则<br />
+1. 后序遍历根节点的左子树<br />
+2. 后序遍历根节点的右子树
+3. 访问根节点</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">void</span> <span class="n">postorder</span><span class="p">(</span><span class="n">Bitree</span> <span class="nf">bt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//递归终止条件
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">bt</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//后序遍历根节点的左子树
+</span><span class="c1"></span>        <span class="n">postorder</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">lchild</span><span class="p">);</span>
+        <span class="c1">//后序遍历根节点的右子树
+</span><span class="c1"></span>        <span class="n">postorder</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">rchild</span><span class="p">);</span>
+        <span class="c1">//访问根节点
+</span><span class="c1"></span>        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">data</span><span class="p">);</span>
+
+    <span class="p">}</span> 
+ </code></pre></div>
+<h3 id="2-4-二叉树非递归遍历">2.4 二叉树非递归遍历</h3>
+
+<p>递归算法简洁精炼、可读性好、易读懂，但其执行效率较低；</p>
+
+<h4 id="2-4-1-前序遍历非递归算法实现">2.4.1 前序遍历非递归算法实现</h4>
+
+<p>思想：从二叉树的根结点开始，沿左子树一直深入到最左下结点时止，在深入过程中访问遇到的所有结点，并把所遇到的结点的非空右结点孩子进栈；当左子树节点全部处理完之后，从栈顶退出当前最近访问过结点的右孩子，再按上述过程遍历该结点的右子树；如此反复，直到栈空时为止。</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+    <span class="cm">/**
+</span><span class="cm">     * @Param:
+</span><span class="cm">     * @description:非递归算法的前序遍历
+</span><span class="cm">     * @Return
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="nf">void</span> <span class="n">nrpreorder</span><span class="p">(</span><span class="n">Bitree</span> <span class="nf">bt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//定义存储遍历过程中结点的非空右孩子存储的栈
+</span><span class="c1"></span>        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Bitree</span><span class="o">&gt;</span> <span class="nf">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+		
+       <span class="k">while</span><span class="p">(</span><span class="n">stack</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&gt;</span><span class="n">0</span> <span class="o">||</span> <span class="n">bt</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+            <span class="cm">/*当左结点不为空时一直深入到最左下结点*/</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">bt</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">data</span><span class="p">);</span><span class="c1">//访问根节点
+</span><span class="c1"></span>                <span class="k">if</span> <span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">rchild</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">stack</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">rchild</span><span class="p">);</span>  <span class="c1">//将右结点存入栈中
+</span><span class="c1"></span>                <span class="p">}</span>
+                <span class="c1">//继续搜索左结点
+</span><span class="c1"></span>                <span class="n">bt</span> <span class="o">=</span> <span class="n">bt</span><span class="p">.</span><span class="na">lchild</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">bt</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="na">pop</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>  
+  </code></pre></div>
+<h4 id="2-4-2-中序遍历非递归算法实现">2.4.2 中序遍历非递归算法实现</h4>
+
+<p>思想： 沿左子树向下搜索过程中先将所遇结点进栈，待遍历完左子树返回时从栈中退出结点并访问，然后再遍历右子树。</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+ <span class="kd">public</span> <span class="nf">void</span> <span class="n">nrinorder</span><span class="p">(</span><span class="n">Bitree</span> <span class="nf">bt</span><span class="p">){</span>
+        <span class="c1">//定义存储遍历过程中结点的非空右孩子存储的栈
+</span><span class="c1"></span>        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Bitree</span><span class="o">&gt;</span> <span class="nf">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stack</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&gt;</span><span class="n">0</span> <span class="o">||</span> <span class="n">bt</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">bt</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+                <span class="n">stack</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">bt</span><span class="p">);</span>
+                <span class="n">bt</span> <span class="o">=</span> <span class="n">bt</span><span class="p">.</span><span class="na">lchild</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()){</span>
+                <span class="n">bt</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="na">pop</span><span class="p">();</span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">bt</span><span class="p">.</span><span class="na">data</span><span class="p">);</span>
+                <span class="n">bt</span> <span class="o">=</span> <span class="n">bt</span><span class="p">.</span><span class="na">rchild</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>  
+  </code></pre></div>
+<p>具体实战：算法篇 给定一个二叉树，返回它的中序 遍历。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+ <span class="kd">public</span>  <span class="nf">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">inorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="kt">boolean</span> <span class="nf">check</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">stack</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&gt;</span><span class="n">0</span> <span class="o">||</span> <span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+                <span class="n">stack</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()){</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="na">pop</span><span class="p">();</span>
+                <span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">val</span><span class="p">);</span>
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">val</span><span class="p">);</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">list</span><span class="p">;</span>
+    <span class="p">}</span>  </code></pre></div>
+<h4 id="2-4-3-后序遍历非递归算法实现">2.4.3 后序遍历非递归算法实现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> 
+    <span class="kd">public</span> <span class="nf">void</span> <span class="n">nrpostorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">stack1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">stack2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="c1">//保存根节点的的值
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="nf">val</span> <span class="o">=</span> <span class="n">root</span><span class="p">.</span><span class="na">val</span><span class="p">;</span>
+        <span class="n">stack1</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">stack1</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">stack1</span><span class="p">.</span><span class="na">pop</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">stack2</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">stack2</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">stack2</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">stack2</span><span class="p">.</span><span class="na">pop</span><span class="p">().</span><span class="na">val</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+
+    <span class="p">}</span>
+  </code></pre></div>
+<h2 id="3-二叉树的层次遍历">3 二叉树的层次遍历</h2>
+
+<p>所谓层次遍历是指从二叉树的根结点开始从上到下逐层遍历该二叉树，在同一层中从左到右依次访问各个结点。<br />
+由层次遍历的定义可知，层次遍历是从根结点，开始访问，然后访问他的左孩子和右孩子&hellip;。即在访问完某个结点之后，一般不能马上访问他的左孩子和右孩子（除根结点等特殊情况外），需要把它的左右孩子信息保存起来。这种操作正好与队列的操作特点吻合，所以可以利用一个队列结构来实现层次遍历，其做法是：</p>
+
+<ol>
+<li>首先将根结点入队列；<br /></li>
+<li>当队列不空，从队列中取出队头结点访问他，并在其左右结点非空时，把它的左孩子和右孩子结点一次入队列；</li>
+<li>反复执行2.直到队列为空；
+<br />
+
+
+
+
+
+
+
+
+<br /></li>
+</ol>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/design_mode/command-design/">
+            命令模式
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+            求两个有序数组的中位数
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

@@ -6,10 +6,23 @@
     <description>Recent content in SpringBoot on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 02 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/springboot/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SpringBoot结合antd组件Upload实现文件上传</title>
+      <link>https://fyzn12.github.io/post/spring-boot/upload/</link>
+      <pubDate>Fri, 02 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/spring-boot/upload/</guid>
+      <description>项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&amp;#34;/modification-avatar&amp;#34;) public Map&amp;lt;String, Object&amp;gt; update(@RequestParam(value = &amp;#34;file&amp;#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils.</description>
+    </item>
     
     <item>
       <title>SpringBoot优点</title>

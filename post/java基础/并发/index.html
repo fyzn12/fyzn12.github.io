@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title> - fyzn12的博客</title>
+
+<meta name="description" content="1 并发的原理解析 1.1 并发会造成什么问题  死锁
+ 资源占用 线程安全
+&amp;hellip;
+  1.2 并发的根本问题  原子性
+ 可见性
+ 有序性
+  以上三个是造成线程安全的主要原因
+1.2.1 线程在那里创建的 线程在CPU上开启和执行
+在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&amp;ndash;MESI
+1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
+关键值在反射的标识是二进制
+java中8个高级指令 lock unlock &amp;hellip;.
+1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
+volatile解决不了原子性" /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="1 并发的原理解析 1.1 并发会造成什么问题  死锁
+ 资源占用 线程安全
+&hellip;
+  1.2 并发的根本问题  原子性
+ 可见性
+ 有序性
+  以上三个是造成线程安全的主要原因
+1.2.1 线程在那里创建的 线程在CPU上开启和执行
+在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI
+1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
+关键值在反射的标识是二进制
+java中8个高级指令 lock unlock &hellip;.
+1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
+volatile解决不了原子性" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%B9%B6%E5%8F%91/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="1 并发的原理解析 1.1 并发会造成什么问题  死锁
+ 资源占用 线程安全
+&hellip;
+  1.2 并发的根本问题  原子性
+ 可见性
+ 有序性
+  以上三个是造成线程安全的主要原因
+1.2.1 线程在那里创建的 线程在CPU上开启和执行
+在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI
+1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
+关键值在反射的标识是二进制
+java中8个高级指令 lock unlock &hellip;.
+1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
+volatile解决不了原子性">
+
+
+
+<meta itemprop="wordCount" content="34">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="1 并发的原理解析 1.1 并发会造成什么问题  死锁
+ 资源占用 线程安全
+&hellip;
+  1.2 并发的根本问题  原子性
+ 可见性
+ 有序性
+  以上三个是造成线程安全的主要原因
+1.2.1 线程在那里创建的 线程在CPU上开启和执行
+在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI
+1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
+关键值在反射的标识是二进制
+java中8个高级指令 lock unlock &hellip;.
+1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
+volatile解决不了原子性"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title"></h1>
+        <p class="post-meta">Jan 01, 0001</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<h2 id="1-并发的原理解析">1 并发的原理解析</h2>
+
+<h3 id="1-1-并发会造成什么问题">1.1 并发会造成什么问题</h3>
+
+<ol>
+<li>死锁<br /></li>
+<li>资源占用</li>
+<li>线程安全<br />
+&hellip;<br />
+<br /></li>
+</ol>
+
+<h3 id="1-2-并发的根本问题">1.2 并发的根本问题</h3>
+
+<ol>
+<li>原子性<br /></li>
+<li>可见性<br /></li>
+<li>有序性<br /></li>
+</ol>
+
+<p>以上三个是造成线程安全的主要原因</p>
+
+<h4 id="1-2-1-线程在那里创建的">1.2.1 线程在那里创建的</h4>
+
+<p>线程在CPU上开启和执行<br />
+在硬件上面CPU的缓存一致性即可见性
+单核CPU没有可见性
+在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI</p>
+
+<h4 id="1-2-2-java直接跟硬件交互的是什么">1.2.2 java直接跟硬件交互的是什么</h4>
+
+<p>java直接跟硬件交互的是JVM</p>
+
+<p>关键值在反射的标识是二进制</p>
+
+<p>java中8个高级指令 lock  unlock &hellip;.</p>
+
+<h4 id="1-2-3-volatile解决可见性的原理-当然他也解决了有序性">1.2.3 volatile解决可见性的原理，当然他也解决了有序性</h4>
+
+<p>需要了解指令重排序，指令流 数据量 控制流</p>
+
+<p>volatile解决不了原子性</p>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/syntax-highlighting/">
+            Syntax Highlighting
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

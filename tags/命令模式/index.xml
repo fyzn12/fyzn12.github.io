@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>命令模式 on fyzn12的博客</title>
+    <link>https://fyzn12.github.io/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 命令模式 on fyzn12的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 21 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>命令模式</title>
+      <link>https://fyzn12.github.io/post/design_mode/command-design/</link>
+      <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/design_mode/command-design/</guid>
+      <description>  命令模式的简单介绍
+ 1 命令模式的介绍 1.1 命令模式的结构 </description>
+    </item>
+    
+  </channel>
+</rss>

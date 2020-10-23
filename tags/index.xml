@@ -6,10 +6,46 @@
     <description>Recent content in Tags on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Upload</title>
+      <link>https://fyzn12.github.io/tags/upload/</link>
+      <pubDate>Fri, 02 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/upload/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>中位数</title>
+      <link>https://fyzn12.github.io/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/</link>
+      <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>二叉树</title>
+      <link>https://fyzn12.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>命令模式</title>
+      <link>https://fyzn12.github.io/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>哈希检索</title>

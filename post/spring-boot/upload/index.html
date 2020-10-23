@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>SpringBoot结合antd组件Upload实现文件上传 - fyzn12的博客</title>
+
+<meta name="description" content="项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&amp;#34;/modification-avatar&amp;#34;) public Map&amp;lt;String, Object&amp;gt; update(@RequestParam(value = &amp;#34;file&amp;#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="SpringBoot结合antd组件Upload实现文件上传" />
+<meta property="og:description" content="项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&#34;/modification-avatar&#34;) public Map&lt;String, Object&gt; update(@RequestParam(value = &#34;file&#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/spring-boot/upload/" />
+<meta property="article:published_time" content="2020-10-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-02T00:00:00+00:00" />
+<meta itemprop="name" content="SpringBoot结合antd组件Upload实现文件上传">
+<meta itemprop="description" content="项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&#34;/modification-avatar&#34;) public Map&lt;String, Object&gt; update(@RequestParam(value = &#34;file&#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils.">
+
+
+<meta itemprop="datePublished" content="2020-10-02T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-10-02T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="631">
+
+
+
+<meta itemprop="keywords" content="Upload," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SpringBoot结合antd组件Upload实现文件上传"/>
+<meta name="twitter:description" content="项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&#34;/modification-avatar&#34;) public Map&lt;String, Object&gt; update(@RequestParam(value = &#34;file&#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">SpringBoot结合antd组件Upload实现文件上传</h1>
+        <p class="post-meta">Oct 02, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<p>项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中<br />
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题<br />
+前后端分离，后台使用SpringBoot  前端采用antd pro react</p>
+</blockquote>
+
+<h2 id="一-后端编写业务代码过程中遇到的错误点">一、  后端编写业务代码过程中遇到的错误点</h2>
+
+<h3 id="1-配置springboot文件上传">1. 配置SpringBoot文件上传</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  
+## ******************************* 配置文件上传 ***********************************
+# 是否启用SpringMVC多分部上传功能
+spring.servlet.multipart.enabled=true
+# 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小
+spring.servlet.multipart.file-size-threshold=0
+# 指定默认上传的文件夹
+# spring.servlet.multipart.location=/upload
+# 限制单个文件最大大小
+spring.servlet.multipart.max-file-size=1MB
+# 限制所有文件最大大小
+spring.servlet.multipart.max-request-size=10MB
+# 是否延迟多部件文件请求的参数和文件的解析
+spring.servlet.multipart.resolve-lazily=false     
+  
+  
+## ***********************  配置静态资源文件  读取静态文件的依赖   ***************************************
+spring.resources.static-locations=classpath:/static/
+# 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的  
+# application.properties配置文件中设置静态资源路径，如下所示：
+# 设置静态资源路径，多个以逗号分隔
+# spring.resources.static-locations=classpath:static/,file:static/
+spring.mvc.static-path-pattern=/static/**
+  </code></pre></div>
+<ul>
+<li>上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置<br /></li>
+<li>以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔  spring.resources.static-locations=classpath:static/,file:static/
+
+<br /></li>
+</ul>
+
+<h3 id="2-后端采用springmvc的multipartfile接受前端发过来的参数">2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&#34;/modification-avatar&#34;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="nf">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">update</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;file&#34;</span><span class="p">,</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="n">MultipartFile</span> <span class="nf">file</span><span class="p">,</span> <span class="n">HttpServletRequest</span> <span class="nf">request</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">FileNotFoundException</span> <span class="p">{</span>
+        <span class="n">User</span> <span class="nf">user</span> <span class="o">=</span> <span class="n">getUserUtils</span><span class="p">.</span><span class="na">getUserByRequest</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">map</span> <span class="o">=</span> <span class="n">personalService</span><span class="p">.</span><span class="na">modifyUserAvatar</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">map</span><span class="p">;</span>
+    <span class="p">}</span>  
+ </code></pre></div>
+<ul>
+<li>使用@RequestParam注解是为了进行参数绑定，这个位置只要保证前端传回的文件名为file时，该注解可以去掉；</li>
+<li>添加required = false是标明该参数是非必要的条件，避免前端非法访问后台时报500 error  ；
+<br /></li>
+</ul>
+
+<h3 id="3-编写service业务代码">3. 编写service业务代码</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+ <span class="cm">/**
+</span><span class="cm">     * @Param: file  前端上传过来的图片
+</span><span class="cm">     * @Param: request 用户发送的请求，主要包含了用户的登录信息以及权限
+</span><span class="cm">     * @Param: user 当前用户
+</span><span class="cm">     * @description:TODO
+</span><span class="cm">     * 修改用户头像
+</span><span class="cm">     * @Return
+</span><span class="cm">    */</span>
+    <span class="nd">@Transactional</span><span class="p">(</span><span class="n">isolation</span> <span class="o">=</span> <span class="n">Isolation</span><span class="p">.</span><span class="na">REPEATABLE_READ</span><span class="p">,</span><span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRED</span><span class="p">,</span><span class="n">rollbackFor</span> <span class="o">=</span> <span class="p">{</span><span class="n">Exception</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="n">RuntimeException</span><span class="p">.</span><span class="na">class</span><span class="p">})</span>
+    <span class="kd">public</span> <span class="nf">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">modifyUserAvatar</span><span class="p">(</span><span class="n">MultipartFile</span> <span class="nf">file</span><span class="p">,</span> <span class="n">HttpServletRequest</span> <span class="nf">request</span><span class="p">,</span> <span class="n">User</span> <span class="nf">user</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">FileNotFoundException</span> <span class="p">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">2</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">file</span><span class="o">!=</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">user</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+               <span class="c1">// 上传到了当前服务器的相对路径下 但是当前服务器是内置tomcat  相对路径如下
+</span><span class="c1"></span>               <span class="c1">// String path = request.getServletContext().getRealPath(&#34;static/user/picture/&#34; + user.getUserName());
+</span><span class="c1"></span>            <span class="n">String</span> <span class="nf">path</span> <span class="o">=</span> <span class="n">ResourceUtils</span><span class="p">.</span><span class="na">getURL</span><span class="p">(</span><span class="s">&#34;classpath:&#34;</span><span class="p">).</span><span class="na">getPath</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;static/user/picture/&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="p">.</span><span class="na">getUserName</span><span class="p">();</span>
+            <span class="c1">// 上传文件
+</span><span class="c1"></span>            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">map</span> <span class="o">=</span> <span class="n">UploadPicUtils</span><span class="p">.</span><span class="na">uploadPicture</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+            <span class="c1">// 根据工具类中标识的返回状态码，判断是否上传成功
+</span><span class="c1"></span>            <span class="k">if</span> <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;status&#34;</span><span class="p">)</span><span class="o">==</span><span class="n">0</span><span class="p">){</span>
+                <span class="c1">// 返回值为0代表上传成功
+</span><span class="c1"></span>                <span class="c1">//修改数据库记录
+</span><span class="c1"></span>                <span class="n">User</span> <span class="nf">user1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="p">();</span>
+                <span class="n">user1</span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span>
+                <span class="n">user1</span><span class="p">.</span><span class="na">setUserName</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getUserName</span><span class="p">());</span>
+                <span class="n">user1</span><span class="p">.</span><span class="na">setUserPic</span><span class="p">((</span><span class="n">String</span><span class="p">)</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;url&#34;</span><span class="p">));</span>
+                <span class="n">User</span> <span class="nf">updateUser</span> <span class="o">=</span> <span class="n">userService</span><span class="p">.</span><span class="na">updateUser</span><span class="p">(</span><span class="n">user1</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">updateUser</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+                    <span class="n">result</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;status&#34;</span><span class="p">,</span><span class="s">&#34;success&#34;</span><span class="p">);</span>
+                    <span class="c1">//删除原来的头像
+</span><span class="c1"></span>                    <span class="n">DeletePicUtils</span><span class="p">.</span><span class="na">delect</span><span class="p">(</span><span class="n">ResourceUtils</span><span class="p">.</span><span class="na">getURL</span><span class="p">(</span><span class="s">&#34;classpath:&#34;</span><span class="p">).</span><span class="na">getPath</span><span class="p">()</span><span class="o">+</span><span class="n">user</span><span class="p">.</span><span class="na">getUserPic</span><span class="p">());</span>
+                <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+                    <span class="n">result</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;status&#34;</span><span class="p">,</span><span class="s">&#34;error&#34;</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+                <span class="n">result</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;status&#34;</span><span class="p">,</span><span class="s">&#34;error&#34;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+            <span class="n">result</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;status&#34;</span><span class="p">,</span><span class="s">&#34;error&#34;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="p">}</span>  
+  </code></pre></div>
+<ul>
+<li>编写service业务代码中用到了自定义的图片上传工具，这里不是重点不重点介绍<br /></li>
+
+<li><p>在传统的单点架构中，即SSM项目中，获取当前项目的相对路径是通过以下方式获取</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="nf">path</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="na">getServletContext</span><span class="p">().</span><span class="na">getRealPath</span><span class="p">(</span><span class="s">&#34;static/user/picture/&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="p">.</span><span class="na">getUserName</span><span class="p">());</span>  </code></pre></div></li>
+
+<li><p>在SpringBoot的项目中通过以上方式是得到以下路径</p></li>
+</ul>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/tomcat-url.png"/></div> 
+  
+
+<ul>
+<li>分析，springboot是使用的是内置的tomcat，因此通过ServletContext获取的并不是当前项目所在的相对路径，而是tomcat当前执行的相对路径<br /></li>
+<li>解决： 采用 ResourceUtils.getURL(&ldquo;classpath:&ldquo;).getPath()这种方式即可获取当前项目的相对路径<br /></li>
+</ul>
+
+<h2 id="二-前端编写业务代码过程中遇到的错误点">二、  前端编写业务代码过程中遇到的错误点</h2>
+
+<h3 id="1-解决请求携带header">1. 解决请求携带header</h3>
+
+<h5 id="由于后端将用户的token-以及用户的权限角色保存在了header中-因此在前端每一次请求时都需要加上相对应的header-根据这个需求编写每一次的相应和请求的前端拦截器">由于后端将用户的token 以及用户的权限角色保存在了header中，，因此在前端每一次请求时都需要加上相对应的header，根据这个需求编写每一次的相应和请求的前端拦截器</h5>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="cm">/**
+</span><span class="cm"> * request 网络请求工具
+</span><span class="cm"> * 更详细的 api 文档: https://github.com/umijs/umi-request
+</span><span class="cm"> */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">extend</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;umi-request&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">notification</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;antd&#39;</span><span class="p">;</span>
+
+
+<span class="k">const</span> <span class="nx">codeMessage</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="mi">200</span><span class="o">:</span> <span class="s1">&#39;服务器成功返回请求的数据。&#39;</span><span class="p">,</span>
+  <span class="mi">201</span><span class="o">:</span> <span class="s1">&#39;新建或修改数据成功。&#39;</span><span class="p">,</span>
+  <span class="mi">202</span><span class="o">:</span> <span class="s1">&#39;一个请求已经进入后台排队（异步任务）。&#39;</span><span class="p">,</span>
+  <span class="mi">204</span><span class="o">:</span> <span class="s1">&#39;删除数据成功。&#39;</span><span class="p">,</span>
+  <span class="mi">400</span><span class="o">:</span> <span class="s1">&#39;发出的请求有错误，服务器没有进行新建或修改数据的操作。&#39;</span><span class="p">,</span>
+  <span class="mi">401</span><span class="o">:</span> <span class="s1">&#39;用户没有权限（令牌、用户名、密码错误）。&#39;</span><span class="p">,</span>
+  <span class="mi">403</span><span class="o">:</span> <span class="s1">&#39;用户访问成功，但是未授权，访问是被禁止的。&#39;</span><span class="p">,</span>
+  <span class="mi">404</span><span class="o">:</span> <span class="s1">&#39;发出的请求针对的是不存在的记录，服务器没有进行操作。&#39;</span><span class="p">,</span>
+  <span class="mi">406</span><span class="o">:</span> <span class="s1">&#39;请求的格式不可得。&#39;</span><span class="p">,</span>
+  <span class="mi">410</span><span class="o">:</span> <span class="s1">&#39;请求的资源被永久删除，且不会再得到的。&#39;</span><span class="p">,</span>
+  <span class="mi">422</span><span class="o">:</span> <span class="s1">&#39;当创建一个对象时，发生一个验证错误。&#39;</span><span class="p">,</span>
+  <span class="mi">500</span><span class="o">:</span> <span class="s1">&#39;服务器发生错误，请检查服务器。&#39;</span><span class="p">,</span>
+  <span class="mi">502</span><span class="o">:</span> <span class="s1">&#39;网关错误。&#39;</span><span class="p">,</span>
+  <span class="mi">503</span><span class="o">:</span> <span class="s1">&#39;服务不可用，服务器暂时过载或维护。&#39;</span><span class="p">,</span>
+  <span class="mi">504</span><span class="o">:</span> <span class="s1">&#39;网关超时。&#39;</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="cm">/**
+</span><span class="cm"> * 异常处理程序
+</span><span class="cm"> */</span>
+
+<span class="k">const</span> <span class="nx">errorHandler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">{</span> <span class="nx">response</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">error</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">response</span> <span class="o">&amp;&amp;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">errorText</span> <span class="o">=</span> <span class="nx">codeMessage</span><span class="p">[</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span> <span class="o">||</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusText</span><span class="p">;</span>
+    <span class="k">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">url</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span><span class="p">;</span>
+    <span class="nx">notification</span><span class="p">.</span><span class="nx">error</span><span class="p">({</span>
+      <span class="nx">message</span><span class="o">:</span> <span class="sb">`请求错误 </span><span class="si">${</span><span class="nx">status</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="nx">description</span><span class="o">:</span> <span class="nx">errorText</span><span class="p">,</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">notification</span><span class="p">.</span><span class="nx">error</span><span class="p">({</span>
+      <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;您的网络发生异常，无法连接服务器&#39;</span><span class="p">,</span>
+      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;网络异常&#39;</span><span class="p">,</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="cm">/**
+</span><span class="cm"> * 配置request请求时的默认参数
+</span><span class="cm"> */</span>
+
+<span class="k">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">errorHandler</span><span class="p">,</span>
+  <span class="c1">// 默认错误处理
+</span><span class="c1"></span>  <span class="nx">credentials</span><span class="o">:</span> <span class="s1">&#39;include&#39;</span><span class="p">,</span> <span class="c1">// 默认请求是否带上cookie
+</span><span class="c1"></span><span class="p">});</span>
+<span class="c1">// request拦截器, 改变url 或 options.
+</span><span class="c1"></span><span class="nx">request</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+
+  <span class="c1">// eslint-disable-next-line @typescript-eslint/naming-convention
+</span><span class="c1"></span>  <span class="k">const</span> <span class="nx">c_token</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&#34;Authorization&#34;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="nx">authority</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&#34;authority&#34;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">c_token</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Accept&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Authorization&#39;</span><span class="o">:</span> <span class="nx">c_token</span><span class="p">,</span>
+      <span class="s1">&#39;authority&#39;</span><span class="o">:</span><span class="nx">authority</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">{</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="p">,</span>
+        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span><span class="nx">options</span><span class="p">,</span> <span class="nx">headers</span><span class="o">:</span> <span class="nx">headers</span> <span class="p">},</span>
+      <span class="p">}</span>
+    <span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// eslint-disable-next-line @typescript-eslint/no-unused-vars
+</span><span class="c1"></span>    <span class="k">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Accept&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Authorization&#39;</span><span class="o">:</span> <span class="nx">c_token</span><span class="p">,</span>
+      <span class="s1">&#39;authority&#39;</span><span class="o">:</span><span class="nx">authority</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">{</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="p">,</span>
+        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span><span class="nx">options</span> <span class="p">},</span>
+      <span class="p">}</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="p">})</span>
+
+<span class="c1">// response拦截器, 处理response
+</span><span class="c1"></span><span class="nx">request</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">response</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;Authorization&#34;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="nx">authority</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;authority&#34;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&#34;Authorization&#34;</span><span class="p">,</span> <span class="nx">token</span><span class="p">);</span>
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&#34;authority&#34;</span><span class="p">,</span> <span class="nx">authority</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">request</span><span class="p">;</span>
+  
+</code></pre></div>
+<ul>
+<li>以上是request完整的封装代码，在前端每一次service中请求后端时必须使用上面封装的request进行请求<br /></li>
+<li>通过上面请求拦截器和相应拦截器将会将用户token和权限保存在header中，满足每次请求携带header的业务需求<br /></li>
+</ul>
+
+<h3 id="2-实现图片上传">2.实现图片上传</h3>
+
+<h5 id="分析如下">分析如下：</h5>
+
+<ul>
+<li>使用antd组件Upload可以方便实现文件的上传功能<br /></li>
+<li>上传头像时这里考虑两种情况： 一种采用Upload默认的表单提交，，但是变淡提交时没有携带header，因此考虑解决携带header；另外一种是采用自定义提交规则，但是这个位置有两个考虑的点，1. 提交的Content-Type类型必须为  multipart/form-data 2. 携带header<br /></li>
+
+<li><p>另外还有一个主意点，采用自定义提交时不能使用antd封装的request进行请求，因为antd封装的request封装的contentType是application/json类型。</p></li>
+
+<li><p>下面介绍采用默认表单提交的方式进行提交</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"> 
+<span class="k">const</span> <span class="nx">AvatarView</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">avatar</span> <span class="p">,</span><span class="nx">_this</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">(</span>
+<span class="o">&lt;&gt;</span>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">avatar_title</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">头像</span><span class="err">↓</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">avatar</span><span class="p">}</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="nx">_this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">imageUrl</span><span class="o">===</span><span class="kc">undefined</span><span class="o">?</span><span class="nx">avatar</span><span class="o">:</span><span class="nx">_this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">imageUrl</span><span class="p">}</span>  <span class="nx">alt</span><span class="o">=</span><span class="s2">&#34;头像&#34;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="nx">Upload</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;file&#34;</span>
+        <span class="nx">showUploadList</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span>
+       <span class="c1">// listType=&#34;picture-card&#34;
+</span><span class="c1"></span>        <span class="nx">action</span><span class="o">=</span><span class="s2">&#34;/api/user/modification-avatar&#34;</span>
+        <span class="nx">accept</span><span class="o">=</span><span class="s2">&#34;image/png,image/gif,image/jpeg&#34;</span>
+        <span class="nx">beforeUpload</span><span class="o">=</span><span class="p">{</span><span class="nx">beforeUpload</span><span class="p">}</span>
+        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">_this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span>
+        <span class="nx">headers</span><span class="o">=</span><span class="p">{{</span>
+          <span class="nx">Authorization</span><span class="o">:</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&#34;Authorization&#34;</span><span class="p">),</span>
+          <span class="nx">authority</span><span class="o">:</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&#34;authority&#34;</span><span class="p">),</span>
+        <span class="p">}}</span>
+<span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">button_view</span><span class="p">}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Button</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">UploadOutlined</span> <span class="o">/&gt;</span>
+      <span class="nx">更换头像</span>
+    <span class="o">&lt;</span><span class="err">/Button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/Upload&gt;</span>
+<span class="o">&lt;</span><span class="err">/&gt;</span>
+<span class="p">);</span>  
+</code></pre></div></li>
+
+<li><p>在上面Upload组件中设置了对应的header相应头，解决了上面携带header的问题</p></li>
+
+<li><p>下面介绍一下简单的上传前的验证</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js">  
+<span class="k">const</span> <span class="nx">getBase64</span> <span class="o">=</span> <span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">const</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">));</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">img</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">const</span> <span class="nx">beforeUpload</span> <span class="o">=</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">const</span> <span class="nx">isJpgOrPng</span> <span class="o">=</span> <span class="nx">file</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;image/jpeg&#39;</span> <span class="o">||</span> <span class="nx">file</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;image/png&#39;</span><span class="o">||</span> <span class="nx">file</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;image/gif&#39;</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isJpgOrPng</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">message</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;You can only upload JPG/PNG file!&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">const</span> <span class="nx">isLt2M</span> <span class="o">=</span> <span class="nx">file</span><span class="p">.</span><span class="nx">size</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isLt2M</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">message</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Image must smaller than 2MB!&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="nx">isJpgOrPng</span> <span class="o">&amp;&amp;</span> <span class="nx">isLt2M</span><span class="p">;</span>
+<span class="p">}</span>   
+   
+  
+<span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">info</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">info</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;uploading&#39;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">loading</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">info</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;done&#39;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">getBase64</span><span class="p">(</span><span class="nx">info</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">originFileObj</span><span class="p">,</span> <span class="nx">imageUrl</span> <span class="p">=&gt;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">imageUrl</span><span class="p">,</span>
+      <span class="nx">loading</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}),</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+<span class="p">};</span>  
+  
+</code></pre></div></li>
+</ul>
+
+<h3 id="3-至此前后端分离项目实现简单头像修改的功能就实现了-做一个简单记录">3. 至此前后端分离项目实现简单头像修改的功能就实现了，做一个简单记录</h3>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+            求两个有序数组的中位数
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

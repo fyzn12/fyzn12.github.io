@@ -347,41 +347,40 @@ spring.mvc.static-path-pattern=/static/**
 
 <ul>
 <li>使用antd组件Upload可以方便实现文件的上传功能<br /></li>
-<li>上传头像时这里考虑两种情况： 一种采用Upload默认的表单提交，，但是变淡提交时没有携带header，因此考虑解决携带header；另外一种是采用自定义提交规则，但是这个位置有两个考虑的点，1. 提交的Content-Type类型必须为  multipart/form-data 2. 携带header<br /></li>
+<li>上传头像时这里考虑两种情况： 一种采用Upload默认的表单提交，，但是表单提交时没有携带header，因此考虑解决携带header；另外一种是采用自定义提交规则，但是这个位置有两个考虑的点，1. 提交的Content-Type类型必须为  multipart/form-data 2. 携带header<br /></li>
 
 <li><p>另外还有一个主意点，采用自定义提交时不能使用antd封装的request进行请求，因为antd封装的request封装的contentType是application/json类型。</p></li>
 
 <li><p>下面介绍采用默认表单提交的方式进行提交</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"> 
-<span class="k">const</span> <span class="nx">AvatarView</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">avatar</span> <span class="p">,</span><span class="nx">_this</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">(</span>
-<span class="o">&lt;&gt;</span>
-<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">avatar_title</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">头像</span><span class="err">↓</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">avatar</span><span class="p">}</span><span class="o">&gt;</span>
-   <span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="nx">_this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">imageUrl</span><span class="o">===</span><span class="kc">undefined</span><span class="o">?</span><span class="nx">avatar</span><span class="o">:</span><span class="nx">_this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">imageUrl</span><span class="p">}</span>  <span class="nx">alt</span><span class="o">=</span><span class="s2">&#34;头像&#34;</span> <span class="o">/&gt;</span>
-<span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="o">&lt;</span><span class="nx">Upload</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;file&#34;</span>
-        <span class="nx">showUploadList</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span>
-       <span class="c1">// listType=&#34;picture-card&#34;
-</span><span class="c1"></span>        <span class="nx">action</span><span class="o">=</span><span class="s2">&#34;/api/user/modification-avatar&#34;</span>
-        <span class="nx">accept</span><span class="o">=</span><span class="s2">&#34;image/png,image/gif,image/jpeg&#34;</span>
-        <span class="nx">beforeUpload</span><span class="o">=</span><span class="p">{</span><span class="nx">beforeUpload</span><span class="p">}</span>
-        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">_this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span>
-        <span class="nx">headers</span><span class="o">=</span><span class="p">{{</span>
-          <span class="nx">Authorization</span><span class="o">:</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&#34;Authorization&#34;</span><span class="p">),</span>
-          <span class="nx">authority</span><span class="o">:</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&#34;authority&#34;</span><span class="p">),</span>
-        <span class="p">}}</span>
-<span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"> 
+const AvatarView = ({ avatar ,_this}) =&gt; (
+<span class="err">&lt;</span>&gt;
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">{styles.avatar_title}</span><span class="p">&gt;</span>头像↓<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">{styles.avatar}</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">{_this.state.imageUrl===undefined?avatar:_this.state.imageUrl}</span>  <span class="na">alt</span><span class="o">=</span><span class="s">&#34;头像&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">Upload</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;file&#34;</span>
+        <span class="na">showUploadList</span><span class="o">=</span><span class="s">{false}</span>
+       <span class="err">//</span> <span class="na">listType</span><span class="o">=</span><span class="s">&#34;picture-card&#34;</span>
+        <span class="na">action</span><span class="o">=</span><span class="s">&#34;/api/user/modification-avatar&#34;</span>
+        <span class="na">accept</span><span class="o">=</span><span class="s">&#34;image/png,image/gif,image/jpeg&#34;</span>
+        <span class="na">beforeUpload</span><span class="o">=</span><span class="s">{beforeUpload}</span>
+        <span class="na">onChange</span><span class="o">=</span><span class="s">{_this.handleChange}</span>
+        <span class="na">headers</span><span class="o">=</span><span class="s">{{</span>
+          <span class="na">Authorization:</span> <span class="na">localStorage</span><span class="err">.</span><span class="na">getItem</span><span class="err">(&#34;</span><span class="na">Authorization</span><span class="err">&#34;),</span>
+          <span class="na">authority:</span> <span class="na">localStorage</span><span class="err">.</span><span class="na">getItem</span><span class="err">(&#34;</span><span class="na">authority</span><span class="err">&#34;),</span>
+        <span class="err">}}</span>
+<span class="p">&gt;</span>
 
-  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">button_view</span><span class="p">}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Button</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">UploadOutlined</span> <span class="o">/&gt;</span>
-      <span class="nx">更换头像</span>
-    <span class="o">&lt;</span><span class="err">/Button&gt;</span>
-  <span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="o">&lt;</span><span class="err">/Upload&gt;</span>
-<span class="o">&lt;</span><span class="err">/&gt;</span>
-<span class="p">);</span>  
-</code></pre></div></li>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">{styles.button_view}</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">Button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">UploadOutlined</span> <span class="p">/&gt;</span>
+      更换头像
+    <span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">Upload</span><span class="p">&gt;</span>
+<span class="err">&lt;</span>/&gt;
+);  </code></pre></div></li>
 
 <li><p>在上面Upload组件中设置了对应的header相应头，解决了上面携带header的问题</p></li>
 

@@ -76,6 +76,16 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/mybatis/mybatis01/">Mybatis-的配置文件</a></h2>
+            <div class="post-meta">Sep 24, 2019</div>
+            <div class="post-excerpt">
+                Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt; 1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示： &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt; 3.数据库连接的配置
+&lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。
+&lt;!-- 一定是文件格式--&gt; &lt;mappers&gt; &lt;mapper resource=&#34;com/mapper/StudentMapper.xml&#34;/&gt; &lt;/mappers&gt; &lt;/configuration&gt; &lt;mapper&gt;&lt;/mapper&gt;  mapper文件配置以及对应方法的讲解  mapper配置时设置的属性namespace定义一个操作包，是映射文件匹配的重要点；
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">Mybatis之mapper接口编程</a></h2>
             <div class="post-meta">Sep 24, 2019</div>
             <div class="post-excerpt">
@@ -156,33 +166,12 @@ We&rsquo;ll start with creating a new site with a very basic template.
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%B9%B6%E5%8F%91/"></a></h2>
-            <div class="post-meta">Jan 01, 0001</div>
-            <div class="post-excerpt">
-                1 并发的原理解析 1.1 并发会造成什么问题  死锁
- 资源占用 线程安全
-&hellip;
-  1.2 并发的根本问题  原子性
- 可见性
- 有序性
-  以上三个是造成线程安全的主要原因
-1.2.1 线程在那里创建的 线程在CPU上开启和执行
-在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI
-1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
-关键值在反射的标识是二进制
-java中8个高级指令 lock unlock &hellip;.
-1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
-volatile解决不了原子性
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/7/" class="previous">PREV</a>
-        <span class="page_number ">8 of 8</span>
-        
+        <span class="page_number ">8 of 9</span>
+        <a href="/page/9/" class="next">NEXT</a>
     </div>
 </div>
             </div>

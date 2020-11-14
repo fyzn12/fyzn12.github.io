@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on fyzn12的博客</title>
+    <link>https://fyzn12.github.io/categories/java/</link>
+    <description>Recent content in java on fyzn12的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>JVM</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/</guid>
+      <description>jvm初学篇
+ 1 JVM的启动流程  通过编辑器将java代码编辑好之后编译成java字节码，也就是.class文件；
+ 装载JVM 会通过当前路径或者系统的版本去寻找 JVM.cfg文件； 通过JVM.cfg文件寻找到 JVM.dll文件 &amp;mdash;该文件是JVM的具体实现；
+ 初始化本地接口 JNI &amp;mdash;如Env接口 JNI接口的作用就是负责将.class文件装载到JVM中；
+ 找到main方法并执行
+   2 JVM的内存分区  1 PC寄存器  &amp;mdash; 每个线程拥有一个PC寄存器
+ &amp;mdash; 在线程创建时 创建（PC寄存器）
+ &amp;mdash; 指向下一条指令的地址
+ &amp;mdash; 执行本地方法时，PC的值为undefined（未定义）  2 方法区  &amp;mdash; 保存装载的类信息
+ 类型的常量池 &amp;mdash;&amp;ndash; 这一点得注意 ： 在JDK6时，String等常量信息是保存在方法区，但是在JDK7时，已经移到了堆； 字段、方法信息
+ 方法字节码
+  &amp;mdash; 线程共享
+ &amp;mdash; 通常和永久区（Perm：保存一些相对来说静止稳定的数据）关联在一起
+  3 Java堆  &amp;mdash; 和程序开发密切相关</description>
+    </item>
+    
+  </channel>
+</rss>

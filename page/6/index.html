@@ -85,6 +85,27 @@
         </li>
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/">JVM</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                jvm初学篇
+ 1 JVM的启动流程  通过编辑器将java代码编辑好之后编译成java字节码，也就是.class文件；
+ 装载JVM 会通过当前路径或者系统的版本去寻找 JVM.cfg文件； 通过JVM.cfg文件寻找到 JVM.dll文件 &mdash;该文件是JVM的具体实现；
+ 初始化本地接口 JNI &mdash;如Env接口 JNI接口的作用就是负责将.class文件装载到JVM中；
+ 找到main方法并执行
+   2 JVM的内存分区  1 PC寄存器  &mdash; 每个线程拥有一个PC寄存器
+ &mdash; 在线程创建时 创建（PC寄存器）
+ &mdash; 指向下一条指令的地址
+ &mdash; 执行本地方法时，PC的值为undefined（未定义）  2 方法区  &mdash; 保存装载的类信息
+ 类型的常量池 &mdash;&ndash; 这一点得注意 ： 在JDK6时，String等常量信息是保存在方法区，但是在JDK7时，已经移到了堆； 字段、方法信息
+ 方法字节码
+  &mdash; 线程共享
+ &mdash; 通常和永久区（Perm：保存一些相对来说静止稳定的数据）关联在一起
+  3 Java堆  &mdash; 和程序开发密切相关
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">Redis基础知识</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
@@ -115,20 +136,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/selectionsorted/">排序算法</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                排序算法的简单介绍
- 1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &lt; N; i++) { int min = i; for (int j = i+1;j&lt;N;j++){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/5/" class="previous">PREV</a>
-        <span class="page_number ">6 of 8</span>
+        <span class="page_number ">6 of 9</span>
         <a href="/page/7/" class="next">NEXT</a>
     </div>
 </div>

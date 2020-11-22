@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>mysql基础底层 - fyzn12的博客</title>
+
+<meta name="description" content="MYSQL的一些基础底层
+ 1. 数据库应用的分类  一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；
+另一类OLAP：在线分析处理，如数据仓库、数据集市； 对于OLAP的应用，分区的确可以很好的提高查询的性能；
+ 2. MYSQL的慢查询  通过 long_query_time 设置阈值，默认是10，代表10秒； 默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。
+ 3. InnoDB存储引擎表类型  在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。
+  寻找加了unique约束并且不为NULL的列设为主键。
+ 如果没有，把row_id作为主键
+ InnoDB在每行记录都添加了三个隐藏字段
+ DB_ROW_ID &amp;mdash;6个字节：行的标识；
+ DB_TRX_ID &amp;mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）； DB_ROLL_PTR &amp;mdash;7个字节：回滚指针（删除版本号）
+    4. MYSQL分区 1. 分区类型  range（范围） list（离散、不连续） hash（散列） key 子分区 &amp;ndash;在分区的基础上进行分区  关键字 subpartitions
+ 子分区数量必须相同
+  columns分区
+  2. 创建方式 create table `table_name`( a int,b int )engin=innodb partition by key(b) partition 4;  另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。 create table `table_name`( a int,b int; )engin=innodb partition by linear hash(b) partition 4; ---指定分区数    linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；" /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="mysql基础底层" />
+<meta property="og:description" content="MYSQL的一些基础底层
+ 1. 数据库应用的分类  一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；
+另一类OLAP：在线分析处理，如数据仓库、数据集市； 对于OLAP的应用，分区的确可以很好的提高查询的性能；
+ 2. MYSQL的慢查询  通过 long_query_time 设置阈值，默认是10，代表10秒； 默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。
+ 3. InnoDB存储引擎表类型  在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。
+  寻找加了unique约束并且不为NULL的列设为主键。
+ 如果没有，把row_id作为主键
+ InnoDB在每行记录都添加了三个隐藏字段
+ DB_ROW_ID &mdash;6个字节：行的标识；
+ DB_TRX_ID &mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）； DB_ROLL_PTR &mdash;7个字节：回滚指针（删除版本号）
+    4. MYSQL分区 1. 分区类型  range（范围） list（离散、不连续） hash（散列） key 子分区 &ndash;在分区的基础上进行分区  关键字 subpartitions
+ 子分区数量必须相同
+  columns分区
+  2. 创建方式 create table `table_name`( a int,b int )engin=innodb partition by key(b) partition 4;  另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。 create table `table_name`( a int,b int; )engin=innodb partition by linear hash(b) partition 4; ---指定分区数    linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/database/mysql/" />
+<meta property="article:published_time" content="2020-11-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-01T00:00:00+00:00" />
+<meta itemprop="name" content="mysql基础底层">
+<meta itemprop="description" content="MYSQL的一些基础底层
+ 1. 数据库应用的分类  一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；
+另一类OLAP：在线分析处理，如数据仓库、数据集市； 对于OLAP的应用，分区的确可以很好的提高查询的性能；
+ 2. MYSQL的慢查询  通过 long_query_time 设置阈值，默认是10，代表10秒； 默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。
+ 3. InnoDB存储引擎表类型  在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。
+  寻找加了unique约束并且不为NULL的列设为主键。
+ 如果没有，把row_id作为主键
+ InnoDB在每行记录都添加了三个隐藏字段
+ DB_ROW_ID &mdash;6个字节：行的标识；
+ DB_TRX_ID &mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）； DB_ROLL_PTR &mdash;7个字节：回滚指针（删除版本号）
+    4. MYSQL分区 1. 分区类型  range（范围） list（离散、不连续） hash（散列） key 子分区 &ndash;在分区的基础上进行分区  关键字 subpartitions
+ 子分区数量必须相同
+  columns分区
+  2. 创建方式 create table `table_name`( a int,b int )engin=innodb partition by key(b) partition 4;  另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。 create table `table_name`( a int,b int; )engin=innodb partition by linear hash(b) partition 4; ---指定分区数    linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；">
+
+
+<meta itemprop="datePublished" content="2020-11-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-11-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="73">
+
+
+
+<meta itemprop="keywords" content="DataBase," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mysql基础底层"/>
+<meta name="twitter:description" content="MYSQL的一些基础底层
+ 1. 数据库应用的分类  一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；
+另一类OLAP：在线分析处理，如数据仓库、数据集市； 对于OLAP的应用，分区的确可以很好的提高查询的性能；
+ 2. MYSQL的慢查询  通过 long_query_time 设置阈值，默认是10，代表10秒； 默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。
+ 3. InnoDB存储引擎表类型  在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。
+  寻找加了unique约束并且不为NULL的列设为主键。
+ 如果没有，把row_id作为主键
+ InnoDB在每行记录都添加了三个隐藏字段
+ DB_ROW_ID &mdash;6个字节：行的标识；
+ DB_TRX_ID &mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）； DB_ROLL_PTR &mdash;7个字节：回滚指针（删除版本号）
+    4. MYSQL分区 1. 分区类型  range（范围） list（离散、不连续） hash（散列） key 子分区 &ndash;在分区的基础上进行分区  关键字 subpartitions
+ 子分区数量必须相同
+  columns分区
+  2. 创建方式 create table `table_name`( a int,b int )engin=innodb partition by key(b) partition 4;  另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。 create table `table_name`( a int,b int; )engin=innodb partition by linear hash(b) partition 4; ---指定分区数    linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Mysql基础底层</h1>
+        <p class="post-meta">Nov 01, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<p>MYSQL的一些基础底层</p>
+</blockquote>
+
+<h2 id="1-数据库应用的分类">1. 数据库应用的分类</h2>
+
+<blockquote>
+<p>一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；<br />
+另一类OLAP：在线分析处理，如数据仓库、数据集市；
+对于OLAP的应用，分区的确可以很好的提高查询的性能；</p>
+</blockquote>
+
+<h2 id="2-mysql的慢查询">2. MYSQL的慢查询</h2>
+
+<blockquote>
+<p>通过 long_query_time 设置阈值，默认是10，代表10秒；
+默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。</p>
+</blockquote>
+
+<h2 id="3-innodb存储引擎表类型">3. InnoDB存储引擎表类型</h2>
+
+<blockquote>
+<p>在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。</p>
+</blockquote>
+
+<ul>
+<li>寻找加了unique约束并且不为NULL的列设为主键。<br /></li>
+
+<li><p>如果没有，把row_id作为主键</p>
+
+<ul>
+<li>InnoDB在每行记录都添加了三个隐藏字段<br /></li>
+<li>DB_ROW_ID &mdash;6个字节：行的标识；<br /></li>
+<li>DB_TRX_ID &mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）；</li>
+<li>DB_ROLL_PTR &mdash;7个字节：回滚指针（删除版本号）<br />
+
+<br /></li>
+</ul></li>
+</ul>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/row_id.png"/></div>   
+  
+
+<h2 id="4-mysql分区">4. MYSQL分区</h2>
+
+<h4 id="1-分区类型">1. 分区类型</h4>
+
+<ol>
+<li>range（范围）</li>
+<li>list（离散、不连续）</li>
+<li>hash（散列）</li>
+<li>key</li>
+<li>子分区 &ndash;在分区的基础上进行分区
+
+<ul>
+<li>关键字 subpartitions<br /></li>
+<li>子分区数量必须相同<br /></li>
+</ul></li>
+<li>columns分区<br /></li>
+</ol>
+
+<h4 id="2-创建方式">2. 创建方式</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="o">`</span><span class="k">table_name</span><span class="o">`</span><span class="p">(</span>  
+   <span class="n">a</span> <span class="nb">int</span><span class="p">,</span><span class="n">b</span> <span class="nb">int</span>
+<span class="p">)</span><span class="n">engin</span><span class="o">=</span><span class="n">innodb</span> 
+<span class="n">partition</span> <span class="k">by</span> <span class="k">key</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">partition</span> <span class="mi">4</span><span class="p">;</span>  </code></pre></div>
+<h5 id="另外在mysql数据库中还支持一种称为linear-hash的分区-他使用一个更加复杂的算法来确定新行插入已经分区表中的位置">另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。</h5>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="o">`</span><span class="k">table_name</span><span class="o">`</span><span class="p">(</span>
+  <span class="n">a</span> <span class="nb">int</span><span class="p">,</span><span class="n">b</span> <span class="nb">int</span><span class="p">;</span>
+<span class="p">)</span><span class="n">engin</span><span class="o">=</span><span class="n">innodb</span>
+<span class="n">partition</span> <span class="k">by</span> <span class="n">linear</span> <span class="n">hash</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">partition</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">---指定分区数  
+</span><span class="c1"></span>  </code></pre></div>
+<blockquote>
+<p>linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；<br />
+他的缺点在于与使用hash分区得到的数据相比，各分区数据的分布可能不太均衡。</p>
+</blockquote>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/spring-boot/upload/">
+            SpringBoot结合antd组件Upload实现文件上传
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

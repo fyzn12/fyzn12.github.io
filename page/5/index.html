@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-10-02T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-11-01T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,10 +76,29 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/redis/jedis/">Redis之java客户端</a></h2>
+            <div class="post-meta">Jul 08, 2020</div>
+            <div class="post-excerpt">
+                1 jedis的简单介绍 1.1 Jedis是什么 直观来说，jedis就是redis-cli   1.2 引入jedis的依赖包 &lt;!-- 引入jedis的依赖包 --&gt; &lt;dependency&gt; &lt;groupId&gt;redis.clients&lt;/groupId&gt; &lt;artifactId&gt;jedis&lt;/artifactId&gt; &lt;version&gt;2.9.3&lt;/version&gt; &lt;type&gt;jar&lt;/type&gt; &lt;scope&gt;compile&lt;/scope&gt; &lt;/dependency&gt;  1.3 jedis直连  生成一个Jedis对象，这个对象负责和指定Redis节点进行通信
+Jedis jedis = new Jedis(&ldquo;127.0.0.1&rdquo;,6379);
+ jedis执行set操作
+jedis.set(&ldquo;hello&rdquo;,&ldquo;world&rdquo;);
+ jedis执行get操作，value=&ldquo;world&rdquo;
+String value = jedis.get(&ldquo;hello&rdquo;);
+   Jedis构造函数的简单介绍 Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
+ 三个命令
+ 两个配置
+ 运维经验
+  2.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/database/database/">数据库易忘知识点总结</a></h2>
             <div class="post-meta">Jul 01, 2020</div>
             <div class="post-excerpt">
-                1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令 create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+                数据库的基本知识点
+ 1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令 create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
 语法：
 delete from 表名 [where 条件]
 注意：
@@ -99,8 +118,6 @@ delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少�
 （2）max
 （3）min
 （4）sum
-（5）avg
-注意：聚合函数的计算排除null值：选择不包含非空的列进行计算；IF NULL
             </div>
         </li>
         
@@ -149,14 +166,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Consul注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
-            <div class="post-excerpt">
-                SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质： 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。 2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入springcloud整合Zookeeper启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -184,6 +193,10 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
         </li>
         
         <li>
@@ -236,10 +249,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/strategypattern/" class="post-link">策略模式</a>
         </li>
         
     </ul>

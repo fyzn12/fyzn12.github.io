@@ -6,7 +6,7 @@
     <description>Recent content on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 02 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,6 +18,28 @@
       
       <guid>https://fyzn12.github.io/about/</guid>
       <description>蝶恋花·今古河山无定据 [清] 纳兰性德 今古河山无定据，画角声中，牧马频来去。 满目荒凉谁可语？西风吹老丹枫树。 从前幽怨应无数？铁马金戈，青冢黄昏路。 一往情深深几许？深山夕照深秋雨。</description>
+    </item>
+    
+    <item>
+      <title>mysql基础底层</title>
+      <link>https://fyzn12.github.io/post/database/mysql/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/database/mysql/</guid>
+      <description>MYSQL的一些基础底层
+ 1. 数据库应用的分类  一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；
+另一类OLAP：在线分析处理，如数据仓库、数据集市； 对于OLAP的应用，分区的确可以很好的提高查询的性能；
+ 2. MYSQL的慢查询  通过 long_query_time 设置阈值，默认是10，代表10秒； 默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。
+ 3. InnoDB存储引擎表类型  在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。
+  寻找加了unique约束并且不为NULL的列设为主键。
+ 如果没有，把row_id作为主键
+ InnoDB在每行记录都添加了三个隐藏字段
+ DB_ROW_ID &amp;mdash;6个字节：行的标识；
+ DB_TRX_ID &amp;mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）； DB_ROLL_PTR &amp;mdash;7个字节：回滚指针（删除版本号）
+    4. MYSQL分区 1. 分区类型  range（范围） list（离散、不连续） hash（散列） key 子分区 &amp;ndash;在分区的基础上进行分区  关键字 subpartitions
+ 子分区数量必须相同
+  columns分区
+  2. 创建方式 create table `table_name`( a int,b int )engin=innodb partition by key(b) partition 4;  另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。 create table `table_name`( a int,b int; )engin=innodb partition by linear hash(b) partition 4; ---指定分区数    linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；</description>
     </item>
     
     <item>
@@ -281,7 +303,8 @@ String value = jedis.get(&amp;ldquo;hello&amp;rdquo;);
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/database/database/</guid>
-      <description>1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令 create database ads character set &amp;#39;utf8&amp;#39; 如图所示   1.2 对数据表的操作  删除数据
+      <description>数据库的基本知识点
+ 1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令 create database ads character set &amp;#39;utf8&amp;#39; 如图所示   1.2 对数据表的操作  删除数据
 语法：
 delete from 表名 [where 条件]
 注意：
@@ -300,9 +323,7 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
 （1）count：计算个数
 （2）max
 （3）min
-（4）sum
-（5）avg
-注意：聚合函数的计算排除null值：选择不包含非空的列进行计算；IF NULL</description>
+（4）sum</description>
     </item>
     
     <item>

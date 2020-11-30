@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-11-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-11-11T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,20 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">几种结构</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                  数据结构的分析
+ 1 队列 队列采用先进先出策略的集合类型，如图所示
+1.1 队列的入队演示 如图将 89 添加到队列中，采用的是 ： 在队列队尾添加，整个事件时间复杂度为O(1)  1.2 队列的出队演示 当队列收到出队的命令后，会将指针指向head，从而移除head的值，原先head值指向的下一个值变为head，整个事件时间复杂度为 O(1)  注意：java中还有先进先出队列，策略和基本队列相反，和下面的栈的策略相同 1.3 队列的总结，队列是采用先进先出的策略，添加元素时是在队尾添加，出队时是在队头移除或出队 2 链表 2.1 链表插入策略的演示 2.1.1 头插  2.1.2 尾插  2.1.3 中间任意部位插入 任意部位的插入首先要指定一个插入点，在插入过程中会先遍历插入点前面的元素，找到插入点元素 之后在修改插入点元素的指针，让其指向新增元素   3 栈 栈（stack）是操作受限的线性表，限定元素的插入和删除运算只能在表的一端进行，通常把进行插入删除的一端称作栈顶（top） 另一端称为栈底（bottom）  3.1 栈的五种运算  置空栈setnull（s）：将栈s设置成空栈，即不管栈的原来状态如何一律置为空栈；
+ 判断栈是否为空empty(s):返回一个布尔值，当栈为空时返回1，否则返回返回0；
+ 进栈push(s,x):把元素x压入栈s中，成为新的栈顶元素；
+ 出栈pop(s):该操作从栈顶弹出栈顶元素并返回，栈为空时返回NULL；
+ 读栈顶元素gettop(s):返回栈顶元素，该操作栈的状态不变；   栈与队列的总结 栈可以形象的比喻为一个瓶子，先进的元素只能从瓶口进，然后往瓶底走，出的时候也只能从瓶口出，而后面进的元素往往先出 队列可以看成一条管道，该管道从bottom入，top出 
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">常见算法篇</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
@@ -120,18 +134,6 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">Mybatis之动态SQL</a></h2>
-            <div class="post-meta">Oct 08, 2019</div>
-            <div class="post-excerpt">
-                动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
-&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
-1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
-&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -159,6 +161,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">认真刷面试题的第一天</a>
         </li>
         
         <li>
@@ -211,10 +217,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
         </li>
         
     </ul>

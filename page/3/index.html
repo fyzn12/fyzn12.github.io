@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-11-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-11-11T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,17 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/decorator_design/">装饰者模式</a></h2>
+            <div class="post-meta">Sep 09, 2020</div>
+            <div class="post-excerpt">
+                  装饰者模式的简单实现
+ 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
+ 别人写了一篇易懂的文章装饰者模式
+  
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/">SpringBoot整合Redis使用注解实现同步缓存</a></h2>
             <div class="post-meta">Sep 08, 2020</div>
             <div class="post-excerpt">
@@ -118,18 +129,6 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/strategypattern/">策略模式</a></h2>
-            <div class="post-meta">Sep 02, 2020</div>
-            <div class="post-excerpt">
-                1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
- 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
- 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
- 接口隔离原则：多个和客户相关的接口要好于一个通用接口
-  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -157,6 +156,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">认真刷面试题的第一天</a>
         </li>
         
         <li>
@@ -209,10 +212,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/spring-boot/springboot-information/" class="post-link">SpringBoot优点</a>
         </li>
         
     </ul>

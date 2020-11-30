@@ -6,10 +6,22 @@
     <description>Recent content in 面试题 on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>认真刷面试题的第一天</title>
+      <link>https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>问题描述：
+给定一个数组arr，返回arr的最长无的重复子串的长度(无重复指的是所有数字都不相同)。
+例如： 输入：[2,3,4,5] 输出：4 输入：[2,2,3,4,3] 输出：3
+   public int maxLength (int[] arr) { // write code here  Map&amp;lt;Integer,Integer&amp;gt; map = new LinkedHashMap&amp;lt;&amp;gt;(); if(arr==null || arr.length==0) return 0; if(arr.length==1)return 1; int left = 0,right = 0,max=0; for(int tmp = 0;right&amp;lt;arr.length;right++){ int cur = arr[right]; if(map.containsKey(cur) &amp;amp;&amp;amp; map.get(cur) &amp;gt;= left){ tmp = right-left; left = map.get(cur)+1; } if(max==0 &amp;amp;&amp;amp; tmp == 0 &amp;amp;&amp;amp; (right+1)== arr.length){ // 解决数组从第一个到最后一个都是不一样的数据长度问题  max = right-left+1; } map.</description>
+    </item>
     
     <item>
       <title>认真刷面试题的第一天</title>

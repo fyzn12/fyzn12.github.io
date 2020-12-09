@@ -6,7 +6,7 @@
     <description>Recent content on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -21,7 +21,44 @@
     </item>
     
     <item>
-      <title>认真刷面试题的第一天</title>
+      <title>字符串</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>最经典的就是寻找最长回文子串的问题
+解题思想：回文子串的详细思路 在上面的链接中，对该问题做了很详细的思路讲解 下面自己实现采用 Manacher 算法，被中国程序员戏称为“马拉车”算法。它专门用于解决“最长回文子串”问题，时间复杂度为O(N) 。
+ public int getLongestPalindrome(String A, int n) { // 做字符串的预处理  String str = changeStr(A,&amp;#39;#&amp;#39;); // 定义左跳跃的指针和右跳跃的指针以及最长回文串的返回值  int left=0,right=0,max=0; for(int i = 1;i&amp;lt;str.length();i++) { //判断每一步扩散的步数  right = i + 1; left = i - 1; int count = 0; while (left &amp;gt;= 0 &amp;amp;&amp;amp; right &amp;lt; str.length() &amp;amp;&amp;amp; str.charAt(left) == str.charAt(right)) { count++; left--; right++; } max = max &amp;gt; count ?</description>
+    </item>
+    
+    <item>
+      <title>数组</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/</guid>
+      <description>总结与数组有关的算法题：
+数组的概念：占据一块连续的内存，并按照顺序存储数组。
+算法题： 在一个二维数组中，每一行都按照从左右到右顺序排序，每一列从上到下都按照顺序排序。给定一个数，若存在于数组中则返回true
+ public static Boolean checkNum(int[][] arr,int target){ int row = 0; int column = arr[0].length-1; while (row&amp;lt;arr.length &amp;amp;&amp;amp; column &amp;gt;=0){ if (arr[row][column]==target){ return true; } if (arr[row][column]&amp;gt;target){ column--; }else { row++; } } return false; }  1.判断一个数是奇数还是偶数的方法  使用除2取余的方式 如 4%2 判断余数是否为0，是则为偶数，不是则为奇数 将判断的数与1做按位与运算，结果为1则为奇数，为0则为偶数
+  2.交换两个数字的位置  使用第三变量 如 int tmp = a; a = b;b = tmp; 使用异或运算 如 a ^= b; b ^= a; a ^= b;这样既可将两个数字交换位置</description>
+    </item>
+    
+    <item>
+      <title>链表</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/</guid>
+      <description>  题目：输入一个链表，反转链表后，输出新链表的表头。
+ 1 分析  假如链表的初始化状态如下图所示：    要将链表反转，只需要将链表中的指针反转，第一个链表的指针指向为 null的链表即可
+ 定义三个指针 p1,p2,p3 其中p1执行为null的链表，p2，指向第一个链表，p3指向第2个链表；如下图所示；
+   4. 下面需要将p2指针指向p1   将p3的指针指向p2，依次执行，知道执行到最后一个链表即可
+  2. 代码实现如下图所示 public ListNode ReverseList(ListNode head) { if(head==null) return null; ListNode p1 = null; ListNode p2 = head; ListNode p3 = head.next; while(p2 != null){ p2.next = p1; p1 = p2; p2 = p3; if(p3 != null ){ p3 = p3.next; } } return p1; } </description>
+    </item>
+    
+    <item>
+      <title>常见算法的实现</title>
       <link>https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
@@ -336,6 +373,16 @@ delete from 表名&amp;mdash;不推荐使用。有多少条记录就会执行多
 （2）max
 （3）min
 （4）sum</description>
+    </item>
+    
+    <item>
+      <title>数据库易忘知识点总结</title>
+      <link>https://fyzn12.github.io/post/database/%E5%AF%BC%E5%87%BA%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/database/%E5%AF%BC%E5%87%BA%E7%BB%93%E6%9E%84/</guid>
+      <description>根据数据表，导出数据结构
+ SELECT COLUMN_NAME 列名, COLUMN_TYPE 数据类型, DATA_TYPE 字段类型, CHARACTER_MAXIMUM_LENGTH 长度, IS_NULLABLE 是否为空, COLUMN_DEFAULT 默认值, COLUMN_COMMENT 备注 FROM INFORMATION_SCHEMA. COLUMNS WHERE &amp;ndash; super_express为数据库名称，到时候只需要修改成你要导出表结构的数据库即可 table_schema = &amp;lsquo;super_express&amp;rsquo; AND &amp;ndash; s_patient_list为表名，到时候换成你要导出的表的名称 &amp;ndash; 如果不写的话，默认会查询出所有表中的数据，这样可能就分不清到底哪些字段是哪张表中的了，所以还是建议写上要导出的名名称 table_name = &amp;lsquo;user&amp;rsquo;</description>
     </item>
     
     <item>

@@ -54,7 +54,7 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
 
 <meta itemprop="datePublished" content="2020-09-23T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-09-23T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="352">
+<meta itemprop="wordCount" content="454">
 
 
 
@@ -320,19 +320,48 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
 <ol>
 <li>首先将根结点入队列；<br /></li>
 <li>当队列不空，从队列中取出队头结点访问他，并在其左右结点非空时，把它的左孩子和右孩子结点一次入队列；</li>
-<li>反复执行2.直到队列为空；
-<br />
 
-
-
-
-
-
-
-
-<br /></li>
+<li><p>反复执行2.直到队列为空；</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">ArrayList</span><span class="o">&lt;</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">levelOrder</span> <span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// write code here
+</span><span class="c1"></span>    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">result</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">que</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">que</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()){</span>
+            <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+            <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">que2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()){</span>
+                <span class="n">TreeNode</span> <span class="nf">tmp</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span>
+                <span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="na">val</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+                    <span class="n">que2</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="na">left</span><span class="p">);</span>
+                <span class="p">}</span>      
+                <span class="k">if</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+                     <span class="n">que2</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="na">right</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span> 
+            <span class="n">result</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>   
+            <span class="n">que</span> <span class="o">=</span> <span class="n">que2</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>  </code></pre></div></li>
 </ol>
 
+<h2 id="4-平衡二叉树的判断">4 平衡二叉树的判断</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">int</span> <span class="n">depth</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="n">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="nf">left</span> <span class="o">=</span> <span class="n">depth</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="nf">right</span> <span class="o">=</span> <span class="n">depth</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">right</span><span class="o">==-</span><span class="n">1</span><span class="p">)</span><span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">-</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="p">(</span><span class="o">-</span><span class="n">1</span><span class="p">)</span> <span class="o">||</span> <span class="n">left</span><span class="o">-</span><span class="n">right</span><span class="o">&gt;</span><span class="n">1</span><span class="p">)</span><span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="n">1</span><span class="o">+</span> <span class="p">(</span><span class="n">left</span><span class="o">&gt;</span><span class="n">right</span><span class="o">?</span><span class="n">left</span><span class="o">:</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">public</span> <span class="nf">boolean</span> <span class="n">IsBalanced_Solution</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">depth</span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">!=-</span><span class="n">1</span><span class="p">;</span>
+    <span class="p">}</span>  </code></pre></div>
     </article>
 
     
@@ -399,7 +428,19 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">认真刷面试题的第一天</a>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/" class="post-link">数组</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">常见算法的实现</a>
         </li>
         
         <li>
@@ -440,18 +481,6 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         
         <li>
             <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/" class="post-link">SpringBoot整合Redis使用注解实现同步缓存</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/observer/" class="post-link">观察者模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/transaction/" class="post-link">数据库的事务</a>
         </li>
         
     </ul>

@@ -6,10 +6,19 @@
     <description>Recent content in Categories on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>算法</title>
+      <link>https://fyzn12.github.io/categories/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/categories/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>面试题</title>
@@ -35,15 +44,6 @@
       <pubDate>Fri, 02 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/categories/springboot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>算法</title>
-      <link>https://fyzn12.github.io/categories/%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Fri, 25 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/categories/%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     

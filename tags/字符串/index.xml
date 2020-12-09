@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>字符串 on fyzn12的博客</title>
+    <link>https://fyzn12.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+    <description>Recent content in 字符串 on fyzn12的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>字符串</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>最经典的就是寻找最长回文子串的问题
+解题思想：回文子串的详细思路 在上面的链接中，对该问题做了很详细的思路讲解 下面自己实现采用 Manacher 算法，被中国程序员戏称为“马拉车”算法。它专门用于解决“最长回文子串”问题，时间复杂度为O(N) 。
+ public int getLongestPalindrome(String A, int n) { // 做字符串的预处理  String str = changeStr(A,&amp;#39;#&amp;#39;); // 定义左跳跃的指针和右跳跃的指针以及最长回文串的返回值  int left=0,right=0,max=0; for(int i = 1;i&amp;lt;str.length();i++) { //判断每一步扩散的步数  right = i + 1; left = i - 1; int count = 0; while (left &amp;gt;= 0 &amp;amp;&amp;amp; right &amp;lt; str.length() &amp;amp;&amp;amp; str.charAt(left) == str.charAt(right)) { count++; left--; right++; } max = max &amp;gt; count ?</description>
+    </item>
+    
+  </channel>
+</rss>

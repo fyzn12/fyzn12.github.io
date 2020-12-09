@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数组 on fyzn12的博客</title>
+    <link>https://fyzn12.github.io/tags/%E6%95%B0%E7%BB%84/</link>
+    <description>Recent content in 数组 on fyzn12的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/%E6%95%B0%E7%BB%84/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数组</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/</guid>
+      <description>总结与数组有关的算法题：
+数组的概念：占据一块连续的内存，并按照顺序存储数组。
+算法题： 在一个二维数组中，每一行都按照从左右到右顺序排序，每一列从上到下都按照顺序排序。给定一个数，若存在于数组中则返回true
+ public static Boolean checkNum(int[][] arr,int target){ int row = 0; int column = arr[0].length-1; while (row&amp;lt;arr.length &amp;amp;&amp;amp; column &amp;gt;=0){ if (arr[row][column]==target){ return true; } if (arr[row][column]&amp;gt;target){ column--; }else { row++; } } return false; }  1.判断一个数是奇数还是偶数的方法  使用除2取余的方式 如 4%2 判断余数是否为0，是则为偶数，不是则为奇数 将判断的数与1做按位与运算，结果为1则为奇数，为0则为偶数
+  2.交换两个数字的位置  使用第三变量 如 int tmp = a; a = b;b = tmp; 使用异或运算 如 a ^= b; b ^= a; a ^= b;这样既可将两个数字交换位置</description>
+    </item>
+    
+  </channel>
+</rss>

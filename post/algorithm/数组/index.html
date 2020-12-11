@@ -45,7 +45,7 @@
 
 <meta itemprop="datePublished" content="2020-12-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="121">
+<meta itemprop="wordCount" content="250">
 
 
 
@@ -163,6 +163,64 @@
          <span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">^=</span> <span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">];</span>
       <span class="p">}</span>
    <span class="p">}</span>
+<span class="p">}</span>  </code></pre></div>
+<blockquote>
+<p>题目描述：输入一个整型数组，数组里有正数也有负数。数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。要求时间复杂度为 O(n).</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">Solution</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">int</span> <span class="n">FindGreatestSumOfSubArray</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">array</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="n">0</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="na">length</span><span class="o">==</span><span class="n">0</span> <span class="o">||</span> <span class="n">array</span><span class="p">.</span><span class="na">length</span><span class="o">==</span><span class="n">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">array</span><span class="p">.</span><span class="na">length</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="nf">max</span><span class="o">=</span><span class="n">array</span><span class="p">[</span><span class="n">0</span><span class="p">],</span><span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="p">,</span><span class="n">sum</span><span class="o">=</span><span class="n">0</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">array</span><span class="p">.</span><span class="na">length</span><span class="p">){</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">&lt;</span><span class="n">0</span><span class="p">){</span>
+                <span class="n">sum</span><span class="o">=</span><span class="n">0</span><span class="p">;</span>
+                <span class="c1">//解决数组中全部是负数的情况下
+</span><span class="c1"></span>                <span class="n">max</span><span class="o">=</span><span class="n">max</span><span class="o">&gt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">?</span><span class="n">max</span><span class="o">:</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                 <span class="n">max</span> <span class="o">=</span> <span class="n">max</span><span class="o">&gt;</span><span class="n">sum</span><span class="o">?</span><span class="n">max</span><span class="o">:</span><span class="n">sum</span><span class="p">;</span>
+            <span class="p">}</span>    
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">max</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>  </code></pre></div>
+<blockquote>
+<p>题目描述： 给出一个整数数组，请在数组中找出两个加起来等于目标值的数，
+你给出的函数twoSum 需要返回这两个数字的下标（index1，index2），需要满足 index1 小于index2.。注意：下标是从1开始的
+假设给出的数组中只存在唯一解
+例如：</p>
+
+<p>给出的数组为 {20, 70, 110, 150},目标值为90
+输出 index1=1, index2=2<br />
+思路就是 : 判断目标值的差值是否在哈希表中，如果存在，则返回，不存在，将其添加到哈希表中，下次再继续次操作，需要注意的是判断 index1&lt;index2</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">Solution</span> <span class="p">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 
+</span><span class="cm">     * @param numbers int整型一维数组 
+</span><span class="cm">     * @param target int整型 
+</span><span class="cm">     * @return int整型一维数组
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="nf">int</span><span class="p">[]</span> <span class="n">twoSum</span> <span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">numbers</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">target</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// write code here
+</span><span class="c1"></span>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+        <span class="kt">int</span><span class="p">[]</span> <span class="nf">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">2</span><span class="p">];</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">numbers</span><span class="p">.</span><span class="na">length</span><span class="p">){</span>
+            <span class="c1">// 判断
+</span><span class="c1"></span>            <span class="k">if</span><span class="p">(</span><span class="n">map</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="p">){</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="p">);</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
 <span class="p">}</span>  </code></pre></div>
     </article>
 

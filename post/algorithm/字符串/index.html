@@ -39,7 +39,7 @@
 
 <meta itemprop="datePublished" content="2020-12-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="103">
+<meta itemprop="wordCount" content="179">
 
 
 
@@ -132,6 +132,37 @@
         <span class="k">return</span> <span class="n">stringBuilder</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
     <span class="p">}</span>  
  </code></pre></div>
+<blockquote>
+<p>题目描述：给定一个十进制数M，以及需要转换的进制数N。将十进制数M转化为N进制数<br />
+备注：M是32位整数，2&lt;=N&lt;=16.</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="nf">class</span> <span class="n">Solution</span> <span class="p">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 进制转换
+</span><span class="cm">     * @param M int整型 给定整数
+</span><span class="cm">     * @param N int整型 转换到的进制
+</span><span class="cm">     * @return string字符串
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="nf">String</span> <span class="n">solve</span> <span class="p">(</span><span class="kt">int</span> <span class="nf">M</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">N</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// write code here
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">M</span><span class="o">==</span><span class="n">0</span><span class="p">)</span><span class="k">return</span> <span class="s">&#34;0&#34;</span><span class="p">;</span>
+        <span class="n">String</span> <span class="nf">s</span> <span class="o">=</span> <span class="s">&#34;0123456789ABCDEF&#34;</span><span class="p">;</span>
+        <span class="c1">//判断是整数还是负数
+</span><span class="c1"></span>        <span class="n">StringBuilder</span> <span class="nf">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">();</span>
+        <span class="c1">// 判断是否是负数
+</span><span class="c1"></span>        <span class="kt">boolean</span> <span class="nf">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">M</span><span class="o">&lt;</span><span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="o">-</span><span class="n">M</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">M</span> <span class="o">!=</span><span class="n">0</span> <span class="p">){</span>
+            <span class="n">str</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">M</span><span class="o">%</span><span class="n">N</span><span class="p">));</span>
+            <span class="n">M</span> <span class="o">/=</span> <span class="n">N</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="n">str</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">str</span><span class="p">.</span><span class="na">reverse</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>  </code></pre></div>
     </article>
 
     

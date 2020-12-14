@@ -45,7 +45,7 @@
 
 <meta itemprop="datePublished" content="2020-12-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="250">
+<meta itemprop="wordCount" content="463">
 
 
 
@@ -222,6 +222,152 @@
         <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>  </code></pre></div>
+<blockquote>
+<p>题目描述： 给定一个整形数组arr，已知其中所有的值都是非负的，将这个数组看作一个容器，请返回容器能装多少水。
+具体请参考样例解释</p>
+</blockquote>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/array1.png"/></div>
+ 
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="cm">/**
+</span><span class="cm">     * max water
+</span><span class="cm">     * @param arr int整型一维数组 the array
+</span><span class="cm">     * @return long长整型
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="nf">long</span> <span class="n">maxWater</span> <span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="na">length</span><span class="o">&lt;</span><span class="n">3</span><span class="p">)</span> <span class="k">return</span> <span class="n">0</span><span class="p">;</span>
+        <span class="c1">// write code here
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="nf">left</span> <span class="o">=</span> <span class="n">0</span><span class="p">,</span><span class="n">right</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="p">;</span>
+        <span class="kt">long</span> <span class="nf">max</span> <span class="o">=</span> <span class="n">0</span><span class="p">,</span><span class="n">lmax</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">0</span><span class="p">],</span><span class="n">rmax</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">arr</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="p">];</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&lt;=</span><span class="n">right</span><span class="p">){</span>
+            <span class="n">lmax</span> <span class="o">=</span> <span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">],</span><span class="n">lmax</span><span class="p">);</span>
+            <span class="n">rmax</span> <span class="o">=</span> <span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">],</span><span class="n">rmax</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">lmax</span><span class="o">&lt;</span><span class="n">rmax</span><span class="p">){</span>
+                <span class="n">max</span> <span class="o">+=</span> <span class="n">lmax</span><span class="o">-</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
+                <span class="n">left</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="n">max</span> <span class="o">+=</span> <span class="n">rmax</span><span class="o">-</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">];</span>
+                <span class="n">right</span><span class="o">--</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">max</span><span class="p">;</span>  
+    <span class="p">}</span>
+   </code></pre></div>
+<blockquote>
+<p>题目描述：  有一个整数数组，请你根据快速排序的思路，找出数组中第K大的数。
+给定一个整数数组a,同时给定它的大小n和要找的K(K在1到n之间)，请返回第K大的数，保证答案存在。</p>
+</blockquote>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/array2.png"/></div> 
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+<span class="cm">/**
+</span><span class="cm">     * @param a 目标数组；
+</span><span class="cm">     * @param K 检索第K大的数
+</span><span class="cm">     * @param n 数组长度
+</span><span class="cm">     * */</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">int</span> <span class="nf">findKth</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">a</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">n</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">K</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// write code here
+</span><span class="c1"></span>        <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">que</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">i</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">K</span><span class="p">){</span>
+                <span class="n">que</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">que</span><span class="p">.</span><span class="na">peek</span><span class="p">()){</span>
+                <span class="n">que</span><span class="p">.</span><span class="na">remove</span><span class="p">();</span>
+                <span class="n">que</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">que</span><span class="p">.</span><span class="na">peek</span><span class="p">();</span>
+    <span class="p">}</span>  
+  </code></pre></div>
+<blockquote>
+<p>题目描述：输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4。</p>
+</blockquote>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/array3.png"/></div>
+   
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="nf">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">GetLeastNumbers_Solution</span><span class="p">(</span><span class="kt">int</span> <span class="p">[]</span> <span class="n">input</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="o">==</span><span class="kc">null</span> <span class="o">||</span> <span class="n">input</span><span class="p">.</span><span class="na">length</span><span class="o">==</span><span class="n">0</span> <span class="o">||</span> <span class="n">k</span><span class="o">&gt;</span><span class="n">input</span><span class="p">.</span><span class="na">length</span><span class="p">)</span> <span class="k">return</span> <span class="n">list</span><span class="p">;</span>
+        <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">que</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">i</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">input</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">que</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">i</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="na">remove</span><span class="p">());</span>
+        <span class="k">return</span> <span class="n">list</span><span class="p">;</span>
+        
+    <span class="p">}</span></code></pre></div>
+<h2 id="上面找第k大的值的解题中遇到的二叉小顶堆的知识点梳理-priorityqueue">上面找第K大的值的解题中遇到的二叉小顶堆的知识点梳理&mdash;&mdash;PriorityQueue</h2>
+
+<h3 id="1-priorityqueue依然是队列-依然遵循先进先出的模式">1. PriorityQueue依然是队列，依然遵循先进先出的模式</h3>
+
+<blockquote>
+<p>PriorityQueue类在Java1.5中引入并作为 Java Collections Framework 的一部分。PriorityQueue是基于优先堆的一个无界队列，这个优先队列中的元素可以默认自然排序或者通过提供的Comparator（比较器）在队列实例化的时排序。</p>
+
+<p>优先队列不允许空值，而且不支持non-comparable（不可比较）的对象，比如用户自定义的类。优先队列要求使用Java Comparable和Comparator接口给对象排序，并且在排序时会按照优先级处理其中的元素。</p>
+
+<p>优先队列的头是基于自然排序或者Comparator排序的最小元素。如果有多个对象拥有同样的排序，那么就可能随机地取其中任意一个。当我们获取队列时，返回队列的头对象。</p>
+
+<p>优先队列的大小是不受限制的，但在创建时可以指定初始大小。当我们向优先队列增加元素的时候，队列大小会自动增加。</p>
+
+<p>PriorityQueue是非线程安全的，所以Java提供了PriorityBlockingQueue（实现BlockingQueue接口）用于Java多线程环境。</p>
+</blockquote>
+
+<h3 id="2-他的实现原理">2. 他的实现原理</h3>
+
+<blockquote>
+<p>java中的PriorityQueue通过二叉小顶堆实现，可以用一颗完全二叉树表示（任意一个非叶子节点的权值，都不大于其左右子节点的权值），也就是说可以通过数组来作为PriorityQueue的底层实现。如下图所示<br />
+<div align=center><img src="https://fyzn12.github.io/img/picture/priorityqueue.png"/></div></p>
+</blockquote>
+
+<h3 id="3-节点分析">3. 节点分析</h3>
+
+<blockquote>
+<p>上图中我们给每个元素按照层序遍历的方式进行了编号，如果你足够细心，会发现父节点和子节点的编号是有联系的，更确切的说父子节点的编号之间有如下关系：</p>
+
+<p>leftNo = parentNo*2+1</p>
+
+<p>rightNo = parentNo*2+2</p>
+
+<p>parentNo = (nodeNo-1)/2</p>
+
+<p>通过上述三个公式，可以轻易计算出某个节点的父节点以及子节点的下标。这也就是为什么可以直接用数组来存储堆的原因。</p>
+
+<p>PriorityQueue的peek()和element操作是常数时间，add(), offer(), 无参数的remove()以及poll()方法的时间复杂度都是log(N)。</p>
+</blockquote>
+
+<h3 id="4-常用方法解析">4. 常用方法解析</h3>
+
+<h4 id="add-和offer">add()和offer()</h4>
+
+<blockquote>
+<p>add(E e)和offer(E e)的语义相同，都是向优先队列中插入元素，只是Queue接口规定二者对插入失败时的处理不同，前者在插入失败时抛出异常，后则则会返回false。对于PriorityQueue这两个方法其实没什么差别。</p>
+</blockquote>
+
+<h4 id="element-和peek">element()和peek()</h4>
+
+<blockquote>
+<p>element()和peek()的语义完全相同，都是获取但不删除队首元素，也就是队列中权值最小的那个元素，二者唯一的区别是当方法失败时前者抛出异常，后者返回null。根据小顶堆的性质，堆顶那个元素就是全局最小的那个；由于堆用数组表示，根据下标关系，0下标处的那个元素既是堆顶元素。所以直接返回数组0下标处的那个元素即可。
+源码如下：永远是出队头的元素，因此出的是数组下标为0的元素。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">E</span> <span class="n">peek</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="n">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="n">queue</span><span class="p">[</span><span class="n">0</span><span class="p">];</span><span class="c1">//0下标处的那个元素就是最小的那个
+</span><span class="c1"></span><span class="p">}</span>  </code></pre></div></blockquote>
+
+<h4 id="remove-和poll">remove()和poll()</h4>
+
+<blockquote>
+<p>remove()和poll()方法的语义也完全相同，都是获取并删除队首元素，区别是当方法失败时前者抛出异常，后者返回null。由于删除操作会改变队列的结构，为维护小顶堆的性质，需要进行必要的调整。</p>
+</blockquote>
+
+<h4 id="remove-object-o">remove(Object o)</h4>
+
+<blockquote>
+<p>remove(Object o)方法用于删除队列中跟o相等的某一个元素（如果有多个相等，只删除一个），该方法不是Queue接口内的方法，而是Collection接口的方法。由于删除操作会改变队列结构，所以要进行调整；又由于删除元素的位置可能是任意的，所以调整过程比其它函数稍加繁琐。具体来说，remove(Object o)可以分为2种情况：1. 删除的是最后一个元素。直接删除即可，不需要调整。2. 删除的不是最后一个元素，从删除点开始以最后一个元素为参照调用一次siftDown()即可。</p>
+
+<p>原文可参照 <a href="https://blog.csdn.net/u010623927/article/details/87179364">优先队列</a></p>
+</blockquote>
+
     </article>
 
     

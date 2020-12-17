@@ -45,7 +45,7 @@
 
 <meta itemprop="datePublished" content="2020-12-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="463">
+<meta itemprop="wordCount" content="590">
 
 
 
@@ -368,6 +368,74 @@
 <p>原文可参照 <a href="https://blog.csdn.net/u010623927/article/details/87179364">优先队列</a></p>
 </blockquote>
 
+<h2 id="使用最大堆以及最小堆的题目-如下题-灵活运用堆的特性解决问题">使用最大堆以及最小堆的题目，如下题，灵活运用堆的特性解决问题</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/array5.png"/></div>    
+  
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="cm">/**
+</span><span class="cm">     * the medians
+</span><span class="cm">     * @param operations int整型二维数组 ops
+</span><span class="cm">     * @return double浮点型一维数组
+</span><span class="cm">     */</span>
+    <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">maxHader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="p">((</span><span class="n">o1</span><span class="p">,</span><span class="n">o2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">o2</span><span class="o">-</span><span class="n">o1</span><span class="p">);</span>
+    <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">minHader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="kd">public</span> <span class="nf">double</span><span class="p">[]</span> <span class="n">flowmedian</span> <span class="p">(</span><span class="kt">int</span><span class="p">[][]</span> <span class="nf">operations</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// write code here
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="nf">rows</span> <span class="o">=</span> <span class="n">operations</span><span class="p">.</span><span class="na">length</span><span class="p">;</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">i</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">rows</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">0</span><span class="p">]</span><span class="o">==</span><span class="n">1</span><span class="p">)</span>
+                <span class="n">add</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">1</span><span class="p">]);</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="kt">double</span> <span class="nf">res</span> <span class="o">=</span> <span class="n">getMedian</span><span class="p">();</span>
+                <span class="n">result</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">mapToDouble</span><span class="p">(</span><span class="n">Double</span><span class="o">::</span><span class="n">doubleValue</span><span class="p">).</span><span class="na">toArray</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="kd">public</span> <span class="nf">void</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="nf">num</span><span class="p">){</span>
+       <span class="k">if</span><span class="p">(</span><span class="n">maxHader</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()){</span>
+           <span class="n">maxHader</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+           <span class="k">return</span><span class="p">;</span>
+       <span class="p">}</span>
+       <span class="k">if</span><span class="p">(</span><span class="n">maxHader</span><span class="p">.</span><span class="na">peek</span><span class="p">()</span><span class="o">&gt;</span><span class="n">num</span><span class="p">){</span>
+            <span class="n">maxHader</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+       <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">minHader</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()){</span>
+           <span class="n">minHader</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span> 
+       <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">minHader</span><span class="p">.</span><span class="na">peek</span><span class="p">()</span><span class="o">&gt;</span><span class="n">num</span><span class="p">){</span>
+           <span class="n">maxHader</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+       <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+           <span class="n">minHader</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+       <span class="p">}</span>
+        <span class="n">modifyTwoQue</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="c1">//维持两个堆的高度差不超过1
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="nf">void</span> <span class="n">modifyTwoQue</span><span class="p">(){</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">maxHader</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">-</span><span class="n">minHader</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&gt;=</span><span class="n">2</span><span class="p">){</span>
+            <span class="n">minHader</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">maxHader</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">minHader</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">-</span><span class="n">maxHader</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&gt;=</span><span class="n">2</span><span class="p">){</span>
+             <span class="n">maxHader</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">minHader</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kd">public</span> <span class="nf">double</span> <span class="n">getMedian</span><span class="p">(){</span>
+        <span class="kt">int</span> <span class="nf">maxS</span> <span class="o">=</span> <span class="n">maxHader</span><span class="p">.</span><span class="na">size</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="nf">minS</span> <span class="o">=</span> <span class="n">minHader</span><span class="p">.</span><span class="na">size</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">maxS</span><span class="o">+</span><span class="n">minS</span><span class="o">==</span><span class="n">0</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">maxS</span><span class="o">==</span><span class="n">0</span><span class="p">)</span><span class="k">return</span> <span class="n">minHader</span><span class="p">.</span><span class="na">peek</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">minS</span><span class="o">==</span><span class="n">0</span><span class="p">)</span><span class="k">return</span> <span class="n">maxHader</span><span class="p">.</span><span class="na">peek</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(((</span><span class="n">minS</span><span class="o">+</span><span class="n">maxS</span><span class="p">)</span><span class="o">&amp;</span><span class="n">1</span><span class="p">)</span><span class="o">==</span><span class="n">0</span><span class="p">)</span><span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">maxHader</span><span class="p">.</span><span class="na">peek</span><span class="p">()</span><span class="o">+</span><span class="n">minHader</span><span class="p">.</span><span class="na">peek</span><span class="p">())</span><span class="o">/</span><span class="n">2</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">maxS</span><span class="o">&gt;</span><span class="n">minS</span><span class="o">?</span><span class="n">maxHader</span><span class="p">.</span><span class="na">peek</span><span class="p">()</span><span class="o">:</span><span class="n">minHader</span><span class="p">.</span><span class="na">peek</span><span class="p">();</span>
+    <span class="p">}</span>  
+  </code></pre></div>
+<h3 id="由于返回值是double的类型-返回值不可能是5-4-5-5-5应该是5-0-4-0-5-0-5-5">由于返回值是double的类型，返回值不可能是5,4,5,5.5应该是5.0,4.0,5.0,5.5</h3>
+
+<h2 id="利用最大堆的定义使用priorityque的构造函数定义一个最大堆和最小堆是解决此题的关键">利用最大堆的定义使用PriorityQue的构造函数定义一个最大堆和最小堆是解决此题的关键</h2>
+
+<h3 id="priorityqueue-integer-maxhader-new-priorityqueue-integer-o1-o2-o2-o1">PriorityQueue<Integer> maxHader = new PriorityQueue<Integer>((o1,o2)-&gt;o2-o1);</h3>
+
+<h3 id="priorityqueue-integer-minhader-new-priorityqueue-integer">PriorityQueue<Integer> minHader = new PriorityQueue<Integer>();</h3>
+
     </article>
 
     
@@ -379,8 +447,8 @@
 <ul class="prevnext">
     
     <li>上一篇：
-        <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/">
-            链表
+        <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/">
+            最长子序列问题解决思路
         </a>
     </li>
     
@@ -442,6 +510,10 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">最长子序列问题解决思路</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
         </li>
         
@@ -483,10 +555,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
         </li>
         
     </ul>

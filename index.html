@@ -98,6 +98,22 @@
         </li>
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/">最长子序列问题解决思路</a></h2>
+            <div class="post-meta">Dec 01, 2020</div>
+            <div class="post-excerpt">
+                对于最长子序列以及最长子串的问题可以看这一下这位博主的博客，介绍比较详细。
+最长子串及最长子序列的问题讲解
+题目描述如下图所示；
+   根据动态规划的思想，将问题划分为多个子问题，寻找辅助数组dp
+ 分析关键步骤  这里将辅助数组设为int[][] dp = new int[s1.length+1][s2.length+1];这里对于二维数组来说，多了一行一列； 在辅助数组中填入数据时，保证数组中的值永远是s1与s2响对应的最大值，这里用了原值填充，在代码中填充的字符对于的ASII码；如下图所示    dp数组中填充的值如下图所示
+
+ 在dp数组想要找到最大子序列，即可以从对角线开始找，因为一个矩阵中最长的直线在对角线；
+ 设计初始程序如下
+public String LCS (String s1, String s2) { // write code here  if(s1==null || s1.length()==0 || s2==null || s2.length()==0)return &#34;-1&#34;; int s1L = s1.length(); int s2L = s2.length(); int[][] dp = new int[s1L+1][s2L+1]; StringBuilder str = new StringBuilder(); //初始化二维表的元素,  for(int i=0;i&lt;s1L+1;i++){ for(int j = 0;j&lt;s2L+1;j++){ //保证二维表的第一个元素为空，或者是0；  if (i==0 || j==0){ dp[i][j]=0; continue; } if(s1.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/">链表</a></h2>
             <div class="post-meta">Dec 01, 2020</div>
             <div class="post-excerpt">
@@ -117,27 +133,6 @@
 给定一个数组arr，返回arr的最长无的重复子串的长度(无重复指的是所有数字都不相同)。
 例如： 输入：[2,3,4,5] 输出：4 输入：[2,2,3,4,3] 输出：3
    public int maxLength (int[] arr) { // write code here  Map&lt;Integer,Integer&gt; map = new LinkedHashMap&lt;&gt;(); if(arr==null || arr.length==0) return 0; if(arr.length==1)return 1; int left = 0,right = 0,max=0; for(int tmp = 0;right&lt;arr.length;right++){ int cur = arr[right]; if(map.containsKey(cur) &amp;&amp; map.get(cur) &gt;= left){ tmp = right-left; left = map.get(cur)+1; } if(max==0 &amp;&amp; tmp == 0 &amp;&amp; (right+1)== arr.length){ // 解决数组从第一个到最后一个都是不一样的数据长度问题  max = right-left+1; } map.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/database/mysql/">Mysql基础底层</a></h2>
-            <div class="post-meta">Nov 01, 2020</div>
-            <div class="post-excerpt">
-                MYSQL的一些基础底层
- 1. 数据库应用的分类  一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；
-另一类OLAP：在线分析处理，如数据仓库、数据集市； 对于OLAP的应用，分区的确可以很好的提高查询的性能；
- 2. MYSQL的慢查询  通过 long_query_time 设置阈值，默认是10，代表10秒； 默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。
- 3. InnoDB存储引擎表类型  在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。
-  寻找加了unique约束并且不为NULL的列设为主键。
- 如果没有，把row_id作为主键
- InnoDB在每行记录都添加了三个隐藏字段
- DB_ROW_ID &mdash;6个字节：行的标识；
- DB_TRX_ID &mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）； DB_ROLL_PTR &mdash;7个字节：回滚指针（删除版本号）
-    4. MYSQL分区 1. 分区类型  range（范围） list（离散、不连续） hash（散列） key 子分区 &ndash;在分区的基础上进行分区  关键字 subpartitions
- 子分区数量必须相同
-  columns分区
-  2. 创建方式 create table `table_name`( a int,b int )engin=innodb partition by key(b) partition 4;  另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。 create table `table_name`( a int,b int; )engin=innodb partition by linear hash(b) partition 4; ---指定分区数    linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；
             </div>
         </li>
         
@@ -176,6 +171,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/" class="post-link">数组</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">最长子序列问题解决思路</a>
         </li>
         
         <li>
@@ -220,10 +219,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/decorator_design/" class="post-link">装饰者模式</a>
         </li>
         
     </ul>

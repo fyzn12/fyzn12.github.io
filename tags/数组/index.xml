@@ -6,10 +6,26 @@
     <description>Recent content in 数组 on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/tags/%E6%95%B0%E7%BB%84/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>二分法使用无符号位右移运算求解上中位数</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/</link>
+      <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/</guid>
+      <description>获取中间值的方式一般是 int mid = left + (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left+1） 效率更高如下： int mid = left + ((right-left)&amp;gt;&amp;gt;1);
+ 1.有符号右移 &amp;gt;&amp;gt;  有符号右移：右移之后，左边补上符号为，正数补0，负数补1.
+ 2.无符号位右移 &amp;gt;&amp;gt;&amp;gt;  无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。
+ 3.左移 &amp;lt;&amp;lt;  左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。
+ 4.计算除法时（2的n次方）可以使用有符号的右移  20 的二进制位 10100 有符号位右移2位后为 101 十进制解释表示为 20&amp;frasl;4=5（取整）
+20 的二进制位 10100 左移2位后 1010000 十进制结果为81
+ 5.判奇数偶数的方法  (num &amp;amp; 1) == 0表示为偶数 (num &amp;amp; 1) == 1表示为奇数
+ 这里注意一个遇到的坑 使用 int mid = left + ((right-left)&amp;gt;&amp;gt;1); 时切记+号后面是加一个整体，因此需要将((right-left)&amp;gt;&amp;gt;1)括起来。 6.</description>
+    </item>
     
     <item>
       <title>数组</title>

@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-12-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-12-18T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,14 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/redis/redis%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">Redis基础知识</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                1 Redis的简介 1.1 了解什么是redis redis是一个开源的使用ANSI c语言编写、遵循BSA协议、支持网络、可基于内存亦可持久化的日志型、key-value数据库， 并提供多种语言的API。 他通常被称为数据结构服务器，因为值value可以是String、哈希（hash）、列表（list）、集合（sets）、和有序集合（sorted sets）等类型。  1.2 redis的特点 * Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。 * Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。 * Redis支持数据的备份，即master-slave模式的数据备份。  1.3 redis的优势 * 性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。 * 丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。 * 原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务， 即原子性，通过MULTI和EXEC指令包起来。 * 丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  1.4 Redis支持的数据类型 * string（字符串） * hash（哈希） * list（列表） * set（集合） * zset或sorted set（有序集合）  2 Redis 命令 2.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">几种结构</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
@@ -121,24 +129,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/">SpringBoot提供的五种异常机制</a></h2>
-            <div class="post-meta">May 12, 2020</div>
-            <div class="post-excerpt">
-                SpringBoot中的异常处理方式  自定义错误页面
- @ExceptionHandle注解处理异常
- @ControllerAdvice + @ExceptionHandle注解处理异常
- 配置SimpleMappingExceptionResolver处理异常
- 自定义HandleExceptionResolver类处理异常
-  1 自定义错误页面 1.1 SpringBoot的默认异常机制详解 SpringBoot默认的异常机制：SpringBoot默认已经提供了一套处理异常的机制。 一旦程序中出现了异常，SpringBoot会向/error的url发送请求。在SpringBoot中提供了一个 叫BasicExceptionController来处理/error请求，然后跳转到默认显示的页面来展示异常信息。   1.2 自定义错误界面 如果我们需要将所有的异常统一跳转到自定义错误页面，需要在classpath下创建一个templates目录(即在resources目录下创建templates目录)，在该目录下创建一个名为error.html的页面。 2 基于@ExceptionHandler注解处理异常 2.1 创建指定处理的异常 /** *java.lang.ArithmeticException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 */ @ExceptionHandler(value={java.lang.ArithmeticException.class}) publicModelAndViewarithmeticExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error1&#34;); returnmv; } /** *java.lang.NullPointerException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 **/ @ExceptionHandler(value={java.lang.NullPointerException.class}) publicModelAndViewnullPointerExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error2&#34;); return mv； }  2.2 使用该方法的总结 使用@ExceptionHandler注解处理异常时，首先编写异常页面error.html，其次创建Controller类，编写基于注解@ExceptionHandle注解的方法，并且在该方法中必须指定想要助理异常的名称如上面的java.lang.NullPointerException.class、java.lang.ArithmeticException.class。 3 使用@ControllerAdvice + @ExceptionHandler注解处理异常 3.1 创建一个全局异常类使用ControllerAdvice注解 /** *全局异常处理类 **/ @ControllerAdvice public class GlobalException { /** * java.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/7/" class="previous">PREV</a>
-        <span class="page_number ">8 of 9</span>
+        <span class="page_number ">8 of 10</span>
         <a href="/page/9/" class="next">NEXT</a>
     </div>
 </div>
@@ -161,6 +156,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
         </li>
         
         <li>
@@ -213,10 +212,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/factory-pattern/" class="post-link">工厂模式</a>
         </li>
         
     </ul>

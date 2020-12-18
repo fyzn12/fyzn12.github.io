@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>二分法使用无符号位右移运算求解上中位数 - fyzn12的博客</title>
+
+<meta name="description" content="获取中间值的方式一般是 int mid = left &#43; (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left&#43;1） 效率更高如下： int mid = left &#43; ((right-left)&amp;gt;&amp;gt;1);
+ 1.有符号右移 &amp;gt;&amp;gt;  有符号右移：右移之后，左边补上符号为，正数补0，负数补1.
+ 2.无符号位右移 &amp;gt;&amp;gt;&amp;gt;  无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。
+ 3.左移 &amp;lt;&amp;lt;  左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。
+ 4.计算除法时（2的n次方）可以使用有符号的右移  20 的二进制位 10100 有符号位右移2位后为 101 十进制解释表示为 20&amp;frasl;4=5（取整）
+20 的二进制位 10100 左移2位后 1010000 十进制结果为81
+ 5.判奇数偶数的方法  (num &amp;amp; 1) == 0表示为偶数 (num &amp;amp; 1) == 1表示为奇数
+ 这里注意一个遇到的坑 使用 int mid = left &#43; ((right-left)&amp;gt;&amp;gt;1); 时切记&#43;号后面是加一个整体，因此需要将((right-left)&amp;gt;&amp;gt;1)括起来。 6." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="二分法使用无符号位右移运算求解上中位数" />
+<meta property="og:description" content="获取中间值的方式一般是 int mid = left &#43; (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left&#43;1） 效率更高如下： int mid = left &#43; ((right-left)&gt;&gt;1);
+ 1.有符号右移 &gt;&gt;  有符号右移：右移之后，左边补上符号为，正数补0，负数补1.
+ 2.无符号位右移 &gt;&gt;&gt;  无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。
+ 3.左移 &lt;&lt;  左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。
+ 4.计算除法时（2的n次方）可以使用有符号的右移  20 的二进制位 10100 有符号位右移2位后为 101 十进制解释表示为 20&frasl;4=5（取整）
+20 的二进制位 10100 左移2位后 1010000 十进制结果为81
+ 5.判奇数偶数的方法  (num &amp; 1) == 0表示为偶数 (num &amp; 1) == 1表示为奇数
+ 这里注意一个遇到的坑 使用 int mid = left &#43; ((right-left)&gt;&gt;1); 时切记&#43;号后面是加一个整体，因此需要将((right-left)&gt;&gt;1)括起来。 6." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" />
+<meta property="article:published_time" content="2020-12-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-18T00:00:00+00:00" />
+<meta itemprop="name" content="二分法使用无符号位右移运算求解上中位数">
+<meta itemprop="description" content="获取中间值的方式一般是 int mid = left &#43; (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left&#43;1） 效率更高如下： int mid = left &#43; ((right-left)&gt;&gt;1);
+ 1.有符号右移 &gt;&gt;  有符号右移：右移之后，左边补上符号为，正数补0，负数补1.
+ 2.无符号位右移 &gt;&gt;&gt;  无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。
+ 3.左移 &lt;&lt;  左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。
+ 4.计算除法时（2的n次方）可以使用有符号的右移  20 的二进制位 10100 有符号位右移2位后为 101 十进制解释表示为 20&frasl;4=5（取整）
+20 的二进制位 10100 左移2位后 1010000 十进制结果为81
+ 5.判奇数偶数的方法  (num &amp; 1) == 0表示为偶数 (num &amp; 1) == 1表示为奇数
+ 这里注意一个遇到的坑 使用 int mid = left &#43; ((right-left)&gt;&gt;1); 时切记&#43;号后面是加一个整体，因此需要将((right-left)&gt;&gt;1)括起来。 6.">
+
+
+<meta itemprop="datePublished" content="2020-12-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-12-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="210">
+
+
+
+<meta itemprop="keywords" content="数组,二分法," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="二分法使用无符号位右移运算求解上中位数"/>
+<meta name="twitter:description" content="获取中间值的方式一般是 int mid = left &#43; (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left&#43;1） 效率更高如下： int mid = left &#43; ((right-left)&gt;&gt;1);
+ 1.有符号右移 &gt;&gt;  有符号右移：右移之后，左边补上符号为，正数补0，负数补1.
+ 2.无符号位右移 &gt;&gt;&gt;  无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。
+ 3.左移 &lt;&lt;  左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。
+ 4.计算除法时（2的n次方）可以使用有符号的右移  20 的二进制位 10100 有符号位右移2位后为 101 十进制解释表示为 20&frasl;4=5（取整）
+20 的二进制位 10100 左移2位后 1010000 十进制结果为81
+ 5.判奇数偶数的方法  (num &amp; 1) == 0表示为偶数 (num &amp; 1) == 1表示为奇数
+ 这里注意一个遇到的坑 使用 int mid = left &#43; ((right-left)&gt;&gt;1); 时切记&#43;号后面是加一个整体，因此需要将((right-left)&gt;&gt;1)括起来。 6."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">二分法使用无符号位右移运算求解上中位数</h1>
+        <p class="post-meta">Dec 18, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<p>获取中间值的方式一般是 int mid = left + (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left+1）
+效率更高如下： int mid = left + ((right-left)&gt;&gt;1);</p>
+</blockquote>
+
+<h2 id="1-有符号右移">1.有符号右移 &gt;&gt;</h2>
+
+<blockquote>
+<p>有符号右移：右移之后，左边补上符号为，正数补0，负数补1.</p>
+</blockquote>
+
+<h2 id="2-无符号位右移">2.无符号位右移 &gt;&gt;&gt;</h2>
+
+<blockquote>
+<p>无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。</p>
+</blockquote>
+
+<h2 id="3-左移">3.左移 &lt;&lt;</h2>
+
+<blockquote>
+<p>左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。</p>
+</blockquote>
+
+<h2 id="4-计算除法时-2的n次方-可以使用有符号的右移">4.计算除法时（2的n次方）可以使用有符号的右移</h2>
+
+<blockquote>
+<p>20 的二进制位 10100 有符号位右移2位后为 101   十进制解释表示为 <sup>20</sup>&frasl;<sub>4</sub>=5（取整）</p>
+
+<p>20 的二进制位 10100 左移2位后 1010000  十进制结果为81</p>
+</blockquote>
+
+<h2 id="5-判奇数偶数的方法">5.判奇数偶数的方法</h2>
+
+<blockquote>
+<p>(num &amp; 1) == 0表示为偶数 (num &amp; 1) == 1表示为奇数</p>
+</blockquote>
+
+<h1 id="这里注意一个遇到的坑-使用-int-mid-left-right-left-1-时切记-号后面是加一个整体-因此需要将-right-left-1-括起来">这里注意一个遇到的坑 使用 int mid = left + ((right-left)&gt;&gt;1); 时切记+号后面是加一个整体，因此需要将((right-left)&gt;&gt;1)括起来。</h1>
+
+<h2 id="6-算法习题如下">6.算法习题如下：</h2>
+
+<div align=center><img src="https://fyzn12.github.io/img/picture/mid1.png"/></div>
+<div align=center><img src="https://fyzn12.github.io/img/picture/mid2"/></div>
+  
+
+<blockquote>
+<p>解题分析<br />
+(1)、当 两个数组的长度为偶数时：</p>
+
+<p>我来举个例子说明他拥有的特点吧。我们假定
+arr1 = [1, 2,3,4]，arr2 = [3,4,5,6]。则数组的长度为 n = 4。
+<div align=center><img src="https://fyzn12.github.io/img/picture/mid3.png"/></div></p>
+
+<p>分别选出这两个数组的上中位数的下标，即
+mid1 = (n-1)/2 = 1。
+mid2 = (n - 1)/2 = 1。<br />
+<div align=center><img src="https://fyzn12.github.io/img/picture/mid4.png"/></div><br />
+假如 arr2[mid2] &gt; arr2[mid1]，那么我们要找的目标数是一定存在于 arr1[mid1+1&hellip;n] 和 arr2[0&hellip;mid2]中。而不可能存在于 arr1[0&hellip;mid1] 和 arr2[mid2+1&hellip;n] 之中。<br />
+也就是说，我们接下来只需要在arr1[mid1+1&hellip;n] 和 arr2[0&hellip;mid2] 中查找就行了。
+<div align=center><img src="https://fyzn12.github.io/img/picture/mid5.png"/></div></p>
+
+<p>(2)、当两个数组的长度为奇数时：</p>
+
+<p>假定 arr1 = [1, 2,3,4，5]，arr2 = [3,4,5,6，7]。则数组的长度为 n = 5。</p>
+
+<p>mid1 = (n-1)/2 = 2。</p>
+
+<p>mid2 = (n - 1)/2 = 2。</p>
+
+<p>这个时候如果 arr2[mid2] &gt; arr1[mid1] 时，则和上面那个情况有点小差别，这时候目标数只存在于 arr1[mid1&hellip;n] 和 arr2[0&hellip;mid2]中。注意他们的差别，从arr1[mid1+1&hellip;n] =&gt; arr1[mid1&hellip;n]。</p>
+</blockquote>
+
+<h3 id="设计程序如下所示">设计程序如下所示：</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">int</span> <span class="n">findMedianinTwoSortedAray</span> <span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">arr1</span><span class="p">,</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">arr2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// write code here
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">arr1</span><span class="p">.</span><span class="na">length</span><span class="o">==</span><span class="n">1</span><span class="p">)</span><span class="k">return</span> <span class="n">Math</span><span class="p">.</span><span class="na">min</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">0</span><span class="p">],</span><span class="n">arr2</span><span class="p">[</span><span class="n">0</span><span class="p">]);</span>
+        <span class="kt">int</span> <span class="nf">l1</span> <span class="o">=</span> <span class="n">0</span><span class="p">,</span><span class="n">l2</span> <span class="o">=</span> <span class="n">0</span><span class="p">,</span><span class="n">r1</span> <span class="o">=</span> <span class="n">arr1</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="p">,</span><span class="n">r2</span> <span class="o">=</span> <span class="n">arr2</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="p">,</span><span class="n">mid1</span><span class="p">,</span><span class="n">mid2</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="nf">offset</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">l1</span><span class="o">&lt;</span><span class="n">r1</span> <span class="o">&amp;&amp;</span> <span class="n">l2</span><span class="o">&lt;</span><span class="n">r2</span><span class="p">){</span>
+            <span class="n">mid1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">+</span> <span class="p">((</span><span class="n">r1</span><span class="o">-</span><span class="n">l1</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="n">1</span><span class="p">);</span>
+            <span class="n">mid2</span> <span class="o">=</span> <span class="n">l2</span> <span class="o">+</span> <span class="p">((</span><span class="n">r2</span><span class="o">-</span><span class="n">l2</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="n">1</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">mid1</span><span class="p">]</span><span class="o">==</span><span class="n">arr2</span><span class="p">[</span><span class="n">mid2</span><span class="p">])</span><span class="k">return</span> <span class="n">arr1</span><span class="p">[</span><span class="n">mid1</span><span class="p">];</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="p">((</span><span class="n">r1</span><span class="o">-</span><span class="n">l1</span><span class="o">+</span><span class="n">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">1</span><span class="p">)</span><span class="o">^</span><span class="n">1</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">mid1</span><span class="p">]</span><span class="o">&gt;</span><span class="n">arr2</span><span class="p">[</span><span class="n">mid2</span><span class="p">]){</span>
+                <span class="n">r1</span> <span class="o">=</span> <span class="n">mid1</span><span class="p">;</span>
+                <span class="n">l2</span> <span class="o">=</span> <span class="n">mid2</span> <span class="o">+</span> <span class="n">offset</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="n">l1</span> <span class="o">=</span> <span class="n">mid1</span><span class="o">+</span><span class="n">offset</span><span class="p">;</span>
+                <span class="n">r2</span> <span class="o">=</span> <span class="n">mid2</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">Math</span><span class="p">.</span><span class="na">min</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">l1</span><span class="p">],</span><span class="n">arr2</span><span class="p">[</span><span class="n">r2</span><span class="p">]);</span>
+    <span class="p">}</span>  </code></pre></div>
+<h4 id="代码中使用了offset保证了奇数时和偶数时的情况对l1和l2的取值-使用了异或运算">代码中使用了offset保证了奇数时和偶数时的情况对l1和l2的取值。使用了异或运算 ^</h4>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+            字符串
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/" class="post-link">数组</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">最长子序列问题解决思路</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">常见算法的实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

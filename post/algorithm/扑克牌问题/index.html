@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>利用set集合的特性解决问题 - fyzn12的博客</title>
+
+<meta name="description" content="题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&amp;hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&amp;hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+输入：[0,3,2,6,4]
+输出：true
+解题思路：
+我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
+二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
+所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
+ 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&amp;lt;Integer&amp;gt; set = new HashSet&amp;lt;&amp;gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&amp;gt;0){ if(set." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="利用set集合的特性解决问题" />
+<meta property="og:description" content="题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+输入：[0,3,2,6,4]
+输出：true
+解题思路：
+我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
+二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
+所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
+ 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&gt;0){ if(set." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" />
+<meta property="article:published_time" content="2020-12-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-18T00:00:00+00:00" />
+<meta itemprop="name" content="利用set集合的特性解决问题">
+<meta itemprop="description" content="题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+输入：[0,3,2,6,4]
+输出：true
+解题思路：
+我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
+二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
+所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
+ 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&gt;0){ if(set.">
+
+
+<meta itemprop="datePublished" content="2020-12-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-12-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="132">
+
+
+
+<meta itemprop="keywords" content="数组," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="利用set集合的特性解决问题"/>
+<meta name="twitter:description" content="题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+输入：[0,3,2,6,4]
+输出：true
+解题思路：
+我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
+二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
+所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
+ 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&gt;0){ if(set."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">利用set集合的特性解决问题</h1>
+        <p class="post-meta">Dec 18, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<p>题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。</p>
+
+<p>输入：[0,3,2,6,4]<br />
+ 输出：true</p>
+
+<p>解题思路：<br />
+我们分两种情况考虑，
+一. 如果vector中不包含0的情况：
+那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5]
+[5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.</p>
+
+<p>二. 如果数组中包含0：
+发现除去0后的值，判断方法和1中是一样的。</p>
+
+<p>所以根据如上两个条件，算法过程如下：
+1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14
+2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max<em>, min</em>
+3. 如果出现在了set中，直接返回false
+4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5</p>
+</blockquote>
+
+<h2 id="方法1-使用set集合-利用set集合不可重复特性解决问题">方法1 使用set集合，利用set集合不可重复特性解决问题</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">boolean</span> <span class="n">isContinuous</span><span class="p">(</span><span class="kt">int</span> <span class="p">[]</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">numbers</span><span class="o">==</span><span class="kc">null</span> <span class="o">||</span> <span class="n">numbers</span><span class="p">.</span><span class="na">length</span><span class="o">==</span><span class="n">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="nf">max</span> <span class="o">=</span> <span class="n">0</span><span class="p">,</span><span class="n">min</span> <span class="o">=</span> <span class="n">14</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">num</span><span class="o">:</span><span class="n">numbers</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">num</span><span class="o">&gt;</span><span class="n">0</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">set</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">num</span><span class="p">))</span><span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="n">set</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+                <span class="n">max</span> <span class="o">=</span> <span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">max</span><span class="p">,</span><span class="n">num</span><span class="p">);</span>
+                <span class="n">min</span> <span class="o">=</span> <span class="n">Math</span><span class="p">.</span><span class="na">min</span><span class="p">(</span><span class="n">min</span><span class="p">,</span><span class="n">num</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">max</span><span class="o">-</span><span class="n">min</span><span class="o">&lt;</span><span class="n">5</span><span class="p">;</span>
+    <span class="p">}</span>  
+  </code></pre></div>
+<blockquote>
+<p>时间复杂度：O(N)
+空间复杂度：O(N)</p>
+</blockquote>
+
+<h2 id="方法2-使用排序-遍历的方式去实现">方法2 使用排序+遍历的方式去实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
+   <span class="kd">public</span> <span class="nf">boolean</span> <span class="n">isContinuous</span><span class="p">(</span><span class="kt">int</span> <span class="p">[]</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">numbers</span><span class="o">==</span><span class="kc">null</span> <span class="o">||</span> <span class="n">numbers</span><span class="p">.</span><span class="na">length</span><span class="o">==</span><span class="n">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="n">Arrays</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">numbers</span><span class="p">);</span>
+        <span class="c1">//记录为 0 的个数
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="nf">count</span> <span class="o">=</span> <span class="n">0</span><span class="p">,</span><span class="n">len</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="na">length</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">j</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">len</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="n">0</span><span class="p">){</span>
+                <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="o">&lt;</span> <span class="nf">len</span> <span class="o">&amp;&amp;</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">1</span><span class="p">])</span><span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">numbers</span><span class="p">[</span><span class="n">len</span><span class="o">-</span><span class="n">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">numbers</span><span class="p">[</span><span class="n">len</span><span class="o">-</span><span class="p">(</span><span class="n">len</span><span class="o">-</span><span class="n">count</span><span class="p">)]</span><span class="o">&lt;</span><span class="n">5</span><span class="p">;</span>
+    <span class="p">}</span>  </code></pre></div>
+<blockquote>
+<p>时间复杂度：O(N)
+空间复杂度：O(1)</p>
+</blockquote>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/">
+            旋转数组的问题
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/">
+            二叉树的镜像问题
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/" class="post-link">二叉树的镜像问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">利用set集合的特性解决问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%89%E5%A5%87%E5%81%B6%E6%95%B0%E6%8E%92%E5%88%97/" class="post-link">对数组中寄偶数据的处理</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/" class="post-link">数组</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">最长子序列问题解决思路</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">常见算法的实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

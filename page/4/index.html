@@ -76,6 +76,54 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
+            <div class="post-meta">Sep 19, 2020</div>
+            <div class="post-excerpt">
+                哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key + b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d+1, d+2, &hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)+i)%m ， 其中i=1,2,&hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d+i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)+i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/linkedlist/">LinkedList以及栈的深度理解</a></h2>
+            <div class="post-meta">Sep 11, 2020</div>
+            <div class="post-excerpt">
+                算法背景:给定一个只包括 &lsquo;(&lsquo;，&rsquo;)&lsquo;，&rsquo;{&lsquo;，&rsquo;}&lsquo;，&rsquo;[&lsquo;，&rsquo;]&rsquo; 的字符串，判断字符串是否有效。
+有效字符串需满足：
+左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。
+ 1 首先了解LinkedList的底层实现 1.1 LinkedList的底层实现 LinkedList的底层是基于 双向链表 实现，使用Node存储链表节点信息。源码如下 private static class Node&lt;E&gt; { E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; } 每个链表都存储了first和last指针； transient Node&lt;E&gt; first; transient Node&lt;E&gt; last;   2 设计算法，实现上面的需求 2.1 算法的实现 public static boolean isValid(String s) { int n = s.length(); if (n % 2 == 1) { return false; } Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() {{ put(&#39;)&#39;, &#39;(&#39;); put(&#39;]&#39;, &#39;[&#39;); put(&#39;}&#39;, &#39;{&#39;); }}; Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;(); for (int i = 0; i &lt; n; i++) { char ch = s.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/singleton/">单例模式</a></h2>
+            <div class="post-meta">Sep 10, 2020</div>
+            <div class="post-excerpt">
+                单例模式的介绍
+ 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
+  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/factory-pattern/">工厂模式</a></h2>
+            <div class="post-meta">Sep 10, 2020</div>
+            <div class="post-excerpt">
+                  工厂模式的简单介绍
+ 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/design_mode/decorator_design/">装饰者模式</a></h2>
             <div class="post-meta">Sep 09, 2020</div>
             <div class="post-excerpt">
@@ -83,49 +131,6 @@
  1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
  别人写了一篇易懂的文章装饰者模式
   
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/">SpringBoot整合Redis使用注解实现同步缓存</a></h2>
-            <div class="post-meta">Sep 08, 2020</div>
-            <div class="post-excerpt">
-                1 SpringBoot整合Redis的环境配置 1.1 添加依赖 &lt;properties&gt; &lt;java.version&gt;1.8&lt;/java.version&gt; &lt;druid.version&gt;1.1.9&lt;/druid.version&gt; &lt;!-- mybatis的版本 --&gt; &lt;mybatis.version&gt;3.4.6&lt;/mybatis.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 配置web启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 配置mybatis--&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;version&gt;8.0.15&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 配置数据库连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.projectlombok&lt;/groupId&gt; &lt;artifactId&gt;lombok&lt;/artifactId&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;exclusions&gt; &lt;exclusion&gt; &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt; &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;4.12&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt; &lt;exclusions&gt; &lt;!--不依赖Redis的异步客户端lettuce--&gt; &lt;exclusion&gt; &lt;groupId&gt;io.lettuce&lt;/groupId&gt; &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;!
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/observer/">观察者模式</a></h2>
-            <div class="post-meta">Sep 06, 2020</div>
-            <div class="post-excerpt">
-                 1 观察者模式 观察者模式（又被称为发布-订阅模式），属于行为模式的一种，他定义了一种一对多得依赖关系， 让多个观察者对象同时监听某一个主题对象。这个主题对象在状态变化时，会通知所有的观察者对象， 使他们能够自动更新自己   观察者主要包括以下四个部分   Subject：抽象主题，他把所有观察者对象保存在一个集合里，可以有任意数量的观察者，抽象主题提供一个接口，可以增加和删除观察者对象。意思就是明星把所有的粉丝都保存在一个账号里面，粉丝数量不限，可以新增粉丝也可以拉黑粉丝。
- ConcreteSubject：具体主题，该角色将有关状态存入具体观察者对象，在具体主题的内部状态发生改变时，给所有注册过的观察者发送通知。意思是我们的明星一有动态，就会把消息给粉丝。
- Observer：抽象观察者，是观察者者的抽象类，它定义了一个更新接口，使得在得到主题更改通知时更新自己。这就是我们所有粉丝的抽象。
- ConcrereObserver：具体观察者，实现抽象观察者定义的更新接口，以便在得到主题更改通知时更新自身的状态。具体每一个粉丝。
-  
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/database/transaction/">数据库的事务</a></h2>
-            <div class="post-meta">Sep 04, 2020</div>
-            <div class="post-excerpt">
-                1. 数据库的事务 1.1 什么是事务 作为单个逻辑工作单位的一系列操作，要么完全成功，要么完全失败。  1.2 事务的四大特征ACID  A Atomic(原子性)
-事务中包含的操作被看作一个整体的业务单元，这样业务单元要么完全成功，要么完全失败。最小的单元  C Consistency(一致性)
-事务在完成时，必须使所有的数据都保持一致状态，在数据库中所有的修改都基于事务，保证了数据的完整性  I Isolation(隔离性)
-下面将会重点讲解隔离  D Durability(持久性)
-事务结束后，所有的数据会固化到一个地方，如保存到磁盘中，即使断电后也可以提供给相应程序访问   1.3 事务的隔离级别  1.3.1 读未提交造成的脏读 是最低的隔离级别，其含义是允许一个事务读取另外一个事务没有提交的数据。未提交读是一种危险 的隔离级别，所以一般在我们实际的开发中应用不广，但是它的优点在于并发能力高，适合那些对数据 一致性没有要求而追求高并发的场景，它的最大坏处是出现脏读。让我们看看可能发生的脏读场景， 如表所示。   T3时刻，因为采用未提交读，所以事务2可以读取事务l未提交的库存数据为1,这里当它扣减 库存后则数据为0，然后它提交了事务，库存就变为了。，而事务l在TS时刻回滚事 务，因为第一类丢失更新已经被克服，所以它不会将库存回滚到2，那么最后的结果就变为了 0，这样就出现了错误。脏读一般是比较危险的隔离级别，在我们实际应用中采用得不多。 为了克服脏读的问题，数据库隔离级别还提供了读已提交（readcommited）的级别， 下面我们时论它。  1.3.2 读已提交 读已提交解决了读未提交造成的脏读问题，但读已提交依然造成了另外一个问题&ndash;不可重复读 读已提交： 是指一个事务只能读取另外一个事务已经提交的数据，不能读取未提交的数据。   在T3时刻事务2读取库存的时候，因为事务l未提交事务，所以读出的库存为l，于是事务2 认为当前可扣减库存；在T4时刻，事务l己经提交事务，所以在TS时刻，它扣减库存的时候 就发现库存为0，于是就无法扣减库存了。这里的问题在于事务2之前认为可以扣减，而到扣 减那一步却发现已经不可以扣减，于是库存对于事务2而言是一个可变化的值，这样的现象 我们称为不可重复读，这就是读写提交的一个不足。为了克服这个不足，数据库的隔离级别 还提出了可重复读的隔离级别，它能够消除不可重读的问题。  1.3.3 可重复读  可以看到，事务2在T3时刻尝试读取库存，但是此时这个库存己经被事务1事先读取，所以这 个时候数据库就阻塞它的读取，直至事务1提交，事务2才能读取库存的值。此时己经是TS时 刻，而读取到的值为0，这时就已经无法扣减了，显然在读写提交中出现的不可重复读的场 景被消除了。但是这样也会引发新的问题的出现，这就是幻读。  下面演示造成幻读的实战  1.3.4 序列化 (串行化) 串行化（Serializable):是数据库最高的隔离级别，它会要求所有的SQL都会按照顺序执 行，这样就可以克服上述隔离级别出现的各种问题，所以它能够完全保证数据的一致性。 2.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-information/">SpringBoot优点</a></h2>
-            <div class="post-meta">Sep 02, 2020</div>
-            <div class="post-excerpt">
-                 1. SpringBoot简介 1.1 SpringBoot的优点  创建独立的Spring应用程序
- 嵌入Tomcat、Jetty或者Undertow，无序部署WAR文件
- 允许通过Maven来根据需要获取starter； 尽可能自动部署Spring； 提供生产就绪功能，如指标、健康检查和外部配置； 绝对没有代码生成，对XMl没有要求配置。
-  1.2 传统SpringMVC和SpringBoot的对比 1.2.1 SpringMVC的工作原理  1.2.2 两者的对比 在传统的SpringMVC项目开发中，开发一个简易的SpringMVC项目，需要配置DispatcherServlet, 也需要配置SpringIoC的容器。你可以选择使用web.xml的配置来实现，当然，如果你使用的是 Servlet 3.1规范，也可以继承由SpringMVC提供的 AbstractAnnotationConfigDispatcherServletlnitializer来配置SpringMVC项目。 
             </div>
         </li>
         
@@ -163,7 +168,23 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/" class="post-link">二叉树的镜像问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">利用set集合的特性解决问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%89%E5%A5%87%E5%81%B6%E6%95%B0%E6%8E%92%E5%88%97/" class="post-link">对数组中寄偶数据的处理</a>
         </li>
         
         <li>
@@ -196,22 +217,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
         </li>
         
     </ul>

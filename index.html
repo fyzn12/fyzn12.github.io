@@ -91,52 +91,50 @@
         </li>
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/">二叉树的镜像问题</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                题目描述如下图所示：
+
+解题思路：利用栈的先进后出特性去做；也可以利用队列去做，只要保证right先进队列就行
+ import java.util.*; /** public class TreeNode { int val = 0; TreeNode left = null; TreeNode right = null; public TreeNode(int val) { this.val = val; } } */ public class Solution { public void Mirror(TreeNode root) { if(root==null)return; Stack&lt;TreeNode&gt; stack = new Stack&lt;TreeNode&gt;(); stack.push(root); while(!stack.isEmpty()){ TreeNode tn = stack.pop(); if(tn.left != null||tn.right != null){ TreeNode temp = tn.left; tn.left = tn.right; tn.right = temp; } if(tn.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/">利用set集合的特性解决问题</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+输入：[0,3,2,6,4]
+输出：true
+解题思路：
+我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
+二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
+所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
+ 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&gt;0){ if(set.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/">旋转数组的问题</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                 1.数组一次旋转的问题  题目描述：
+  1.1 题目分析  处于递增：low上移
+ 处于递减：high下移（如果是high-1，则可能会错过最小值，因为找的就是最小值）
+ 其余情况：low++缩小范围
+   1.2 根据算法分析，编写程序实现如下 public int minNumberInRotateArray(int [] array) { int left = 0,right = array.length-1,mid; while(left&lt;right){ mid = left + ((right-left)&gt;&gt;1); if(array[mid]&gt;array[right]){ left = mid+1; }else{ right = mid; } } return array[right]; }  2. 数组多次变换的问题 
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a></h2>
             <div class="post-meta">Dec 01, 2020</div>
             <div class="post-excerpt">
                 最经典的就是寻找最长回文子串的问题
 解题思想：回文子串的详细思路 在上面的链接中，对该问题做了很详细的思路讲解 下面自己实现采用 Manacher 算法，被中国程序员戏称为“马拉车”算法。它专门用于解决“最长回文子串”问题，时间复杂度为O(N) 。
  public int getLongestPalindrome(String A, int n) { // 做字符串的预处理  String str = changeStr(A,&#39;#&#39;); // 定义左跳跃的指针和右跳跃的指针以及最长回文串的返回值  int left=0,right=0,max=0; for(int i = 1;i&lt;str.length();i++) { //判断每一步扩散的步数  right = i + 1; left = i - 1; int count = 0; while (left &gt;= 0 &amp;&amp; right &lt; str.length() &amp;&amp; str.charAt(left) == str.charAt(right)) { count++; left--; right++; } max = max &gt; count ?
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/">数组</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                总结与数组有关的算法题：
-数组的概念：占据一块连续的内存，并按照顺序存储数组。
-算法题： 在一个二维数组中，每一行都按照从左右到右顺序排序，每一列从上到下都按照顺序排序。给定一个数，若存在于数组中则返回true
- public static Boolean checkNum(int[][] arr,int target){ int row = 0; int column = arr[0].length-1; while (row&lt;arr.length &amp;&amp; column &gt;=0){ if (arr[row][column]==target){ return true; } if (arr[row][column]&gt;target){ column--; }else { row++; } } return false; }  1.判断一个数是奇数还是偶数的方法  使用除2取余的方式 如 4%2 判断余数是否为0，是则为偶数，不是则为奇数 将判断的数与1做按位与运算，结果为1则为奇数，为0则为偶数
-  2.交换两个数字的位置  使用第三变量 如 int tmp = a; a = b;b = tmp; 使用异或运算 如 a ^= b; b ^= a; a ^= b;这样既可将两个数字交换位置
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/">最长子序列问题解决思路</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                对于最长子序列以及最长子串的问题可以看这一下这位博主的博客，介绍比较详细。
-最长子串及最长子序列的问题讲解
-题目描述如下图所示；
-   根据动态规划的思想，将问题划分为多个子问题，寻找辅助数组dp
- 分析关键步骤  这里将辅助数组设为int[][] dp = new int[s1.length+1][s2.length+1];这里对于二维数组来说，多了一行一列； 在辅助数组中填入数据时，保证数组中的值永远是s1与s2响对应的最大值，这里用了原值填充，在代码中填充的字符对于的ASII码；如下图所示    dp数组中填充的值如下图所示
-
- 在dp数组想要找到最大子序列，即可以从对角线开始找，因为一个矩阵中最长的直线在对角线；
- 设计初始程序如下
-public String LCS (String s1, String s2) { // write code here  if(s1==null || s1.length()==0 || s2==null || s2.length()==0)return &#34;-1&#34;; int s1L = s1.length(); int s2L = s2.length(); int[][] dp = new int[s1L+1][s2L+1]; StringBuilder str = new StringBuilder(); //初始化二维表的元素,  for(int i=0;i&lt;s1L+1;i++){ for(int j = 0;j&lt;s2L+1;j++){ //保证二维表的第一个元素为空，或者是0；  if (i==0 || j==0){ dp[i][j]=0; continue; } if(s1.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/">链表</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                题目：输入一个链表，反转链表后，输出新链表的表头。
- 1 分析  假如链表的初始化状态如下图所示：    要将链表反转，只需要将链表中的指针反转，第一个链表的指针指向为 null的链表即可
- 定义三个指针 p1,p2,p3 其中p1执行为null的链表，p2，指向第一个链表，p3指向第2个链表；如下图所示；
-   4. 下面需要将p2指针指向p1   将p3的指针指向p2，依次执行，知道执行到最后一个链表即可
-  2. 代码实现如下图所示 public ListNode ReverseList(ListNode head) { if(head==null) return null; ListNode p1 = null; ListNode p2 = head; ListNode p3 = head.next; while(p2 != null){ p2.next = p1; p1 = p2; p2 = p3; if(p3 != null ){ p3 = p3.next; } } return p1; }   判断一个链表是否有环
             </div>
         </li>
         
@@ -174,7 +172,23 @@ public String LCS (String s1, String s2) { // write code here  if(s1==null || s1
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/" class="post-link">二叉树的镜像问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">利用set集合的特性解决问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%89%E5%A5%87%E5%81%B6%E6%95%B0%E6%8E%92%E5%88%97/" class="post-link">对数组中寄偶数据的处理</a>
         </li>
         
         <li>
@@ -207,22 +221,6 @@ public String LCS (String s1, String s2) { // write code here  if(s1==null || s1
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/command-design/" class="post-link">命令模式</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/hashtable/" class="post-link">哈希检索</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/linkedlist/" class="post-link">LinkedList以及栈的深度理解</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/design_mode/singleton/" class="post-link">单例模式</a>
         </li>
         
     </ul>

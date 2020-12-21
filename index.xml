@@ -49,7 +49,7 @@
     </item>
     
     <item>
-      <title>利用set集合的特性解决问题</title>
+      <title>扑克牌问题</title>
       <link>https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/</link>
       <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
       
@@ -70,11 +70,11 @@
       <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/</guid>
-      <description> 1.数组一次旋转的问题  题目描述：
+      <description>1.数组一次旋转的问题  题目描述：
   1.1 题目分析  处于递增：low上移
  处于递减：high下移（如果是high-1，则可能会错过最小值，因为找的就是最小值）
  其余情况：low++缩小范围
-   1.2 根据算法分析，编写程序实现如下 public int minNumberInRotateArray(int [] array) { int left = 0,right = array.length-1,mid; while(left&amp;lt;right){ mid = left + ((right-left)&amp;gt;&amp;gt;1); if(array[mid]&amp;gt;array[right]){ left = mid+1; }else{ right = mid; } } return array[right]; }  2. 数组多次变换的问题 </description>
+   1.2 根据算法分析，编写程序实现如下 public int minNumberInRotateArray(int [] array) { int left = 0,right = array.length-1,mid; while(left&amp;lt;right){ mid = left + ((right-left)&amp;gt;&amp;gt;1); if(array[mid]&amp;gt;array[right]){ left = mid+1; }else{ right = mid; } } return array[right]; }  2. 数组变换找目标值的问题  题目描述：给出一个转动过的有序数组，你事先不知道该数组转动了多少 (例如,0 1 2 4 5 6 7可能变为4 5 6 7 0 1 2). 在数组中搜索给出的目标值，如果能在数组中找到，返回它的索引，否则返回-1。 假设数组中不存在重复项。</description>
     </item>
     
     <item>

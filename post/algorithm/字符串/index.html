@@ -39,7 +39,7 @@
 
 <meta itemprop="datePublished" content="2020-12-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="244">
+<meta itemprop="wordCount" content="356">
 
 
 
@@ -194,6 +194,34 @@
         
     <span class="p">}</span>  
   </code></pre></div>
+<blockquote>
+<p>题目描述： 以字符串的形式读入两个数字，编写一个函数计算它们的和，以字符串形式返回。
+（字符串长度不大于100000，保证字符串仅由&rsquo;0&rsquo;~&lsquo;9&rsquo;这10种字符组成）</p>
+
+<p>输入：&rdquo;1&rdquo;,&ldquo;99&rdquo;<br />
+输出：&rdquo;100&rdquo;</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="cm">/**
+</span><span class="cm">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+</span><span class="cm">     * 计算两个数之和
+</span><span class="cm">     * @param s string字符串 表示第一个整数
+</span><span class="cm">     * @param t string字符串 表示第二个整数
+</span><span class="cm">     * @return string字符串
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="nf">String</span> <span class="n">solve</span> <span class="p">(</span><span class="n">String</span> <span class="nf">s</span><span class="p">,</span> <span class="n">String</span> <span class="nf">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// write code here
+</span><span class="c1"></span>        <span class="n">StringBuilder</span> <span class="nf">stringBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span> <span class="o">-</span> <span class="n">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="na">length</span><span class="p">()</span> <span class="o">-</span> <span class="n">1</span><span class="p">,</span> <span class="n">carry</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">||</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">||</span> <span class="n">carry</span> <span class="o">!=</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="nf">x</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="n">s</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="nf">y</span> <span class="o">=</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="n">t</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">j</span><span class="o">--</span><span class="p">)</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="nf">sum</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">carry</span><span class="p">;</span>
+            <span class="n">stringBuilder</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">sum</span> <span class="o">%</span> <span class="n">10</span><span class="p">);</span><span class="c1">//添加到字符串尾部
+</span><span class="c1"></span>            <span class="n">carry</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">/</span> <span class="n">10</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">stringBuilder</span><span class="p">.</span><span class="na">reverse</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span><span class="c1">//对字符串反转
+</span><span class="c1"></span>    <span class="p">}</span>  
+  </code></pre></div>
     </article>
 
     
@@ -268,7 +296,7 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">利用set集合的特性解决问题</a>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">扑克牌问题</a>
         </li>
         
         <li>

@@ -6,10 +6,25 @@
     <description>Recent content in 算法 on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 18 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>字符串变形</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/</link>
+      <pubDate>Wed, 23 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/</guid>
+      <description>1. 解决此题的关键是如何将大小写字符转换 1.1 判断 字符是a-z 或者 A-Z是关键  每一个字符都有一个对应的ASII码，因此可以利用这一点来做
+ 1.2 大小写转换  将字符串从小写转换为大写可以如下表达：
+ch[j] = (char)(ch[j]-&amp;lsquo;a&amp;rsquo;+&amp;lsquo;A&amp;rsquo;);
+将字符串从大写转换为小写可以如下表达：
+ch[j] = (char)(ch[j] -&amp;lsquo;A&amp;rsquo;+&amp;lsquo;a&amp;rsquo;);
+题目描述如下
+  public String trans(String s, int n) { // write code here  String[] str = s.split(&amp;#34; &amp;#34;,-1); StringBuilder res = new StringBuilder(); for(int i = str.length-1;i&amp;gt;=0;i--){ String tmp = str[i]; char[] ch = tmp.toCharArray(); for(int j = 0;j&amp;lt;ch.length;j++){ if(ch[j]&amp;gt;=&amp;#39;a&amp;#39; &amp;amp;&amp;amp; ch[j]&amp;lt;=&amp;#39;z&amp;#39;) ch[j] = (char)(ch[j]-&amp;#39;a&amp;#39;+&amp;#39;A&amp;#39;); else if(ch[j] &amp;gt;= &amp;#39;A&amp;#39; &amp;amp;&amp;amp; ch[j]&amp;lt;=&amp;#39;Z&amp;#39;) ch[j] = (char)(ch[j] -&amp;#39;A&amp;#39;+&amp;#39;a&amp;#39;); } res.</description>
+    </item>
     
     <item>
       <title>二分法使用无符号位右移运算求解上中位数</title>
@@ -66,6 +81,15 @@
  处于递减：high下移（如果是high-1，则可能会错过最小值，因为找的就是最小值）
  其余情况：low++缩小范围
    1.2 根据算法分析，编写程序实现如下 public int minNumberInRotateArray(int [] array) { int left = 0,right = array.length-1,mid; while(left&amp;lt;right){ mid = left + ((right-left)&amp;gt;&amp;gt;1); if(array[mid]&amp;gt;array[right]){ left = mid+1; }else{ right = mid; } } return array[right]; }  2. 数组变换找目标值的问题  题目描述：给出一个转动过的有序数组，你事先不知道该数组转动了多少 (例如,0 1 2 4 5 6 7可能变为4 5 6 7 0 1 2). 在数组中搜索给出的目标值，如果能在数组中找到，返回它的索引，否则返回-1。 假设数组中不存在重复项。</description>
+    </item>
+    
+    <item>
+      <title>在无序数组中找出最小的正整数</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/</guid>
+      <description> /** * return the min number * @param arr int整型一维数组 the array * @return int整型 */ public int minNumberdisappered (int[] arr) { // write code here  Arrays.sort(arr); int min = 1; for(int i = 0;i&amp;lt;arr.length;i++){ if(arr[i]==min) min++; } return min; } </description>
     </item>
     
     <item>

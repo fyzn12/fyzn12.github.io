@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-12-18T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-12-23T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,30 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/tree/">二叉树</a></h2>
+            <div class="post-meta">Sep 23, 2020</div>
+            <div class="post-excerpt">
+                二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/command-design/">命令模式</a></h2>
+            <div class="post-meta">Sep 21, 2020</div>
+            <div class="post-excerpt">
+                  命令模式的简单介绍
+ 1 命令模式的介绍 1.1 命令模式的结构 
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
             <div class="post-meta">Sep 19, 2020</div>
             <div class="post-excerpt">
@@ -105,32 +129,11 @@
         </li>
         
         <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/singleton/">单例模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Xml字符编码规范</a></h2>
+            <div class="post-meta">Sep 11, 2020</div>
             <div class="post-excerpt">
-                单例模式的介绍
- 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
-  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/factory-pattern/">工厂模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
-            <div class="post-excerpt">
-                  工厂模式的简单介绍
- 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/decorator_design/">装饰者模式</a></h2>
-            <div class="post-meta">Sep 09, 2020</div>
-            <div class="post-excerpt">
-                  装饰者模式的简单实现
- 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
- 别人写了一篇易懂的文章装饰者模式
-  
+                 xml字符编码规范
+ &lt; &lt;(小于) &gt; &gt;(大于) &amp; &amp;(和) &apos; &lsquo;(单引号) &quot; &ldquo;(双引号)   
             </div>
         </li>
         
@@ -138,7 +141,7 @@
     
     <div class="pagination">
         <a href="/page/3/" class="previous">PREV</a>
-        <span class="page_number ">4 of 10</span>
+        <span class="page_number ">4 of 11</span>
         <a href="/page/5/" class="next">NEXT</a>
     </div>
 </div>
@@ -164,6 +167,10 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/" class="post-link">字符串变形</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
         </li>
         
@@ -177,6 +184,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/" class="post-link">在无序数组中找出最小的正整数</a>
         </li>
         
         <li>
@@ -209,14 +220,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-link">求两个有序数组的中位数</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/tree/" class="post-link">二叉树</a>
         </li>
         
     </ul>

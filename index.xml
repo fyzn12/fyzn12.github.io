@@ -6,7 +6,7 @@
     <description>Recent content on fyzn12的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 18 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,6 +18,21 @@
       
       <guid>https://fyzn12.github.io/about/</guid>
       <description>蝶恋花·今古河山无定据 [清] 纳兰性德 今古河山无定据，画角声中，牧马频来去。 满目荒凉谁可语？西风吹老丹枫树。 从前幽怨应无数？铁马金戈，青冢黄昏路。 一往情深深几许？深山夕照深秋雨。</description>
+    </item>
+    
+    <item>
+      <title>字符串变形</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/</link>
+      <pubDate>Wed, 23 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/</guid>
+      <description>1. 解决此题的关键是如何将大小写字符转换 1.1 判断 字符是a-z 或者 A-Z是关键  每一个字符都有一个对应的ASII码，因此可以利用这一点来做
+ 1.2 大小写转换  将字符串从小写转换为大写可以如下表达：
+ch[j] = (char)(ch[j]-&amp;lsquo;a&amp;rsquo;+&amp;lsquo;A&amp;rsquo;);
+将字符串从大写转换为小写可以如下表达：
+ch[j] = (char)(ch[j] -&amp;lsquo;A&amp;rsquo;+&amp;lsquo;a&amp;rsquo;);
+题目描述如下
+  public String trans(String s, int n) { // write code here  String[] str = s.split(&amp;#34; &amp;#34;,-1); StringBuilder res = new StringBuilder(); for(int i = str.length-1;i&amp;gt;=0;i--){ String tmp = str[i]; char[] ch = tmp.toCharArray(); for(int j = 0;j&amp;lt;ch.length;j++){ if(ch[j]&amp;gt;=&amp;#39;a&amp;#39; &amp;amp;&amp;amp; ch[j]&amp;lt;=&amp;#39;z&amp;#39;) ch[j] = (char)(ch[j]-&amp;#39;a&amp;#39;+&amp;#39;A&amp;#39;); else if(ch[j] &amp;gt;= &amp;#39;A&amp;#39; &amp;amp;&amp;amp; ch[j]&amp;lt;=&amp;#39;Z&amp;#39;) ch[j] = (char)(ch[j] -&amp;#39;A&amp;#39;+&amp;#39;a&amp;#39;); } res.</description>
     </item>
     
     <item>
@@ -75,6 +90,15 @@
  处于递减：high下移（如果是high-1，则可能会错过最小值，因为找的就是最小值）
  其余情况：low++缩小范围
    1.2 根据算法分析，编写程序实现如下 public int minNumberInRotateArray(int [] array) { int left = 0,right = array.length-1,mid; while(left&amp;lt;right){ mid = left + ((right-left)&amp;gt;&amp;gt;1); if(array[mid]&amp;gt;array[right]){ left = mid+1; }else{ right = mid; } } return array[right]; }  2. 数组变换找目标值的问题  题目描述：给出一个转动过的有序数组，你事先不知道该数组转动了多少 (例如,0 1 2 4 5 6 7可能变为4 5 6 7 0 1 2). 在数组中搜索给出的目标值，如果能在数组中找到，返回它的索引，否则返回-1。 假设数组中不存在重复项。</description>
+    </item>
+    
+    <item>
+      <title>在无序数组中找出最小的正整数</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/</guid>
+      <description> /** * return the min number * @param arr int整型一维数组 the array * @return int整型 */ public int minNumberdisappered (int[] arr) { // write code here  Arrays.sort(arr); int min = 1; for(int i = 0;i&amp;lt;arr.length;i++){ if(arr[i]==min) min++; } return min; } </description>
     </item>
     
     <item>
@@ -259,6 +283,16 @@ public class Tree { private class Bitree&amp;lt;T&amp;gt;{ T data; Bitree lchild
 有效字符串需满足：
 左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。
  1 首先了解LinkedList的底层实现 1.1 LinkedList的底层实现 LinkedList的底层是基于 双向链表 实现，使用Node存储链表节点信息。源码如下 private static class Node&amp;lt;E&amp;gt; { E item; Node&amp;lt;E&amp;gt; next; Node&amp;lt;E&amp;gt; prev; } 每个链表都存储了first和last指针； transient Node&amp;lt;E&amp;gt; first; transient Node&amp;lt;E&amp;gt; last;   2 设计算法，实现上面的需求 2.1 算法的实现 public static boolean isValid(String s) { int n = s.length(); if (n % 2 == 1) { return false; } Map&amp;lt;Character, Character&amp;gt; pairs = new HashMap&amp;lt;Character, Character&amp;gt;() {{ put(&amp;#39;)&amp;#39;, &amp;#39;(&amp;#39;); put(&amp;#39;]&amp;#39;, &amp;#39;[&amp;#39;); put(&amp;#39;}&amp;#39;, &amp;#39;{&amp;#39;); }}; Deque&amp;lt;Character&amp;gt; stack = new LinkedList&amp;lt;Character&amp;gt;(); for (int i = 0; i &amp;lt; n; i++) { char ch = s.</description>
+    </item>
+    
+    <item>
+      <title>xml字符编码规范</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
+      <description> xml字符编码规范
+ &amp;lt; &amp;lt;(小于) &amp;gt; &amp;gt;(大于) &amp;amp; &amp;amp;(和) &amp;apos; &amp;lsquo;(单引号) &amp;quot; &amp;ldquo;(双引号)   </description>
     </item>
     
     <item>

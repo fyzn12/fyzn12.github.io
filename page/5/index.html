@@ -76,6 +76,15 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Xml字符编码规范</a></h2>
+            <div class="post-meta">Sep 11, 2020</div>
+            <div class="post-excerpt">
+                 xml字符编码规范
+ &lt; &lt;(小于) &gt; &gt;(大于) &amp; &amp;(和) &apos; &lsquo;(单引号) &quot; &ldquo;(双引号)   
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/design_mode/singleton/">单例模式</a></h2>
             <div class="post-meta">Sep 10, 2020</div>
             <div class="post-excerpt">
@@ -110,18 +119,6 @@
             <div class="post-meta">Sep 08, 2020</div>
             <div class="post-excerpt">
                 1 SpringBoot整合Redis的环境配置 1.1 添加依赖 &lt;properties&gt; &lt;java.version&gt;1.8&lt;/java.version&gt; &lt;druid.version&gt;1.1.9&lt;/druid.version&gt; &lt;!-- mybatis的版本 --&gt; &lt;mybatis.version&gt;3.4.6&lt;/mybatis.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 配置web启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 配置mybatis--&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;version&gt;8.0.15&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 配置数据库连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.projectlombok&lt;/groupId&gt; &lt;artifactId&gt;lombok&lt;/artifactId&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;exclusions&gt; &lt;exclusion&gt; &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt; &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;4.12&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt; &lt;exclusions&gt; &lt;!--不依赖Redis的异步客户端lettuce--&gt; &lt;exclusion&gt; &lt;groupId&gt;io.lettuce&lt;/groupId&gt; &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;!
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/observer/">观察者模式</a></h2>
-            <div class="post-meta">Sep 06, 2020</div>
-            <div class="post-excerpt">
-                 1 观察者模式 观察者模式（又被称为发布-订阅模式），属于行为模式的一种，他定义了一种一对多得依赖关系， 让多个观察者对象同时监听某一个主题对象。这个主题对象在状态变化时，会通知所有的观察者对象， 使他们能够自动更新自己   观察者主要包括以下四个部分   Subject：抽象主题，他把所有观察者对象保存在一个集合里，可以有任意数量的观察者，抽象主题提供一个接口，可以增加和删除观察者对象。意思就是明星把所有的粉丝都保存在一个账号里面，粉丝数量不限，可以新增粉丝也可以拉黑粉丝。
- ConcreteSubject：具体主题，该角色将有关状态存入具体观察者对象，在具体主题的内部状态发生改变时，给所有注册过的观察者发送通知。意思是我们的明星一有动态，就会把消息给粉丝。
- Observer：抽象观察者，是观察者者的抽象类，它定义了一个更新接口，使得在得到主题更改通知时更新自己。这就是我们所有粉丝的抽象。
- ConcrereObserver：具体观察者，实现抽象观察者定义的更新接口，以便在得到主题更改通知时更新自身的状态。具体每一个粉丝。
-  
             </div>
         </li>
         
@@ -179,6 +176,10 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E4%BA%8Earrays.binarysearch%E8%A7%A3%E5%86%B3%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">基于Arrays.binarySearch解决最长递增子序列</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
         </li>
         
@@ -204,10 +205,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
         </li>
         
     </ul>

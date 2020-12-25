@@ -76,6 +76,22 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/">最长子序列问题解决思路</a></h2>
+            <div class="post-meta">Dec 01, 2020</div>
+            <div class="post-excerpt">
+                对于最长子序列以及最长子串的问题可以看这一下这位博主的博客，介绍比较详细。
+最长子串及最长子序列的问题讲解
+题目描述如下图所示；
+   根据动态规划的思想，将问题划分为多个子问题，寻找辅助数组dp
+ 分析关键步骤  这里将辅助数组设为int[][] dp = new int[s1.length+1][s2.length+1];这里对于二维数组来说，多了一行一列； 在辅助数组中填入数据时，保证数组中的值永远是s1与s2响对应的最大值，这里用了原值填充，在代码中填充的字符对于的ASII码；如下图所示    dp数组中填充的值如下图所示
+
+ 在dp数组想要找到最大子序列，即可以从对角线开始找，因为一个矩阵中最长的直线在对角线；
+ 设计初始程序如下
+public String LCS (String s1, String s2) { // write code here  if(s1==null || s1.length()==0 || s2==null || s2.length()==0)return &#34;-1&#34;; int s1L = s1.length(); int s2L = s2.length(); int[][] dp = new int[s1L+1][s2L+1]; StringBuilder str = new StringBuilder(); //初始化二维表的元素,  for(int i=0;i&lt;s1L+1;i++){ for(int j = 0;j&lt;s2L+1;j++){ //保证二维表的第一个元素为空，或者是0；  if (i==0 || j==0){ dp[i][j]=0; continue; } if(s1.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/">链表</a></h2>
             <div class="post-meta">Dec 01, 2020</div>
             <div class="post-excerpt">
@@ -128,20 +144,6 @@
 前后端分离，后台使用SpringBoot 前端采用antd pro react
  一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
  以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&#34;/modification-avatar&#34;) public Map&lt;String, Object&gt; update(@RequestParam(value = &#34;file&#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">求两个有序数组的中位数</a></h2>
-            <div class="post-meta">Sep 25, 2020</div>
-            <div class="post-excerpt">
-                  给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
- leetcode给出从时间复杂度和空间复杂度最优解分析 方法一：二分查找 给定两个有序数组，要求找到两个有序数组的中位数，最直观的思路有以下两种：
-使用归并的方式，合并两个有序数组，得到一个大的有序数组。大的有序数组的中间位置的元素，即为中位数。 不需要合并两个有序数组，只要找到中位数的位置即可。由于两个数组的长度已知，因此中位数对应的两个数 组的下标之和也是已知的。维护两个指针，初始时分别指向两个数组的下标 000 的位置，每次将指向较小 值的指针后移一位（如果一个指针已经到达数组末尾，则只需要移动另一个数组的指针），直到到达中位数 的位置。 假设两个有序数组的长度分别为 m 和 n，上述两种思路的复杂度如何？
-第一种思路的时间复杂度是 O(m+n)，空间复杂度是 O(m+n)。第二种思路虽然可以将空间复杂度降到 O(1)，但是时间复杂度仍是 O(m+n)。题目要求时间复杂度是 O(log⁡(m+n))，因此上述两种思路都不满足题目要求的时间复杂度。
-如何把时间复杂度降低到 O(log⁡(m+n)) 呢？如果对时间复杂度的要求有 log，通常都需要用到二分查找，这道题也可以通过二分查找实现。
-根据中位数的定义，当 m+n 是奇数时，中位数是两个有序数组中的第 (m+n)/2 个元素，当 m+n 是偶数时，中位数是两个有序数组中的第 (m+n)/2 个元素和第 (m+n)/2+1 个元素的平均值。因此，这道题可以转化成寻找两个有序数组中的第 k 小的数，其中 k 为 (m+n)/2 或 (m+n)/2+1。
-注意：以上分析思路来自于leetcode官方阶梯思路 
             </div>
         </li>
         
@@ -199,6 +201,10 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E4%BA%8Earrays.binarysearch%E8%A7%A3%E5%86%B3%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">基于Arrays.binarySearch解决最长递增子序列</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
         </li>
         
@@ -224,10 +230,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
         </li>
         
     </ul>

@@ -76,6 +76,34 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/database/database/">数据库易忘知识点总结</a></h2>
+            <div class="post-meta">Jul 01, 2020</div>
+            <div class="post-excerpt">
+                数据库的基本知识点
+ 1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令 create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+语法：
+delete from 表名 [where 条件]
+注意：
+* 如果不加条件，则删除表中所有记录。
+* 如果要删除所有记录
+delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少次删除操作。
+* TRUNCATE TABLE 表名；&ndash;推荐使用，效率更高，先删除表，然后创建相同的表。
+ update 表名 set 列名1 = 值1，列名2 = 值2，&hellip;[where 条件]; 注意：如果不加条件，则会修改所有的记录；
+ 多表查询取出重复的行
+关键字 distinct  DQL：查询语句
+ 排序查询
+语法：order by 子句
+排序方式： ASC：升序；DESC：降序
+注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。
+ 聚合函数：
+（1）count：计算个数
+（2）max
+（3）min
+（4）sum
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/database/%E5%AF%BC%E5%87%BA%E7%BB%93%E6%9E%84/">数据库易忘知识点总结</a></h2>
             <div class="post-meta">Jul 01, 2020</div>
             <div class="post-excerpt">
@@ -126,14 +154,6 @@
 Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
 
   2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Consul注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
-            <div class="post-excerpt">
-                SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质： 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。 2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入springcloud整合Zookeeper启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.
             </div>
         </li>
         
@@ -191,6 +211,10 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E4%BA%8Earrays.binarysearch%E8%A7%A3%E5%86%B3%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">基于Arrays.binarySearch解决最长递增子序列</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
         </li>
         
@@ -216,10 +240,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/spring-boot/upload/" class="post-link">SpringBoot结合antd组件Upload实现文件上传</a>
         </li>
         
     </ul>

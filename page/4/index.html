@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-12-23T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-12-26T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,39 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/database/mysql/">Mysql基础底层</a></h2>
+            <div class="post-meta">Nov 01, 2020</div>
+            <div class="post-excerpt">
+                MYSQL的一些基础底层
+ 1. 数据库应用的分类  一类是OLTP：在线事务处理，如博客、电子商务、网络游戏；
+另一类OLAP：在线分析处理，如数据仓库、数据集市； 对于OLAP的应用，分区的确可以很好的提高查询的性能；
+ 2. MYSQL的慢查询  通过 long_query_time 设置阈值，默认是10，代表10秒； 默认情况下，mysql并不启动慢查询日志，需要手工设置 log_slow_queries设置为ON开启慢查询日志。
+ 3. InnoDB存储引擎表类型  在InnoDB存储引擎表中，每张表都有一个主键，如果在创建表时没有显示地定义主键，则InnoDB存储引擎会按如下的方式选择创建主键。
+  寻找加了unique约束并且不为NULL的列设为主键。
+ 如果没有，把row_id作为主键
+ InnoDB在每行记录都添加了三个隐藏字段
+ DB_ROW_ID &mdash;6个字节：行的标识；
+ DB_TRX_ID &mdash;6个字节：新增更新行的最后一个事务ID，自动递增（创建版本号，数据库的乐观锁相似）； DB_ROLL_PTR &mdash;7个字节：回滚指针（删除版本号）
+    4. MYSQL分区 1. 分区类型  range（范围） list（离散、不连续） hash（散列） key 子分区 &ndash;在分区的基础上进行分区  关键字 subpartitions
+ 子分区数量必须相同
+  columns分区
+  2. 创建方式 create table `table_name`( a int,b int )engin=innodb partition by key(b) partition 4;  另外在MYSQL数据库中还支持一种称为linear hash的分区，他使用一个更加复杂的算法来确定新行插入已经分区表中的位置。 create table `table_name`( a int,b int; )engin=innodb partition by linear hash(b) partition 4; ---指定分区数    linear hash 的优点在于，增加、删除，合并和拆分将变得更加快捷，有利于处理含有大量数据的表；
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/spring-boot/upload/">SpringBoot结合antd组件Upload实现文件上传</a></h2>
+            <div class="post-meta">Oct 02, 2020</div>
+            <div class="post-excerpt">
+                项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&#34;/modification-avatar&#34;) public Map&lt;String, Object&gt; update(@RequestParam(value = &#34;file&#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">求两个有序数组的中位数</a></h2>
             <div class="post-meta">Sep 25, 2020</div>
             <div class="post-excerpt">
@@ -113,40 +146,11 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
-            <div class="post-meta">Sep 19, 2020</div>
-            <div class="post-excerpt">
-                哈希检索算法的深度学习
- 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
-（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
-（2）在出现地址冲突时采用什么办法解决冲突
-  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key + b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
- 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
-  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
-2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d+1, d+2, &hellip;,直到找到一个空闲位置为止。
- 公式：（地址）d = (h(key)+i)%m ， 其中i=1,2,&hellip;,m-1
- 缺点：线性探查法易造成堆积现象。
-  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d+i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)+i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/linkedlist/">LinkedList以及栈的深度理解</a></h2>
-            <div class="post-meta">Sep 11, 2020</div>
-            <div class="post-excerpt">
-                算法背景:给定一个只包括 &lsquo;(&lsquo;，&rsquo;)&lsquo;，&rsquo;{&lsquo;，&rsquo;}&lsquo;，&rsquo;[&lsquo;，&rsquo;]&rsquo; 的字符串，判断字符串是否有效。
-有效字符串需满足：
-左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。
- 1 首先了解LinkedList的底层实现 1.1 LinkedList的底层实现 LinkedList的底层是基于 双向链表 实现，使用Node存储链表节点信息。源码如下 private static class Node&lt;E&gt; { E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; } 每个链表都存储了first和last指针； transient Node&lt;E&gt; first; transient Node&lt;E&gt; last;   2 设计算法，实现上面的需求 2.1 算法的实现 public static boolean isValid(String s) { int n = s.length(); if (n % 2 == 1) { return false; } Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() {{ put(&#39;)&#39;, &#39;(&#39;); put(&#39;]&#39;, &#39;[&#39;); put(&#39;}&#39;, &#39;{&#39;); }}; Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;(); for (int i = 0; i &lt; n; i++) { char ch = s.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/3/" class="previous">PREV</a>
-        <span class="page_number ">4 of 11</span>
+        <span class="page_number ">4 of 12</span>
         <a href="/page/5/" class="next">NEXT</a>
     </div>
 </div>
@@ -169,6 +173,14 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
         </li>
         
         <li>
@@ -217,14 +229,6 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">常见算法的实现</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
         </li>
         
     </ul>

@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-12-23T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-12-26T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,35 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
+            <div class="post-meta">Sep 19, 2020</div>
+            <div class="post-excerpt">
+                哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key + b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d+1, d+2, &hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)+i)%m ， 其中i=1,2,&hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d+i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)+i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/linkedlist/">LinkedList以及栈的深度理解</a></h2>
+            <div class="post-meta">Sep 11, 2020</div>
+            <div class="post-excerpt">
+                算法背景:给定一个只包括 &lsquo;(&lsquo;，&rsquo;)&lsquo;，&rsquo;{&lsquo;，&rsquo;}&lsquo;，&rsquo;[&lsquo;，&rsquo;]&rsquo; 的字符串，判断字符串是否有效。
+有效字符串需满足：
+左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。
+ 1 首先了解LinkedList的底层实现 1.1 LinkedList的底层实现 LinkedList的底层是基于 双向链表 实现，使用Node存储链表节点信息。源码如下 private static class Node&lt;E&gt; { E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; } 每个链表都存储了first和last指针； transient Node&lt;E&gt; first; transient Node&lt;E&gt; last;   2 设计算法，实现上面的需求 2.1 算法的实现 public static boolean isValid(String s) { int n = s.length(); if (n % 2 == 1) { return false; } Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() {{ put(&#39;)&#39;, &#39;(&#39;); put(&#39;]&#39;, &#39;[&#39;); put(&#39;}&#39;, &#39;{&#39;); }}; Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;(); for (int i = 0; i &lt; n; i++) { char ch = s.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Xml字符编码规范</a></h2>
             <div class="post-meta">Sep 11, 2020</div>
             <div class="post-excerpt">
@@ -103,30 +132,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/decorator_design/">装饰者模式</a></h2>
-            <div class="post-meta">Sep 09, 2020</div>
-            <div class="post-excerpt">
-                  装饰者模式的简单实现
- 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
- 别人写了一篇易懂的文章装饰者模式
-  
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springboot%E6%95%B4%E5%90%88redis%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E7%BC%93%E5%AD%98/">SpringBoot整合Redis使用注解实现同步缓存</a></h2>
-            <div class="post-meta">Sep 08, 2020</div>
-            <div class="post-excerpt">
-                1 SpringBoot整合Redis的环境配置 1.1 添加依赖 &lt;properties&gt; &lt;java.version&gt;1.8&lt;/java.version&gt; &lt;druid.version&gt;1.1.9&lt;/druid.version&gt; &lt;!-- mybatis的版本 --&gt; &lt;mybatis.version&gt;3.4.6&lt;/mybatis.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 配置web启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 配置mybatis--&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;version&gt;8.0.15&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 配置数据库连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.projectlombok&lt;/groupId&gt; &lt;artifactId&gt;lombok&lt;/artifactId&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;exclusions&gt; &lt;exclusion&gt; &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt; &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;4.12&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt; &lt;exclusions&gt; &lt;!--不依赖Redis的异步客户端lettuce--&gt; &lt;exclusion&gt; &lt;groupId&gt;io.lettuce&lt;/groupId&gt; &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;!
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/4/" class="previous">PREV</a>
-        <span class="page_number ">5 of 11</span>
+        <span class="page_number ">5 of 12</span>
         <a href="/page/6/" class="next">NEXT</a>
     </div>
 </div>
@@ -149,6 +159,14 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
         </li>
         
         <li>
@@ -197,14 +215,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">常见算法的实现</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
         </li>
         
     </ul>

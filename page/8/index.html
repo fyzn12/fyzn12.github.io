@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-12-23T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-12-26T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -74,6 +74,35 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/spring-boot/spring-data/">Spring Boot整合Spring Data JPA</a></h2>
+            <div class="post-meta">Jul 18, 2020</div>
+            <div class="post-excerpt">
+                Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
+&lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入mybatis的启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 导入springboot整合spring Data JPA的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql数据库 --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql的连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;/dependency&gt; 
+ 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
+  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/redis/jedis/">Redis之java客户端</a></h2>
+            <div class="post-meta">Jul 08, 2020</div>
+            <div class="post-excerpt">
+                1 jedis的简单介绍 1.1 Jedis是什么 直观来说，jedis就是redis-cli   1.2 引入jedis的依赖包 &lt;!-- 引入jedis的依赖包 --&gt; &lt;dependency&gt; &lt;groupId&gt;redis.clients&lt;/groupId&gt; &lt;artifactId&gt;jedis&lt;/artifactId&gt; &lt;version&gt;2.9.3&lt;/version&gt; &lt;type&gt;jar&lt;/type&gt; &lt;scope&gt;compile&lt;/scope&gt; &lt;/dependency&gt;  1.3 jedis直连  生成一个Jedis对象，这个对象负责和指定Redis节点进行通信
+Jedis jedis = new Jedis(&ldquo;127.0.0.1&rdquo;,6379);
+ jedis执行set操作
+jedis.set(&ldquo;hello&rdquo;,&ldquo;world&rdquo;);
+ jedis执行get操作，value=&ldquo;world&rdquo;
+String value = jedis.get(&ldquo;hello&rdquo;);
+   Jedis构造函数的简单介绍 Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
+ 三个命令
+ 两个配置
+ 运维经验
+  2.
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/database/database/">数据库易忘知识点总结</a></h2>
@@ -128,40 +157,11 @@ delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少�
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">微服务架构的介绍</a></h2>
-            <div class="post-meta">Jun 26, 2020</div>
-            <div class="post-excerpt">
-                微服务架构的介绍 1 单体架构 单体架构也称为单体系统或者单体应用。就是一种把系统中的所有功能、模块耦合在一个应用中的架构方式  1.1 单体架构特点 1. 单体架构最终会打包成一个独立的单元(导成一个唯一的jar包或者war包) 2. 会以一个进程的方式来运行 3. 项目结构图如下图所示  
-1.2 单体架构的优点、缺点 1.2.1 优点： 1. 项目易于管理 2. 部署简单  1.2.2 缺点： 1. 测试成本高 2. 可伸缩性差 3. 可靠性差 4. 迭代困难 5. 跨语言程度差 6. 团队协作难  2 微服务架构 2.1 什么是微服务 微服务就是一种架构风格，一个大型的复杂软件应用，由一个或多个微服务组成。 系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅仅关注于完成一件任务。  2.2 什么架构风格 架构风格就是项目的一种设计模式  2.2.1 常见的架构风格  客户端与服务端
- 基于组件模型的架构（EJB） 分层架构（MVC） 面向服务架构（SOA）
-  2.3 微服务的特点 1. 系统是由多个服务构成 2. 每个服务可以单独独立部署 3. 每个服务之间是松耦合的。服务内部是高内聚的，外部是低耦合的。高内聚就是每个服务只关注于完成一个功能  2.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/">SpringCloud之Eureka2.0服务注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
-            <div class="post-excerpt">
-                SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
- 每个服务运行在单独的进程中
- 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
-  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http+json（restful）进行传输。
- 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
- SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
-  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
- 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
-Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
-
-  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/7/" class="previous">PREV</a>
-        <span class="page_number ">8 of 11</span>
+        <span class="page_number ">8 of 12</span>
         <a href="/page/9/" class="next">NEXT</a>
     </div>
 </div>
@@ -184,6 +184,14 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
         </li>
         
         <li>
@@ -232,14 +240,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/faceword/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">常见算法的实现</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql/" class="post-link">Mysql基础底层</a>
         </li>
         
     </ul>

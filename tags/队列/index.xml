@@ -21,11 +21,7 @@
   解题思路   设置一个标志位flag，当flag为true时，执行从左到右的遍历，反之则为从右到左
  将数放入到队列中，判断队列是否为空，作为树遍历的结束条件
  代码如下
-   ```java
-import java.util.*;
-/* * public class TreeNode { * int val = 0; * TreeNode left = null; * TreeNode right = null; * } */
-public class Solution { /** * * @param root TreeNode类 * @return int整型ArrayList&amp;gt; */
-public ArrayList&amp;gt; zigzagLevelOrder (TreeNode root) { // write code here ArrayList&amp;gt; res = new ArrayList&amp;gt;(); if(root==null)return res; // 设置一个标志位</description>
+   /** * * @param root TreeNode类 * @return int整型ArrayList&amp;lt;ArrayList&amp;lt;&amp;gt;&amp;gt; */ public ArrayList&amp;lt;ArrayList&amp;lt;Integer&amp;gt;&amp;gt; zigzagLevelOrder (TreeNode root) { // write code here  ArrayList&amp;lt;ArrayList&amp;lt;Integer&amp;gt;&amp;gt; res = new ArrayList&amp;lt;ArrayList&amp;lt;Integer&amp;gt;&amp;gt;(); if(root==null)return res; // 设置一个标志位  Boolean flag = true; Queue&amp;lt;TreeNode&amp;gt; que = new LinkedList&amp;lt;&amp;gt;(); que.offer(root); while(!que.isEmpty()){ int size = que.size(); ArrayList&amp;lt;Integer&amp;gt; list = new ArrayList&amp;lt;&amp;gt;(); for(int i = 0; i&amp;lt; size; i++){ TreeNode node = que.</description>
     </item>
     
     <item>

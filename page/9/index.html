@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-12-26T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-12-31T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,59 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/database/database/">数据库易忘知识点总结</a></h2>
+            <div class="post-meta">Jul 01, 2020</div>
+            <div class="post-excerpt">
+                数据库的基本知识点
+ 1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令 create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
+语法：
+delete from 表名 [where 条件]
+注意：
+* 如果不加条件，则删除表中所有记录。
+* 如果要删除所有记录
+delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少次删除操作。
+* TRUNCATE TABLE 表名；&ndash;推荐使用，效率更高，先删除表，然后创建相同的表。
+ update 表名 set 列名1 = 值1，列名2 = 值2，&hellip;[where 条件]; 注意：如果不加条件，则会修改所有的记录；
+ 多表查询取出重复的行
+关键字 distinct  DQL：查询语句
+ 排序查询
+语法：order by 子句
+排序方式： ASC：升序；DESC：降序
+注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。
+ 聚合函数：
+（1）count：计算个数
+（2）max
+（3）min
+（4）sum
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/database/%E5%AF%BC%E5%87%BA%E7%BB%93%E6%9E%84/">数据库易忘知识点总结</a></h2>
+            <div class="post-meta">Jul 01, 2020</div>
+            <div class="post-excerpt">
+                根据数据表，导出数据结构
+ SELECT COLUMN_NAME 列名, COLUMN_TYPE 数据类型, DATA_TYPE 字段类型, CHARACTER_MAXIMUM_LENGTH 长度, IS_NULLABLE 是否为空, COLUMN_DEFAULT 默认值, COLUMN_COMMENT 备注 FROM INFORMATION_SCHEMA. COLUMNS WHERE &ndash; super_express为数据库名称，到时候只需要修改成你要导出表结构的数据库即可 table_schema = &lsquo;super_express&rsquo; AND &ndash; s_patient_list为表名，到时候换成你要导出的表的名称 &ndash; 如果不写的话，默认会查询出所有表中的数据，这样可能就分不清到底哪些字段是哪张表中的了，所以还是建议写上要导出的名名称 table_name = &lsquo;user&rsquo;
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/">SpringCloud整合Hystrix服务保护框架</a></h2>
+            <div class="post-meta">Jun 28, 2020</div>
+            <div class="post-excerpt">
+                1 引入Hystrix需要了解的知识点 1.1 服务的雪崩效应 服务的雪崩效应：默认情况下，tomcat只有一个线程池去处理所有客户端发生的所有请求，这样在高并发下的情况下， 如果客户端所有的请求堆积到同一个接口上（也就是客户端访问同一个接口），tomcat的所有线程去处理请求，可能 会导致其他服务接口无法访问。 假设tomcat最大请求数为20，客户端发送的请求数为100，会发生80个请求产生延迟等待  1.2 Hystrix服务保护框架能解决什么问题  断路器
+ 服务降级
+ 服务熔断
+ 服务隔离机制
+ 服务雪崩效应，连环雪崩效应
+注意：如果雪崩效应严重的话，可能会造成整个服务崩溃   1.3 Hystrix解决雪崩效应的原理  服务降级 &mdash;-友好提示
+在高并发的情况下，防止用户一直等待，在tomcat中没有线程处理客户端发生的请求时，不应该让客户端一直在等待， 使用服务降级（返回一个友好的提示给客户端），目的是为了用户的体验，调用fallback本地方法  服务隔离 &mdash;-线程池隔离和信号量隔离
+信号量的使用示意图：当n个并发请求去调用一个目标服务接口时，都要获取一个信号量才能真正去调用 目标服务接口，但信号量有限，默认是10个，可以使用maxConcurrentRequests参数配置，如果并发请求数多于 信号量个数，就有线程需要进入队列排队，但排队队列也有上限，默认是 5，如果排队队列也满，则必定有请求线 程会走fallback流程，从而达到限流和防止雪崩的目的。 信号量模式从始至终都只有请求线程自身，是同步调用模式，不支持超时调用，不支持直接熔断，由于没有线程的 切换，开销非常小。 线程池的使用示意图如下图所示，当n个请求线程并发对某个接口请求调用时，会先从hystrix管理的线程池里面 获得一个线程，然后将参数传递给这个线程去执行真正调用。线程池的大小有限，默认是10个线程，可以使用 maxConcurrentRequests参数配置，如果并发请求数多于线程池线程个数，就有线程需要进入队列排队，但排队 队列也有上限，默认是 5，如果排队队列也满，则必定有请求线程会走fallback流程。 线程池模式可以支持异步调用，支持超时调用，支持直接熔断，存在线程切换，开销大。    服务熔断
+服务熔断目的是为了保护服务，在高并发的情况下，如果请求达到一定得极限（可以设置阈值），如果流量超过 了这是的阈值，自动开启保护服务的功能，使用服务降级方式返回一个友好的提示。服务熔断和服务降级一起使用  2 搭建Hystrix服务保护框架 2.1 feign客户端超时设置 首先了解feign客户端默认超时时间是1秒 ribbon: # 建立连接所用的时间 ReadTimeout: 5000 # 建立之后读取所用的时间 ConnectTimeout: 5000  2.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/springcloud/%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">微服务架构的介绍</a></h2>
             <div class="post-meta">Jun 26, 2020</div>
             <div class="post-excerpt">
@@ -101,44 +154,6 @@
 Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
 
   2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Consul注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
-            <div class="post-excerpt">
-                SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质： 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。 2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入springcloud整合Zookeeper启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/">Java基础篇</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
-==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/">JVM</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                jvm初学篇
- 1 JVM的启动流程  通过编辑器将java代码编辑好之后编译成java字节码，也就是.class文件；
- 装载JVM 会通过当前路径或者系统的版本去寻找 JVM.cfg文件； 通过JVM.cfg文件寻找到 JVM.dll文件 &mdash;该文件是JVM的具体实现；
- 初始化本地接口 JNI &mdash;如Env接口 JNI接口的作用就是负责将.class文件装载到JVM中；
- 找到main方法并执行
-   2 JVM的内存分区  1 PC寄存器  &mdash; 每个线程拥有一个PC寄存器
- &mdash; 在线程创建时 创建（PC寄存器）
- &mdash; 指向下一条指令的地址
- &mdash; 执行本地方法时，PC的值为undefined（未定义）  2 方法区  &mdash; 保存装载的类信息
- 类型的常量池 &mdash;&ndash; 这一点得注意 ： 在JDK6时，String等常量信息是保存在方法区，但是在JDK7时，已经移到了堆； 字段、方法信息
- 方法字节码
-  &mdash; 线程共享
- &mdash; 通常和永久区（Perm：保存一些相对来说静止稳定的数据）关联在一起
-  3 Java堆  &mdash; 和程序开发密切相关
             </div>
         </li>
         
@@ -169,6 +184,18 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
         </li>
         
         <li>
@@ -215,18 +242,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
             <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%89%E5%A5%87%E5%81%B6%E6%95%B0%E6%8E%92%E5%88%97/" class="post-link">对数组中寄偶数据的处理</a>
         </li>
         
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/" class="post-link">数组</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">最长子序列问题解决思路</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
-        </li>
-        
     </ul>
 </div>
 
@@ -239,7 +254,7 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
     
     <footer class="footer">
         <div class="wrapper">
-    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
 </div>
     </footer>
     

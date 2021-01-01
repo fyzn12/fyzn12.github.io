@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2020-12-26T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-12-31T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12的博客">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,38 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Zookeeper注册中心</a></h2>
+            <div class="post-meta">Jul 26, 2020</div>
+            <div class="post-excerpt">
+                前言 
+1 使用Zookeeper代替Eureka作为注册中心 1.1 Zookeeper简介 Zookeeper分布式协调工具，可以实现注册中心 Zookeeper节点类型：临时节点 1.3 Zookeeper安装与使用 1.3.1 windows下载Zookeeper 1. 下载与安装 博客详解（别人博客）
+2. 修改zkServer.cmd配置文件  3. 下载Zookeeper的图形界面的管理工具ZooInspector工具，解压之后便可使用 4. 进入Zookeeper解压之后的目录，直到bin目录，在该目录输入cmd进入控制台  5. 在控制台运行zkServer.cmd便可开启Zookeeper服务  2 使用Zookeeper作为注册中心步骤 zookeeper作为注册中心与Eureka作为注册中心的区别在于Eureka需要编写一个服务的启动类，但Zookeeper不需要 Zookeeper只需要打开ZooInspector工具，连接服务即可（确保在cmd中运行zkServer.cmd）  2.1 创建会员服务 2.1.1 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-zk-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-zk-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/">Java基础底层</a></h2>
+            <div class="post-meta">Jul 21, 2020</div>
+            <div class="post-excerpt">
+                1 JVM的解析 1.1 JVM的结构图  大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区） ,Heap（堆） , Program Counter Register （程序计数器） , VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的）,Native Method Stack （ 本地方法栈 ） ，其中Method Area 和 Heap 是线程共享的 ，VM Stack，Native Method Stack 和Program Counter Register 是非线程共享的。为什么分为 线程共享和非线程共享的呢?请继续往下看。 首先我们熟悉一下一个一般性的 Java 程序的工作过程。一个 Java 源程序文件，会被编译为字节码文件 （以 class 为扩展名），每个java程序都需要运行在自己的JVM上，然后告知 JVM 程序的运行入口，再被 JVM 通过字 节码解释器加载运行。那么程序开始运行后，都是如何涉及到各内存区域的呢？ 概括地说来，JVM初始运行的时候都会分配好 Method Area（方法区） 和Heap（堆） ，而JVM 每遇到一个线程， 就为其分配一个 Program Counter Register（程序计数器） , VM Stack（虚拟机栈）和Native Method Stack （本地方法栈）， 当线程终止时，三者（虚拟机栈，本地方法栈和程序计数器）所占用的内存空间也会被释放 掉。这也是为什么我把内存区域分为线程共享和非线程共享的原因，非线程共享的那三个区域的生命周期与所属线程相 同，而线程共享的区域与JAVA程序运行的生命周期相同，所以这也是系统垃圾回收的场所只发生在线程共享的区域 （实际上对大部分虚拟机来说知发生在Heap上）的原因。 1.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></h2>
+            <div class="post-meta">Jul 21, 2020</div>
+            <div class="post-excerpt">
+                java多线程总结 多线程的几种实现方式  继承Thread类 重写run（）方法定义线程的行为；
+如下图所示  实现Runnable接口
+如下图所示
+    实现 Callable 接口，该接口中的 call方法可以在线程执行结束时产生一个返回值。
+使用总结：因为 Java 中的继承是单继承，一个类有一个父类，如果继承了 Thread 类就无法再继承其 他类了，显然使用 Runnable 接口更为灵活。
+实现Runnable接口比继承Thread类所具有的优势：
+1）：适合多个相同的程序代码的线程去处理同一个资源 2）：可以避免java中的单继承的限制 3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立 4）：线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类 创建多线程的三种方式:两个接口（Runnable、Callable）一个类（Thread）  实例变量与线程安全 自定义线程类中的实例变量针对其他线程可以有共享与不共享之分。当每个线程都有各自的实例变量时，就是变量不共享。共享数据的情况就是多个线程可以访问同一个变量。 来看下面的示例：  打印的结果中存在多个线程同时对count进行操作，产生了&#34;非线程安全&#34;问题 * 在某些JVM中，i--的操作要分成如下3步： * 取得原有变量的值。计算i-1。对i进行赋值。 * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。 解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：    synchronized 关键字的用法 在上面提到&#34;同步&#34;关键字，synchronized关键字可以将方法或者对象标记为同步，以实现对对象和法 的互斥访问，可以用synchronized(对象) { … }定义同步代码块，或者在声明方法时将 synchronized 作为方法的修饰符。 如果系统中存在临界资源（资源数量少于竞争资源的线程数量的资源），例如正在写的数据以后可能被另 一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就必须进行同步存取（数 据库操作中的排他锁就是最好的例子）。当应用程序在对象上调用了一个需要花费很长时间来执行的方 法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效 率。事实上，所谓的同步就是指阻塞式操作，而异步就是非阻塞式操作。  线程的状态变化 要想实现多线程，必须在主线程中创建新的线程对象。任何线程一般具有5种状态，即创建，就绪，运行 阻塞，终止。下面分别介绍一下这几种状态：  创建状态
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/spring-boot/spring-data/">Spring Boot整合Spring Data JPA</a></h2>
             <div class="post-meta">Jul 18, 2020</div>
             <div class="post-excerpt">
@@ -101,59 +133,6 @@ String value = jedis.get(&ldquo;hello&rdquo;);
  两个配置
  运维经验
   2.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/database/database/">数据库易忘知识点总结</a></h2>
-            <div class="post-meta">Jul 01, 2020</div>
-            <div class="post-excerpt">
-                数据库的基本知识点
- 1 数据库的基本常用知识点 1.1 在创建数据库时，指定数据库编码命令 create database ads character set &#39;utf8&#39; 如图所示   1.2 对数据表的操作  删除数据
-语法：
-delete from 表名 [where 条件]
-注意：
-* 如果不加条件，则删除表中所有记录。
-* 如果要删除所有记录
-delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少次删除操作。
-* TRUNCATE TABLE 表名；&ndash;推荐使用，效率更高，先删除表，然后创建相同的表。
- update 表名 set 列名1 = 值1，列名2 = 值2，&hellip;[where 条件]; 注意：如果不加条件，则会修改所有的记录；
- 多表查询取出重复的行
-关键字 distinct  DQL：查询语句
- 排序查询
-语法：order by 子句
-排序方式： ASC：升序；DESC：降序
-注意：如果有多个排序条件，则当前的条件值一样时，才会判断第二个条件。
- 聚合函数：
-（1）count：计算个数
-（2）max
-（3）min
-（4）sum
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/database/%E5%AF%BC%E5%87%BA%E7%BB%93%E6%9E%84/">数据库易忘知识点总结</a></h2>
-            <div class="post-meta">Jul 01, 2020</div>
-            <div class="post-excerpt">
-                根据数据表，导出数据结构
- SELECT COLUMN_NAME 列名, COLUMN_TYPE 数据类型, DATA_TYPE 字段类型, CHARACTER_MAXIMUM_LENGTH 长度, IS_NULLABLE 是否为空, COLUMN_DEFAULT 默认值, COLUMN_COMMENT 备注 FROM INFORMATION_SCHEMA. COLUMNS WHERE &ndash; super_express为数据库名称，到时候只需要修改成你要导出表结构的数据库即可 table_schema = &lsquo;super_express&rsquo; AND &ndash; s_patient_list为表名，到时候换成你要导出的表的名称 &ndash; 如果不写的话，默认会查询出所有表中的数据，这样可能就分不清到底哪些字段是哪张表中的了，所以还是建议写上要导出的名名称 table_name = &lsquo;user&rsquo;
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/hystrix%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6/">SpringCloud整合Hystrix服务保护框架</a></h2>
-            <div class="post-meta">Jun 28, 2020</div>
-            <div class="post-excerpt">
-                1 引入Hystrix需要了解的知识点 1.1 服务的雪崩效应 服务的雪崩效应：默认情况下，tomcat只有一个线程池去处理所有客户端发生的所有请求，这样在高并发下的情况下， 如果客户端所有的请求堆积到同一个接口上（也就是客户端访问同一个接口），tomcat的所有线程去处理请求，可能 会导致其他服务接口无法访问。 假设tomcat最大请求数为20，客户端发送的请求数为100，会发生80个请求产生延迟等待  1.2 Hystrix服务保护框架能解决什么问题  断路器
- 服务降级
- 服务熔断
- 服务隔离机制
- 服务雪崩效应，连环雪崩效应
-注意：如果雪崩效应严重的话，可能会造成整个服务崩溃   1.3 Hystrix解决雪崩效应的原理  服务降级 &mdash;-友好提示
-在高并发的情况下，防止用户一直等待，在tomcat中没有线程处理客户端发生的请求时，不应该让客户端一直在等待， 使用服务降级（返回一个友好的提示给客户端），目的是为了用户的体验，调用fallback本地方法  服务隔离 &mdash;-线程池隔离和信号量隔离
-信号量的使用示意图：当n个并发请求去调用一个目标服务接口时，都要获取一个信号量才能真正去调用 目标服务接口，但信号量有限，默认是10个，可以使用maxConcurrentRequests参数配置，如果并发请求数多于 信号量个数，就有线程需要进入队列排队，但排队队列也有上限，默认是 5，如果排队队列也满，则必定有请求线 程会走fallback流程，从而达到限流和防止雪崩的目的。 信号量模式从始至终都只有请求线程自身，是同步调用模式，不支持超时调用，不支持直接熔断，由于没有线程的 切换，开销非常小。 线程池的使用示意图如下图所示，当n个请求线程并发对某个接口请求调用时，会先从hystrix管理的线程池里面 获得一个线程，然后将参数传递给这个线程去执行真正调用。线程池的大小有限，默认是10个线程，可以使用 maxConcurrentRequests参数配置，如果并发请求数多于线程池线程个数，就有线程需要进入队列排队，但排队 队列也有上限，默认是 5，如果排队队列也满，则必定有请求线程会走fallback流程。 线程池模式可以支持异步调用，支持超时调用，支持直接熔断，存在线程切换，开销大。    服务熔断
-服务熔断目的是为了保护服务，在高并发的情况下，如果请求达到一定得极限（可以设置阈值），如果流量超过 了这是的阈值，自动开启保护服务的功能，使用服务降级方式返回一个友好的提示。服务熔断和服务降级一起使用  2 搭建Hystrix服务保护框架 2.1 feign客户端超时设置 首先了解feign客户端默认超时时间是1秒 ribbon: # 建立连接所用的时间 ReadTimeout: 5000 # 建立之后读取所用的时间 ConnectTimeout: 5000  2.
             </div>
         </li>
         
@@ -184,6 +163,18 @@ delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少�
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
         </li>
         
         <li>
@@ -230,18 +221,6 @@ delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少�
             <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%89%E5%A5%87%E5%81%B6%E6%95%B0%E6%8E%92%E5%88%97/" class="post-link">对数组中寄偶数据的处理</a>
         </li>
         
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/" class="post-link">数组</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">最长子序列问题解决思路</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8/" class="post-link">链表</a>
-        </li>
-        
     </ul>
 </div>
 
@@ -254,7 +233,7 @@ delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少�
     
     <footer class="footer">
         <div class="wrapper">
-    © 2020    <a href="https://fyzn12.github.io/">fyzn12</a>
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
 </div>
     </footer>
     

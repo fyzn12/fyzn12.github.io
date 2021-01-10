@@ -76,6 +76,34 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/">矩阵的最小路路径</a></h2>
+            <div class="post-meta">Dec 29, 2020</div>
+            <div class="post-excerpt">
+                求解最值问题利用动态规划算法解决  题目描述：给定一个 n * m 的矩阵 a，从左上角开始每次只能向右或者向下走，最后到达右下角的位置，路径上所有的数字累加起来就是路径和，输出所有的路径中最小的路径和。
+示例1：
+输入：[[1,3,5,9],[8,1,3,4],[5,0,6,1],[8,8,4,0]]
+返回值：12
+备注：1≤n,m≤2000
+ 思路分析：  求最值问题首先就是构建辅助数组dp
+路径的走向只能是向右或者是向下，则可以将没有元素的对于的和求解出来构建一个新的二维表
+二维表中国填写当前值与前一次值之和，取左下右上的两值的最小值与当前值求和填充表格
+ /** * * @param matrix int整型二维数组 the matrix * @return int整型 */ public int minPathSum (int[][] matrix) { if(matrix==null)return 0; //构建列 	int row = matrix.length; int column = matrix[0].length; //构建列的值 	for(int i = 1;i&lt;row;i++)matrix[i][0] = matrix[i-1][0]+matrix[i][0]; //构建行的值 	for(int j = 1;j&lt;column;j++)matrix[0][j] = matrix[0][j-1] + matrix[0][j]; //填充中间数据 	for(int i = 1;i&lt;row;i++){ for(int j=1;j&lt;column;j++) matrix[i][j] = Math.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/">二叉树的之字型层次遍历</a></h2>
+            <div class="post-meta">Dec 26, 2020</div>
+            <div class="post-excerpt">
+                题目描述：
+  解题思路   设置一个标志位flag，当flag为true时，执行从左到右的遍历，反之则为从右到左
+ 将数放入到队列中，判断队列是否为空，作为树遍历的结束条件
+ 代码如下
+   /** * * @param root TreeNode类 * @return int整型ArrayList&lt;ArrayList&lt;&gt;&gt; */ public ArrayList&lt;ArrayList&lt;Integer&gt;&gt; zigzagLevelOrder (TreeNode root) { // write code here  ArrayList&lt;ArrayList&lt;Integer&gt;&gt; res = new ArrayList&lt;ArrayList&lt;Integer&gt;&gt;(); if(root==null)return res; // 设置一个标志位  Boolean flag = true; Queue&lt;TreeNode&gt; que = new LinkedList&lt;&gt;(); que.offer(root); while(!que.isEmpty()){ int size = que.size(); ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;(); for(int i = 0; i&lt; size; i++){ TreeNode node = que.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/">二进制中1的个数</a></h2>
             <div class="post-meta">Dec 26, 2020</div>
             <div class="post-excerpt">
@@ -116,37 +144,11 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/">二叉树的镜像问题</a></h2>
-            <div class="post-meta">Dec 18, 2020</div>
-            <div class="post-excerpt">
-                题目描述如下图所示：
-
-解题思路：利用栈的先进后出特性去做；也可以利用队列去做，只要保证right先进队列就行
- import java.util.*; /** public class TreeNode { int val = 0; TreeNode left = null; TreeNode right = null; public TreeNode(int val) { this.val = val; } } */ public class Solution { public void Mirror(TreeNode root) { if(root==null)return; Stack&lt;TreeNode&gt; stack = new Stack&lt;TreeNode&gt;(); stack.push(root); while(!stack.isEmpty()){ TreeNode tn = stack.pop(); if(tn.left != null||tn.right != null){ TreeNode temp = tn.left; tn.left = tn.right; tn.right = temp; } if(tn.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/">扑克牌问题</a></h2>
-            <div class="post-meta">Dec 18, 2020</div>
-            <div class="post-excerpt">
-                题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
-输入：[0,3,2,6,4]
-输出：true
-解题思路：
-我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
-二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
-所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
- 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&gt;0){ if(set.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/" class="previous">PREV</a>
-        <span class="page_number ">2 of 12</span>
+        <span class="page_number ">2 of 13</span>
         <a href="/page/3/" class="next">NEXT</a>
     </div>
 </div>
@@ -169,6 +171,14 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
         <li>
@@ -217,14 +227,6 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/" class="post-link">在无序数组中找出最小的正整数</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E4%BA%8Earrays.binarysearch%E8%A7%A3%E5%86%B3%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/" class="post-link">基于Arrays.binarySearch解决最长递增子序列</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">字符串</a>
         </li>
         
     </ul>

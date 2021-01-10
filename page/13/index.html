@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta name="generator" content="Hugo 0.57.2" />
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>fyzn12的博客</title>
+
+<meta name="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="fyzn12的博客" />
+<meta property="og:description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fyzn12.github.io/" />
+
+<meta property="og:updated_time" content="2020-12-31T00:00:00+00:00" />
+<meta itemprop="name" content="fyzn12的博客">
+<meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="fyzn12的博客"/>
+<meta name="twitter:description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="home">
+    <a class="rss-link" href="https://fyzn12.github.io/index.xml">RSS</a>
+    <a class="rss-link" href="https://fyzn12.github.io/sitemap.xml">SITEMAP</a>
+    <h1 class="page-heading">Articles</h1>
+    
+    <ul class="post-list">
+        
+        
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">Mybatis之mapper接口编程</a></h2>
+            <div class="post-meta">Sep 24, 2019</div>
+            <div class="post-excerpt">
+                面向接口编程的思路  创建pojo（javaBean）类
+ 创建接口
+ 创建接口对应的mapper文件
+注意：
+1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
+ 
+  如果用读取文件的方式，则不用在同一个包下如下
+&lt;mappers&gt; &lt;mapper resource=&#34;mapper/*.xml&#34;/&gt; &lt;/mappers&gt; 2）mapper文件的namespace取值必须和接口的全路径相同
+3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
+4）多参传递可以不写parameterType属性
+5）参数的下标书写 &lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
+6）参数的占位书写
+7）参数的声明书写 方法中用@Param声明。
+4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
+InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); } &emsp;
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%B9%B6%E5%8F%91/"></a></h2>
+            <div class="post-meta">Jan 01, 0001</div>
+            <div class="post-excerpt">
+                1 并发的原理解析 1.1 并发会造成什么问题  死锁
+ 资源占用 线程安全
+&hellip;
+  1.2 并发的根本问题  原子性
+ 可见性
+ 有序性
+  以上三个是造成线程安全的主要原因
+1.2.1 线程在那里创建的 线程在CPU上开启和执行
+在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI
+1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
+关键值在反射的标识是二进制
+java中8个高级指令 lock unlock &hellip;.
+1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
+volatile解决不了原子性
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/new-document/">二维数组中由1构成的最大正方形</a></h2>
+            <div class="post-meta">Jan 01, 0001</div>
+            <div class="post-excerpt">
+                 
+            </div>
+        </li>
+        
+    </ul>
+    
+    <div class="pagination">
+        <a href="/page/12/" class="previous">PREV</a>
+        <span class="page_number ">13 of 13</span>
+        
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/" class="post-link">字符串变形</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/" class="post-link">二叉树的镜像问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">扑克牌问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/" class="post-link">在无序数组中找出最小的正整数</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

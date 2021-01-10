@@ -12,6 +12,27 @@
     
     
     <item>
+      <title>SynchronizedMap如何让HashMap具备线程安全</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</guid>
+      <description>问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数  2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定，  synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&amp;lt;K,V&amp;gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&amp;lt;String,Long&amp;gt; user = Collections.synchronizedMap(new HashMap&amp;lt;&amp;gt;()); user.</description>
+    </item>
+    
+    <item>
+      <title>两个链表的第一个公共节点</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/</guid>
+      <description> 题目描述：输入两个链表，找出它们的第一个公共结点。（注意因为传入数据是链表，所以错误测试数据的提示是用其他方式显示的，保证传入数据是正确的）
+解题思路：采用双指针的方式遍历链表
+public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead1 == null || pHead2 == null)return null; ListNode p1 = pHead1; ListNode p2 = pHead2; while(p1 != p2){ p1 = p1.next; p2 = p2.next; if(p1 != p2){ if(p1 == null)p1 = pHead1; if(p2 == null)p2 = pHead2; } } return p1; }  </description>
+    </item>
+    
+    <item>
       <title>二维数组中由1构成的最大正方形</title>
       <link>https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/</link>
       <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
@@ -21,7 +42,7 @@
  示例1  输入：[[1,0,1,0,0],[1,0,1,1,1],[1,1,1,1,1],[1,0,0,1,0]]
 返回值：4
 本体知识点：动态规划
-1.初步分析如下 1.确定dp[][]数组的含义 此题的dp[i][j]，代表以坐标为(i,j)的元素为右下角的正方形的边长。
+ 1.初步分析如下  1.确定dp[][]数组的含义 此题的dp[i][j]，代表以坐标为(i,j)的元素为右下角的正方形的边长。
 2.状态转移方程 dp[i][j]的值取决于dp[i-1][j],dp[i-1][j-1],dp[i][j-1]的最小值 即左方正方形的边长，左上方正方形的边长，上方正方形的边长三者的最小值。
 3.边界 由于状态转移方程中涉及i-1，j-1，所以i和j一定要大于0. 故dp[0][] 和 dp[][0]要首先确定。
  /** * 最大正方形 * @param matrix char字符型二维数组 * @return int整型 */ public int solve (char[][] matrix) { //判断二维数组是否有效 	if(matrix.length == 0 || matrix[0].length==0)return 0; int rows = matrix.length; int cols = matrix[0].lenght; int max; //声明数组 	int[][] dp = new int[rows][cols]; //确定边界值 	for(int i = 0;i&amp;lt;rows;i++){ if(matrix[i][0] == &amp;#39;1&amp;#39;)dp[i][0] = 1; } for(int j = 0;j&amp;lt;cols;j++){ if(matrix[0][j]==&amp;#39;1&amp;#39;)dp[0][j] = 1; } //确定中间值 	for(int i = 1; i &amp;lt; rows;i++){ for(int j = 1;j&amp;lt;cols;j++){ if(matrix[i][j]==&amp;#39;1&amp;#39;){ dp[i][j] = Math.</description>
@@ -846,6 +867,15 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
 java中8个高级指令 lock unlock &amp;hellip;.
 1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
 volatile解决不了原子性</description>
+    </item>
+    
+    <item>
+      <title>二维数组中由1构成的最大正方形</title>
+      <link>https://fyzn12.github.io/post/algorithm/new-document/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/new-document/</guid>
+      <description> </description>
     </item>
     
   </channel>

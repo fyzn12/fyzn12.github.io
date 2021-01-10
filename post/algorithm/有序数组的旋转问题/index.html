@@ -9,14 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>旋转数组的问题 - fyzn12的博客</title>
+<title>旋转数组的问题 - fyzn12</title>
 
 <meta name="description" content="1.数组一次旋转的问题  题目描述：
   1.1 题目分析  处于递增：low上移
  处于递减：high下移（如果是high-1，则可能会错过最小值，因为找的就是最小值）
  其余情况：low&#43;&#43;缩小范围
    1.2 根据算法分析，编写程序实现如下 public int minNumberInRotateArray(int [] array) { int left = 0,right = array.length-1,mid; while(left&amp;lt;right){ mid = left &#43; ((right-left)&amp;gt;&amp;gt;1); if(array[mid]&amp;gt;array[right]){ left = mid&#43;1; }else{ right = mid; } } return array[right]; }  2. 数组变换找目标值的问题  题目描述：给出一个转动过的有序数组，你事先不知道该数组转动了多少 (例如,0 1 2 4 5 6 7可能变为4 5 6 7 0 1 2). 在数组中搜索给出的目标值，如果能在数组中找到，返回它的索引，否则返回-1。 假设数组中不存在重复项。" /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

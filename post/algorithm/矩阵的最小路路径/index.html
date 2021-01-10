@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>矩阵的最小路路径 - fyzn12的博客</title>
+<title>矩阵的最小路路径 - fyzn12</title>
 
 <meta name="description" content="求解最值问题利用动态规划算法解决  题目描述：给定一个 n * m 的矩阵 a，从左上角开始每次只能向右或者向下走，最后到达右下角的位置，路径上所有的数字累加起来就是路径和，输出所有的路径中最小的路径和。
 示例1：
@@ -20,7 +20,7 @@
 路径的走向只能是向右或者是向下，则可以将没有元素的对于的和求解出来构建一个新的二维表
 二维表中国填写当前值与前一次值之和，取左下右上的两值的最小值与当前值求和填充表格
  /** * * @param matrix int整型二维数组 the matrix * @return int整型 */ public int minPathSum (int[][] matrix) { if(matrix==null)return 0; //构建列 	int row = matrix.length; int column = matrix[0].length; //构建列的值 	for(int i = 1;i&amp;lt;row;i&#43;&#43;)matrix[i][0] = matrix[i-1][0]&#43;matrix[i][0]; //构建行的值 	for(int j = 1;j&amp;lt;column;j&#43;&#43;)matrix[0][j] = matrix[0][j-1] &#43; matrix[0][j]; //填充中间数据 	for(int i = 1;i&amp;lt;row;i&#43;&#43;){ for(int j=1;j&amp;lt;column;j&#43;&#43;) matrix[i][j] = Math." /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

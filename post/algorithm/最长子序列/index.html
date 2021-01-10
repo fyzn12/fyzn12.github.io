@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>最长子序列问题解决思路 - fyzn12的博客</title>
+<title>最长子序列问题解决思路 - fyzn12</title>
 
 <meta name="description" content="对于最长子序列以及最长子串的问题可以看这一下这位博主的博客，介绍比较详细。
 最长子串及最长子序列的问题讲解
@@ -20,7 +20,7 @@
  在dp数组想要找到最大子序列，即可以从对角线开始找，因为一个矩阵中最长的直线在对角线；
  设计初始程序如下
 public String LCS (String s1, String s2) { // write code here  if(s1==null || s1.length()==0 || s2==null || s2.length()==0)return &amp;#34;-1&amp;#34;; int s1L = s1.length(); int s2L = s2.length(); int[][] dp = new int[s1L&#43;1][s2L&#43;1]; StringBuilder str = new StringBuilder(); //初始化二维表的元素,  for(int i=0;i&amp;lt;s1L&#43;1;i&#43;&#43;){ for(int j = 0;j&amp;lt;s2L&#43;1;j&#43;&#43;){ //保证二维表的第一个元素为空，或者是0；  if (i==0 || j==0){ dp[i][j]=0; continue; } if(s1." /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

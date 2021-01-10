@@ -9,14 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>数组 - fyzn12的博客</title>
+<title>数组 - fyzn12</title>
 
 <meta name="description" content="总结与数组有关的算法题：
 数组的概念：占据一块连续的内存，并按照顺序存储数组。
 算法题： 在一个二维数组中，每一行都按照从左右到右顺序排序，每一列从上到下都按照顺序排序。给定一个数，若存在于数组中则返回true
  public static Boolean checkNum(int[][] arr,int target){ int row = 0; int column = arr[0].length-1; while (row&amp;lt;arr.length &amp;amp;&amp;amp; column &amp;gt;=0){ if (arr[row][column]==target){ return true; } if (arr[row][column]&amp;gt;target){ column--; }else { row&#43;&#43;; } } return false; }  1.判断一个数是奇数还是偶数的方法  使用除2取余的方式 如 4%2 判断余数是否为0，是则为偶数，不是则为奇数 将判断的数与1做按位与运算，结果为1则为奇数，为0则为偶数
   2.交换两个数字的位置  使用第三变量 如 int tmp = a; a = b;b = tmp; 使用异或运算 如 a ^= b; b ^= a; a ^= b;这样既可将两个数字交换位置" /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

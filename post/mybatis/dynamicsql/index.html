@@ -9,14 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>mybatis之动态SQL - fyzn12的博客</title>
+<title>mybatis之动态SQL - fyzn12</title>
 
 <meta name="description" content="动态SQL语句总结 主要内容  if元素
  choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
 &amp;lt;select id=&amp;#34;selectUserById&amp;#34; resultType=&amp;#34;MyUser&amp;#34; parameterType=&amp;#34;MyUser&amp;#34;&amp;gt; select * from user where 1=1 &amp;lt;if test =&amp;#34;name !=null and name !=&amp;#39;&amp;#39;&amp;#34;&amp;gt; and name like concat(&amp;#39;%&amp;#39;,#{name},&amp;#39;%&amp;#39;) &amp;lt;/if&amp;gt; &amp;lt;if test = &amp;#34;sex !=null and sex !=&amp;#39;&amp;#39;&amp;#34;&amp;gt; and sex = #{sex} &amp;lt;/if&amp;gt; &amp;lt;/select&amp;gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
 1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&amp;lt;choose&amp;gt;元素，如下例子。
 &amp;lt;select id = &amp;#34;selectUserBychoose&amp;#34; resultType=&amp;#34;MyUser&amp;#34; parameterType=&amp;#34;MyUser&amp;#34;&amp;gt; select * from user where 1=1 &amp;lt;choose&amp;gt; &amp;lt;when test=&amp;#34;name !" /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

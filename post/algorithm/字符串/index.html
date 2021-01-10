@@ -9,12 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>字符串 - fyzn12的博客</title>
+<title>字符串 - fyzn12</title>
 
 <meta name="description" content="最经典的就是寻找最长回文子串的问题
 解题思想：回文子串的详细思路 在上面的链接中，对该问题做了很详细的思路讲解 下面自己实现采用 Manacher 算法，被中国程序员戏称为“马拉车”算法。它专门用于解决“最长回文子串”问题，时间复杂度为O(N) 。
  public int getLongestPalindrome(String A, int n) { // 做字符串的预处理  String str = changeStr(A,&amp;#39;#&amp;#39;); // 定义左跳跃的指针和右跳跃的指针以及最长回文串的返回值  int left=0,right=0,max=0; for(int i = 1;i&amp;lt;str.length();i&#43;&#43;) { //判断每一步扩散的步数  right = i &#43; 1; left = i - 1; int count = 0; while (left &amp;gt;= 0 &amp;amp;&amp;amp; right &amp;lt; str.length() &amp;amp;&amp;amp; str.charAt(left) == str.charAt(right)) { count&#43;&#43;; left--; right&#43;&#43;; } max = max &amp;gt; count ?" /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

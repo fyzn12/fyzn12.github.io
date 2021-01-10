@@ -9,13 +9,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>二叉树的镜像问题 - fyzn12的博客</title>
+<title>二叉树的镜像问题 - fyzn12</title>
 
 <meta name="description" content="题目描述如下图所示：
 
 解题思路：利用栈的先进后出特性去做；也可以利用队列去做，只要保证right先进队列就行
  import java.util.*; /** public class TreeNode { int val = 0; TreeNode left = null; TreeNode right = null; public TreeNode(int val) { this.val = val; } } */ public class Solution { public void Mirror(TreeNode root) { if(root==null)return; Stack&amp;lt;TreeNode&amp;gt; stack = new Stack&amp;lt;TreeNode&amp;gt;(); stack.push(root); while(!stack.isEmpty()){ TreeNode tn = stack.pop(); if(tn.left != null||tn.right != null){ TreeNode temp = tn.left; tn.left = tn.right; tn.right = temp; } if(tn." /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

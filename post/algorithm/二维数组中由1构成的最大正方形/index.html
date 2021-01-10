@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>二维数组中由1构成的最大正方形 - fyzn12的博客</title>
+<title>二维数组中由1构成的最大正方形 - fyzn12</title>
 
 <meta name="description" content="题目描述：给定一个由0和1组成的2维矩阵，返回该矩阵中最大的由1组成的正方形的面积
  示例1  输入：[[1,0,1,0,0],[1,0,1,1,1],[1,1,1,1,1],[1,0,0,1,0]]
@@ -19,7 +19,7 @@
 2.状态转移方程 dp[i][j]的值取决于dp[i-1][j],dp[i-1][j-1],dp[i][j-1]的最小值 即左方正方形的边长，左上方正方形的边长，上方正方形的边长三者的最小值。
 3.边界 由于状态转移方程中涉及i-1，j-1，所以i和j一定要大于0. 故dp[0][] 和 dp[][0]要首先确定。
  /** * 最大正方形 * @param matrix char字符型二维数组 * @return int整型 */ public int solve (char[][] matrix) { //判断二维数组是否有效 	if(matrix.length == 0 || matrix[0].length==0)return 0; int rows = matrix.length; int cols = matrix[0].lenght; int max; //声明数组 	int[][] dp = new int[rows][cols]; //确定边界值 	for(int i = 0;i&amp;lt;rows;i&#43;&#43;){ if(matrix[i][0] == &amp;#39;1&amp;#39;)dp[i][0] = 1; } for(int j = 0;j&amp;lt;cols;j&#43;&#43;){ if(matrix[0][j]==&amp;#39;1&amp;#39;)dp[0][j] = 1; } //确定中间值 	for(int i = 1; i &amp;lt; rows;i&#43;&#43;){ for(int j = 1;j&amp;lt;cols;j&#43;&#43;){ if(matrix[i][j]==&amp;#39;1&amp;#39;){ dp[i][j] = Math." /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

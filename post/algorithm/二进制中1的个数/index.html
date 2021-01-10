@@ -9,14 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>二进制中1的个数 - fyzn12的博客</title>
+<title>二进制中1的个数 - fyzn12</title>
 
 <meta name="description" content="题解 1.暴力方法  分析：题目给一个有符号的整数int，求整数转化成二进制数后，1的个数。
 直接根据题目的描述来提出方法一。有2个问题： 问题1: 如何从十进制数转化到二进制数？ 问题2:转化为二进制数后，如果判断有1的个数？
 1.1 除2取模法。 int val; // input data int ans = 0; while (val != 0) { int tmp = val % 2; if (tmp == 1) &#43;&#43;ans; val /= 2; } 当然这种方法，对于大部分数据是对的，但是对于-2147483648,二进制为1000&amp;hellip;000，一共有31个0.因为计算机使用补码存储二进制数据的。对于这个数据，我们的方***输出0，实际上为1.所以这种方法不对。
 1.2 二进制移位法 直接将整数看成二进制，然后采用移位的方法。
  int val; // input data int ans = 0; while (val != 0) { if (val &amp;amp; 1) &#43;&#43;ans; val &amp;gt;&amp;gt;= 1; }  代码中val &amp;amp; 1表示val 与 0x000&amp;hellip;0001（其中有31个0）进行 &amp;amp; 操作。 val &amp;gt;&amp;gt;= 1表示，如果val的二进制是110，则操作之后会变成011,也就是舍去最低位，然后最高位补0." /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

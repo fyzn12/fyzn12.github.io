@@ -9,12 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>两个链表的第一个公共节点 - fyzn12的博客</title>
+<title>两个链表的第一个公共节点 - fyzn12</title>
 
 <meta name="description" content=" 题目描述：输入两个链表，找出它们的第一个公共结点。（注意因为传入数据是链表，所以错误测试数据的提示是用其他方式显示的，保证传入数据是正确的）
 解题思路：采用双指针的方式遍历链表
 public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead1 == null || pHead2 == null)return null; ListNode p1 = pHead1; ListNode p2 = pHead2; while(p1 != p2){ p1 = p1.next; p2 = p2.next; if(p1 != p2){ if(p1 == null)p1 = pHead1; if(p2 == null)p2 = pHead2; } } return p1; }  " /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

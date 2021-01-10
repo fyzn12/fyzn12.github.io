@@ -9,12 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>单例模式 - fyzn12的博客</title>
+<title>单例模式 - fyzn12</title>
 
 <meta name="description" content="单例模式的介绍
  1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
   2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题" /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

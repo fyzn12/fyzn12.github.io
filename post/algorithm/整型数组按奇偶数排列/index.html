@@ -9,12 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>对数组中寄偶数据的处理 - fyzn12的博客</title>
+<title>对数组中寄偶数据的处理 - fyzn12</title>
 
 <meta name="description" content="类型一：给定一个整形数组，将数组中的数据按奇数排列在前，偶数排列在后
 解题思路：定义两个指针，从前后开始遍历数组，遇到前后奇偶位置不匹配的，将其交换位置
  public void changeArr(int[] arr) { if (arr == null || arr.length == 0) { return; } int left = 0, right = arr.length - 1; while (left &amp;lt; right) { while ((arr[left] &amp;amp; 1) == 1 &amp;amp;&amp;amp; left &amp;lt; right) { left&#43;&#43;; } while ((arr[right] &amp;amp; 1) == 0 &amp;amp;&amp;amp; left &amp;lt; right) { right--; } if (left &amp;lt; right) { arr[left] ^= arr[right]; arr[right] ^= arr[left]; arr[left] ^= arr[right]; } } }   类型二：输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。" /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

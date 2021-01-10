@@ -9,13 +9,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>LinkedList以及栈的深度理解 - fyzn12的博客</title>
+<title>LinkedList以及栈的深度理解 - fyzn12</title>
 
 <meta name="description" content="算法背景:给定一个只包括 &amp;lsquo;(&amp;lsquo;，&amp;rsquo;)&amp;lsquo;，&amp;rsquo;{&amp;lsquo;，&amp;rsquo;}&amp;lsquo;，&amp;rsquo;[&amp;lsquo;，&amp;rsquo;]&amp;rsquo; 的字符串，判断字符串是否有效。
 有效字符串需满足：
 左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。
  1 首先了解LinkedList的底层实现 1.1 LinkedList的底层实现 LinkedList的底层是基于 双向链表 实现，使用Node存储链表节点信息。源码如下 private static class Node&amp;lt;E&amp;gt; { E item; Node&amp;lt;E&amp;gt; next; Node&amp;lt;E&amp;gt; prev; } 每个链表都存储了first和last指针； transient Node&amp;lt;E&amp;gt; first; transient Node&amp;lt;E&amp;gt; last;   2 设计算法，实现上面的需求 2.1 算法的实现 public static boolean isValid(String s) { int n = s.length(); if (n % 2 == 1) { return false; } Map&amp;lt;Character, Character&amp;gt; pairs = new HashMap&amp;lt;Character, Character&amp;gt;() {{ put(&amp;#39;)&amp;#39;, &amp;#39;(&amp;#39;); put(&amp;#39;]&amp;#39;, &amp;#39;[&amp;#39;); put(&amp;#39;}&amp;#39;, &amp;#39;{&amp;#39;); }}; Deque&amp;lt;Character&amp;gt; stack = new LinkedList&amp;lt;Character&amp;gt;(); for (int i = 0; i &amp;lt; n; i&#43;&#43;) { char ch = s." /><meta name="keywords"
-  content="fyzn12, java, 网络安全, 红蓝攻防, 渗透测试, bypass, waf, 注入, 黑客, chabug" />
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
 <link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">

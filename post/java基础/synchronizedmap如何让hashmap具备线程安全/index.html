@@ -11,8 +11,8 @@
 
 <title>SynchronizedMap如何让HashMap具备线程安全 - fyzn12</title>
 
-<meta name="description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数  2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定，  synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
-SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&amp;lt;K,V&amp;gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&amp;lt;String,Long&amp;gt; user = Collections.synchronizedMap(new HashMap&amp;lt;&amp;gt;()); user." /><meta name="keywords"
+<meta name="description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&amp;lt;K,V&amp;gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&amp;lt;String,Long&amp;gt; user = Collections.synchronizedMap(new HashMap&amp;lt;&amp;gt;()); user.put(&amp;#34;xsj&amp;#34;,1234567l); System." /><meta name="keywords"
   content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
@@ -23,15 +23,15 @@ SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerEx
 
 
 <meta property="og:title" content="SynchronizedMap如何让HashMap具备线程安全" />
-<meta property="og:description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数  2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定，  synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
-SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user." />
+<meta property="og:description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.put(&#34;xsj&#34;,1234567l); System." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" />
 <meta property="article:published_time" content="2020-12-31T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-12-31T00:00:00+00:00" />
 <meta itemprop="name" content="SynchronizedMap如何让HashMap具备线程安全">
-<meta itemprop="description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数  2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定，  synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
-SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.">
+<meta itemprop="description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.put(&#34;xsj&#34;,1234567l); System.">
 
 
 <meta itemprop="datePublished" content="2020-12-31T00:00:00&#43;00:00" />
@@ -43,8 +43,8 @@ SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(
 <meta itemprop="keywords" content="数组," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SynchronizedMap如何让HashMap具备线程安全"/>
-<meta name="twitter:description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数  2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定，  synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
-SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user."/>
+<meta name="twitter:description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.put(&#34;xsj&#34;,1234567l); System."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -96,11 +96,9 @@ SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(
 
 <blockquote>
 <h3 id="1-首先利用synchronizedmap的构造函数获取map的对象-而该构造器可以传入一个hashmap的集合作为参数">1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数</h3>
-</blockquote>
 
 <h3 id="2-synchronizedmap底层通过一个互斥信号量mutex-final-object-进行方法同步的限定">2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定，</h3>
 
-<blockquote>
 <p>synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">SynchronizedMap</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">m</span><span class="p">)</span> <span class="p">{</span>  
             <span class="k">if</span> <span class="p">(</span><span class="n">m</span><span class="o">==</span><span class="kc">null</span><span class="p">)</span>  
@@ -148,6 +146,12 @@ SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(
     </li>
     
     
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+            Mysql的存储引擎
+        </a>
+    </li>
+    
 </ul>
 
     </div>
@@ -188,6 +192,10 @@ SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
         </li>
         
         <li>
@@ -240,10 +248,6 @@ SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/" class="post-link">在无序数组中找出最小的正整数</a>
         </li>
         
     </ul>

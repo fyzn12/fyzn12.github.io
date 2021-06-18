@@ -11,9 +11,11 @@
 
 <title>mysql的存储引擎 - fyzn12</title>
 
-<meta name="description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。 InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
-Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
-Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
+<meta name="description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 ① Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。
+② InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。
+③ 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
+④ Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
+⑤ Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
  特别注意：使用行级锁一定要使用索引；查询非唯一索引字段数据库使用行级锁锁定多行，这个与数据库的  1.2 Innodb存储引擎内存 组成：缓冲池（buffer pool）、重做日志缓冲池（redo log buffer）以及额外的内存池（additional memory pool），分别由配置文件中的参数innodb_buffer_pool_size和innodb_log_buffer_size大大小决定。
 缓冲池是占最大块内存的部分，用来存放各种数据的缓存。
 Innodb存储引擎的工作方式：将数据库文件按页（每页16K）读取到缓冲池，然后按最近最久未使用（LRU）的算法来保留在缓冲池中的缓存数据。如果数据库文件需要修改，总是首先修改在缓存池中的页（发生修改后，该页即为脏页），然后再按照一定的频率将缓冲池的脏页刷新（flush）到文件。可以通过命令：show engine innodb status来查看innodb_buffer_pool的具体情况。
@@ -32,9 +34,11 @@ MyISAM存储引擎表有MYD和MYI组成，MYD用来存储数据文件，MYI用�
 
 
 <meta property="og:title" content="mysql的存储引擎" />
-<meta property="og:description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。 InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
-Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
-Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
+<meta property="og:description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 ① Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。
+② InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。
+③ 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
+④ Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
+⑤ Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
  特别注意：使用行级锁一定要使用索引；查询非唯一索引字段数据库使用行级锁锁定多行，这个与数据库的  1.2 Innodb存储引擎内存 组成：缓冲池（buffer pool）、重做日志缓冲池（redo log buffer）以及额外的内存池（additional memory pool），分别由配置文件中的参数innodb_buffer_pool_size和innodb_log_buffer_size大大小决定。
 缓冲池是占最大块内存的部分，用来存放各种数据的缓存。
 Innodb存储引擎的工作方式：将数据库文件按页（每页16K）读取到缓冲池，然后按最近最久未使用（LRU）的算法来保留在缓冲池中的缓存数据。如果数据库文件需要修改，总是首先修改在缓存池中的页（发生修改后，该页即为脏页），然后再按照一定的频率将缓冲池的脏页刷新（flush）到文件。可以通过命令：show engine innodb status来查看innodb_buffer_pool的具体情况。
@@ -48,9 +52,11 @@ MyISAM存储引擎表有MYD和MYI组成，MYD用来存储数据文件，MYI用�
 <meta property="article:published_time" content="2021-02-01T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-02-01T00:00:00+00:00" />
 <meta itemprop="name" content="mysql的存储引擎">
-<meta itemprop="description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。 InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
-Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
-Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
+<meta itemprop="description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 ① Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。
+② InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。
+③ 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
+④ Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
+⑤ Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
  特别注意：使用行级锁一定要使用索引；查询非唯一索引字段数据库使用行级锁锁定多行，这个与数据库的  1.2 Innodb存储引擎内存 组成：缓冲池（buffer pool）、重做日志缓冲池（redo log buffer）以及额外的内存池（additional memory pool），分别由配置文件中的参数innodb_buffer_pool_size和innodb_log_buffer_size大大小决定。
 缓冲池是占最大块内存的部分，用来存放各种数据的缓存。
 Innodb存储引擎的工作方式：将数据库文件按页（每页16K）读取到缓冲池，然后按最近最久未使用（LRU）的算法来保留在缓冲池中的缓存数据。如果数据库文件需要修改，总是首先修改在缓存池中的页（发生修改后，该页即为脏页），然后再按照一定的频率将缓冲池的脏页刷新（flush）到文件。可以通过命令：show engine innodb status来查看innodb_buffer_pool的具体情况。
@@ -63,16 +69,18 @@ MyISAM存储引擎表有MYD和MYI组成，MYD用来存储数据文件，MYI用�
 
 <meta itemprop="datePublished" content="2021-02-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-02-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="37">
+<meta itemprop="wordCount" content="42">
 
 
 
 <meta itemprop="keywords" content="DataBase," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="mysql的存储引擎"/>
-<meta name="twitter:description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。 InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
-Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
-Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
+<meta name="twitter:description" content=" 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 ① Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。
+② InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。
+③ 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
+④ Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
+⑤ Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
  特别注意：使用行级锁一定要使用索引；查询非唯一索引字段数据库使用行级锁锁定多行，这个与数据库的  1.2 Innodb存储引擎内存 组成：缓冲池（buffer pool）、重做日志缓冲池（redo log buffer）以及额外的内存池（additional memory pool），分别由配置文件中的参数innodb_buffer_pool_size和innodb_log_buffer_size大大小决定。
 缓冲池是占最大块内存的部分，用来存放各种数据的缓存。
 Innodb存储引擎的工作方式：将数据库文件按页（每页16K）读取到缓冲池，然后按最近最久未使用（LRU）的算法来保留在缓冲池中的缓存数据。如果数据库文件需要修改，总是首先修改在缓存池中的页（发生修改后，该页即为脏页），然后再按照一定的频率将缓冲池的脏页刷新（flush）到文件。可以通过命令：show engine innodb status来查看innodb_buffer_pool的具体情况。
@@ -133,11 +141,15 @@ MyISAM存储引擎表有MYD和MYI组成，MYD用来存储数据文件，MYI用�
 <blockquote>
 <h3 id="1-1-innodb存储引擎概述">1.1 Innodb存储引擎概述</h3>
 
-<p>Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。
-InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。
-使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关<br />
-Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。<br />
-Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。</p>
+<p>① Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。</p>
+
+<p>② InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。</p>
+
+<p>③ 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关</p>
+
+<p>④ Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。</p>
+
+<p>⑤ Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。</p>
 </blockquote>
 
 <h4 id="特别注意-使用行级锁一定要使用索引-查询非唯一索引字段数据库使用行级锁锁定多行-这个与数据库的">特别注意：使用行级锁一定要使用索引；查询非唯一索引字段数据库使用行级锁锁定多行，这个与数据库的</h4>
@@ -145,9 +157,11 @@ Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数�
 <blockquote>
 <h3 id="1-2-innodb存储引擎内存">1.2 Innodb存储引擎内存</h3>
 
-<p>组成：缓冲池（buffer pool）、重做日志缓冲池（redo log buffer）以及额外的内存池（additional memory pool），分别由配置文件中的参数innodb_buffer_pool_size和innodb_log_buffer_size大大小决定。<br />
-缓冲池是占最大块内存的部分，用来存放各种数据的缓存。<br />
-Innodb存储引擎的工作方式：将数据库文件按页（每页16K）读取到缓冲池，然后按最近最久未使用（LRU）的算法来保留在缓冲池中的缓存数据。如果数据库文件需要修改，总是首先修改在缓存池中的页（发生修改后，该页即为脏页），然后再按照一定的频率将缓冲池的脏页刷新（flush）到文件。可以通过命令：show engine innodb status来查看innodb_buffer_pool的具体情况。</p>
+<p>组成：缓冲池（buffer pool）、重做日志缓冲池（redo log buffer）以及额外的内存池（additional memory pool），分别由配置文件中的参数innodb_buffer_pool_size和innodb_log_buffer_size大大小决定。</p>
+
+<p>缓冲池是占最大块内存的部分，用来存放各种数据的缓存。</p>
+
+<p>Innodb存储引擎的工作方式：将数据库文件按页（每页16K）读取到缓冲池，然后按最近最久未使用（LRU）的算法来保留在缓冲池中的缓存数据。如果数据库文件需要修改，总是首先修改在缓存池中的页（发生修改后，该页即为脏页），然后再按照一定的频率将缓冲池的脏页刷新（flush）到文件。可以通过命令：show engine innodb status来查看innodb_buffer_pool的具体情况。</p>
 
 <h3 id="1-3-master-thread">1.3 master thread</h3>
 

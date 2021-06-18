@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>SpringBoot使用@ComponentScan的Controller失效原因分析  - fyzn12</title>
+
+<meta name="description" content="SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&amp;#34;com.seconds.dao&amp;#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&amp;#34;com.seconds&amp;#34;) @MapperScan(annotationClass = Repository.class, basePackages = &amp;#34;com.seconds.dao&amp;#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="SpringBoot使用@ComponentScan的Controller失效原因分析 " />
+<meta property="og:description" content="SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&#34;com.seconds&#34;) @MapperScan(annotationClass = Repository.class, basePackages = &#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" />
+<meta property="article:published_time" content="2021-06-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-06-18T00:00:00+00:00" />
+<meta itemprop="name" content="SpringBoot使用@ComponentScan的Controller失效原因分析 ">
+<meta itemprop="description" content="SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&#34;com.seconds&#34;) @MapperScan(annotationClass = Repository.class, basePackages = &#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository.">
+
+
+<meta itemprop="datePublished" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="140">
+
+
+
+<meta itemprop="keywords" content="SpringBoot," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SpringBoot使用@ComponentScan的Controller失效原因分析 "/>
+<meta name="twitter:description" content="SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&#34;com.seconds&#34;) @MapperScan(annotationClass = Repository.class, basePackages = &#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">SpringBoot使用@ComponentScan的Controller失效原因分析 </h1>
+        <p class="post-meta">Jun 18, 2021</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<h2 id="springboot使用-componentscan的controller失效原因分析">SpringBoot使用@ComponentScan的Controller失效原因分析</h2>
+
+<blockquote>
+<p>环境背景
+在搭建整个架构过程中，启动类正常放在controller包外
+启动类的注解如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
+<span class="nd">@Slf4j</span>
+<span class="nd">@EnableTransactionManagement</span>
+<span class="nd">@EnableKafka</span>
+<span class="nd">@ComponentScan</span><span class="p">(</span><span class="s">&#34;com.seconds.dao&#34;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">SecondsApplication</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">SecondsApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre></div>
+<h4 id="造成项目启动后-controller包下的路径无法访问">造成项目启动后，controller包下的路径无法访问</h4>
+
+<p>@ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包,
+所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的
+* 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置.
+* 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的.
+* 之前我之所以以为@ComponentScan对启动类之外的包无能为力,
+* 这里没有配置controller类的包,导致程序无法访问.
+*
+这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效
+修改成一下:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
+<span class="nd">@Slf4j</span>
+<span class="nd">@EnableTransactionManagement</span>
+<span class="nd">@EnableKafka</span>
+<span class="c1">//@ComponentScan(&#34;com.seconds&#34;)
+</span><span class="c1"></span><span class="nd">@MapperScan</span><span class="p">(</span><span class="n">annotationClass</span> <span class="o">=</span> <span class="n">Repository</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.seconds.dao&#34;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">SecondsApplication</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">SecondsApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+<span class="c1">//或者将当前的controller包也扫描到注解中
+</span><span class="c1"></span>
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@MapperScan</span><span class="p">(</span><span class="n">annotationClass</span> <span class="o">=</span> <span class="n">Repository</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.graduationproject.model.mapper&#34;</span><span class="p">)</span>
+
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">ServiceApplication</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">ServiceApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span></code></pre></div></blockquote>
+
+<h2 id="项目中解决-componentscan导致controller包没有被扫描的方案">项目中解决@ComponentScan导致controller包没有被扫描的方案</h2>
+
+<ol>
+<li>单体架构中，可以采用上面的的方式，在启动类用户使用@MapperScan(annotationClass = Repository.class, basePackages = &ldquo;com.seconds.dao&rdquo;)代替@ComponentScan</li>
+
+<li><p>在分布式的项目中，mapper、service、controller肯定是在不同的模块下，可以在service层使用@MapperScan注解将mapper注入到service；在controller模块，采用@ComponentScan注解，但是一定得把当前controller的包也给注入到扫描的配置中；如下代码展示。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">service</span><span class="o">--</span><span class="n">模块注入mapper接口</span>
+
+<span class="cm">/**
+</span><span class="cm">* @author fyzn12
+</span><span class="cm">*/</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@MapperScan</span><span class="p">(</span><span class="n">annotationClass</span> <span class="o">=</span> <span class="n">Repository</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.graduationproject.model.mapper&#34;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">ServiceApplication</span> <span class="p">{</span>
+<span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">ServiceApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="n">controller</span><span class="o">--</span><span class="n">模块输入service</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@ComponentScan</span><span class="p">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;com.graduationproject.service&#34;</span><span class="p">,</span><span class="s">&#34;com.graduationproject.controller&#34;</span><span class="p">})</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">ControllerApplication</span> <span class="p">{</span>
+<span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">ControllerApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">}</span></code></pre></div></li>
+</ol>
+
+<h3 id="总结-componentscan注解只会扫描指定的包及包下的子类">总结：@ComponentScan注解只会扫描指定的包及包下的子类。</h3>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+            Mysql的存储引擎
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/" class="post-link">字符串变形</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/" class="post-link">二叉树的镜像问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">扑克牌问题</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

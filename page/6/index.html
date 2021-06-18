@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-02-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-06-18T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -74,6 +74,20 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">求两个有序数组的中位数</a></h2>
+            <div class="post-meta">Sep 25, 2020</div>
+            <div class="post-excerpt">
+                  给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
+ leetcode给出从时间复杂度和空间复杂度最优解分析 方法一：二分查找 给定两个有序数组，要求找到两个有序数组的中位数，最直观的思路有以下两种：
+使用归并的方式，合并两个有序数组，得到一个大的有序数组。大的有序数组的中间位置的元素，即为中位数。 不需要合并两个有序数组，只要找到中位数的位置即可。由于两个数组的长度已知，因此中位数对应的两个数 组的下标之和也是已知的。维护两个指针，初始时分别指向两个数组的下标 000 的位置，每次将指向较小 值的指针后移一位（如果一个指针已经到达数组末尾，则只需要移动另一个数组的指针），直到到达中位数 的位置。 假设两个有序数组的长度分别为 m 和 n，上述两种思路的复杂度如何？
+第一种思路的时间复杂度是 O(m+n)，空间复杂度是 O(m+n)。第二种思路虽然可以将空间复杂度降到 O(1)，但是时间复杂度仍是 O(m+n)。题目要求时间复杂度是 O(log⁡(m+n))，因此上述两种思路都不满足题目要求的时间复杂度。
+如何把时间复杂度降低到 O(log⁡(m+n)) 呢？如果对时间复杂度的要求有 log，通常都需要用到二分查找，这道题也可以通过二分查找实现。
+根据中位数的定义，当 m+n 是奇数时，中位数是两个有序数组中的第 (m+n)/2 个元素，当 m+n 是偶数时，中位数是两个有序数组中的第 (m+n)/2 个元素和第 (m+n)/2+1 个元素的平均值。因此，这道题可以转化成寻找两个有序数组中的第 k 小的数，其中 k 为 (m+n)/2 或 (m+n)/2+1。
+注意：以上分析思路来自于leetcode官方阶梯思路 
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/tree/">二叉树</a></h2>
@@ -128,15 +142,6 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Xml字符编码规范</a></h2>
-            <div class="post-meta">Sep 11, 2020</div>
-            <div class="post-excerpt">
-                 xml字符编码规范
- &lt; &lt;(小于) &gt; &gt;(大于) &amp; &amp;(和) &apos; &lsquo;(单引号) &quot; &ldquo;(双引号)   
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -164,6 +169,10 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
         </li>
         
         <li>
@@ -216,10 +225,6 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">扑克牌问题</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
         </li>
         
     </ul>

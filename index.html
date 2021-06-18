@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-02-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-06-18T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -74,6 +74,16 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/">SpringBoot使用@ComponentScan的Controller失效原因分析 </a></h2>
+            <div class="post-meta">Jun 18, 2021</div>
+            <div class="post-excerpt">
+                SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&#34;com.seconds&#34;) @MapperScan(annotationClass = Repository.class, basePackages = &#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository.
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">Mysql的存储引擎</a></h2>
@@ -129,16 +139,6 @@ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/">链表求和及字符串求和</a></h2>
-            <div class="post-meta">Dec 31, 2020</div>
-            <div class="post-excerpt">
-                1.对字符串求和  题目描述： 以字符串的形式读入两个数字，编写一个函数计算它们的和，以字符串形式返回。 （字符串长度不大于100000，保证字符串仅由’0’~‘9’这10种字符组成）
-输入：”1”,“99” 输出：”100”
- /** * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可 * 计算两个数之和 * @param s string字符串 表示第一个整数 * @param t string字符串 表示第二个整数 * @return string字符串 */ public String solve (String s, String t) { int i = s.length()-1,j = t.length()-1,carry=0; StringBuilder str = new StringBuilder(); while(i&gt;=0 || j&gt;=0 || carry!=0){ int x = i&lt;0?0:s.charAt(i--)-&#39;0&#39;; int y = j&lt;0?0:t.charAt(j--)-&#39;0&#39;; str.apend((x+y+carry)%10); carry = (x+y+carry)/10; } return str.reverse().toString(); }  2.链表的求和 3.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -166,6 +166,10 @@ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
         </li>
         
         <li>
@@ -218,10 +222,6 @@ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">扑克牌问题</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/" class="post-link">旋转数组的问题</a>
         </li>
         
     </ul>

@@ -12,6 +12,21 @@
     
     
     <item>
+      <title>Redis结合kafka实现高并发抢单</title>
+      <link>https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/</guid>
+      <description>实现环境：kafka、redis、mysql8 使用Spring Boot搭建环境，数据库采用乐观锁
+ 缓存和数据一致性分析  缓存和 DB 的一致性是一个讨论很多的问题，推荐看参考中的 使用缓存的正确姿势，首先看下先更新数据库，再更新缓存策略， 假设 A、B 两个线程，A 成功更新数据，在要更新缓存时，A 的时间片用完了，B 更新了数据库接着更新了缓存，这是 CPU 再分配给 A，则 A 又更新了缓存，这种情况下缓存中就是脏数据.
+那么，如果避免这个问题呢？就是缓存不做更新，仅做删除，先更新数据库再删除缓存。
+对于上面的问题，A 更新了数据库，还没来得及删除缓存，B 又更新了数据库，接着删除了缓存，然后 A 删除了缓存， 这样只有下次缓存未命中时，才会从数据库中重建缓存，避免了脏数据。 但是，也会有极端情况出现脏数据， A 做查询操作，没有命中缓存，从数据库中查询，但是还没来得及更新缓存，B 就更新了数据库，接着删除了缓存，然后 A 又重建了缓存，这时 A 中的就是脏数据，但是这种极端情况需要数据库的写操作前进入数据库，又晚于写操作删除缓存来更新缓存，发生的概率极其小，不过为了避免这种情况，可以为缓存设置过期时间。
+ 高并发控制实现 1.Redis的限流控制  根据前面的优化分析，假设现在有 10 个商品，有 1000 个并发秒杀请求，最终只有 10 个订单会成功创建，也就是说有 990 的请求是无效的，这些无效的请求也会给数据库带来压力，因此可以在在请求落到数据库之前就将无效的请求过滤掉，将并发控制在一个可控的范围，这样落到数据库的压力就小很多
+由于计数限流实现起来比较简单，因此采用计数限流，限流的实现可以直接使用 Guava 的 RateLimit 方法，但是由于后续需要将实例通过 Nginx 实现负载均衡，这里选用 Redis 实现分布式限流
+在 RedisPool 中对 Jedis 线程池进行了简单的封装，封装了初始化和关闭方法，同时在 RedisPoolUtil 中对 Jedis 常用 API 进行简单封装，每个方法调用完毕则关闭 Jedis 连接。</description>
+    </item>
+    
+    <item>
       <title>SpringBoot使用@ComponentScan的Controller失效原因分析 </title>
       <link>https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Redis结合kafka实现高并发抢单 - fyzn12</title>
+
+<meta name="description" content="实现环境：kafka、redis、mysql8 使用Spring Boot搭建环境，数据库采用乐观锁
+ 缓存和数据一致性分析  缓存和 DB 的一致性是一个讨论很多的问题，推荐看参考中的 使用缓存的正确姿势，首先看下先更新数据库，再更新缓存策略， 假设 A、B 两个线程，A 成功更新数据，在要更新缓存时，A 的时间片用完了，B 更新了数据库接着更新了缓存，这是 CPU 再分配给 A，则 A 又更新了缓存，这种情况下缓存中就是脏数据.
+那么，如果避免这个问题呢？就是缓存不做更新，仅做删除，先更新数据库再删除缓存。
+对于上面的问题，A 更新了数据库，还没来得及删除缓存，B 又更新了数据库，接着删除了缓存，然后 A 删除了缓存， 这样只有下次缓存未命中时，才会从数据库中重建缓存，避免了脏数据。 但是，也会有极端情况出现脏数据， A 做查询操作，没有命中缓存，从数据库中查询，但是还没来得及更新缓存，B 就更新了数据库，接着删除了缓存，然后 A 又重建了缓存，这时 A 中的就是脏数据，但是这种极端情况需要数据库的写操作前进入数据库，又晚于写操作删除缓存来更新缓存，发生的概率极其小，不过为了避免这种情况，可以为缓存设置过期时间。
+ 高并发控制实现 1.Redis的限流控制  根据前面的优化分析，假设现在有 10 个商品，有 1000 个并发秒杀请求，最终只有 10 个订单会成功创建，也就是说有 990 的请求是无效的，这些无效的请求也会给数据库带来压力，因此可以在在请求落到数据库之前就将无效的请求过滤掉，将并发控制在一个可控的范围，这样落到数据库的压力就小很多
+由于计数限流实现起来比较简单，因此采用计数限流，限流的实现可以直接使用 Guava 的 RateLimit 方法，但是由于后续需要将实例通过 Nginx 实现负载均衡，这里选用 Redis 实现分布式限流
+在 RedisPool 中对 Jedis 线程池进行了简单的封装，封装了初始化和关闭方法，同时在 RedisPoolUtil 中对 Jedis 常用 API 进行简单封装，每个方法调用完毕则关闭 Jedis 连接。" /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="Redis结合kafka实现高并发抢单" />
+<meta property="og:description" content="实现环境：kafka、redis、mysql8 使用Spring Boot搭建环境，数据库采用乐观锁
+ 缓存和数据一致性分析  缓存和 DB 的一致性是一个讨论很多的问题，推荐看参考中的 使用缓存的正确姿势，首先看下先更新数据库，再更新缓存策略， 假设 A、B 两个线程，A 成功更新数据，在要更新缓存时，A 的时间片用完了，B 更新了数据库接着更新了缓存，这是 CPU 再分配给 A，则 A 又更新了缓存，这种情况下缓存中就是脏数据.
+那么，如果避免这个问题呢？就是缓存不做更新，仅做删除，先更新数据库再删除缓存。
+对于上面的问题，A 更新了数据库，还没来得及删除缓存，B 又更新了数据库，接着删除了缓存，然后 A 删除了缓存， 这样只有下次缓存未命中时，才会从数据库中重建缓存，避免了脏数据。 但是，也会有极端情况出现脏数据， A 做查询操作，没有命中缓存，从数据库中查询，但是还没来得及更新缓存，B 就更新了数据库，接着删除了缓存，然后 A 又重建了缓存，这时 A 中的就是脏数据，但是这种极端情况需要数据库的写操作前进入数据库，又晚于写操作删除缓存来更新缓存，发生的概率极其小，不过为了避免这种情况，可以为缓存设置过期时间。
+ 高并发控制实现 1.Redis的限流控制  根据前面的优化分析，假设现在有 10 个商品，有 1000 个并发秒杀请求，最终只有 10 个订单会成功创建，也就是说有 990 的请求是无效的，这些无效的请求也会给数据库带来压力，因此可以在在请求落到数据库之前就将无效的请求过滤掉，将并发控制在一个可控的范围，这样落到数据库的压力就小很多
+由于计数限流实现起来比较简单，因此采用计数限流，限流的实现可以直接使用 Guava 的 RateLimit 方法，但是由于后续需要将实例通过 Nginx 实现负载均衡，这里选用 Redis 实现分布式限流
+在 RedisPool 中对 Jedis 线程池进行了简单的封装，封装了初始化和关闭方法，同时在 RedisPoolUtil 中对 Jedis 常用 API 进行简单封装，每个方法调用完毕则关闭 Jedis 连接。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" />
+<meta property="article:published_time" content="2021-06-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-06-18T00:00:00+00:00" />
+<meta itemprop="name" content="Redis结合kafka实现高并发抢单">
+<meta itemprop="description" content="实现环境：kafka、redis、mysql8 使用Spring Boot搭建环境，数据库采用乐观锁
+ 缓存和数据一致性分析  缓存和 DB 的一致性是一个讨论很多的问题，推荐看参考中的 使用缓存的正确姿势，首先看下先更新数据库，再更新缓存策略， 假设 A、B 两个线程，A 成功更新数据，在要更新缓存时，A 的时间片用完了，B 更新了数据库接着更新了缓存，这是 CPU 再分配给 A，则 A 又更新了缓存，这种情况下缓存中就是脏数据.
+那么，如果避免这个问题呢？就是缓存不做更新，仅做删除，先更新数据库再删除缓存。
+对于上面的问题，A 更新了数据库，还没来得及删除缓存，B 又更新了数据库，接着删除了缓存，然后 A 删除了缓存， 这样只有下次缓存未命中时，才会从数据库中重建缓存，避免了脏数据。 但是，也会有极端情况出现脏数据， A 做查询操作，没有命中缓存，从数据库中查询，但是还没来得及更新缓存，B 就更新了数据库，接着删除了缓存，然后 A 又重建了缓存，这时 A 中的就是脏数据，但是这种极端情况需要数据库的写操作前进入数据库，又晚于写操作删除缓存来更新缓存，发生的概率极其小，不过为了避免这种情况，可以为缓存设置过期时间。
+ 高并发控制实现 1.Redis的限流控制  根据前面的优化分析，假设现在有 10 个商品，有 1000 个并发秒杀请求，最终只有 10 个订单会成功创建，也就是说有 990 的请求是无效的，这些无效的请求也会给数据库带来压力，因此可以在在请求落到数据库之前就将无效的请求过滤掉，将并发控制在一个可控的范围，这样落到数据库的压力就小很多
+由于计数限流实现起来比较简单，因此采用计数限流，限流的实现可以直接使用 Guava 的 RateLimit 方法，但是由于后续需要将实例通过 Nginx 实现负载均衡，这里选用 Redis 实现分布式限流
+在 RedisPool 中对 Jedis 线程池进行了简单的封装，封装了初始化和关闭方法，同时在 RedisPoolUtil 中对 Jedis 常用 API 进行简单封装，每个方法调用完毕则关闭 Jedis 连接。">
+
+
+<meta itemprop="datePublished" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="367">
+
+
+
+<meta itemprop="keywords" content="SpringBoot," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Redis结合kafka实现高并发抢单"/>
+<meta name="twitter:description" content="实现环境：kafka、redis、mysql8 使用Spring Boot搭建环境，数据库采用乐观锁
+ 缓存和数据一致性分析  缓存和 DB 的一致性是一个讨论很多的问题，推荐看参考中的 使用缓存的正确姿势，首先看下先更新数据库，再更新缓存策略， 假设 A、B 两个线程，A 成功更新数据，在要更新缓存时，A 的时间片用完了，B 更新了数据库接着更新了缓存，这是 CPU 再分配给 A，则 A 又更新了缓存，这种情况下缓存中就是脏数据.
+那么，如果避免这个问题呢？就是缓存不做更新，仅做删除，先更新数据库再删除缓存。
+对于上面的问题，A 更新了数据库，还没来得及删除缓存，B 又更新了数据库，接着删除了缓存，然后 A 删除了缓存， 这样只有下次缓存未命中时，才会从数据库中重建缓存，避免了脏数据。 但是，也会有极端情况出现脏数据， A 做查询操作，没有命中缓存，从数据库中查询，但是还没来得及更新缓存，B 就更新了数据库，接着删除了缓存，然后 A 又重建了缓存，这时 A 中的就是脏数据，但是这种极端情况需要数据库的写操作前进入数据库，又晚于写操作删除缓存来更新缓存，发生的概率极其小，不过为了避免这种情况，可以为缓存设置过期时间。
+ 高并发控制实现 1.Redis的限流控制  根据前面的优化分析，假设现在有 10 个商品，有 1000 个并发秒杀请求，最终只有 10 个订单会成功创建，也就是说有 990 的请求是无效的，这些无效的请求也会给数据库带来压力，因此可以在在请求落到数据库之前就将无效的请求过滤掉，将并发控制在一个可控的范围，这样落到数据库的压力就小很多
+由于计数限流实现起来比较简单，因此采用计数限流，限流的实现可以直接使用 Guava 的 RateLimit 方法，但是由于后续需要将实例通过 Nginx 实现负载均衡，这里选用 Redis 实现分布式限流
+在 RedisPool 中对 Jedis 线程池进行了简单的封装，封装了初始化和关闭方法，同时在 RedisPoolUtil 中对 Jedis 常用 API 进行简单封装，每个方法调用完毕则关闭 Jedis 连接。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Redis结合kafka实现高并发抢单</h1>
+        <p class="post-meta">Jun 18, 2021</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<p>实现环境：kafka、redis、mysql8
+使用Spring Boot搭建环境，数据库采用乐观锁</p>
+</blockquote>
+
+<h2 id="缓存和数据一致性分析">缓存和数据一致性分析</h2>
+
+<blockquote>
+<p>缓存和 DB 的一致性是一个讨论很多的问题，推荐看参考中的 使用缓存的正确姿势，首先看下先更新数据库，再更新缓存策略，
+假设 A、B 两个线程，A 成功更新数据，在要更新缓存时，A 的时间片用完了，B 更新了数据库接着更新了缓存，这是 CPU 再分配给 A，则 A 又更新了缓存，这种情况下缓存中就是脏数据.</p>
+
+<p>那么，如果避免这个问题呢？就是缓存不做更新，仅做删除，先更新数据库再删除缓存。</p>
+
+<p>对于上面的问题，A 更新了数据库，还没来得及删除缓存，B 又更新了数据库，接着删除了缓存，然后 A 删除了缓存，
+这样只有下次缓存未命中时，才会从数据库中重建缓存，避免了脏数据。
+但是，也会有极端情况出现脏数据，
+A 做查询操作，没有命中缓存，从数据库中查询，但是还没来得及更新缓存，B 就更新了数据库，接着删除了缓存，然后 A 又重建了缓存，这时 A 中的就是脏数据，但是这种极端情况需要数据库的写操作前进入数据库，又晚于写操作删除缓存来更新缓存，发生的概率极其小，不过为了避免这种情况，可以为缓存设置过期时间。</p>
+</blockquote>
+
+<h3 id="高并发控制实现">高并发控制实现</h3>
+
+<h4 id="1-redis的限流控制">1.Redis的限流控制</h4>
+
+<blockquote>
+<p>根据前面的优化分析，假设现在有 10 个商品，有 1000 个并发秒杀请求，最终只有 10 个订单会成功创建，也就是说有 990 的请求是无效的，这些无效的请求也会给数据库带来压力，因此可以在在请求落到数据库之前就将无效的请求过滤掉，将并发控制在一个可控的范围，这样落到数据库的压力就小很多</p>
+
+<p>由于计数限流实现起来比较简单，因此采用计数限流，限流的实现可以直接使用 Guava 的 RateLimit 方法，但是由于后续需要将实例通过 Nginx 实现负载均衡，这里选用 Redis 实现分布式限流</p>
+
+<p>在 RedisPool 中对 Jedis 线程池进行了简单的封装，封装了初始化和关闭方法，同时在 RedisPoolUtil 中对 Jedis 常用 API 进行简单封装，每个方法调用完毕则关闭 Jedis 连接。</p>
+
+<p>限流要保证写入 Redis 操作的原子性，因此利用 Redis 的单线程机制，通过 LUA 脚本来完成。</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-lua" data-lang="lua"><span class="c1">-- 计数限流</span>
+<span class="c1">-- 每次请求都将当前时间，精确到秒作为 key 放入 Redis 中，超时时间设置为 2s， Redis 将该 key 的值进行自增</span>
+<span class="c1">-- 当达到阈值时返回错误，表示请求被限流</span>
+<span class="c1">-- 写入 Redis 的操作用 Lua 脚本来完成，利用 Redis 的单线程机制可以保证每个 Redis 请求的原子性</span>
+
+<span class="c1">-- 资源唯一标志位</span>
+<span class="kd">local</span> <span class="n">key</span> <span class="o">=</span> <span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1">-- 限流大小</span>
+<span class="kd">local</span> <span class="n">limit</span> <span class="o">=</span> <span class="n">tonumber</span><span class="p">(</span><span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1">-- 获取当前流量大小</span>
+<span class="kd">local</span> <span class="n">currentLimit</span> <span class="o">=</span> <span class="n">tonumber</span><span class="p">(</span><span class="n">redis.call</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&#34;0&#34;</span><span class="p">)</span>
+
+<span class="kr">if</span> <span class="n">currentLimit</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">limit</span> <span class="kr">then</span>
+    <span class="c1">-- 达到限流大小 返回</span>
+    <span class="kr">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kr">else</span>
+    <span class="c1">-- 没有达到阈值 value + 1</span>
+    <span class="n">redis.call</span><span class="p">(</span><span class="s2">&#34;INCRBY&#34;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1">-- 设置过期时间</span>
+    <span class="n">redis.call</span><span class="p">(</span><span class="s2">&#34;EXPIRE&#34;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="kr">return</span> <span class="n">currentLimit</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="kr">end</span>  </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">RedisLimit</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">int</span> <span class="n">FAIL_CODE</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="nf">static</span> <span class="n">Integer</span> <span class="nf">limit</span> <span class="o">=</span> <span class="n">5</span><span class="p">;</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * Redis 限流
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="n">Boolean</span> <span class="nf">limit</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">Jedis</span> <span class="nf">jedis</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="n">Object</span> <span class="nf">result</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="c1">// 获取 jedis 实例
+</span><span class="c1"></span>            <span class="n">jedis</span> <span class="o">=</span> <span class="n">RedisPool</span><span class="p">.</span><span class="na">getJedis</span><span class="p">();</span>
+            <span class="c1">// 解析 Lua 文件
+</span><span class="c1"></span>            <span class="n">String</span> <span class="nf">script</span> <span class="o">=</span> <span class="n">ScriptUtil</span><span class="p">.</span><span class="na">getScript</span><span class="p">(</span><span class="s">&#34;limit.lua&#34;</span><span class="p">);</span>
+            <span class="c1">// 请求限流
+</span><span class="c1"></span>            <span class="n">String</span> <span class="nf">key</span> <span class="o">=</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span> <span class="o">/</span> <span class="n">1000</span><span class="p">);</span>
+            <span class="c1">// 计数限流
+</span><span class="c1"></span>            <span class="n">result</span> <span class="o">=</span> <span class="n">jedis</span><span class="p">.</span><span class="na">eval</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">Collections</span><span class="p">.</span><span class="na">singletonList</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">Collections</span><span class="p">.</span><span class="na">singletonList</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">limit</span><span class="p">)));</span>
+            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;限流的值：&#34;</span><span class="o">+</span><span class="n">result</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">FAIL_CODE</span> <span class="o">!=</span> <span class="p">(</span><span class="n">Long</span><span class="p">)</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;成功获取令牌&#34;</span><span class="p">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="nf">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">log</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&#34;limit 获取 Jedis 实例失败：&#34;</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+            <span class="n">RedisPool</span><span class="p">.</span><span class="na">jedisPoolClose</span><span class="p">(</span><span class="n">jedis</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<h4 id="2-抢单流程">2.抢单流程</h4>
+
+<ol>
+<li><p>请求时先获取令牌<br />
+&gt; 每个请求到来先取令牌，获取到令牌再执行后续操作，获取不到直接返回 ERROR</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * 限流 + Redis 缓存库存 + Kafka异步下单
+</span><span class="cm"> * @param sid
+</span><span class="cm"> */</span>
+<span class="nd">@RequestMapping</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;createOrderWithLimitAndRedisAndKafka&#34;</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="p">.</span><span class="na">POST</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">String</span> <span class="n">createOrderWithLimitAndRedisAndKafka</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="nf">request</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">sid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">RedisLimit</span><span class="p">.</span><span class="na">limit</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">orderService</span><span class="p">.</span><span class="na">createOrderWithLimitAndRedisAndKafka</span><span class="p">(</span><span class="n">sid</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="nf">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">log</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&#34;Exception: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s">&#34;秒杀请求正在处理，排队中&#34;</span><span class="p">;</span>
+<span class="p">}</span>  </code></pre></div></li>
+
+<li><p>验证库存，保存请求到kafka</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">createOrderWithLimitAndRedisAndKafka</span><span class="p">(</span><span class="kt">int</span> <span class="nf">sid</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">Exception</span> <span class="p">{</span>
+    <span class="c1">// 校验库存
+</span><span class="c1"></span>    <span class="n">Stock</span> <span class="nf">stock</span> <span class="o">=</span> <span class="n">checkStockWithRedis</span><span class="p">(</span><span class="n">sid</span><span class="p">);</span>
+    <span class="n">String</span> <span class="nf">json</span> <span class="o">=</span> <span class="n">gson</span><span class="p">.</span><span class="na">toJson</span><span class="p">(</span><span class="n">stock</span><span class="p">);</span>
+    <span class="c1">// 下单请求发送至 kafka，需要序列化 stock
+</span><span class="c1"></span>    <span class="n">kafkaTemplate</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">kafkaTopic</span><span class="p">,</span> <span class="n">gson</span><span class="p">.</span><span class="na">toJson</span><span class="p">(</span><span class="n">stock</span><span class="p">));</span>
+    <span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;消息发送至 Kafka 成功&#34;</span><span class="p">);</span>
+<span class="p">}</span>  </code></pre></div></li>
+
+<li><p>kafka消费</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@KafkaListener</span><span class="p">(</span><span class="n">topics</span> <span class="o">=</span> <span class="s">&#34;SECONDS-KILL-TOPIC&#34;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">listen</span><span class="p">(</span><span class="n">ConsumerRecord</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">record</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">Exception</span> <span class="p">{</span>
+
+    <span class="n">Optional</span><span class="o">&lt;?&gt;</span> <span class="n">kafkaMessage</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">.</span><span class="na">ofNullable</span><span class="p">(</span><span class="n">record</span><span class="p">.</span><span class="na">value</span><span class="p">());</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;抢单的值：&#34;</span><span class="o">+</span><span class="n">record</span><span class="p">.</span><span class="na">value</span><span class="p">());</span>
+    <span class="c1">// Object -&gt; String
+</span><span class="c1"></span>    <span class="n">String</span> <span class="nf">message</span> <span class="o">=</span> <span class="p">(</span><span class="n">String</span><span class="p">)</span> <span class="n">kafkaMessage</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+    <span class="c1">// 反序列化
+</span><span class="c1"></span>    <span class="n">Stock</span> <span class="nf">stock</span> <span class="o">=</span> <span class="n">gson</span><span class="p">.</span><span class="na">fromJson</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">Stock</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="c1">// 创建订单
+</span><span class="c1"></span>    <span class="n">orderService</span><span class="p">.</span><span class="na">consumerTopicToCreateOrderWithKafka</span><span class="p">(</span><span class="n">stock</span><span class="p">);</span>
+<span class="p">}</span>  </code></pre></div></li>
+</ol>
+
+<h4 id="本文主要参考github">本文主要参考Github</h4>
+
+<p><a href="https://github.com/daydreamdev/seconds-kill">如何设计一个秒杀系统</a></p>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/">
+            SpringBoot使用@ComponentScan的Controller失效原因分析 
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/elk/filebeat/">
+            FileBeat
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/" class="post-link">字符串变形</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

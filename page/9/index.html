@@ -76,6 +76,28 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/strategypattern/">策略模式</a></h2>
+            <div class="post-meta">Sep 02, 2020</div>
+            <div class="post-excerpt">
+                1 OO設計原則 OO設計的五大原則  单一职责原则：就一个类而言，应该仅有一个引起他变化的原因。
+ 开放封闭原则：实现开放封闭的核心思想就是对抽象编程，而不是对具体编程，因为抽象相对稳定。
+ 依赖倒置原则：依赖抽象，不要依赖具体。 里氏代换原则：子类型必须能够替换到他们的父类型。主要着眼于对抽象和多态简历在继承的基础上
+ 接口隔离原则：多个和客户相关的接口要好于一个通用接口
+  2 设计模式————策略模式 2.1 策略模式原理 分别封装行为接口，实现算法族，超类里放行为接口对象，在子类里放具体设定行为对象。 原则就是：分离变化部分，封装接口，基于接口编程实现各种功能。此模式让行为算法的变化独立于算法的使用者。 2.2 策略模式设计的代码分析————模拟鸭子项目 2.2.1 抽象出鸭子的行为，鸭子具有飞行能力和叫声，抽象出该接口 package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:42 * @description:会飞的鸭子 */ public interface FlyBehavior { void fly(); } package com.fyzn12.api; /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/2 10:43 * @description:叫声 */ public interface QuackBehavior { void quack(); } 2.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zuul%E7%BD%91%E5%85%B3/">SpringCloud微服务网关技术Zuul</a></h2>
+            <div class="post-meta">Jul 26, 2020</div>
+            <div class="post-excerpt">
+                1 网关的简介 1.1 网关API（接口） Gateway（网关） 网关的概念：相当于客户端请求统一请求到网关服务器上，再由网关服务器进行转发请求到实际的服务器地址上， 类似于Nginx。 网关的作用：网关可以拦截客户端所有请求，对该请求进行权限控制、负载均衡、日志管理、接口调用监控等 网关和过滤器的区别：过滤器适合于单个tomcat服务器进行拦截请求，网关是拦截整个微服务所有请求。 网关分为内网网关和外网网关 Nginx和Zuul网关的区别： 1. Zuul和Nginx都可以实现负载均衡、反向代理、过滤请求、实现网关效果 2. 不同点 （1）Nginx采用C语言编写，Zuul采用java语言编写，Zuul的负载均衡实现是采用Ribbon + eureka实现本地负载均衡 （2）Nginx负载均衡实现采用服务器端实现负载均衡 （3）Nginx比Zuul功能更加强大，因为Nginx整合一些脚本语言（Nginx + Lua） （4）Nginx适合于服务器端负载均衡 （5）Zuul适合服务中实现网关，而且使用技术是java 最好建议nginx + zuul实现网关 nginx作用实现反向代理 zuul对微服务实现网关拦截  1.2 接口在什么背景下产生的 在面向服务架构和微服务背景下差生，目的是为了解耦。  1.3 接口分类  开放接口&mdash;&ndash;其他机构合作伙伴进行调用（必须在外网访问），如微信公众号开发，需要通过appid + appsocket 生成accessToken 进行通信。对接支付宝开发、微信开发；目的可以授权，遵循OAuth2.0协议方式
+ 内部接口
+一般只能在局域网中进行访问，服务调用之间关系都在同一个微服务系统中 目的：保证安全问题   1.3.1 设计一套项目接口需要考虑的点 接口权限（开放接口|内部接口） 考虑幂等性 安全性（https）防止串改数据（验证签名） 使用网关拦截 接口实现黑名单和白名单、接口使用http协议 + json格式，符合restful风格，目的是为了跨平台。 考虑高并发对接口服务实现保护服务降级、熔断、隔离之类 最后使用统一的API管理平台  2 搭建一个Zuul网关系统 2.1 zuul网关搭建示意图  2.2 创建zuul网关项目，在parent中添加一下依赖 &lt;!-- 导入springcloud整合zuul启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88zookeeper%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Zookeeper注册中心</a></h2>
             <div class="post-meta">Jul 26, 2020</div>
             <div class="post-excerpt">
@@ -107,40 +129,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/spring-boot/spring-data/">Spring Boot整合Spring Data JPA</a></h2>
-            <div class="post-meta">Jul 18, 2020</div>
-            <div class="post-excerpt">
-                Spring Boot整合Spring Data JPA 1 Spring Boot整合Spring Data JPA环境的搭建和测试 1.1 创建项目配置pom文件  Spring Boot整合Spring Data JPA时需要添加一下依赖包
-&lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入mybatis的启动器 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt; &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 导入springboot整合spring Data JPA的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql数据库 --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- mysql的连接池 --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;druid&lt;/artifactId&gt; &lt;version&gt;${druid.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;/dependency&gt; 
- 该项目需要有一个父工程，该工程打包方式以pom形式打包，整合了测试所需要的的依赖包。
-  1.2 创建application.properties文件 注意：该文件这里主要配置数据库的连接，Jpa的一些属性  配置数据库的连接； 配置正向工程和sql语句的显示。
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/redis/jedis/">Redis之java客户端</a></h2>
-            <div class="post-meta">Jul 08, 2020</div>
-            <div class="post-excerpt">
-                1 jedis的简单介绍 1.1 Jedis是什么 直观来说，jedis就是redis-cli   1.2 引入jedis的依赖包 &lt;!-- 引入jedis的依赖包 --&gt; &lt;dependency&gt; &lt;groupId&gt;redis.clients&lt;/groupId&gt; &lt;artifactId&gt;jedis&lt;/artifactId&gt; &lt;version&gt;2.9.3&lt;/version&gt; &lt;type&gt;jar&lt;/type&gt; &lt;scope&gt;compile&lt;/scope&gt; &lt;/dependency&gt;  1.3 jedis直连  生成一个Jedis对象，这个对象负责和指定Redis节点进行通信
-Jedis jedis = new Jedis(&ldquo;127.0.0.1&rdquo;,6379);
- jedis执行set操作
-jedis.set(&ldquo;hello&rdquo;,&ldquo;world&rdquo;);
- jedis执行get操作，value=&ldquo;world&rdquo;
-String value = jedis.get(&ldquo;hello&rdquo;);
-   Jedis构造函数的简单介绍 Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
- 三个命令
- 两个配置
- 运维经验
-  2.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/8/" class="previous">PREV</a>
-        <span class="page_number ">9 of 13</span>
+        <span class="page_number ">9 of 14</span>
         <a href="/page/10/" class="next">NEXT</a>
     </div>
 </div>
@@ -163,6 +156,14 @@ String value = jedis.get(&ldquo;hello&rdquo;);
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
         </li>
         
         <li>
@@ -211,14 +212,6 @@ String value = jedis.get(&ldquo;hello&rdquo;);
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/" class="post-link">二叉树的镜像问题</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/" class="post-link">扑克牌问题</a>
         </li>
         
     </ul>

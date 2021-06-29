@@ -6,10 +6,43 @@
     <description>Recent content in ELK on fyzn12</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/tags/elk/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ubuntu搭建单机版k8s</title>
+      <link>https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/</link>
+      <pubDate>Thu, 01 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/</guid>
+      <description>ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
+ echo &amp;#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&amp;#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
+执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+ 查看到这个错误之后 执行sudo gpg &amp;ndash;keyserver keyserver.ubuntu.com &amp;ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &amp;ndash;export &amp;ndash;armor 上面相同的keys | sudo apt-key add -
+3、更新源
+sudo apt-get update
+4、关闭虚拟内存
+sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
+5、执行安装 (sudo视操作者情况决定是否加)apt-get install kubelet kubeadm kubectl kubernetes-cni</description>
+    </item>
+    
+    <item>
+      <title>CAS</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</guid>
+      <description>CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current + 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：</description>
+    </item>
     
     <item>
       <title>FileBeat</title>
@@ -27,6 +60,26 @@
  2.2、filebeat如何保存文件的状态  Filebeat保留每个文件的状态，并经常将状态刷新到磁盘中的注册表文件中。该状态用于记住harvester读取的最后一个偏移量，并确保发送所有日志行。如果无法访问输出（如Elasticsearch或Logstash），Filebeat将跟踪最后发送的行，并在输出再次可用时继续读取文件。当Filebeat运行时，每个输入的状态信息也保存在内存中。当Filebeat重新启动时，来自注册表文件的数据用于重建状态，Filebeat在最后一个已知位置继续每个harvester。对于每个输入，Filebeat都会保留它找到的每个文件的状态。由于文件可以重命名或移动，文件名和路径不足以标识文件。对于每个文件，Filebeat存储唯一的标识符，以检测文件是否以前被捕获。
 2.3、filebeat何如保证至少一次数据消费 　Filebeat保证事件将至少传递到配置的输出一次，并且不会丢失数据。是因为它将每个事件的传递状态存储在注册表文件中。在已定义的输出被阻止且未确认所有事件的情况下，Filebeat将继续尝试发送事件，直到输出确认已接收到事件为止。如果Filebeat在发送事件的过程中关闭，它不会等待输出确认所有事件后再关闭。当Filebeat重新启动时，将再次将Filebeat关闭前未确认的所有事件发送到输出。这样可以确保每个事件至少发送一次，但最终可能会有重复的事件发送到输出。通过设置shutdown_timeout选项，可以将Filebeat配置为在关机前等待特定时间。
  本文来源于： FileBeat</description>
+    </item>
+    
+    <item>
+      <title>GC和JVM</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</guid>
+      <description>GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C++： new delete
+c/C++ 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 + 老年代 + 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1.</description>
     </item>
     
   </channel>

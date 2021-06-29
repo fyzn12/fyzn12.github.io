@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-06-18T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-07-01T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,56 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/spring-boot/upload/">SpringBoot结合antd组件Upload实现文件上传</a></h2>
+            <div class="post-meta">Oct 02, 2020</div>
+            <div class="post-excerpt">
+                项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&#34;/modification-avatar&#34;) public Map&lt;String, Object&gt; update(@RequestParam(value = &#34;file&#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">求两个有序数组的中位数</a></h2>
+            <div class="post-meta">Sep 25, 2020</div>
+            <div class="post-excerpt">
+                  给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
+ leetcode给出从时间复杂度和空间复杂度最优解分析 方法一：二分查找 给定两个有序数组，要求找到两个有序数组的中位数，最直观的思路有以下两种：
+使用归并的方式，合并两个有序数组，得到一个大的有序数组。大的有序数组的中间位置的元素，即为中位数。 不需要合并两个有序数组，只要找到中位数的位置即可。由于两个数组的长度已知，因此中位数对应的两个数 组的下标之和也是已知的。维护两个指针，初始时分别指向两个数组的下标 000 的位置，每次将指向较小 值的指针后移一位（如果一个指针已经到达数组末尾，则只需要移动另一个数组的指针），直到到达中位数 的位置。 假设两个有序数组的长度分别为 m 和 n，上述两种思路的复杂度如何？
+第一种思路的时间复杂度是 O(m+n)，空间复杂度是 O(m+n)。第二种思路虽然可以将空间复杂度降到 O(1)，但是时间复杂度仍是 O(m+n)。题目要求时间复杂度是 O(log⁡(m+n))，因此上述两种思路都不满足题目要求的时间复杂度。
+如何把时间复杂度降低到 O(log⁡(m+n)) 呢？如果对时间复杂度的要求有 log，通常都需要用到二分查找，这道题也可以通过二分查找实现。
+根据中位数的定义，当 m+n 是奇数时，中位数是两个有序数组中的第 (m+n)/2 个元素，当 m+n 是偶数时，中位数是两个有序数组中的第 (m+n)/2 个元素和第 (m+n)/2+1 个元素的平均值。因此，这道题可以转化成寻找两个有序数组中的第 k 小的数，其中 k 为 (m+n)/2 或 (m+n)/2+1。
+注意：以上分析思路来自于leetcode官方阶梯思路 
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/tree/">二叉树</a></h2>
+            <div class="post-meta">Sep 23, 2020</div>
+            <div class="post-excerpt">
+                二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/command-design/">命令模式</a></h2>
+            <div class="post-meta">Sep 21, 2020</div>
+            <div class="post-excerpt">
+                  命令模式的简单介绍
+ 1 命令模式的介绍 1.1 命令模式的结构 
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
             <div class="post-meta">Sep 19, 2020</div>
             <div class="post-excerpt">
@@ -93,50 +143,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/linkedlist/">LinkedList以及栈的深度理解</a></h2>
-            <div class="post-meta">Sep 11, 2020</div>
-            <div class="post-excerpt">
-                算法背景:给定一个只包括 &lsquo;(&lsquo;，&rsquo;)&lsquo;，&rsquo;{&lsquo;，&rsquo;}&lsquo;，&rsquo;[&lsquo;，&rsquo;]&rsquo; 的字符串，判断字符串是否有效。
-有效字符串需满足：
-左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。
- 1 首先了解LinkedList的底层实现 1.1 LinkedList的底层实现 LinkedList的底层是基于 双向链表 实现，使用Node存储链表节点信息。源码如下 private static class Node&lt;E&gt; { E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; } 每个链表都存储了first和last指针； transient Node&lt;E&gt; first; transient Node&lt;E&gt; last;   2 设计算法，实现上面的需求 2.1 算法的实现 public static boolean isValid(String s) { int n = s.length(); if (n % 2 == 1) { return false; } Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() {{ put(&#39;)&#39;, &#39;(&#39;); put(&#39;]&#39;, &#39;[&#39;); put(&#39;}&#39;, &#39;{&#39;); }}; Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;(); for (int i = 0; i &lt; n; i++) { char ch = s.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Xml字符编码规范</a></h2>
-            <div class="post-meta">Sep 11, 2020</div>
-            <div class="post-excerpt">
-                 xml字符编码规范
- &lt; &lt;(小于) &gt; &gt;(大于) &amp; &amp;(和) &apos; &lsquo;(单引号) &quot; &ldquo;(双引号)   
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/singleton/">单例模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
-            <div class="post-excerpt">
-                单例模式的介绍
- 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
-  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/factory-pattern/">工厂模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
-            <div class="post-excerpt">
-                  工厂模式的简单介绍
- 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/6/" class="previous">PREV</a>
-        <span class="page_number ">7 of 14</span>
+        <span class="page_number ">7 of 15</span>
         <a href="/page/8/" class="next">NEXT</a>
     </div>
 </div>
@@ -162,7 +173,19 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
         </li>
         
         <li>
@@ -171,6 +194,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
         </li>
         
         <li>
@@ -199,22 +226,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/" class="post-link">字符串变形</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
         </li>
         
     </ul>

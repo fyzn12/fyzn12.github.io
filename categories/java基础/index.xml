@@ -6,10 +6,56 @@
     <description>Recent content in java基础 on fyzn12</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 21 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/java%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CAS</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</guid>
+      <description>CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current + 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：</description>
+    </item>
+    
+    <item>
+      <title>GC和JVM</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</guid>
+      <description>GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C++： new delete
+c/C++ 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 + 老年代 + 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1.</description>
+    </item>
+    
+    <item>
+      <title>volatile的用途</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/</guid>
+      <description>volatile的用途 1.线程可见性 package com.mashibing.testvolatile; public class T01_ThreadVisibility { private static volatile boolean flag = true; public static void main(String[] args) throws InterruptedException { new Thread(()-&amp;gt; { while (flag) { //do sth  } System.out.println(&amp;#34;end&amp;#34;); }, &amp;#34;server&amp;#34;).start(); Thread.sleep(1000); flag = false; } } 2.防止指令重排序 问题：DCL单例需不需要加volatile？ CPU的基础知识  缓存行对齐 缓存行64个字节是CPU同步的基本单位，缓存行隔离会比伪共享效率要高 Disruptor
+package com.mashibing.juc.c_028_FalseSharing; public class T02_CacheLinePadding { private static class Padding { public volatile long p1, p2, p3, p4, p5, p6, p7; //  } private static class T extends Padding { public volatile long x = 0L; } public static T[] arr = new T[2]; static { arr[0] = new T(); arr[1] = new T(); } public static void main(String[] args) throws Exception { Thread t1 = new Thread(()-&amp;gt;{ for (long i = 0; i &amp;lt; 1000_0000L; i++) { arr[0].</description>
+    </item>
     
     <item>
       <title>java基础底层</title>

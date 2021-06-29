@@ -6,7 +6,7 @@
     <description>Recent content on fyzn12</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,6 +18,39 @@
       
       <guid>https://fyzn12.github.io/about/</guid>
       <description>蝶恋花·今古河山无定据 [清] 纳兰性德 今古河山无定据，画角声中，牧马频来去。 满目荒凉谁可语？西风吹老丹枫树。 从前幽怨应无数？铁马金戈，青冢黄昏路。 一往情深深几许？深山夕照深秋雨。</description>
+    </item>
+    
+    <item>
+      <title>ubuntu搭建单机版k8s</title>
+      <link>https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/</link>
+      <pubDate>Thu, 01 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/</guid>
+      <description>ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
+ echo &amp;#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&amp;#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
+执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+ 查看到这个错误之后 执行sudo gpg &amp;ndash;keyserver keyserver.ubuntu.com &amp;ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &amp;ndash;export &amp;ndash;armor 上面相同的keys | sudo apt-key add -
+3、更新源
+sudo apt-get update
+4、关闭虚拟内存
+sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
+5、执行安装 (sudo视操作者情况决定是否加)apt-get install kubelet kubeadm kubectl kubernetes-cni</description>
+    </item>
+    
+    <item>
+      <title>CAS</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</guid>
+      <description>CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current + 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：</description>
     </item>
     
     <item>
@@ -36,6 +69,26 @@
  2.2、filebeat如何保存文件的状态  Filebeat保留每个文件的状态，并经常将状态刷新到磁盘中的注册表文件中。该状态用于记住harvester读取的最后一个偏移量，并确保发送所有日志行。如果无法访问输出（如Elasticsearch或Logstash），Filebeat将跟踪最后发送的行，并在输出再次可用时继续读取文件。当Filebeat运行时，每个输入的状态信息也保存在内存中。当Filebeat重新启动时，来自注册表文件的数据用于重建状态，Filebeat在最后一个已知位置继续每个harvester。对于每个输入，Filebeat都会保留它找到的每个文件的状态。由于文件可以重命名或移动，文件名和路径不足以标识文件。对于每个文件，Filebeat存储唯一的标识符，以检测文件是否以前被捕获。
 2.3、filebeat何如保证至少一次数据消费 　Filebeat保证事件将至少传递到配置的输出一次，并且不会丢失数据。是因为它将每个事件的传递状态存储在注册表文件中。在已定义的输出被阻止且未确认所有事件的情况下，Filebeat将继续尝试发送事件，直到输出确认已接收到事件为止。如果Filebeat在发送事件的过程中关闭，它不会等待输出确认所有事件后再关闭。当Filebeat重新启动时，将再次将Filebeat关闭前未确认的所有事件发送到输出。这样可以确保每个事件至少发送一次，但最终可能会有重复的事件发送到输出。通过设置shutdown_timeout选项，可以将Filebeat配置为在关机前等待特定时间。
  本文来源于： FileBeat</description>
+    </item>
+    
+    <item>
+      <title>GC和JVM</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</guid>
+      <description>GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C++： new delete
+c/C++ 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 + 老年代 + 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1.</description>
     </item>
     
     <item>
@@ -62,6 +115,16 @@
       <description>SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
 @SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&amp;#34;com.seconds.dao&amp;#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
 @SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&amp;#34;com.seconds&amp;#34;) @MapperScan(annotationClass = Repository.class, basePackages = &amp;#34;com.seconds.dao&amp;#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository.</description>
+    </item>
+    
+    <item>
+      <title>volatile的用途</title>
+      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/</guid>
+      <description>volatile的用途 1.线程可见性 package com.mashibing.testvolatile; public class T01_ThreadVisibility { private static volatile boolean flag = true; public static void main(String[] args) throws InterruptedException { new Thread(()-&amp;gt; { while (flag) { //do sth  } System.out.println(&amp;#34;end&amp;#34;); }, &amp;#34;server&amp;#34;).start(); Thread.sleep(1000); flag = false; } } 2.防止指令重排序 问题：DCL单例需不需要加volatile？ CPU的基础知识  缓存行对齐 缓存行64个字节是CPU同步的基本单位，缓存行隔离会比伪共享效率要高 Disruptor
+package com.mashibing.juc.c_028_FalseSharing; public class T02_CacheLinePadding { private static class Padding { public volatile long p1, p2, p3, p4, p5, p6, p7; //  } private static class T extends Padding { public volatile long x = 0L; } public static T[] arr = new T[2]; static { arr[0] = new T(); arr[1] = new T(); } public static void main(String[] args) throws Exception { Thread t1 = new Thread(()-&amp;gt;{ for (long i = 0; i &amp;lt; 1000_0000L; i++) { arr[0].</description>
     </item>
     
     <item>
@@ -790,12 +853,14 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
-      <description>要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
-首先java程序在执行时会被编译成java字节码即.class文件————&amp;gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
-————&amp;gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现 ————&amp;gt; 初始化java本地接口JNI接口
+      <description> 要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
+首先java程序在执行时会被编译成java字节码即.class文件
+————&amp;gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
+————&amp;gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现
+————&amp;gt; 初始化java本地接口JNI接口
 ————&amp;gt; 找到main方法，执行程序
  注意JNI的作用：当一个程序被编译成java字节码之后是保存在硬盘中，而JVM是如何从硬盘中找到该.class文件， JNI接口的作用就是将该.class文件装载到JVM中，然后才能找到main方法执行程序，所以JNI接口的作用 非常重要。 进而是如何装载.class文件的下面继续详细介绍  JVM 的思维导图如下图所示
- &amp;lt;/div</description>
+  </description>
     </item>
     
     <item>

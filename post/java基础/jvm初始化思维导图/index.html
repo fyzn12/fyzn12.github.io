@@ -11,12 +11,14 @@
 
 <title>JVM初始化初步理解 - fyzn12</title>
 
-<meta name="description" content="要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
-首先java程序在执行时会被编译成java字节码即.class文件————&amp;gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
-————&amp;gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现 ————&amp;gt; 初始化java本地接口JNI接口
+<meta name="description" content=" 要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
+首先java程序在执行时会被编译成java字节码即.class文件
+————&amp;gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
+————&amp;gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现
+————&amp;gt; 初始化java本地接口JNI接口
 ————&amp;gt; 找到main方法，执行程序
  注意JNI的作用：当一个程序被编译成java字节码之后是保存在硬盘中，而JVM是如何从硬盘中找到该.class文件， JNI接口的作用就是将该.class文件装载到JVM中，然后才能找到main方法执行程序，所以JNI接口的作用 非常重要。 进而是如何装载.class文件的下面继续详细介绍  JVM 的思维导图如下图所示
- &amp;lt;/div" /><meta name="keywords"
+  " /><meta name="keywords"
   content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
@@ -27,23 +29,27 @@
 
 
 <meta property="og:title" content="JVM初始化初步理解" />
-<meta property="og:description" content="要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
-首先java程序在执行时会被编译成java字节码即.class文件————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
-————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现 ————&gt; 初始化java本地接口JNI接口
+<meta property="og:description" content=" 要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
+首先java程序在执行时会被编译成java字节码即.class文件
+————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
+————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现
+————&gt; 初始化java本地接口JNI接口
 ————&gt; 找到main方法，执行程序
  注意JNI的作用：当一个程序被编译成java字节码之后是保存在硬盘中，而JVM是如何从硬盘中找到该.class文件， JNI接口的作用就是将该.class文件装载到JVM中，然后才能找到main方法执行程序，所以JNI接口的作用 非常重要。 进而是如何装载.class文件的下面继续详细介绍  JVM 的思维导图如下图所示
- &lt;/div" />
+  " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" />
 <meta property="article:published_time" content="2020-06-11T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-06-11T00:00:00+00:00" />
 <meta itemprop="name" content="JVM初始化初步理解">
-<meta itemprop="description" content="要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
-首先java程序在执行时会被编译成java字节码即.class文件————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
-————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现 ————&gt; 初始化java本地接口JNI接口
+<meta itemprop="description" content=" 要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
+首先java程序在执行时会被编译成java字节码即.class文件
+————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
+————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现
+————&gt; 初始化java本地接口JNI接口
 ————&gt; 找到main方法，执行程序
  注意JNI的作用：当一个程序被编译成java字节码之后是保存在硬盘中，而JVM是如何从硬盘中找到该.class文件， JNI接口的作用就是将该.class文件装载到JVM中，然后才能找到main方法执行程序，所以JNI接口的作用 非常重要。 进而是如何装载.class文件的下面继续详细介绍  JVM 的思维导图如下图所示
- &lt;/div">
+  ">
 
 
 <meta itemprop="datePublished" content="2020-06-11T00:00:00&#43;00:00" />
@@ -55,12 +61,14 @@
 <meta itemprop="keywords" content="jvm," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="JVM初始化初步理解"/>
-<meta name="twitter:description" content="要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
-首先java程序在执行时会被编译成java字节码即.class文件————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
-————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现 ————&gt; 初始化java本地接口JNI接口
+<meta name="twitter:description" content=" 要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
+首先java程序在执行时会被编译成java字节码即.class文件
+————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
+————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现
+————&gt; 初始化java本地接口JNI接口
 ————&gt; 找到main方法，执行程序
  注意JNI的作用：当一个程序被编译成java字节码之后是保存在硬盘中，而JVM是如何从硬盘中找到该.class文件， JNI接口的作用就是将该.class文件装载到JVM中，然后才能找到main方法执行程序，所以JNI接口的作用 非常重要。 进而是如何装载.class文件的下面继续详细介绍  JVM 的思维导图如下图所示
- &lt;/div"/>
+  "/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -109,9 +117,13 @@
         <blockquote>
 <p>要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析</p>
 
-<p>首先java程序在执行时会被编译成java字节码即.class文件————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）</p>
+<p>首先java程序在执行时会被编译成java字节码即.class文件</p>
 
-<p>————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现 ————&gt; 初始化java本地接口JNI接口</p>
+<p>————&gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）</p>
+
+<p>————&gt;根据加载后的配置文件找到 jvm.dll文件，该文件是 jvm 的主要实现</p>
+
+<p>————&gt; 初始化java本地接口JNI接口</p>
 
 <p>————&gt; 找到main方法，执行程序</p>
 </blockquote>
@@ -123,7 +135,7 @@
 <p>JVM 的思维导图如下图所示</p>
 </blockquote>
 
-<p><div align=center><img src="https://fyzn12.github.io/img/picture/JVM加载流程.png"/>&lt;/div</p>
+<div align=center><img src="https://fyzn12.github.io/img/picture/JVM加载流程.png"/></div>
 
     </article>
 
@@ -191,7 +203,19 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
         </li>
         
         <li>
@@ -200,6 +224,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
         </li>
         
         <li>
@@ -228,22 +256,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/" class="post-link">字符串变形</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
         </li>
         
     </ul>

@@ -9,16 +9,46 @@
   
   <url>
     <loc>https://fyzn12.github.io/categories/</loc>
-    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/categories/elk/</loc>
-    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fyzn12.github.io/tags/elk/</loc>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/tags/filebeat/</loc>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/</loc>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/</loc>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/tags/</loc>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/</loc>
+    <lastmod>2021-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -28,17 +58,17 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/filebeat/</loc>
+    <loc>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/</loc>
+    <loc>https://fyzn12.github.io/tags/java/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/post/</loc>
+    <loc>https://fyzn12.github.io/categories/java%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,12 +78,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/springboot/</loc>
+    <loc>https://fyzn12.github.io/categories/springboot/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/springboot/</loc>
+    <loc>https://fyzn12.github.io/tags/springboot/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -63,7 +93,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/</loc>
+    <loc>https://fyzn12.github.io/tags/volatile/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -368,12 +403,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/redis/</loc>
+    <loc>https://fyzn12.github.io/tags/redis/</loc>
     <lastmod>2020-09-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/redis/</loc>
+    <loc>https://fyzn12.github.io/categories/redis/</loc>
     <lastmod>2020-09-08T00:00:00+00:00</lastmod>
   </url>
   
@@ -445,16 +480,6 @@
   <url>
     <loc>https://fyzn12.github.io/tags/zuul/</loc>
     <lastmod>2020-07-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/tags/java/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fyzn12.github.io/categories/java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2020-07-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -623,12 +648,12 @@
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/tags/ssm/</loc>
+    <loc>https://fyzn12.github.io/categories/ssm/</loc>
     <lastmod>2019-10-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fyzn12.github.io/categories/ssm/</loc>
+    <loc>https://fyzn12.github.io/tags/ssm/</loc>
     <lastmod>2019-10-08T00:00:00+00:00</lastmod>
   </url>
   

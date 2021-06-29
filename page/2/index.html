@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-06-18T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-07-01T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,54 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/">SpringBoot使用@ComponentScan的Controller失效原因分析 </a></h2>
+            <div class="post-meta">Jun 18, 2021</div>
+            <div class="post-excerpt">
+                SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
+@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&#34;com.seconds&#34;) @MapperScan(annotationClass = Repository.class, basePackages = &#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/">Volatile的用途</a></h2>
+            <div class="post-meta">Jun 18, 2021</div>
+            <div class="post-excerpt">
+                volatile的用途 1.线程可见性 package com.mashibing.testvolatile; public class T01_ThreadVisibility { private static volatile boolean flag = true; public static void main(String[] args) throws InterruptedException { new Thread(()-&gt; { while (flag) { //do sth  } System.out.println(&#34;end&#34;); }, &#34;server&#34;).start(); Thread.sleep(1000); flag = false; } } 2.防止指令重排序 问题：DCL单例需不需要加volatile？ CPU的基础知识  缓存行对齐 缓存行64个字节是CPU同步的基本单位，缓存行隔离会比伪共享效率要高 Disruptor
+package com.mashibing.juc.c_028_FalseSharing; public class T02_CacheLinePadding { private static class Padding { public volatile long p1, p2, p3, p4, p5, p6, p7; //  } private static class T extends Padding { public volatile long x = 0L; } public static T[] arr = new T[2]; static { arr[0] = new T(); arr[1] = new T(); } public static void main(String[] args) throws Exception { Thread t1 = new Thread(()-&gt;{ for (long i = 0; i &lt; 1000_0000L; i++) { arr[0].
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">Mysql的存储引擎</a></h2>
+            <div class="post-meta">Feb 01, 2021</div>
+            <div class="post-excerpt">
+                 1 mysql支持Innodb存储引擎（支持行锁）  1.1 Innodb存储引擎概述 ① Innodb存储引擎：主要面向在线事务处理（OLTP）方面的应用。特点是行锁设计、支持外键，并支持类似于Oracle的非锁定读，即默认情况下读取操作不会产生锁。
+② InnoDB通过多版本并发控制（MVCC）来获取高并发，并实现了SQL标准的4种隔离级别，默认是repeatable级别。
+③ 使用next-key locking（临键锁）的策略来避免幻读，准确来说是临键锁加间隙锁的策略避免幻读。 这也就是为什么下面提到的非唯一索引字段数据库使用行级锁却锁定的是多行，这与间隙锁有关
+④ Innodb存储引擎的行锁是通过给索引项加锁实现，这一点musql和oracle不同，后者是通过在数据库中给对应的数据行加锁实现。
+⑤ Innodb存储引擎这种行级锁决定，只有通过索引条件来检查数据，才能使用行级锁，否则将直接用表级锁。
+ 特别注意：使用行级锁一定要使用索引；查询非唯一索引字段数据库使用行级锁锁定多行，这个与数据库的  1.2 Innodb存储引擎内存 组成：缓冲池（buffer pool）、重做日志缓冲池（redo log buffer）以及额外的内存池（additional memory pool），分别由配置文件中的参数innodb_buffer_pool_size和innodb_log_buffer_size大大小决定。
+缓冲池是占最大块内存的部分，用来存放各种数据的缓存。
+Innodb存储引擎的工作方式：将数据库文件按页（每页16K）读取到缓冲池，然后按最近最久未使用（LRU）的算法来保留在缓冲池中的缓存数据。如果数据库文件需要修改，总是首先修改在缓存池中的页（发生修改后，该页即为脏页），然后再按照一定的频率将缓冲池的脏页刷新（flush）到文件。可以通过命令：show engine innodb status来查看innodb_buffer_pool的具体情况。
+1.3 master thread innoDB存储引擎的主要工作都是在一个单独的后台线程master thread中完成。
+master thread 的线程优先级别最高。其内部由几个循环（loop）组成：主循环、后台循环、刷新循环、暂停循环。
+ 2 MyISAM存储引擎  MyISAM存储引擎是mysql官方提供的存储引擎。其特点是不支持事务、表锁和全文索引，对于一些OLAP（在线分析处理）操作速度快。
+MyISAM存储引擎表有MYD和MYI组成，MYD用来存储数据文件，MYI用来存放索引文件。
+ 
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">SynchronizedMap如何让HashMap具备线程安全</a></h2>
+            <div class="post-meta">Dec 31, 2020</div>
+            <div class="post-excerpt">
+                问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.put(&#34;xsj&#34;,1234567l); System.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/">两个链表的第一个公共节点</a></h2>
             <div class="post-meta">Dec 31, 2020</div>
             <div class="post-excerpt">
@@ -85,62 +133,11 @@ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/">二维数组中由1构成的最大正方形</a></h2>
-            <div class="post-meta">Dec 31, 2020</div>
-            <div class="post-excerpt">
-                题目描述：给定一个由0和1组成的2维矩阵，返回该矩阵中最大的由1组成的正方形的面积
- 示例1  输入：[[1,0,1,0,0],[1,0,1,1,1],[1,1,1,1,1],[1,0,0,1,0]]
-返回值：4
-本体知识点：动态规划
- 1.初步分析如下  1.确定dp[][]数组的含义 此题的dp[i][j]，代表以坐标为(i,j)的元素为右下角的正方形的边长。
-2.状态转移方程 dp[i][j]的值取决于dp[i-1][j],dp[i-1][j-1],dp[i][j-1]的最小值 即左方正方形的边长，左上方正方形的边长，上方正方形的边长三者的最小值。
-3.边界 由于状态转移方程中涉及i-1，j-1，所以i和j一定要大于0. 故dp[0][] 和 dp[][0]要首先确定。
- /** * 最大正方形 * @param matrix char字符型二维数组 * @return int整型 */ public int solve (char[][] matrix) { //判断二维数组是否有效 	if(matrix.length == 0 || matrix[0].length==0)return 0; int rows = matrix.length; int cols = matrix[0].lenght; int max; //声明数组 	int[][] dp = new int[rows][cols]; //确定边界值 	for(int i = 0;i&lt;rows;i++){ if(matrix[i][0] == &#39;1&#39;)dp[i][0] = 1; } for(int j = 0;j&lt;cols;j++){ if(matrix[0][j]==&#39;1&#39;)dp[0][j] = 1; } //确定中间值 	for(int i = 1; i &lt; rows;i++){ for(int j = 1;j&lt;cols;j++){ if(matrix[i][j]==&#39;1&#39;){ dp[i][j] = Math.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/">链表求和及字符串求和</a></h2>
-            <div class="post-meta">Dec 31, 2020</div>
-            <div class="post-excerpt">
-                1.对字符串求和  题目描述： 以字符串的形式读入两个数字，编写一个函数计算它们的和，以字符串形式返回。 （字符串长度不大于100000，保证字符串仅由’0’~‘9’这10种字符组成）
-输入：”1”,“99” 输出：”100”
- /** * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可 * 计算两个数之和 * @param s string字符串 表示第一个整数 * @param t string字符串 表示第二个整数 * @return string字符串 */ public String solve (String s, String t) { int i = s.length()-1,j = t.length()-1,carry=0; StringBuilder str = new StringBuilder(); while(i&gt;=0 || j&gt;=0 || carry!=0){ int x = i&lt;0?0:s.charAt(i--)-&#39;0&#39;; int y = j&lt;0?0:t.charAt(j--)-&#39;0&#39;; str.apend((x+y+carry)%10); carry = (x+y+carry)/10; } return str.reverse().toString(); }  2.链表的求和 3.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/">二叉树根节点到叶子节点和为指定值的路径集问题</a></h2>
-            <div class="post-meta">Dec 29, 2020</div>
-            <div class="post-excerpt">
-                分析  寻找满足指定值的路径集转换为二叉树的前序遍历（根-左-右）
-使用回朔（递归）的方式实现
- /** * * @param root TreeNode类 * @param sum int整型 * @return int整型ArrayList&lt;ArrayList&lt;&gt;&gt; */ ArrayList&lt;ArrayList&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); ArrayList&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;(); public ArrayList&lt;ArrayList&lt;Integer&gt;&gt; pathSum (TreeNode root, int sum) { if(root == null)return res; dsf(root,sum,0); return res; } public void dsf(TreeNode root, int sum,int count){ //设置递归终止条件 	if(root == null)return ; list.add(root.val); count += root.val; if(root.left == null &amp;&amp; root.right == null){ if(count == sum)res.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/">矩阵的最小路路径</a></h2>
-            <div class="post-meta">Dec 29, 2020</div>
-            <div class="post-excerpt">
-                求解最值问题利用动态规划算法解决  题目描述：给定一个 n * m 的矩阵 a，从左上角开始每次只能向右或者向下走，最后到达右下角的位置，路径上所有的数字累加起来就是路径和，输出所有的路径中最小的路径和。
-示例1：
-输入：[[1,3,5,9],[8,1,3,4],[5,0,6,1],[8,8,4,0]]
-返回值：12
-备注：1≤n,m≤2000
- 思路分析：  求最值问题首先就是构建辅助数组dp
-路径的走向只能是向右或者是向下，则可以将没有元素的对于的和求解出来构建一个新的二维表
-二维表中国填写当前值与前一次值之和，取左下右上的两值的最小值与当前值求和填充表格
- /** * * @param matrix int整型二维数组 the matrix * @return int整型 */ public int minPathSum (int[][] matrix) { if(matrix==null)return 0; //构建列 	int row = matrix.length; int column = matrix[0].length; //构建列的值 	for(int i = 1;i&lt;row;i++)matrix[i][0] = matrix[i-1][0]+matrix[i][0]; //构建行的值 	for(int j = 1;j&lt;column;j++)matrix[0][j] = matrix[0][j-1] + matrix[0][j]; //填充中间数据 	for(int i = 1;i&lt;row;i++){ for(int j=1;j&lt;column;j++) matrix[i][j] = Math.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/" class="previous">PREV</a>
-        <span class="page_number ">2 of 14</span>
+        <span class="page_number ">2 of 15</span>
         <a href="/page/3/" class="next">NEXT</a>
     </div>
 </div>
@@ -166,7 +163,19 @@ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
         </li>
         
         <li>
@@ -175,6 +184,10 @@ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
         </li>
         
         <li>
@@ -203,22 +216,6 @@ public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" class="post-link">二叉树的之字型层次遍历</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-link">二进制中1的个数</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/" class="post-link">字符串变形</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/" class="post-link">二分法使用无符号位右移运算求解上中位数</a>
         </li>
         
     </ul>

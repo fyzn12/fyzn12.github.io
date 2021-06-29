@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>GC和JVM - fyzn12</title>
+
+<meta name="description" content="GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C&#43;&#43;： new delete
+c/C&#43;&#43; 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 &#43; 老年代 &#43; 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="GC和JVM" />
+<meta property="og:description" content="GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C&#43;&#43;： new delete
+c/C&#43;&#43; 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 &#43; 老年代 &#43; 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" />
+<meta property="article:published_time" content="2021-06-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-06-18T00:00:00+00:00" />
+<meta itemprop="name" content="GC和JVM">
+<meta itemprop="description" content="GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C&#43;&#43;： new delete
+c/C&#43;&#43; 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 &#43; 老年代 &#43; 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1.">
+
+
+<meta itemprop="datePublished" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1853">
+
+
+
+<meta itemprop="keywords" content="ELK,filebeat," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GC和JVM"/>
+<meta name="twitter:description" content="GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C&#43;&#43;： new delete
+c/C&#43;&#43; 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 &#43; 老年代 &#43; 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">GC和JVM</h1>
+        <p class="post-meta">Jun 18, 2021</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<h1 id="gc和jvm-tuning">GC和JVM Tuning</h1>
+
+<p>作者：马士兵教育 <a href="http://mashibing.com">http://mashibing.com</a></p>
+
+<h3 id="gc的基础知识">GC的基础知识</h3>
+
+<h4 id="1-什么是垃圾">1.什么是垃圾</h4>
+
+<blockquote>
+<p>C语言申请内存：malloc free</p>
+
+<p>C++： new delete</p>
+
+<p>c/C++ 手动回收内存</p>
+
+<p>Java: new ？</p>
+
+<p>自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：</p>
+
+<ol>
+<li>忘记回收</li>
+<li>多次回收</li>
+</ol>
+</blockquote>
+
+<p>没有任何引用指向的一个对象或者多个对象（循环引用）</p>
+
+<h4 id="2-如何定位垃圾">2.如何定位垃圾</h4>
+
+<ol>
+<li>引用计数（ReferenceCount）</li>
+<li>根可达算法(RootSearching)</li>
+</ol>
+
+<h4 id="3-常见的垃圾回收算法">3.常见的垃圾回收算法</h4>
+
+<ol>
+<li>标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描）</li>
+<li>拷贝算法 (copying) - 没有碎片，浪费空间</li>
+<li>标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）</li>
+</ol>
+
+<h4 id="4-jvm内存分代模型-用于分代垃圾回收算法">4.JVM内存分代模型（用于分代垃圾回收算法）</h4>
+
+<ol>
+<li>部分垃圾回收器使用的模型</li>
+</ol>
+
+<blockquote>
+<p>除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型</p>
+
+<p>G1是逻辑分代，物理不分代</p>
+
+<p>除此之外不仅逻辑分代，而且物理分代</p>
+</blockquote>
+
+<ol>
+<li><p>新生代 + 老年代 + 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace</p>
+
+<ol>
+<li>永久代 元数据 - Class</li>
+<li>永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存）</li>
+<li>字符串常量 1.7 - 永久代，1.8 - 堆</li>
+<li>MethodArea逻辑概念 - 永久代、元数据
+<br /></li>
+</ol></li>
+
+<li><p>新生代 = Eden + 2个suvivor区</p>
+
+<ol>
+<li>YGC回收之后，大多数的对象会被回收，活着的进入s0</li>
+<li>再次YGC，活着的对象eden + s0 -&gt; s1</li>
+<li>再次YGC，eden + s1 -&gt; s0</li>
+<li>年龄足够 -&gt; 老年代 （15 CMS 6）</li>
+<li>s区装不下 -&gt; 老年代
+<br /></li>
+</ol></li>
+
+<li><p>老年代</p>
+
+<ol>
+<li>顽固分子</li>
+<li>老年代满了FGC Full GC
+<br /></li>
+</ol></li>
+
+<li><p>GC Tuning (Generation)</p>
+
+<ol>
+<li>尽量减少FGC</li>
+<li>MinorGC = YGC</li>
+<li>MajorGC = FGC
+<br /></li>
+</ol></li>
+
+<li><p>对象分配过程图
+<figure><img src="/images/lazy.gif" data-sizes="auto" data-src="对象分配过程详解.png" alt="" class="lazyload"></figure></p></li>
+
+<li><p>动态年龄：（不重要）
+<a href="https://www.jianshu.com/p/989d3b06a49d">https://www.jianshu.com/p/989d3b06a49d</a></p></li>
+
+<li><p>分配担保：（不重要）
+YGC期间 survivor区空间不够了 空间担保直接进入老年代
+参考：<a href="https://cloud.tencent.com/developer/article/1082730">https://cloud.tencent.com/developer/article/1082730</a></p></li>
+</ol>
+
+<h4 id="5-常见的垃圾回收器">5.常见的垃圾回收器</h4>
+
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="常用垃圾回收器.png" alt="常用垃圾回收器" class="lazyload"></figure></p>
+
+<ol>
+<li>垃圾回收器的发展路线，是随着内存越来越大的过程而演进<br />
+从分代算法演化到不分代算法
+Serial算法 几十兆
+Parallel算法 几个G
+CMS 几十个G  - 承上启下，开始并发回收 -
+.- 三色标记 -</li>
+<li>JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前任何一个JDK版本默认是CMS
+并发垃圾回收是因为无法忍受STW</li>
+<li>Serial 年轻代 串行回收</li>
+<li>PS 年轻代 并行回收</li>
+<li>ParNew 年轻代 配合CMS的并行回收</li>
+<li>SerialOld</li>
+<li>ParallelOld</li>
+<li>ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms)
+CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定
+CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收
+想象一下：
+PS + PO -&gt; 加内存 换垃圾回收器 -&gt; PN + CMS + SerialOld（几个小时 - 几天的STW）
+几十个G的内存，单线程回收 -&gt; G1 + FGC 几十个G -&gt; 上T内存的服务器 ZGC
+算法：三色标记 + Incremental Update</li>
+<li>G1(200ms - 10ms)
+算法：三色标记 + SATB</li>
+<li>ZGC (10ms - 1ms) PK C++
+  算法：ColoredPointers + LoadBarrier</li>
+<li>Shenandoah
+算法：ColoredPointers + WriteBarrier</li>
+<li>Eplison</li>
+<li>PS 和 PN区别的延伸阅读：
+▪<a href="https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html">https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html#GUID-3D0BB91E-9BFF-4EBB-B523-14493A860E73</a></li>
+<li>垃圾收集器跟内存大小的关系
+
+<ol>
+<li>Serial 几十兆</li>
+<li>PS 上百兆 - 几个G</li>
+<li>CMS - 20G</li>
+<li>G1 - 上百G</li>
+<li>ZGC - 4T - 16T（JDK13）</li>
+</ol></li>
+</ol>
+
+<p>1.8默认的垃圾回收：PS + ParallelOld</p>
+
+<h3 id="常见垃圾回收器组合参数设定-1-8">常见垃圾回收器组合参数设定：(1.8)</h3>
+
+<ul>
+<li>-XX:+UseSerialGC = Serial New (DefNew) + Serial Old
+
+<ul>
+<li>小型程序。默认情况下不会是这种选项，HotSpot会根据计算及配置和JDK版本自动选择收集器</li>
+</ul></li>
+<li>-XX:+UseParNewGC = ParNew + SerialOld
+
+<ul>
+<li>这个组合已经很少用（在某些版本中已经废弃）</li>
+<li><a href="https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future">https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future</a></li>
+</ul></li>
+<li>-XX:+UseConc<font color=red>(urrent)</font>MarkSweepGC = ParNew + CMS + Serial Old</li>
+<li>-XX:+UseParallelGC = Parallel Scavenge + Parallel Old (1.8默认) 【PS + SerialOld】</li>
+<li>-XX:+UseParallelOldGC = Parallel Scavenge + Parallel Old</li>
+<li>-XX:+UseG1GC = G1</li>
+
+<li><p>Linux中没找到默认GC的查看方法，而windows中会打印UseParallelGC</p>
+
+<ul>
+<li>java +XX:+PrintCommandLineFlags -version</li>
+<li>通过GC的日志来分辨</li>
+</ul></li>
+
+<li><p>Linux下1.8版本默认的垃圾回收器到底是什么？</p>
+
+<ul>
+<li>1.8.0_181 默认（看不出来）Copy MarkCompact</li>
+<li>1.8.0_222 默认 PS + PO</li>
+</ul></li>
+</ul>
+
+<h3 id="jvm调优第一步-了解jvm常用命令行参数">JVM调优第一步，了解JVM常用命令行参数</h3>
+
+<ul>
+<li><p>JVM的命令行参数参考：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html</a></p></li>
+
+<li><p>HotSpot参数分类</p></li>
+</ul>
+
+<blockquote>
+<p>标准： - 开头，所有的HotSpot都支持</p>
+
+<p>非标准：-X 开头，特定版本HotSpot支持特定命令</p>
+
+<p>不稳定：-XX 开头，下个版本可能取消</p>
+</blockquote>
+
+<p>java -version</p>
+
+<p>java -X</p>
+
+<p>java -XX:+PrintFlagsWithComments //只有debug版本能用</p>
+
+<p>试验用程序：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">List</span><span class="p">;</span>
+  <span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">LinkedList</span><span class="p">;</span>
+  
+  <span class="kd">public</span> <span class="nf">class</span> <span class="n">HelloGC</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;HelloGC!&#34;</span><span class="p">);</span>
+      <span class="n">List</span> <span class="nf">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="p">();</span>
+      <span class="k">for</span><span class="p">(;;)</span> <span class="p">{</span>
+        <span class="kt">byte</span><span class="p">[]</span> <span class="nf">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="n">1024</span><span class="o">*</span><span class="n">1024</span><span class="p">];</span>
+        <span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<ol>
+<li>区分概念：内存泄漏memory leak，内存溢出out of memory</li>
+<li>java -XX:+PrintCommandLineFlags HelloGC</li>
+<li>java -Xmn10M -Xms40M -Xmx60M -XX:+PrintCommandLineFlags -XX:+PrintGC  HelloGC
+ PrintGCDetails PrintGCTimeStamps PrintGCCauses</li>
+<li>java -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags HelloGC</li>
+<li>java -XX:+PrintFlagsInitial 默认参数值</li>
+<li>java -XX:+PrintFlagsFinal 最终参数值</li>
+<li>java -XX:+PrintFlagsFinal | grep xxx 找到对应的参数</li>
+<li>java -XX:+PrintFlagsFinal -version |grep GC</li>
+<li>java -XX:+PrintFlagsFinal -version | wc -l
+ 共728个参数</li>
+</ol>
+
+<h3 id="ps-gc日志详解">PS GC日志详解</h3>
+
+<p>每种垃圾回收器的日志格式是不同的！</p>
+
+<p>PS日志格式</p>
+
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="./GC日志详解.png" alt="GC日志详解" class="lazyload"></figure></p>
+
+<p>heap dump部分：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">eden</span> <span class="nf">space</span> <span class="n">5632K</span><span class="p">,</span> <span class="n">94</span><span class="o">%</span> <span class="n">used</span> <span class="p">[</span><span class="n">0x00000000ff980000</span><span class="p">,</span><span class="n">0x00000000ffeb3e28</span><span class="p">,</span><span class="n">0x00000000fff00000</span><span class="p">)</span>
+                            <span class="n">后面的内存地址指的是</span><span class="err">，</span><span class="n">起始地址</span><span class="err">，</span><span class="n">使用空间结束地址</span><span class="err">，</span><span class="n">整体空间结束地址</span></code></pre></div>
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="GCHeapDump.png" alt="GCHeapDump" class="lazyload"></figure></p>
+
+<p>total = eden + 1个survivor</p>
+
+<h3 id="调优前的基础概念">调优前的基础概念：</h3>
+
+<ol>
+<li>吞吐量：用户代码时间 /（用户代码执行时间 + 垃圾回收时间）</li>
+<li>响应时间：STW越短，响应时间越好</li>
+</ol>
+
+<p>所谓调优，首先确定，追求啥？吞吐量优先，还是响应时间优先？还是在满足一定的响应时间的情况下，要求达到多大的吞吐量&hellip;</p>
+
+<p>问题：</p>
+
+<p>科学计算，吞吐量。数据挖掘，thrput。吞吐量优先的一般：（PS + PO）</p>
+
+<p>响应时间：网站 GUI API （1.8 G1）</p>
+
+<h3 id="什么是调优">什么是调优？</h3>
+
+<ol>
+<li>根据需求进行JVM规划和预调优</li>
+<li>优化运行JVM运行环境（慢，卡顿）</li>
+<li>解决JVM运行过程中出现的各种问题(OOM)</li>
+</ol>
+
+<h3 id="调优-从规划开始">调优，从规划开始</h3>
+
+<ul>
+<li><p>调优，从业务场景开始，没有业务场景的调优都是耍流氓</p></li>
+
+<li><p>无监控（压力测试，能看到结果），不调优</p></li>
+
+<li><p>步骤：</p>
+
+<ol>
+<li>熟悉业务场景（没有最好的垃圾回收器，只有最合适的垃圾回收器）
+
+<ol>
+<li>响应时间、停顿时间 [CMS G1 ZGC] （需要给用户作响应）</li>
+<li>吞吐量 = 用户时间 /( 用户时间 + GC时间) [PS]</li>
+</ol></li>
+<li>选择回收器组合</li>
+<li>计算内存需求（经验值 1.5G 16G）</li>
+<li>选定CPU（越高越好）</li>
+<li>设定年代大小、升级年龄</li>
+<li>设定日志参数
+
+<ol>
+<li>-Xloggc:/opt/xxx/logs/xxx-xxx-gc-%t.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20M -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCCause</li>
+<li>或者每天产生一个日志文件</li>
+</ol></li>
+<li>观察日志情况
+<br /></li>
+</ol></li>
+
+<li><p>案例1：垂直电商，最高每日百万订单，处理订单系统需要什么样的服务器配置？</p></li>
+</ul>
+
+<blockquote>
+<p>这个问题比较业余，因为很多不同的服务器配置都能支撑(1.5G 16G)</p>
+
+<p>1小时360000集中时间段， 100个订单/秒，（找一小时内的高峰期，1000订单/秒）</p>
+
+<p>经验值，</p>
+
+<p>非要计算：一个订单产生需要多少内存？512K * 1000 500M内存</p>
+
+<p>专业一点儿问法：要求响应时间100ms</p>
+
+<p>压测！</p>
+</blockquote>
+
+<ul>
+<li>案例2：12306遭遇春节大规模抢票应该如何支撑？</li>
+</ul>
+
+<blockquote>
+<p>12306应该是中国并发量最大的秒杀网站：</p>
+
+<p>号称并发量100W最高</p>
+
+<p>CDN -&gt; LVS -&gt; NGINX -&gt; 业务系统 -&gt; 每台机器1W并发（10K问题） 100台机器</p>
+
+<p>普通电商订单 -&gt; 下单 -&gt;订单系统（IO）减库存 -&gt;等待用户付款</p>
+
+<p>12306的一种可能的模型： 下单 -&gt; 减库存 和 订单(redis kafka) 同时异步进行 -&gt;等付款</p>
+
+<p>减库存最后还会把压力压到一台服务器</p>
+
+<p>可以做分布式本地库存 + 单独服务器做库存均衡</p>
+
+<p>大流量的处理方法：分而治之</p>
+</blockquote>
+
+<ul>
+<li>怎么得到一个事务会消耗多少内存？</li>
+</ul>
+
+<blockquote>
+<ol>
+<li><p>弄台机器，看能承受多少TPS？是不是达到目标？扩容或调优，让它达到</p></li>
+
+<li><p>用压测来确定</p></li>
+</ol>
+</blockquote>
+
+<h3 id="优化环境">优化环境</h3>
+
+<ol>
+<li>有一个50万PV的资料类网站（从磁盘提取文档到内存）原服务器32位，1.5G
+的堆，用户反馈网站比较缓慢，因此公司决定升级，新的服务器为64位，16G
+的堆内存，结果用户反馈卡顿十分严重，反而比以前效率更低了
+
+<ol>
+<li>为什么原网站慢?
+很多用户浏览数据，很多数据load到内存，内存不足，频繁GC，STW长，响应时间变慢</li>
+<li>为什么会更卡顿？
+内存越大，FGC时间越长</li>
+<li>咋办？
+PS -&gt; PN + CMS 或者 G1</li>
+</ol></li>
+<li>系统CPU经常100%，如何调优？(面试高频)
+CPU100%那么一定有线程在占用系统资源，
+
+<ol>
+<li>找出哪个进程cpu高（top）</li>
+<li>该进程中的哪个线程cpu高（top -Hp）</li>
+<li>导出该线程的堆栈 (jstack)</li>
+<li>查找哪个方法（栈帧）消耗时间 (jstack)</li>
+<li>工作线程占比高 | 垃圾回收线程占比高</li>
+</ol></li>
+<li>系统内存飙高，如何查找问题？（面试高频）
+
+<ol>
+<li>导出堆内存 (jmap)</li>
+<li>分析 (jhat jvisualvm mat jprofiler &hellip; )</li>
+</ol></li>
+<li>如何监控JVM
+
+<ol>
+<li>jstat jvisualvm jprofiler arthas top&hellip;</li>
+</ol></li>
+</ol>
+
+<h3 id="解决jvm运行中的问题">解决JVM运行中的问题</h3>
+
+<h4 id="一个案例理解常用工具">一个案例理解常用工具</h4>
+
+<ol>
+<li><p>测试代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nf">com</span><span class="p">.</span><span class="na">mashibing</span><span class="p">.</span><span class="na">jvm</span><span class="p">.</span><span class="na">gc</span><span class="p">;</span>
+   
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigDecimal</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">ArrayList</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Date</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">List</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">ScheduledThreadPoolExecutor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">ThreadPoolExecutor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">TimeUnit</span><span class="p">;</span>
+   
+<span class="cm">/**
+</span><span class="cm">* 从数据库中读取信用数据，套用模型，并把结果进行记录和传输
+</span><span class="cm">*/</span>
+   
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">T15_FullGC_Problem01</span> <span class="p">{</span>
+   
+   <span class="kd">private</span> <span class="nf">static</span> <span class="kd">class</span> <span class="nf">CardInfo</span> <span class="p">{</span>
+       <span class="n">BigDecimal</span> <span class="nf">price</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="p">(</span><span class="n">0</span><span class="p">.</span><span class="na">0</span><span class="p">);</span>
+       <span class="n">String</span> <span class="nf">name</span> <span class="o">=</span> <span class="s">&#34;张三&#34;</span><span class="p">;</span>
+       <span class="kt">int</span> <span class="nf">age</span> <span class="o">=</span> <span class="n">5</span><span class="p">;</span>
+       <span class="n">Date</span> <span class="nf">birthdate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="p">();</span>
+   
+       <span class="kd">public</span> <span class="nf">void</span> <span class="n">m</span><span class="p">()</span> <span class="p">{}</span>
+   <span class="p">}</span>
+   
+   <span class="kd">private</span> <span class="nf">static</span> <span class="n">ScheduledThreadPoolExecutor</span> <span class="nf">executor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ScheduledThreadPoolExecutor</span><span class="p">(</span><span class="n">50</span><span class="p">,</span>
+           <span class="k">new</span> <span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">DiscardOldestPolicy</span><span class="p">());</span>
+   
+   <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">Exception</span> <span class="p">{</span>
+       <span class="n">executor</span><span class="p">.</span><span class="na">setMaximumPoolSize</span><span class="p">(</span><span class="n">50</span><span class="p">);</span>
+   
+       <span class="k">for</span> <span class="p">(;;){</span>
+           <span class="n">modelFit</span><span class="p">();</span>
+           <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">100</span><span class="p">);</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+   
+   <span class="kd">private</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">modelFit</span><span class="p">(){</span>
+       <span class="n">List</span><span class="o">&lt;</span><span class="n">CardInfo</span><span class="o">&gt;</span> <span class="nf">taskList</span> <span class="o">=</span> <span class="n">getAllCardInfo</span><span class="p">();</span>
+       <span class="n">taskList</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">info</span> <span class="o">-&gt;</span> <span class="p">{</span>
+           <span class="c1">// do something
+</span><span class="c1"></span>           <span class="n">executor</span><span class="p">.</span><span class="na">scheduleWithFixedDelay</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+               <span class="c1">//do sth with info
+</span><span class="c1"></span>               <span class="n">info</span><span class="p">.</span><span class="na">m</span><span class="p">();</span>
+   
+           <span class="p">},</span> <span class="n">2</span><span class="p">,</span> <span class="n">3</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">);</span>
+       <span class="p">});</span>
+   <span class="p">}</span>
+   
+   <span class="kd">private</span> <span class="nf">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">CardInfo</span><span class="o">&gt;</span> <span class="nf">getAllCardInfo</span><span class="p">(){</span>
+       <span class="n">List</span><span class="o">&lt;</span><span class="n">CardInfo</span><span class="o">&gt;</span> <span class="nf">taskList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+   
+       <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+           <span class="n">CardInfo</span> <span class="nf">ci</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CardInfo</span><span class="p">();</span>
+           <span class="n">taskList</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">ci</span><span class="p">);</span>
+       <span class="p">}</span>
+   
+       <span class="k">return</span> <span class="n">taskList</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+   </code></pre></div></li>
+
+<li><p>java -Xms200M -Xmx200M -XX:+PrintGC com.mashibing.jvm.gc.T15_FullGC_Problem01</p></li>
+
+<li><p>一般是运维团队首先受到报警信息（CPU Memory）</p></li>
+
+<li><p>top命令观察到问题：内存不断增长 CPU占用率居高不下</p></li>
+
+<li><p>top -Hp 观察进程中的线程，哪个线程CPU和内存占比高</p></li>
+
+<li><p>jps定位具体java进程
+jstack 定位线程状况，重点关注：WAITING BLOCKED
+eg.
+waiting on <0x0000000088ca3310> (a java.lang.Object)
+假如有一个进程中100个线程，很多线程都在waiting on <xx> ，一定要找到是哪个线程持有这把锁
+怎么找？搜索jstack dump的信息，找<xx> ，看哪个线程持有这把锁RUNNABLE
+作业：1：写一个死锁程序，用jstack观察 2 ：写一个程序，一个线程持有锁不释放，其他线程等待</p></li>
+
+<li><p>为什么阿里规范里规定，线程的名称（尤其是线程池）都要写有意义的名称
+怎么样自定义线程池里的线程名称？（自定义ThreadFactory）</p></li>
+
+<li><p>jinfo pid</p></li>
+
+<li><p>jstat -gc 动态观察gc情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
+jstat -gc 4655 500 : 每个500个毫秒打印GC的情况
+如果面试官问你是怎么定位OOM问题的？如果你回答用图形界面（错误）
+1：已经上线的系统不用图形界面用什么？（cmdline arthas）
+2：图形界面到底用在什么地方？测试！测试的时候进行监控！（压测观察）</p></li>
+
+<li><p>jmap - histo 4655 | head -20，查找有多少对象产生</p></li>
+
+<li><p>jmap -dump:format=b,file=xxx pid ：</p>
+
+<p>线上系统，内存特别大，jmap执行期间会对进程产生很大影响，甚至卡顿（电商不适合）
+1：设定了参数HeapDump，OOM的时候会自动产生堆转储文件（不是很专业，因为多有监控，内存增长就会报警）
+2：<font color='red'>很多服务器备份（高可用），停掉这台服务器对其他服务器不影响</font>
+3：在线定位(一般小点儿公司用不到)</p>
+
+<p>4：在测试环境中压测（产生类似内存增长问题，在堆还不是很大的时候进行转储）</p></li>
+
+<li><p>java -Xms20M -Xmx20M -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError com.mashibing.jvm.gc.T15_FullGC_Problem01</p></li>
+
+<li><p>使用MAT / jhat /jvisualvm 进行dump文件分析
+ <a href="https://www.cnblogs.com/baihuitestsoftware/articles/6406271.html">https://www.cnblogs.com/baihuitestsoftware/articles/6406271.html</a>
+jhat -J-mx512M xxx.dump
+<a href="http://192.168.17.11:7000">http://192.168.17.11:7000</a>
+拉到最后：找到对应链接
+可以使用OQL查找特定问题对象</p></li>
+
+<li><p>找到代码的问题</p></li>
+</ol>
+
+<h4 id="jconsole远程连接">jconsole远程连接</h4>
+
+<ol>
+<li>程序启动加入参数：</li>
+</ol>
+
+<blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">   &gt; java -Djava.rmi.server.hostname<span class="o">=</span><span class="m">192</span>.168.17.11 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port<span class="o">=</span><span class="m">11111</span> -Dcom.sun.management.jmxremote.authenticate<span class="o">=</span><span class="nb">false</span> -Dcom.sun.management.jmxremote.ssl<span class="o">=</span><span class="nb">false</span> XXX
+   &gt; <span class="sb">```</span>
+
+<span class="m">2</span>. 如果遭遇 Local host name unknown：XXX的错误，修改/etc/hosts文件，把XXX加入进去
+
+   &gt; <span class="sb">```</span>java
+   &gt; <span class="m">192</span>.168.17.11 basic localhost localhost.localdomain localhost4 localhost4.localdomain4
+   &gt; ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+   &gt; <span class="sb">```</span>
+
+<span class="m">3</span>. 关闭linux防火墙（实战中应该打开对应端口）
+
+   &gt; <span class="sb">```</span>shell
+   &gt; service iptables stop
+   &gt; chkconfig iptables off <span class="c1">#永久关闭</span>
+   &gt; <span class="sb">```</span>
+
+<span class="m">4</span>. windows上打开 jconsole远程连接 <span class="m">192</span>.168.17.11:11111
+
+<span class="c1">#### jvisualvm远程连接</span>
+
+ https://www.cnblogs.com/liugh/p/7620336.html （简单做法）
+
+<span class="c1">#### jprofiler (收费)</span>
+
+<span class="c1">#### arthas在线排查工具</span>
+
+* 为什么需要在线排查？
+   在生产上我们经常会碰到一些不好排查的问题，例如线程安全问题，用最简单的threaddump或者heapdump不好查到问题原因。为了排查这些问题，有时我们会临时加一些日志，比如在一些关键的函数里打印出入参，然后重新打包发布，如果打了日志还是没找到问题，继续加日志，重新打包发布。对于上线流程复杂而且审核比较严的公司，从改代码到上线需要层层的流转，会大大影响问题排查的进度。 
+* jvm观察jvm信息
+* thread定位线程问题
+* dashboard 观察系统情况
+* heapdump + jhat分析
+* jad反编译
+   动态代理生成类的问题定位
+   第三方的类（观察代码）
+   版本问题（确定自己最新提交的版本是不是被使用）
+* redefine 热替换
+   目前有些限制条件：只能改方法实现（方法已经运行完成），不能改方法名， 不能改属性
+   m<span class="o">()</span> -&gt; mm<span class="o">()</span>
+* sc  - search class
+* watch  - watch method
+* 没有包含的功能：jmap
+
+<span class="c1">### GC算法的基础概念</span>
+
+* Card Table
+  由于做YGC时，需要扫描整个OLD区，效率非常低，所以JVM设计了CardTable， 如果一个OLD区CardTable中有对象指向Y区，就将它设为Dirty，下次扫描时，只需要扫描Dirty Card
+  在结构上，Card Table用BitMap来实现
+
+<span class="c1">### CMS</span>
+
+<span class="c1">#### CMS的问题</span>
+
+<span class="m">1</span>. Memory Fragmentation
+
+   &gt; -XX:+UseCMSCompactAtFullCollection
+   &gt; -XX:CMSFullGCsBeforeCompaction 默认为0 指的是经过多少次FGC才进行压缩
+
+<span class="m">2</span>. Floating Garbage
+
+   &gt; Concurrent Mode Failure
+   &gt; 产生：if the concurrent collector is unable to finish reclaiming the unreachable objects before the tenured generation fills up, or <span class="k">if</span> an allocation cannot be satisfiedwith the available free space blocks in the tenured generation, <span class="k">then</span> theapplication is paused and the collection is completed with all the applicationthreads stopped
+   &gt;
+   &gt; 解决方案：降低触发CMS的阈值
+   &gt;
+   &gt; PromotionFailed
+   &gt;
+   &gt; 解决方案类似，保持老年代有足够的空间
+   &gt;
+   &gt; –XX:CMSInitiatingOccupancyFraction <span class="m">92</span>% 可以降低这个值，让CMS保持老年代足够的空间
+
+<span class="c1">#### CMS日志分析</span>
+
+执行命令：java -Xms20M -Xmx20M -XX:+PrintGCDetails -XX:+UseConcMarkSweepGC com.mashibing.jvm.gc.T15_FullGC_Problem01
+
+<span class="o">[</span>GC <span class="o">(</span>Allocation Failure<span class="o">)</span> <span class="o">[</span>ParNew: 6144K-&gt;640K<span class="o">(</span>6144K<span class="o">)</span>, <span class="m">0</span>.0265885 secs<span class="o">]</span> 6585K-&gt;2770K<span class="o">(</span>19840K<span class="o">)</span>, <span class="m">0</span>.0268035 secs<span class="o">]</span> <span class="o">[</span>Times: <span class="nv">user</span><span class="o">=</span><span class="m">0</span>.02 <span class="nv">sys</span><span class="o">=</span><span class="m">0</span>.00, <span class="nv">real</span><span class="o">=</span><span class="m">0</span>.02 secs<span class="o">]</span> 
+
+&gt; ParNew：年轻代收集器
+&gt;
+&gt; <span class="m">6144</span>-&gt;640：收集前后的对比
+&gt;
+&gt; （6144）：整个年轻代容量
+&gt;
+&gt; <span class="m">6585</span> -&gt; <span class="m">2770</span>：整个堆的情况
+&gt;
+&gt; （19840）：整个堆大小</code></pre></div>
+<p>java
+[GC (CMS Initial Mark) [1 CMS-initial-mark: 8511K(13696K)] 9866K(19840K), 0.0040321 secs] [Times: user=0.01 sys=0.00, real=0.00 secs]
+	//8511 (13696) : 老年代使用（最大）
+	//9866 (19840) : 整个堆使用（最大）
+[CMS-concurrent-mark-start]
+[CMS-concurrent-mark: 0.018/0.018 secs] [Times: user=0.01 sys=0.00, real=0.02 secs]
+	//这里的时间意义不大，因为是并发执行
+[CMS-concurrent-preclean-start]
+[CMS-concurrent-preclean: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+	//标记Card为Dirty，也称为Card Marking
+[GC (CMS Final Remark) [YG occupancy: 1597 K (6144 K)][Rescan (parallel) , 0.0008396 secs][weak refs processing, 0.0000138 secs][class unloading, 0.0005404 secs][scrub symbol table, 0.0006169 secs][scrub string table, 0.0004903 secs][1 CMS-remark: 8511K(13696K)] 10108K(19840K), 0.0039567 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+	//STW阶段，YG occupancy:年轻代占用及容量
+	//[Rescan (parallel)：STW下的存活对象标记
+	//weak refs processing: 弱引用处理
+	//class unloading: 卸载用不到的class
+	//scrub symbol(string) table:
+		//cleaning up symbol and string tables which hold class-level metadata and
+		//internalized string respectively
+	//CMS-remark: 8511K(13696K): 阶段过后的老年代占用及容量
+	//10108K(19840K): 阶段过后的堆占用及容量</p>
+</blockquote>
+
+<p>[CMS-concurrent-sweep-start]
+[CMS-concurrent-sweep: 0.005/0.005 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+	//标记已经完成，进行并发清理
+[CMS-concurrent-reset-start]
+[CMS-concurrent-reset: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+	//重置内部结构，为下次GC做准备</p>
+<div class="highlight"><pre class="chroma">### G1
+
+1. ▪https://www.oracle.com/technical-resources/articles/java/g1gc.html
+
+#### G1日志详解</pre></div>
+<p>java
+[GC pause (G1 Evacuation Pause) (young) (initial-mark), 0.0015790 secs]
+//young -&gt; 年轻代 Evacuation-&gt; 复制存活对象
+//initial-mark 混合回收的阶段，这里是YGC混合老年代回收
+   [Parallel Time: 1.5 ms, GC Workers: 1] //一个GC线程
+      [GC Worker Start (ms):  92635.7]
+      [Ext Root Scanning (ms):  1.1]
+      [Update RS (ms):  0.0]
+         [Processed Buffers:  1]
+      [Scan RS (ms):  0.0]
+      [Code Root Scanning (ms):  0.0]
+      [Object Copy (ms):  0.1]
+      [Termination (ms):  0.0]
+         [Termination Attempts:  1]
+      [GC Worker Other (ms):  0.0]
+      [GC Worker Total (ms):  1.2]
+      [GC Worker End (ms):  92636.9]
+   [Code Root Fixup: 0.0 ms]
+   [Code Root Purge: 0.0 ms]
+   [Clear CT: 0.0 ms]
+   [Other: 0.1 ms]
+      [Choose CSet: 0.0 ms]
+      [Ref Proc: 0.0 ms]
+      [Ref Enq: 0.0 ms]
+      [Redirty Cards: 0.0 ms]
+      [Humongous Register: 0.0 ms]
+      [Humongous Reclaim: 0.0 ms]
+      [Free CSet: 0.0 ms]
+   [Eden: 0.0B(1024.0K)-&gt;0.0B(1024.0K) Survivors: 0.0B-&gt;0.0B Heap: 18.8M(20.0M)-&gt;18.8M(20.0M)]
+ [Times: user=0.00 sys=0.00, real=0.00 secs]
+//以下是混合回收其他阶段
+[GC concurrent-root-region-scan-start]
+[GC concurrent-root-region-scan-end, 0.0000078 secs]
+[GC concurrent-mark-start]
+//无法evacuation，进行FGC
+[Full GC (Allocation Failure)  18M-&gt;18M(20M), 0.0719656 secs]
+   [Eden: 0.0B(1024.0K)-&gt;0.0B(1024.0K) Survivors: 0.0B-&gt;0.0B Heap: 18.8M(20.0M)-&gt;18.8M(20.0M)], [Metaspace: 38
+76K-&gt;3876K(1056768K)] [Times: user=0.07 sys=0.00, real=0.07 secs]</p>
+<div class="highlight"><pre class="chroma">### 案例汇总
+
+OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙高，但内存回收特别少) （上面案例）
+
+1. 硬件升级系统反而卡顿的问题（见上）
+
+2. 线程池不当运用产生OOM问题（见上）
+   不断的往List里加对象（实在太LOW）
+
+3. smile jira问题
+   实际系统不断重启
+   解决问题 加内存 + 更换垃圾回收器 G1
+   真正问题在哪儿？不知道
+
+4. tomcat http-header-size过大问题（Hector）
+
+5. lambda表达式导致方法区溢出问题(MethodArea / Perm Metaspace)
+   LambdaGC.java     -XX:MaxMetaspaceSize=9M -XX:+PrintGCDetails</pre></div>
+<p>java
+   &ldquo;C:\Program Files\Java\jdk1.8.0_181\bin\java.exe&rdquo; -XX:MaxMetaspaceSize=9M -XX:+PrintGCDetails &ldquo;-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.1\lib\idea_rt.jar=49316:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.1\bin&rdquo; -Dfile.encoding=UTF-8 -classpath &ldquo;C:\Program Files\Java\jdk1.8.0_181\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\zipfs.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\rt.jar;C:\work\ijprojects\JVM\out\production\JVM;C:\work\ijprojects\ObjectSize\out\artifacts\ObjectSize_jar\ObjectSize.jar&rdquo; com.mashibing.jvm.gc.LambdaGC
+   [GC (Metadata GC Threshold) [PSYoungGen: 11341K-&gt;1880K(38400K)] 11341K-&gt;1888K(125952K), 0.0022190 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+   [Full GC (Metadata GC Threshold) [PSYoungGen: 1880K-&gt;0K(38400K)] [ParOldGen: 8K-&gt;1777K(35328K)] 1888K-&gt;1777K(73728K), [Metaspace: 8164K-&gt;8164K(1056768K)], 0.0100681 secs] [Times: user=0.02 sys=0.00, real=0.01 secs]
+   [GC (Last ditch collection) [PSYoungGen: 0K-&gt;0K(38400K)] 1777K-&gt;1777K(73728K), 0.0005698 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+   [Full GC (Last ditch collection) [PSYoungGen: 0K-&gt;0K(38400K)] [ParOldGen: 1777K-&gt;1629K(67584K)] 1777K-&gt;1629K(105984K), [Metaspace: 8164K-&gt;8156K(1056768K)], 0.0124299 secs] [Times: user=0.06 sys=0.00, real=0.01 secs]
+   java.lang.reflect.InvocationTargetException
+   	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+   	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+   	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+   	at java.lang.reflect.Method.invoke(Method.java:498)
+   	at sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:388)
+   	at sun.instrument.InstrumentationImpl.loadClassAndCallAgentmain(InstrumentationImpl.java:411)
+   Caused by: java.lang.OutOfMemoryError: Compressed class space
+   	at sun.misc.Unsafe.defineClass(Native Method)
+   	at sun.reflect.ClassDefiner.defineClass(ClassDefiner.java:63)
+   	at sun.reflect.MethodAccessorGenerator$1.run(MethodAccessorGenerator.java:399)
+   	at sun.reflect.MethodAccessorGenerator$1.run(MethodAccessorGenerator.java:394)
+   	at java.security.AccessController.doPrivileged(Native Method)
+   	at sun.reflect.MethodAccessorGenerator.generate(MethodAccessorGenerator.java:393)
+   	at sun.reflect.MethodAccessorGenerator.generateSerializationConstructor(MethodAccessorGenerator.java:112)
+   	at sun.reflect.ReflectionFactory.generateConstructor(ReflectionFactory.java:398)
+   	at sun.reflect.ReflectionFactory.newConstructorForSerialization(ReflectionFactory.java:360)
+   	at java.io.ObjectStreamClass.getSerializableConstructor(ObjectStreamClass.java:1574)
+   	at java.io.ObjectStreamClass.access$1500(ObjectStreamClass.java:79)
+   	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:519)
+   	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:494)
+   	at java.security.AccessController.doPrivileged(Native Method)
+   	at java.io.ObjectStreamClass.<init>(ObjectStreamClass.java:494)
+   	at java.io.ObjectStreamClass.lookup(ObjectStreamClass.java:391)
+   	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1134)
+   	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+   	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+   	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+   	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+   	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+   	at javax.management.remote.rmi.RMIConnectorServer.encodeJRMPStub(RMIConnectorServer.java:727)
+   	at javax.management.remote.rmi.RMIConnectorServer.encodeStub(RMIConnectorServer.java:719)
+   	at javax.management.remote.rmi.RMIConnectorServer.encodeStubInAddress(RMIConnectorServer.java:690)
+   	at javax.management.remote.rmi.RMIConnectorServer.start(RMIConnectorServer.java:439)
+   	at sun.management.jmxremote.ConnectorBootstrap.startLocalConnectorServer(ConnectorBootstrap.java:550)
+   	at sun.management.Agent.startLocalManagementAgent(Agent.java:137)</p>
+<div class="highlight"><pre class="chroma">6. 直接内存溢出问题（少见）
+   《深入理解Java虚拟机》P59，使用Unsafe分配直接内存，或者使用NIO的问题
+
+7. 栈溢出问题
+   -Xss设定太小
+
+8. 比较一下这两段程序的异同，分析哪一个是更优的写法：</pre></div>
+<p>java
+   Object o = null;
+   for(int i=0; i&lt;100; i++) {
+       o = new Object();
+       //业务处理
+   }</p>
+<div class="highlight"><pre class="chroma"></pre></div>
+<p>java
+   for(int i=0; i&lt;100; i++) {
+       Object o = new Object();
+   }
+   ```</p>
+
+<ol>
+<li><p>重写finalize引发频繁GC
+小米云，HBase同步系统，系统通过nginx访问超时报警，最后排查，C++程序员重写finalize引发频繁GC问题
+为什么C++程序员会重写finalize？（new delete）
+finalize耗时比较长（200ms）</p></li>
+
+<li><p>如果有一个系统，内存一直消耗不超过10%，但是观察GC日志，发现FGC总是频繁产生，会是什么引起的？
+System.gc() (这个比较Low)</p></li>
+
+<li><p>Distuptor有个可以设置链的长度，如果过大，然后对象大，消费完不主动释放，会溢出 (来自 死物风情)</p></li>
+
+<li><p>用jvm都会溢出，mycat用崩过，1.6.5某个临时版本解析sql子查询算法有问题，9个exists的联合sql就导致生成几百万的对象（来自 死物风情）</p></li>
+
+<li><p>new 大量线程，会产生 native thread OOM，（low）应该用线程池，
+解决方案：减少堆空间（太TMlow了）,预留更多内存产生native thread
+JVM内存占物理内存比例 50% - 80%</p></li>
+
+<li><p>近期学生案例SQLLite的类库，批处理的时候会把所有的结果加载内存，有的人一下子更新几十万条数据，结果就产生了内存溢出，定位上用的是排除法，去掉这个模块就没问题，加上该模块就会出问题</p></li>
+
+<li><p>java在线解压以及压缩文件造成的内存溢出</p></li>
+
+<li><p>java使用opencv造成的卡顿与缓慢</p></li>
+
+<li><p>最容易引起崩溃的报表系统</p></li>
+
+<li><p>分库分表所引起的系统崩溃</p></li>
+</ol>
+
+<h3 id="gc常用参数">GC常用参数</h3>
+
+<ul>
+<li>-Xmn -Xms -Xmx -Xss
+年轻代 最小堆 最大堆 栈空间</li>
+<li>-XX:+UseTLAB
+使用TLAB，默认打开</li>
+<li>-XX:+PrintTLAB
+打印TLAB的使用情况</li>
+<li>-XX:TLABSize
+设置TLAB大小</li>
+<li>-XX:+DisableExplictGC
+System.gc()不管用 ，FGC</li>
+<li>-XX:+PrintGC</li>
+<li>-XX:+PrintGCDetails</li>
+<li>-XX:+PrintHeapAtGC</li>
+<li>-XX:+PrintGCTimeStamps</li>
+<li>-XX:+PrintGCApplicationConcurrentTime (低)
+打印应用程序时间</li>
+<li>-XX:+PrintGCApplicationStoppedTime （低）
+打印暂停时长</li>
+<li>-XX:+PrintReferenceGC （重要性低）
+记录回收了多少种不同引用类型的引用</li>
+<li>-verbose:class
+类加载详细过程</li>
+<li>-XX:+PrintVMOptions</li>
+<li>-XX:+PrintFlagsFinal  -XX:+PrintFlagsInitial
+必须会用</li>
+<li>-Xloggc:opt/log/gc.log</li>
+<li>-XX:MaxTenuringThreshold
+升代年龄，最大值15</li>
+<li>锁自旋次数 -XX:PreBlockSpin 热点代码检测参数-XX:CompileThreshold 逃逸分析 标量替换 &hellip;
+这些不建议设置</li>
+</ul>
+
+<h3 id="parallel常用参数">Parallel常用参数</h3>
+
+<ul>
+<li>-XX:SurvivorRatio</li>
+<li>-XX:PreTenureSizeThreshold
+大对象到底多大</li>
+<li>-XX:MaxTenuringThreshold</li>
+<li>-XX:+ParallelGCThreads
+并行收集器的线程数，同样适用于CMS，一般设为和CPU核数相同</li>
+<li>-XX:+UseAdaptiveSizePolicy
+自动选择各区大小比例</li>
+</ul>
+
+<h3 id="cms常用参数">CMS常用参数</h3>
+
+<ul>
+<li>-XX:+UseConcMarkSweepGC</li>
+<li>-XX:ParallelCMSThreads
+CMS线程数量</li>
+<li>-XX:CMSInitiatingOccupancyFraction
+使用多少比例的老年代后开始CMS收集，默认是68%(近似值)，如果频繁发生SerialOld卡顿，应该调小，（频繁CMS回收）</li>
+<li>-XX:+UseCMSCompactAtFullCollection
+在FGC时进行压缩</li>
+<li>-XX:CMSFullGCsBeforeCompaction
+多少次FGC之后进行压缩</li>
+<li>-XX:+CMSClassUnloadingEnabled</li>
+<li>-XX:CMSInitiatingPermOccupancyFraction
+达到什么比例时进行Perm回收</li>
+<li>GCTimeRatio
+设置GC时间占用程序运行时间的百分比</li>
+<li>-XX:MaxGCPauseMillis
+停顿时间，是一个建议时间，GC会尝试用各种手段达到这个时间，比如减小年轻代</li>
+</ul>
+
+<h3 id="g1常用参数">G1常用参数</h3>
+
+<ul>
+<li>-XX:+UseG1GC</li>
+<li>-XX:MaxGCPauseMillis
+建议值，G1会尝试调整Young区的块数来达到这个值</li>
+<li>-XX:GCPauseIntervalMillis
+？GC的间隔时间</li>
+<li>-XX:+G1HeapRegionSize
+分区大小，建议逐渐增大该值，1 2 4 8 16 32。
+随着size增加，垃圾的存活时间更长，GC间隔更长，但每次GC的时间也会更长
+ZGC做了改进（动态区块大小）</li>
+<li>G1NewSizePercent
+新生代最小比例，默认为5%</li>
+<li>G1MaxNewSizePercent
+新生代最大比例，默认为60%</li>
+<li>GCTimeRatio
+GC时间建议比例，G1会根据这个值调整堆空间</li>
+<li>ConcGCThreads
+线程数量</li>
+<li>InitiatingHeapOccupancyPercent
+启动G1的堆空间占用比例</li>
+</ul>
+
+<h4 id="作业">作业</h4>
+
+<ol>
+<li><p>-XX:MaxTenuringThreshold控制的是什么？
+A: 对象升入老年代的年龄
+    B: 老年代触发FGC时的内存垃圾比例</p></li>
+
+<li><p>生产环境中，倾向于将最大堆内存和最小堆内存设置为：（为什么？）
+A: 相同 B：不同</p></li>
+
+<li><p>JDK1.8默认的垃圾回收器是：
+A: ParNew + CMS
+    B: G1
+    C: PS + ParallelOld
+    D: 以上都不是</p></li>
+
+<li><p>什么是响应时间优先？</p></li>
+
+<li><p>什么是吞吐量优先？</p></li>
+
+<li><p>ParNew和PS的区别是什么？</p></li>
+
+<li><p>ParNew和ParallelOld的区别是什么？（年代不同，算法不同）</p></li>
+
+<li><p>长时间计算的场景应该选择：A：停顿时间 B: 吞吐量</p></li>
+
+<li><p>大规模电商网站应该选择：A：停顿时间 B: 吞吐量</p></li>
+
+<li><p>HotSpot的垃圾收集器最常用有哪些？</p></li>
+
+<li><p>常见的HotSpot垃圾收集器组合有哪些？</p></li>
+
+<li><p>JDK1.7 1.8 1.9的默认垃圾回收器是什么？如何查看？</p></li>
+
+<li><p>所谓调优，到底是在调什么？</p></li>
+
+<li><p>如果采用PS + ParrallelOld组合，怎么做才能让系统基本不产生FGC</p></li>
+
+<li><p>如果采用ParNew + CMS组合，怎样做才能够让系统基本不产生FGC</p>
+
+<p>1.加大JVM内存</p>
+
+<p>2.加大Young的比例</p>
+
+<p>3.提高Y-O的年龄</p>
+
+<p>4.提高S区比例</p>
+
+<p>5.避免代码内存泄漏</p></li>
+
+<li><p>G1是否分代？G1垃圾回收器会产生FGC吗？</p></li>
+
+<li><p>如果G1产生FGC，你应该做什么？</p>
+
+<ol>
+<li>扩内存</li>
+<li>提高CPU性能（回收的快，业务逻辑产生对象的速度固定，垃圾回收越快，内存空间越大）</li>
+
+<li><p>降低MixedGC触发的阈值，让MixedGC提早发生（默认是45%）</p></li>
+
+<li><p>问：生产环境中能够随随便便的dump吗？
+小堆影响不大，大堆会有服务暂停或卡顿（加live可以缓解），dump前会有FGC</p></li>
+
+<li><p>问：常见的OOM问题有哪些？
+栈 堆 MethodArea 直接内存</p></li>
+
+<li><p><strong>如果JVM进程静悄悄退出怎么办？</strong></p>
+
+<ol>
+<li>JVM自身OOM导致
+
+<ol>
+<li>heap dump on oom，这种最容易解决</li>
+</ol></li>
+<li>JVM自身故障
+
+<ol>
+<li>-XX:ErrorFile=/var/log/hs_err_pid<pid>.log 超级复杂的文件 包括：crash线程信息 safepoint信息 锁信息 native code cache , 编译事件, gc相关记录 jvm内存映射 等等</li>
+</ol></li>
+<li>被Linux OOM killer杀死
+
+<ol>
+<li>日志位于/var/log/messages</li>
+<li>egrep -i &lsquo;killed process&rsquo; /var/log/messages</li>
+</ol></li>
+<li>硬件或内核问题
+
+<ol>
+<li>dmesg | grep java</li>
+</ol></li>
+<li><strong>找我！</strong></li>
+</ol></li>
+
+<li><p><strong>如何排查直接内存</strong>？</p>
+
+<ol>
+<li>NMT打开 &ndash; -XX:NativeMemoryTracking=detail</li>
+<li>perf工具</li>
+<li>gperftools</li>
+</ol></li>
+</ol></li>
+
+<li><p>有哪些常用的日志分析工具？</p>
+
+<ol>
+<li>gceasy</li>
+</ol></li>
+
+<li><p>CPU暴增如何排查？</p>
+
+<ol>
+<li>top -Hp  jstack</li>
+<li>arthas - dashboard thread thread XXXX</li>
+<li>两种情况：1：业务线程 2：GC线程 - GC日志</li>
+</ol></li>
+
+<li><p>死锁如何排查？</p>
+
+<ol>
+<li>jstack 观察线程情况</li>
+<li>arthas -  thread -b</li>
+</ol></li>
+</ol>
+
+<h3 id="参考资料">参考资料</h3>
+
+<ol>
+<li><a href="https://blogs.oracle.com/jonthecollector/our-collectors">https://blogs.oracle.com/</a><a href="https://blogs.oracle.com/jonthecollector/our-collectors">jonthecollector</a><a href="https://blogs.oracle.com/jonthecollector/our-collectors">/our-collectors</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html</a></li>
+<li><a href="http://java.sun.com/javase/technologies/hotspot/vmoptions.jsp">http://java.sun.com/javase/technologies/hotspot/vmoptions.jsp</a></li>
+<li>JVM调优参考文档：<a href="https://docs.oracle.com/en/java/javase/13/gctuning/introduction-garbage-collection-tuning.html#GUID-8A443184-7E07-4B71-9777-4F12947C8184">https://docs.oracle.com/en/java/javase/13/gctuning/introduction-garbage-collection-tuning.html#GUID-8A443184-7E07-4B71-9777-4F12947C8184</a></li>
+<li><a href="https://www.cnblogs.com/nxlhero/p/11660854.html">https://www.cnblogs.com/nxlhero/p/11660854.html</a> 在线排查工具</li>
+<li><a href="https://www.jianshu.com/p/507f7e0cc3a3">https://www.jianshu.com/p/507f7e0cc3a3</a> arthas常用命令</li>
+<li>Arthas手册：
+
+<ol>
+<li>启动arthas java -jar arthas-boot.jar</li>
+<li>绑定java进程</li>
+<li>dashboard命令观察系统整体情况</li>
+<li>help 查看帮助</li>
+<li>help xx 查看具体命令帮助</li>
+</ol></li>
+<li>jmap命令参考： <a href="https://www.jianshu.com/p/507f7e0cc3a3">https://www.jianshu.com/p/507f7e0cc3a3</a>
+
+<ol>
+<li>jmap -heap pid</li>
+<li>jmap -histo pid</li>
+<li>jmap -clstats pid</li>
+</ol></li>
+<li><a href="https://blog.csdn.net/chenssy/article/details/78271744">https://blog.csdn.net/chenssy/article/details/78271744</a> 分析hotspot error file</li>
+</ol>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/">
+            Redis结合kafka实现高并发抢单
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/elk/filebeat/">
+            FileBeat
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

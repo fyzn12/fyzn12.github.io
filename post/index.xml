@@ -19,9 +19,9 @@
       <guid>https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/</guid>
       <description>ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
  echo &amp;#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&amp;#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
-执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
  查看到这个错误之后 执行sudo gpg &amp;ndash;keyserver keyserver.ubuntu.com &amp;ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &amp;ndash;export &amp;ndash;armor 上面相同的keys | sudo apt-key add -
-3、更新源
+注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
 sudo apt-get update
 4、关闭虚拟内存
 sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭

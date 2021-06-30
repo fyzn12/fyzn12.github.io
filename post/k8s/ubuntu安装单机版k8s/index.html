@@ -13,9 +13,9 @@
 
 <meta name="description" content="ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
  echo &amp;#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&amp;#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
-执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
  查看到这个错误之后 执行sudo gpg &amp;ndash;keyserver keyserver.ubuntu.com &amp;ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &amp;ndash;export &amp;ndash;armor 上面相同的keys | sudo apt-key add -
-3、更新源
+注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
 sudo apt-get update
 4、关闭虚拟内存
 sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
@@ -32,9 +32,9 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
 <meta property="og:title" content="ubuntu搭建单机版k8s" />
 <meta property="og:description" content="ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
  echo &#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
-执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
  查看到这个错误之后 执行sudo gpg &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &ndash;export &ndash;armor 上面相同的keys | sudo apt-key add -
-3、更新源
+注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
 sudo apt-get update
 4、关闭虚拟内存
 sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
@@ -46,9 +46,9 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
 <meta itemprop="name" content="ubuntu搭建单机版k8s">
 <meta itemprop="description" content="ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
  echo &#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
-执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
  查看到这个错误之后 执行sudo gpg &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &ndash;export &ndash;armor 上面相同的keys | sudo apt-key add -
-3、更新源
+注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
 sudo apt-get update
 4、关闭虚拟内存
 sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
@@ -57,7 +57,7 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
 
 <meta itemprop="datePublished" content="2021-07-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-07-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="83">
+<meta itemprop="wordCount" content="111">
 
 
 
@@ -66,9 +66,9 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
 <meta name="twitter:title" content="ubuntu搭建单机版k8s"/>
 <meta name="twitter:description" content="ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
  echo &#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
-执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
  查看到这个错误之后 执行sudo gpg &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &ndash;export &ndash;armor 上面相同的keys | sudo apt-key add -
-3、更新源
+注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
 sudo apt-get update
 4、关闭虚拟内存
 sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
@@ -132,12 +132,12 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
 <blockquote>
 <p>2、 为源申请key</p>
 
-<p>执行 apt-get install kubelet kubeadm kubectl kubernetes-cni
+<p>执行 apt-get update
 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误<br />
  <div align=center><img src="https://fyzn12.github.io/img/picture/ubuntu-k8s.png"/></div>
 查看到这个错误之后 执行sudo gpg &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 后面是错误提示的keys
 再执行 sudo gpg &ndash;export &ndash;armor 上面相同的keys | sudo apt-key add -</p>
-
+<div class="highlight"><pre class="chroma">   注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠 </pre></div>
 <p>3、更新源<br />
 sudo apt-get update</p>
 
@@ -155,7 +155,47 @@ sudo systemctl enable kubelet &amp;&amp; systemctl start kubelet</p>
 <p>7、 查看版本验证是否启动<br />
 kubectl version<br />
 <div align=center><img src="https://fyzn12.github.io/img/picture/ubuntu-k8s2.png"/></div></p>
+
+<p>8、初始化</p>
+
+<p>kubeadm init &ndash;image-repository registry.aliyuncs.com/google_containers0.0.0/16</p>
+
+<p>执行以上命令在kubernetes v1.21.2中会报如下错误<br />
+<div align=center><img src="https://fyzn12.github.io/img/picture/kubernetes3.png"/></div></p>
 </blockquote>
+
+<hr />
+
+<h3 id="解决方法">解决方法</h3>
+
+<ol>
+<li>通过分析bug的原因<br />
+<br /></li>
+</ol>
+
+<blockquote>
+<p>图中主要报pull image registry.aliyuncs.com/google_containers/coredns:v1.8.0没有找到</p>
+</blockquote>
+
+<ol>
+<li>解决方案<br /></li>
+</ol>
+
+<blockquote>
+<p>① 通过docker将coredns镜像拉取下来<br />
+docker pull coredns/coredns:1.8.0<br />
+通过docker images查看镜像拉取情况</p>
+
+<p>然后通过docker tag 296a6d5035e2 registry.aliyuncs.com/google_containers/coredns将coredns/coredns:1.8.0镜像构建成符合条件的镜像<br />
+<div align=center><img src="https://fyzn12.github.io/img/picture/kubernetes4.png"/></div></p>
+</blockquote>
+
+<ol>
+<li>再次执行初始化kubeadm init &ndash;image-repository registry.aliyuncs.com/google_containers0.0.0/16<br />
+<div align=center><img src="https://fyzn12.github.io/img/picture/kubernetes5.png"/></div></li>
+</ol>
+
+<h4 id="至此单机版k8s搭建成功">至此单机版k8s搭建成功</h4>
 
     </article>
 

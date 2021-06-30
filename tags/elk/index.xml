@@ -19,29 +19,13 @@
       <guid>https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/</guid>
       <description>ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
  echo &amp;#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&amp;#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
-执行 apt-get install kubelet kubeadm kubectl kubernetes-cni 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
  查看到这个错误之后 执行sudo gpg &amp;ndash;keyserver keyserver.ubuntu.com &amp;ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &amp;ndash;export &amp;ndash;armor 上面相同的keys | sudo apt-key add -
-3、更新源
+注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
 sudo apt-get update
 4、关闭虚拟内存
 sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
 5、执行安装 (sudo视操作者情况决定是否加)apt-get install kubelet kubeadm kubectl kubernetes-cni</description>
-    </item>
-    
-    <item>
-      <title>CAS</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</link>
-      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</guid>
-      <description>CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
-因为经常配合循环操作，直到完成为止，所以泛指一类操作
-cas(v, a, b) ，变量v，期待值a, 修改值b
-ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
-解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
-Unsafe AtomicInteger:
-public final int incrementAndGet() { for (;;) { int current = get(); int next = current + 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
-public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：</description>
     </item>
     
     <item>

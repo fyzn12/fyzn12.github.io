@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>基本排序算法总结</title>
+      <link>https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>排序算法总结 1 选择排序 1.1 思路分析  ① 在0~N-1 范围上找到最小值，将其放在0位置上； ② 在1~N-1 范围上找到最小值，将其放在1位置上； &amp;hellip; 知道确定最后一个值的位置。
+  1.2 代码实现 public static void selectionSort(int[] arr) { if (arr == null || arr.length &amp;lt; 2) { return; } // 0 ~ N-1 找到最小值，在哪，放到0位置上  // 1 ~ n-1 找到最小值，在哪，放到1 位置上  // 2 ~ n-1 找到最小值，在哪，放到2 位置上  for (int i = 0; i &amp;lt; arr.length - 1; i++) { int minIndex = i; // i ~ N-1 上找最小值的下标  for (int j = i + 1; j &amp;lt; arr.</description>
+    </item>
+    
+    <item>
       <title>常见算法篇</title>
       <link>https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>

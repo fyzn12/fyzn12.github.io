@@ -57,7 +57,7 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
 
 <meta itemprop="datePublished" content="2021-07-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-07-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="111">
+<meta itemprop="wordCount" content="119">
 
 
 
@@ -186,12 +186,15 @@ kubectl version<br />
 docker pull coredns/coredns:1.8.0<br />
 通过docker images查看镜像拉取情况</p>
 
-<p>然后通过docker tag 296a6d5035e2 registry.aliyuncs.com/google_containers/coredns将coredns/coredns:1.8.0镜像构建成符合条件的镜像<br />
+<p>然后通过
+docker tag 296a6d5035e2 registry.aliyuncs.com/google_containers/coredns:v1.8.0
+将coredns/coredns:1.8.0镜像构建成符合条件的镜像<br />
 <div align=center><img src="https://fyzn12.github.io/img/picture/kubernetes4.png"/></div></p>
 </blockquote>
 
 <ol>
-<li>再次执行初始化kubeadm init &ndash;image-repository registry.aliyuncs.com/google_containers0.0.0/16<br />
+<li><p>再次执行初始化</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">kubeadm init --apiserver-advertise-address=172.25.12.89 --image-repository registry.aliyuncs.com/google_containers --kubernetes-version v1.21.2 --service-cidr=10.1.0.0/16 --pod-network-cidr=10.244.0.0/16</code></pre></div>
 <div align=center><img src="https://fyzn12.github.io/img/picture/kubernetes5.png"/></div></li>
 </ol>
 

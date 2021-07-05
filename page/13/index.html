@@ -98,6 +98,15 @@
         </li>
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">基本排序算法总结</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                排序算法总结 1 选择排序 1.1 思路分析  ① 在0~N-1 范围上找到最小值，将其放在0位置上； ② 在1~N-1 范围上找到最小值，将其放在1位置上； &hellip; 知道确定最后一个值的位置。
+  1.2 代码实现 public static void selectionSort(int[] arr) { if (arr == null || arr.length &lt; 2) { return; } // 0 ~ N-1 找到最小值，在哪，放到0位置上  // 1 ~ n-1 找到最小值，在哪，放到1 位置上  // 2 ~ n-1 找到最小值，在哪，放到2 位置上  for (int i = 0; i &lt; arr.length - 1; i++) { int minIndex = i; // i ~ N-1 上找最小值的下标  for (int j = i + 1; j &lt; arr.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">常见算法篇</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
@@ -112,20 +121,6 @@
             <div class="post-excerpt">
                 排序算法的简单介绍
  1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &lt; N; i++) { int min = i; for (int j = i+1;j&lt;N;j++){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/faceword/firstday/">认真刷面试题的第一天</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                牛客网的第一天
- 1 关于java的异常处理机制：当某个线程抛出OutOfmemberError时，其他线程有可能不收影响 2 关于运算的理解  与运算（&amp;）
-进行运算的两个数据，按二进制位进行“与”运算。 规则：0&amp;0=0; 0&amp;1=0; 1&amp;0=0; 1&amp;1=1; 即： 两位同时为“1”，结果才为“1”，否则为0  或运算（|）
-进行运算的两个数据，按二进制位进行“或”运算。 运算规则：0|0=0； 0|1=1； 1|0=1； 1|1=1； 即 ：参加运算的两个对象只要有一个为1，其值为1。  非运算：~
-1取0，0取1 ~1 = 0, ~0 = 1 ~(10001) = 01110  异或运算（^）
-参加运算的两个数据，按二进制位进行&#34;异或&#34;运算 参加运算的两个对象，如果两个相应位为“异”（值不同），则该位结果为1，否则为0。 考点：交换两个变量的值（不借助第三个变量） 使用异或运算符： 例：a=6,b=5 核心代码： a = a ^ b; b = a ^ b; a = a ^ b;   经过上面的介绍下面这些运算应该就能理解了java中的 |= 、&amp;= 、^= 运算符的理解
-3 filesort 并不是磁盘文件进行排序，只是进行了一个排序操作，但是查询次数过多确实会对性能造成影响 4 在java中是不能强制垃圾回收器立即执行的，system.
             </div>
         </li>
         

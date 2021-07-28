@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-07-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-07-28T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,24 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
+            <div class="post-meta">Sep 19, 2020</div>
+            <div class="post-excerpt">
+                哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key + b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d+1, d+2, &hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)+i)%m ， 其中i=1,2,&hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d+i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)+i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/linkedlist/">LinkedList以及栈的深度理解</a></h2>
             <div class="post-meta">Sep 11, 2020</div>
             <div class="post-excerpt">
@@ -114,17 +132,6 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/decorator_design/">装饰者模式</a></h2>
-            <div class="post-meta">Sep 09, 2020</div>
-            <div class="post-excerpt">
-                  装饰者模式的简单实现
- 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
- 别人写了一篇易懂的文章装饰者模式
-  
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -152,6 +159,10 @@
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
         </li>
         
         <li>
@@ -204,10 +215,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
         </li>
         
     </ul>

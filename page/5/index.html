@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-07-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-07-28T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -74,6 +74,21 @@
     <ul class="post-list">
         
         
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/">扑克牌问题</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+输入：[0,3,2,6,4]
+输出：true
+解题思路：
+我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
+二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
+所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
+ 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&gt;0){ if(set.
+            </div>
+        </li>
         
         <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/">旋转数组的问题</a></h2>
@@ -128,16 +143,6 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%89%E5%A5%87%E5%81%B6%E6%95%B0%E6%8E%92%E5%88%97/">对数组中寄偶数据的处理</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                类型一：给定一个整形数组，将数组中的数据按奇数排列在前，偶数排列在后
-解题思路：定义两个指针，从前后开始遍历数组，遇到前后奇偶位置不匹配的，将其交换位置
- public void changeArr(int[] arr) { if (arr == null || arr.length == 0) { return; } int left = 0, right = arr.length - 1; while (left &lt; right) { while ((arr[left] &amp; 1) == 1 &amp;&amp; left &lt; right) { left++; } while ((arr[right] &amp; 1) == 0 &amp;&amp; left &lt; right) { right--; } if (left &lt; right) { arr[left] ^= arr[right]; arr[right] ^= arr[left]; arr[left] ^= arr[right]; } } }   类型二：输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
@@ -165,6 +170,10 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
         
         <li>
             <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
         </li>
         
         <li>
@@ -217,10 +226,6 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
         
         <li>
             <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/" class="post-link">矩阵的最小路路径</a>
         </li>
         
     </ul>

@@ -6,10 +6,31 @@
     <description>Recent content in Posts on fyzn12</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 01 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>k8s日志采集</title>
+      <link>https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/</link>
+      <pubDate>Wed, 28 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/</guid>
+      <description>k8s日志采集架构选型  1，Node方式：每台节点采用DaemonSet部署agent：
+原理：每台节点采用DaemonSet部署一个采集日志的agent，从/var/log/containers/目录采集所有容器的日志，而容器中的日志需要遵循docker的日志规范，把日志打入pid为1的主程序的stdout/stderr，这样k8s会自动在/var/log/containers/目录生成对应容器的日志。
+优点：部署维护简单，且能收集所有容器的日志
+缺点：需要应用程序日志支持stdout/stderr输出，如果每个节点的日志规模过多，单个采集日志的agent可能成为瓶颈，不太灵活。
+2，pod的SideCar方式：
+原理：每个pod通过SideCar方式部署一个采集日志的agent
+优点：每个pod可单独配置agent，灵活性高
+缺点：每个pod都需要一个SideCar比较麻烦
+3，应用程序直接推送日志到日志存储：
+原理：部署在pod的应用程序支持把日志直接推送到日志存储程序
+优点：不用维护日志采集程序，运维简单
+缺点：开发成本较高。
+ 三种日志采集模型比较    原生方式  DaemonSet方式  Sidecar方式    采集日志类型 标准输出 标准输出+部分文件  文件   部署运维 低，原生支持 一般，需维护DaemonSet 较高，每个需要采集日志的POD都需要部署sidecar容器   日志分类存储 无法实现 一般，可通过容器/路径等映射 每个POD可单独配置，灵活性高   多租户隔离 弱 一般，只能通过配置间隔离  强，通过容器进行隔离，可单独分配资源    支持集群规模 本地存储无限制，若使用syslog、fluentd会有单点限制  中小型规模，业务数最多支持百级别  无限制   资源占用  低，docker engine提供 较低，每个节点运行一个容器  较高，每个POD运行一个容器    查询便捷性 低  较高，可进行自定义的查询、统计 高，可根据业务特点进行定制   可定制性 低  低 高，每个POD单独配置   适用场景  测试、POC等非生产场景  功能单一型的集群 大型、混合型、PAAS型集群    容器内日志  和主机采集（daemonset）方式相比，容器内日志的采集方案一般使用 sidecar，好处是：</description>
+    </item>
     
     <item>
       <title>ubuntu搭建单机版k8s</title>

@@ -20,7 +20,7 @@
       <description>业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
  菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
 数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
- /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表 	List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t.</description>
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表  List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t.</description>
     </item>
     
   </channel>

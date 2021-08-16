@@ -14,7 +14,7 @@
 <meta name="description" content="业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
  菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
 数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
- /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表 	List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t." /><meta name="keywords"
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表  List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t." /><meta name="keywords"
   content="fyzn12, java, 网络安全, 红蓝攻防" />
 
 
@@ -28,7 +28,7 @@
 <meta property="og:description" content="业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
  菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
 数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
- /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&lt;Menu&gt; getChildPerms(List&lt;Menu&gt; list, Long parentId) { List&lt;Menu&gt; returnList = new ArrayList&lt;Menu&gt;(); list.stream().forEach(menu -&gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&lt;Menu&gt; list, Menu t) { // 得到子节点列表 	List&lt;Menu&gt; childList = getChildList(list, t); t." />
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&lt;Menu&gt; getChildPerms(List&lt;Menu&gt; list, Long parentId) { List&lt;Menu&gt; returnList = new ArrayList&lt;Menu&gt;(); list.stream().forEach(menu -&gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&lt;Menu&gt; list, Menu t) { // 得到子节点列表  List&lt;Menu&gt; childList = getChildList(list, t); t." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" />
 <meta property="article:published_time" content="2021-08-11T00:00:00+00:00" />
@@ -37,7 +37,7 @@
 <meta itemprop="description" content="业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
  菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
 数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
- /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&lt;Menu&gt; getChildPerms(List&lt;Menu&gt; list, Long parentId) { List&lt;Menu&gt; returnList = new ArrayList&lt;Menu&gt;(); list.stream().forEach(menu -&gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&lt;Menu&gt; list, Menu t) { // 得到子节点列表 	List&lt;Menu&gt; childList = getChildList(list, t); t.">
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&lt;Menu&gt; getChildPerms(List&lt;Menu&gt; list, Long parentId) { List&lt;Menu&gt; returnList = new ArrayList&lt;Menu&gt;(); list.stream().forEach(menu -&gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&lt;Menu&gt; list, Menu t) { // 得到子节点列表  List&lt;Menu&gt; childList = getChildList(list, t); t.">
 
 
 <meta itemprop="datePublished" content="2021-08-11T00:00:00&#43;00:00" />
@@ -52,7 +52,7 @@
 <meta name="twitter:description" content="业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
  菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
 数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
- /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&lt;Menu&gt; getChildPerms(List&lt;Menu&gt; list, Long parentId) { List&lt;Menu&gt; returnList = new ArrayList&lt;Menu&gt;(); list.stream().forEach(menu -&gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&lt;Menu&gt; list, Menu t) { // 得到子节点列表 	List&lt;Menu&gt; childList = getChildList(list, t); t."/>
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&lt;Menu&gt; getChildPerms(List&lt;Menu&gt; list, Long parentId) { List&lt;Menu&gt; returnList = new ArrayList&lt;Menu&gt;(); list.stream().forEach(menu -&gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&lt;Menu&gt; list, Menu t) { // 得到子节点列表  List&lt;Menu&gt; childList = getChildList(list, t); t."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -115,59 +115,59 @@
  数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。</p>
 </blockquote>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">		  
-		    <span class="cm">/**
-</span><span class="cm">		     * 根据父节点的ID获取所有子节点
-</span><span class="cm">		     *
-</span><span class="cm">		     * @param list     分类表
-</span><span class="cm">		     * @param parentId 传入的父节点ID
-</span><span class="cm">		     * @return String
-</span><span class="cm">		     */</span>
-		    <span class="kd">public</span> <span class="nf">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">getChildPerms</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Long</span> <span class="nf">parentId</span><span class="p">)</span> <span class="p">{</span>
-		        <span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">returnList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span><span class="p">();</span>
-		        <span class="n">list</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">forEach</span><span class="p">(</span><span class="n">menu</span> <span class="o">-&gt;</span> <span class="p">{</span>
-		            <span class="c1">// 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
-</span><span class="c1"></span>		            <span class="k">if</span> <span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">getPId</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">parentId</span><span class="p">))</span> <span class="p">{</span>
-		                <span class="n">recursionFn</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">menu</span><span class="p">);</span>
-		                <span class="n">returnList</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">menu</span><span class="p">);</span>
-		            <span class="p">}</span>
-		        <span class="p">});</span>
-		        <span class="k">return</span> <span class="n">returnList</span><span class="p">;</span>
-		    <span class="p">}</span>  
+	<span class="cm">/**
+</span><span class="cm">	 * 根据父节点的ID获取所有子节点
+</span><span class="cm">	 *
+</span><span class="cm">	 * @param list     分类表
+</span><span class="cm">	 * @param parentId 传入的父节点ID
+</span><span class="cm">     * @return String
+</span><span class="cm">     */</span>
+	  <span class="kd">public</span> <span class="nf">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">getChildPerms</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Long</span> <span class="nf">parentId</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">returnList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span><span class="p">();</span>
+         <span class="n">list</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">forEach</span><span class="p">(</span><span class="n">menu</span> <span class="o">-&gt;</span> <span class="p">{</span>
+         <span class="c1">// 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
+</span><span class="c1"></span>	         <span class="k">if</span> <span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">getPId</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">parentId</span><span class="p">))</span> <span class="p">{</span>
+	               <span class="n">recursionFn</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">menu</span><span class="p">);</span>
+	               <span class="n">returnList</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">menu</span><span class="p">);</span>
+	          <span class="p">}</span>
+	      <span class="p">});</span>
+	       <span class="k">return</span> <span class="n">returnList</span><span class="p">;</span>
+	  <span class="p">}</span>  
 		  
-		   <span class="cm">/**
-</span><span class="cm">		     * 递归列表
-</span><span class="cm">		     *
-</span><span class="cm">		     * @param list
-</span><span class="cm">		     * @param t
-</span><span class="cm">		     */</span>
-		    <span class="kd">private</span> <span class="nf">void</span> <span class="n">recursionFn</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Menu</span> <span class="nf">t</span><span class="p">)</span> <span class="p">{</span>
-		        <span class="c1">// 得到子节点列表
-</span><span class="c1"></span>		        <span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">childList</span> <span class="o">=</span> <span class="n">getChildList</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
-		        <span class="n">t</span><span class="p">.</span><span class="na">setChildren</span><span class="p">(</span><span class="n">childList</span><span class="p">);</span>
-		        <span class="n">childList</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">forEach</span><span class="p">(</span><span class="n">tChild</span> <span class="o">-&gt;</span> <span class="p">{</span>
-		            <span class="k">if</span> <span class="p">(</span><span class="n">hasChild</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">tChild</span><span class="p">))</span> <span class="p">{</span>
-		                <span class="n">recursionFn</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">tChild</span><span class="p">);</span>
-		            <span class="p">}</span>
-		        <span class="p">});</span>
-		    <span class="p">}</span>  
-		  
-		 <span class="cm">/**
-</span><span class="cm">		     * 得到子节点列表
-</span><span class="cm">		     */</span>
-		    <span class="kd">private</span> <span class="nf">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">getChildList</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Menu</span> <span class="nf">t</span><span class="p">)</span> <span class="p">{</span>
-		        <span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">tlist</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span><span class="p">();</span>
-		        <span class="n">list</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">menu</span> <span class="o">-&gt;</span> <span class="n">menu</span><span class="p">.</span><span class="na">getPId</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">getId</span><span class="p">())).</span><span class="na">forEach</span><span class="p">(</span><span class="n">menu</span> <span class="o">-&gt;</span> <span class="p">{</span>
-		            <span class="n">tlist</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">menu</span><span class="p">);</span>
-		        <span class="p">});</span>
-		        <span class="k">return</span> <span class="n">tlist</span><span class="p">;</span>
-		    <span class="p">}</span>
+	  <span class="cm">/**
+</span><span class="cm">	   * 递归列表
+</span><span class="cm">	   *
+</span><span class="cm">	   * @param list
+</span><span class="cm">	   * @param t
+</span><span class="cm">	   */</span>
+	   <span class="kd">private</span> <span class="nf">void</span> <span class="n">recursionFn</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Menu</span> <span class="nf">t</span><span class="p">)</span> <span class="p">{</span>
+		   <span class="c1">// 得到子节点列表
+</span><span class="c1"></span>           <span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">childList</span> <span class="o">=</span> <span class="n">getChildList</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+	       <span class="n">t</span><span class="p">.</span><span class="na">setChildren</span><span class="p">(</span><span class="n">childList</span><span class="p">);</span>
+	       <span class="n">childList</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">forEach</span><span class="p">(</span><span class="n">tChild</span> <span class="o">-&gt;</span> <span class="p">{</span>
+	           <span class="k">if</span> <span class="p">(</span><span class="n">hasChild</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">tChild</span><span class="p">))</span> <span class="p">{</span>
+	                <span class="n">recursionFn</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">tChild</span><span class="p">);</span>
+	           <span class="p">}</span>
+	       <span class="p">});</span>
+	   <span class="p">}</span>  
+	 
+	 <span class="cm">/**
+</span><span class="cm">	  * 得到子节点列表
+</span><span class="cm">	  */</span>
+	 <span class="kd">private</span> <span class="nf">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">getChildList</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Menu</span> <span class="nf">t</span><span class="p">)</span> <span class="p">{</span>
+	      <span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">tlist</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span><span class="p">();</span>
+	      <span class="n">list</span><span class="p">.</span><span class="na">stream</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">menu</span> <span class="o">-&gt;</span> <span class="n">menu</span><span class="p">.</span><span class="na">getPId</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">getId</span><span class="p">())).</span><span class="na">forEach</span><span class="p">(</span><span class="n">menu</span> <span class="o">-&gt;</span> <span class="p">{</span>
+	            <span class="n">tlist</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">menu</span><span class="p">);</span>
+	      <span class="p">});</span>
+	      <span class="k">return</span> <span class="n">tlist</span><span class="p">;</span>
+	 <span class="p">}</span>
 		
-		    <span class="cm">/**
-</span><span class="cm">		     * 判断是否有子节点
-</span><span class="cm">		     */</span>
-		    <span class="kd">private</span> <span class="nf">boolean</span> <span class="n">hasChild</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Menu</span> <span class="nf">t</span><span class="p">)</span> <span class="p">{</span>
-		        <span class="k">return</span> <span class="n">getChildList</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">t</span><span class="p">).</span><span class="na">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
-		    <span class="p">}</span>  
+	 <span class="cm">/**
+</span><span class="cm">	  * 判断是否有子节点
+</span><span class="cm">	  */</span>
+	 <span class="kd">private</span> <span class="nf">boolean</span> <span class="n">hasChild</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Menu</span><span class="o">&gt;</span> <span class="nf">list</span><span class="p">,</span> <span class="n">Menu</span> <span class="nf">t</span><span class="p">)</span> <span class="p">{</span>
+	     <span class="k">return</span> <span class="n">getChildList</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">t</span><span class="p">).</span><span class="na">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
+	 <span class="p">}</span>  
   </code></pre></div>
 <h3 id="2-生成树实现">2.生成树实现</h3>
 

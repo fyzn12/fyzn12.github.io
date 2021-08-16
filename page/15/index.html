@@ -76,6 +76,20 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/faceword/firstday/">认真刷面试题的第一天</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                牛客网的第一天
+ 1 关于java的异常处理机制：当某个线程抛出OutOfmemberError时，其他线程有可能不收影响 2 关于运算的理解  与运算（&amp;）
+进行运算的两个数据，按二进制位进行“与”运算。 规则：0&amp;0=0; 0&amp;1=0; 1&amp;0=0; 1&amp;1=1; 即： 两位同时为“1”，结果才为“1”，否则为0  或运算（|）
+进行运算的两个数据，按二进制位进行“或”运算。 运算规则：0|0=0； 0|1=1； 1|0=1； 1|1=1； 即 ：参加运算的两个对象只要有一个为1，其值为1。  非运算：~
+1取0，0取1 ~1 = 0, ~0 = 1 ~(10001) = 01110  异或运算（^）
+参加运算的两个数据，按二进制位进行&#34;异或&#34;运算 参加运算的两个对象，如果两个相应位为“异”（值不同），则该位结果为1，否则为0。 考点：交换两个变量的值（不借助第三个变量） 使用异或运算符： 例：a=6,b=5 核心代码： a = a ^ b; b = a ^ b; a = a ^ b;   经过上面的介绍下面这些运算应该就能理解了java中的 |= 、&amp;= 、^= 运算符的理解
+3 filesort 并不是磁盘文件进行排序，只是进行了一个排序操作，但是查询次数过多确实会对性能造成影响 4 在java中是不能强制垃圾回收器立即执行的，system.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/">SpringBoot提供的五种异常机制</a></h2>
             <div class="post-meta">May 12, 2020</div>
             <div class="post-excerpt">
@@ -126,33 +140,11 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">Mybatis之mapper接口编程</a></h2>
-            <div class="post-meta">Sep 24, 2019</div>
-            <div class="post-excerpt">
-                面向接口编程的思路  创建pojo（javaBean）类
- 创建接口
- 创建接口对应的mapper文件
-注意：
-1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
- 
-  如果用读取文件的方式，则不用在同一个包下如下
-&lt;mappers&gt; &lt;mapper resource=&#34;mapper/*.xml&#34;/&gt; &lt;/mappers&gt; 2）mapper文件的namespace取值必须和接口的全路径相同
-3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
-4）多参传递可以不写parameterType属性
-5）参数的下标书写 &lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
-6）参数的占位书写
-7）参数的声明书写 方法中用@Param声明。
-4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
-InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); } &emsp;
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/14/" class="previous">PREV</a>
-        <span class="page_number ">15 of 16</span>
+        <span class="page_number ">15 of 17</span>
         <a href="/page/16/" class="next">NEXT</a>
     </div>
 </div>
@@ -179,6 +171,10 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
         
         <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
         </li>
         
         <li>
@@ -227,10 +223,6 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
         
         <li>
             <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

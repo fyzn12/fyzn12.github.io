@@ -76,6 +76,22 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/">Ubuntu搭建单机版k8s</a></h2>
+            <div class="post-meta">Jul 01, 2021</div>
+            <div class="post-excerpt">
+                ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
+ echo &#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
+执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
+ 查看到这个错误之后 执行sudo gpg &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &ndash;export &ndash;armor 上面相同的keys | sudo apt-key add -
+注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
+sudo apt-get update
+4、关闭虚拟内存
+sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
+5、执行安装 (sudo视操作者情况决定是否加)apt-get install kubelet kubeadm kubectl kubernetes-cni
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/java/cas/">CAS</a></h2>
             <div class="post-meta">Jun 18, 2021</div>
             <div class="post-excerpt">
@@ -140,21 +156,11 @@ G1是逻辑分代，物理不分代
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/">SpringBoot使用@ComponentScan的Controller失效原因分析 </a></h2>
-            <div class="post-meta">Jun 18, 2021</div>
-            <div class="post-excerpt">
-                SpringBoot使用@ComponentScan的Controller失效原因分析  环境背景 在搭建整个架构过程中，启动类正常放在controller包外 启动类的注解如下：
-@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka @ComponentScan(&#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } 造成项目启动后，controller包下的路径无法访问 @ComponentScan 默认扫描使用该注解的类所在的包,包括这个包下的类和子包, 所以如果没有配置basepackages,并且类都放在子包中,是可以正常访问的 * 如果配置了@ComponentScn中的basepackages,那么就要把所有需要扫描的包都配置. * 这种情况下,@ComponentScan是不会再去扫描当前类所在的包的. * 之前我之所以以为@ComponentScan对启动类之外的包无能为力, * 这里没有配置controller类的包,导致程序无法访问. * 这里必须配置扫描当前启动类的包，不然当前启动类对应的控制器将失效 修改成一下:
-@SpringBootApplication @Slf4j @EnableTransactionManagement @EnableKafka //@ComponentScan(&#34;com.seconds&#34;) @MapperScan(annotationClass = Repository.class, basePackages = &#34;com.seconds.dao&#34;) public class SecondsApplication { public static void main(String[] args) { SpringApplication.run(SecondsApplication.class, args); } } //或者将当前的controller包也扫描到注解中  @SpringBootApplication @MapperScan(annotationClass = Repository.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/" class="previous">PREV</a>
-        <span class="page_number ">2 of 16</span>
+        <span class="page_number ">2 of 17</span>
         <a href="/page/3/" class="next">NEXT</a>
     </div>
 </div>
@@ -181,6 +187,10 @@ G1是逻辑分代，物理不分代
         
         <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
         </li>
         
         <li>
@@ -229,10 +239,6 @@ G1是逻辑分代，物理不分代
         
         <li>
             <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

@@ -76,6 +76,28 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/mybatis/mapper%E7%BC%96%E7%A8%8B/">Mybatis之mapper接口编程</a></h2>
+            <div class="post-meta">Sep 24, 2019</div>
+            <div class="post-excerpt">
+                面向接口编程的思路  创建pojo（javaBean）类
+ 创建接口
+ 创建接口对应的mapper文件
+注意：
+1）mapper文件名必须和接口名相同，如接口名为ITeacher则mapper名为ITeacher（并且在同一个包下，实践得到）,如果使用扫描包的方式，那么两者必须在同一个包下，如
+ 
+  如果用读取文件的方式，则不用在同一个包下如下
+&lt;mappers&gt; &lt;mapper resource=&#34;mapper/*.xml&#34;/&gt; &lt;/mappers&gt; 2）mapper文件的namespace取值必须和接口的全路径相同
+3）mapper中的SQL声明的id必须和接口中的方法名相同，如接口中声明方法seleteAll则sql的id必须为seleteAll
+4）多参传递可以不写parameterType属性
+5）参数的下标书写 &lt;selete * from teacher where name=#{0} and age=#{1}表示方法中传的参数的第一个参数和第二个参数
+6）参数的占位书写
+7）参数的声明书写 方法中用@Param声明。
+4. 读取mybatis-config.xml文件获取数据库的连接，以及读取mapper文件，得到InputStream对象，创建SqlSessionFactory对象，利用SqlSessionFactory对象建立session连接通过openSession（）方法
+InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybatis-config.xml is = Resources.getResourceAsStream(&#34;mybatis-config.xml&#34;); // 2.通过文件流,创建一个sqlSessionFactory SqlSessionFactory factory = new SqlSessionFactoryBuilder() .build(is); // 3.通过工厂创建一个数据库的连接session session = factory.openSession(); } catch (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); } &emsp;
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"></a></h2>
             <div class="post-meta">Jan 01, 0001</div>
             <div class="post-excerpt">
@@ -134,20 +156,12 @@ volatile解决不了原子性
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/new-document/">二维数组中由1构成的最大正方形</a></h2>
-            <div class="post-meta">Jan 01, 0001</div>
-            <div class="post-excerpt">
-                 
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/15/" class="previous">PREV</a>
-        <span class="page_number ">16 of 16</span>
-        
+        <span class="page_number ">16 of 17</span>
+        <a href="/page/17/" class="next">NEXT</a>
     </div>
 </div>
             </div>
@@ -173,6 +187,10 @@ volatile解决不了原子性
         
         <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
         </li>
         
         <li>
@@ -221,10 +239,6 @@ volatile解决不了原子性
         
         <li>
             <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

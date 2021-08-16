@@ -94,6 +94,45 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
         </li>
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">Volatile和synchronized底层实现</a></h2>
+            <div class="post-meta">Aug 11, 2021</div>
+            <div class="post-excerpt">
+                 volatile 硬件屏障  各个硬件的内存屏障不同
+ 内存屏障  LoadLoad屏障
+对于这样的语句 Load1;LoadLoad;Load2;
+在Load2及后续读取操作要读取得数据被访问前，保证Load1要读取的数据被读取完毕。
+ StoreStore屏障
+对于这样的语句 Store1;StoreStore;Store2;
+在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。
+ LoadStore屏障
+对于这样的语句 Load1;LoadStore;Store2;
+在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。
+ StoreLoad屏障
+对于这样的语句 Store1;StoreLoad;Load2;
+在Load2及后续所有读取操作执行前，保证Store1的写入对所有的处理器可见
+  volatile的实现细节  字节码层面
+ACC_VOLATILE 加了这样一个标识
+ JVM层面 &ndash;读取到字节码上的ACC_VOLATILE标识加下面的内存屏障
+StoreStoreBarrier LoadLoadBarrier 内存
+volatile写操作 volatile读操作
+StoreStoreBarrier LoadLoadBarrier 内存
+也就是在volatile内存区的读写都加屏障
+ OS和硬件层面
+需要用hsdis查看
+windows 就是lock指令实现
+  synchronized的实现  字节码层面
+ACC_SYNCHRONIZED 标识
+monitorenter 实现
+monitorexit 实现
+ JVM层面
+C 和C++调用操作系统提供的同步机制
+ OS和硬件层面
+lock指令
+  
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/java/word_list/">单词学习</a></h2>
             <div class="post-meta">Aug 11, 2021</div>
             <div class="post-excerpt">
@@ -134,27 +173,11 @@ Buffer使用时，静态方法，用于分配Buffer内存资源 // 分配Buffer�
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/">Ubuntu搭建单机版k8s</a></h2>
-            <div class="post-meta">Jul 01, 2021</div>
-            <div class="post-excerpt">
-                ubuntu18搭建单机版k8s  环境配置 1、 添加kubernetes的源
- echo &#34;deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main&#34; | sudo tee -a /etc/apt/sources.list.d/kubernetes.list 或者直接vim /etc/apt/sources.list 在后面添加deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main  2、 为源申请key
-执行 apt-get update 这一步一般执行都会报错 因为不同版本的keys不同，执行之后会报如下错误
- 查看到这个错误之后 执行sudo gpg &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 后面是错误提示的keys 再执行 sudo gpg &ndash;export &ndash;armor 上面相同的keys | sudo apt-key add -
-注意 --在markdown 编译后会变成一条横杠，其实这里是两条横杠  3、更新源
-sudo apt-get update
-4、关闭虚拟内存
-sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那一行，推荐永久关闭
-5、执行安装 (sudo视操作者情况决定是否加)apt-get install kubelet kubeadm kubectl kubernetes-cni
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         
-        <span class="page_number ">1 of 16</span>
+        <span class="page_number ">1 of 17</span>
         <a href="/page/2/" class="next">NEXT</a>
     </div>
 </div>
@@ -181,6 +204,10 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
         
         <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
         </li>
         
         <li>
@@ -229,10 +256,6 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
         
         <li>
             <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

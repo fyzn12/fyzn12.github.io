@@ -76,6 +76,24 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/redis/jedis/">Redis之java客户端</a></h2>
+            <div class="post-meta">Jul 08, 2020</div>
+            <div class="post-excerpt">
+                1 jedis的简单介绍 1.1 Jedis是什么 直观来说，jedis就是redis-cli   1.2 引入jedis的依赖包 &lt;!-- 引入jedis的依赖包 --&gt; &lt;dependency&gt; &lt;groupId&gt;redis.clients&lt;/groupId&gt; &lt;artifactId&gt;jedis&lt;/artifactId&gt; &lt;version&gt;2.9.3&lt;/version&gt; &lt;type&gt;jar&lt;/type&gt; &lt;scope&gt;compile&lt;/scope&gt; &lt;/dependency&gt;  1.3 jedis直连  生成一个Jedis对象，这个对象负责和指定Redis节点进行通信
+Jedis jedis = new Jedis(&ldquo;127.0.0.1&rdquo;,6379);
+ jedis执行set操作
+jedis.set(&ldquo;hello&rdquo;,&ldquo;world&rdquo;);
+ jedis执行get操作，value=&ldquo;world&rdquo;
+String value = jedis.get(&ldquo;hello&rdquo;);
+   Jedis构造函数的简单介绍 Jedis构造方法的参数 Jedis(String host,int port,int connectionTimeout,int soTimeout); host:Redis节点的所在机器的IP； port：Redis节点的端口； connectionTimeout：客户端连接超时； soTimeout：客户端读写超时；  1.4 Jedis直连和连接池的对比  2 redis的具体实现 2.1 慢查询  生命周期
+ 三个命令
+ 两个配置
+ 运维经验
+  2.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/database/database/">数据库易忘知识点总结</a></h2>
             <div class="post-meta">Jul 01, 2020</div>
             <div class="post-excerpt">
@@ -139,29 +157,11 @@ delete from 表名&mdash;不推荐使用。有多少条记录就会执行多少�
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud-eureka/">SpringCloud之Eureka2.0服务注册中心</a></h2>
-            <div class="post-meta">Jun 24, 2020</div>
-            <div class="post-excerpt">
-                SpringCloud之Eureka2.0服务注册中心 1 了解相关概念 1.1 微服务架构如何拆分  微服务架构把每一个职责单一功能存放在独立的服务中
- 每个服务运行在单独的进程中
- 每个服务有自己独立数据库存储、实际上有自己独立的缓存、数据库、消息队列等
-  1.2 微服务架构与SOA架构区别  微服务架构基于SOA架构演变过来，继承SOA架构优点，在微服务架构中去除SOA架构中的ESB消息总线，采用http+json（restful）进行传输。
- 微服务架构比SOA架构粒度会更加精细，让专业的人去做专业的事。
- SOA架构中可能数据存储会发生共享，微服务架构强调每个服务都是单独的数据库，保证每个服务与服务之间互不影响。
-  1.3 一线简单的概念 1.3.1 服务治理 服务治理： 阿里巴巴开源的Dubbo和当当网在基础上扩展的Dubbox，Eureka，Apache的Consul等 1.3.2 服务注册与发现 RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）  服务注册与服务发现原理，在任何的RPC远程调用框架中，都会有一个注册中心。
- 注册中心的概念：存放服务地址相关信息（接口地址） SpringCloud中支持一下三种注册中心
-Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zookeeper     springcloud组件架构图
-
-  2 SpringCloud支持的三种注册中心详解 2.1 Eureka注册中心环境搭建 2.1.1 配置基于单集群的环境 1. 配置pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-study-server&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;jar&lt;/packaging&gt; &lt;name&gt;springcloud-study-server Maven Webapp&lt;/name&gt; &lt;!
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/11/" class="previous">PREV</a>
-        <span class="page_number ">12 of 16</span>
+        <span class="page_number ">12 of 17</span>
         <a href="/page/13/" class="next">NEXT</a>
     </div>
 </div>
@@ -188,6 +188,10 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
         </li>
         
         <li>
@@ -236,10 +240,6 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
         
         <li>
             <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

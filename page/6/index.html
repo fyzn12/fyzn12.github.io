@@ -76,6 +76,18 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/">旋转数组的问题</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                1.数组一次旋转的问题  题目描述：
+  1.1 题目分析  处于递增：low上移
+ 处于递减：high下移（如果是high-1，则可能会错过最小值，因为找的就是最小值）
+ 其余情况：low++缩小范围
+   1.2 根据算法分析，编写程序实现如下 public int minNumberInRotateArray(int [] array) { int left = 0,right = array.length-1,mid; while(left&lt;right){ mid = left + ((right-left)&gt;&gt;1); if(array[mid]&gt;array[right]){ left = mid+1; }else{ right = mid; } } return array[right]; }  2. 数组变换找目标值的问题  题目描述：给出一个转动过的有序数组，你事先不知道该数组转动了多少 (例如,0 1 2 4 5 6 7可能变为4 5 6 7 0 1 2). 在数组中搜索给出的目标值，如果能在数组中找到，返回它的索引，否则返回-1。 假设数组中不存在重复项。
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%89%BE%E6%9C%AA%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B4%E6%95%B0%E5%80%BC/">在无序数组中找出最小的正整数</a></h2>
             <div class="post-meta">Dec 01, 2020</div>
             <div class="post-excerpt">
@@ -126,23 +138,11 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E7%BB%84/">数组</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                总结与数组有关的算法题：
-数组的概念：占据一块连续的内存，并按照顺序存储数组。
-算法题： 在一个二维数组中，每一行都按照从左右到右顺序排序，每一列从上到下都按照顺序排序。给定一个数，若存在于数组中则返回true
- public static Boolean checkNum(int[][] arr,int target){ int row = 0; int column = arr[0].length-1; while (row&lt;arr.length &amp;&amp; column &gt;=0){ if (arr[row][column]==target){ return true; } if (arr[row][column]&gt;target){ column--; }else { row++; } } return false; }  1.判断一个数是奇数还是偶数的方法  使用除2取余的方式 如 4%2 判断余数是否为0，是则为偶数，不是则为奇数 将判断的数与1做按位与运算，结果为1则为奇数，为0则为偶数
-  2.交换两个数字的位置  使用第三变量 如 int tmp = a; a = b;b = tmp; 使用异或运算 如 a ^= b; b ^= a; a ^= b;这样既可将两个数字交换位置
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/5/" class="previous">PREV</a>
-        <span class="page_number ">6 of 16</span>
+        <span class="page_number ">6 of 17</span>
         <a href="/page/7/" class="next">NEXT</a>
     </div>
 </div>
@@ -169,6 +169,10 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
         
         <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
         </li>
         
         <li>
@@ -217,10 +221,6 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
         
         <li>
             <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

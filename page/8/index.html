@@ -76,6 +76,18 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/spring-boot/upload/">SpringBoot结合antd组件Upload实现文件上传</a></h2>
+            <div class="post-meta">Oct 02, 2020</div>
+            <div class="post-excerpt">
+                项目实现的背景介绍，当后台采用Spring Security验证信息，用户登录token保存在header中
+用户每次请求需要携带对应的header和用户角色的情况时，记录一下问题
+前后端分离，后台使用SpringBoot 前端采用antd pro react
+ 一、 后端编写业务代码过程中遇到的错误点 1. 配置SpringBoot文件上传 ## ******************************* 配置文件上传 *********************************** # 是否启用SpringMVC多分部上传功能 spring.servlet.multipart.enabled=true # 将文件写入磁盘的阀值。值可以使用后缀“MB”或“KB”来表示兆字节或字节大小 spring.servlet.multipart.file-size-threshold=0 # 指定默认上传的文件夹 # spring.servlet.multipart.location=/upload # 限制单个文件最大大小 spring.servlet.multipart.max-file-size=1MB # 限制所有文件最大大小 spring.servlet.multipart.max-request-size=10MB # 是否延迟多部件文件请求的参数和文件的解析 spring.servlet.multipart.resolve-lazily=false ## *********************** 配置静态资源文件 读取静态文件的依赖 *************************************** spring.resources.static-locations=classpath:/static/ # 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的 # application.properties配置文件中设置静态资源路径，如下所示： # 设置静态资源路径，多个以逗号分隔 # spring.resources.static-locations=classpath:static/,file:static/ spring.mvc.static-path-pattern=/static/**   上面简单的配置实现了springboot上传文件的配置，避免了SpringMVC复杂的xml文件的配置
+ 以jar包发布项目时，我们存储的路径是与jar包同级的static目录，因此我们需要在jar包目录的application.properties配置文件中设置静态资源路径，如下所示：设置静态资源路径，多个以逗号分隔 spring.resources.static-locations=classpath:static/,file:static/   2. 后端采用SpringMVC的MultipartFile接受前端发过来的参数 @PostMapping(&#34;/modification-avatar&#34;) public Map&lt;String, Object&gt; update(@RequestParam(value = &#34;file&#34;,required = false) MultipartFile file, HttpServletRequest request) throws FileNotFoundException { User user = getUserUtils.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">求两个有序数组的中位数</a></h2>
             <div class="post-meta">Sep 25, 2020</div>
             <div class="post-excerpt">
@@ -131,22 +143,11 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/linkedlist/">LinkedList以及栈的深度理解</a></h2>
-            <div class="post-meta">Sep 11, 2020</div>
-            <div class="post-excerpt">
-                算法背景:给定一个只包括 &lsquo;(&lsquo;，&rsquo;)&lsquo;，&rsquo;{&lsquo;，&rsquo;}&lsquo;，&rsquo;[&lsquo;，&rsquo;]&rsquo; 的字符串，判断字符串是否有效。
-有效字符串需满足：
-左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。
- 1 首先了解LinkedList的底层实现 1.1 LinkedList的底层实现 LinkedList的底层是基于 双向链表 实现，使用Node存储链表节点信息。源码如下 private static class Node&lt;E&gt; { E item; Node&lt;E&gt; next; Node&lt;E&gt; prev; } 每个链表都存储了first和last指针； transient Node&lt;E&gt; first; transient Node&lt;E&gt; last;   2 设计算法，实现上面的需求 2.1 算法的实现 public static boolean isValid(String s) { int n = s.length(); if (n % 2 == 1) { return false; } Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() {{ put(&#39;)&#39;, &#39;(&#39;); put(&#39;]&#39;, &#39;[&#39;); put(&#39;}&#39;, &#39;{&#39;); }}; Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;(); for (int i = 0; i &lt; n; i++) { char ch = s.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/7/" class="previous">PREV</a>
-        <span class="page_number ">8 of 16</span>
+        <span class="page_number ">8 of 17</span>
         <a href="/page/9/" class="next">NEXT</a>
     </div>
 </div>
@@ -173,6 +174,10 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         
         <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
         </li>
         
         <li>
@@ -221,10 +226,6 @@ public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree
         
         <li>
             <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

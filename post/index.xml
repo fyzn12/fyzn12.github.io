@@ -24,6 +24,7 @@ java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数�
 Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
 Channels Buffers Selectors  其他组件
 其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+
 Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
  FileChannel DatagramChannel SocketChannel ServerSocketChannel
   这些通道覆盖了UDP和TCP网络IO，以及文件IO。</description>

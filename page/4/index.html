@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-07-28T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,42 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/">链表求和及字符串求和</a></h2>
+            <div class="post-meta">Dec 31, 2020</div>
+            <div class="post-excerpt">
+                1.对字符串求和  题目描述： 以字符串的形式读入两个数字，编写一个函数计算它们的和，以字符串形式返回。 （字符串长度不大于100000，保证字符串仅由’0’~‘9’这10种字符组成）
+输入：”1”,“99” 输出：”100”
+ /** * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可 * 计算两个数之和 * @param s string字符串 表示第一个整数 * @param t string字符串 表示第二个整数 * @return string字符串 */ public String solve (String s, String t) { int i = s.length()-1,j = t.length()-1,carry=0; StringBuilder str = new StringBuilder(); while(i&gt;=0 || j&gt;=0 || carry!=0){ int x = i&lt;0?0:s.charAt(i--)-&#39;0&#39;; int y = j&lt;0?0:t.charAt(j--)-&#39;0&#39;; str.apend((x+y+carry)%10); carry = (x+y+carry)/10; } return str.reverse().toString(); }  2.链表的求和 3.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/">二叉树根节点到叶子节点和为指定值的路径集问题</a></h2>
+            <div class="post-meta">Dec 29, 2020</div>
+            <div class="post-excerpt">
+                分析  寻找满足指定值的路径集转换为二叉树的前序遍历（根-左-右）
+使用回朔（递归）的方式实现
+ /** * * @param root TreeNode类 * @param sum int整型 * @return int整型ArrayList&lt;ArrayList&lt;&gt;&gt; */ ArrayList&lt;ArrayList&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); ArrayList&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;(); public ArrayList&lt;ArrayList&lt;Integer&gt;&gt; pathSum (TreeNode root, int sum) { if(root == null)return res; dsf(root,sum,0); return res; } public void dsf(TreeNode root, int sum,int count){ //设置递归终止条件 	if(root == null)return ; list.add(root.val); count += root.val; if(root.left == null &amp;&amp; root.right == null){ if(count == sum)res.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%AF%E8%B7%AF%E5%BE%84/">矩阵的最小路路径</a></h2>
+            <div class="post-meta">Dec 29, 2020</div>
+            <div class="post-excerpt">
+                求解最值问题利用动态规划算法解决  题目描述：给定一个 n * m 的矩阵 a，从左上角开始每次只能向右或者向下走，最后到达右下角的位置，路径上所有的数字累加起来就是路径和，输出所有的路径中最小的路径和。
+示例1：
+输入：[[1,3,5,9],[8,1,3,4],[5,0,6,1],[8,8,4,0]]
+返回值：12
+备注：1≤n,m≤2000
+ 思路分析：  求最值问题首先就是构建辅助数组dp
+路径的走向只能是向右或者是向下，则可以将没有元素的对于的和求解出来构建一个新的二维表
+二维表中国填写当前值与前一次值之和，取左下右上的两值的最小值与当前值求和填充表格
+ /** * * @param matrix int整型二维数组 the matrix * @return int整型 */ public int minPathSum (int[][] matrix) { if(matrix==null)return 0; //构建列 	int row = matrix.length; int column = matrix[0].length; //构建列的值 	for(int i = 1;i&lt;row;i++)matrix[i][0] = matrix[i-1][0]+matrix[i][0]; //构建行的值 	for(int j = 1;j&lt;column;j++)matrix[0][j] = matrix[0][j-1] + matrix[0][j]; //填充中间数据 	for(int i = 1;i&lt;row;i++){ for(int j=1;j&lt;column;j++) matrix[i][j] = Math.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B9%8B%E5%AD%97%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/">二叉树的之字型层次遍历</a></h2>
             <div class="post-meta">Dec 26, 2020</div>
             <div class="post-excerpt">
@@ -99,51 +135,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E8%BD%AC%E7%9A%84%E5%8F%98%E5%BD%A2/">字符串变形</a></h2>
-            <div class="post-meta">Dec 23, 2020</div>
-            <div class="post-excerpt">
-                1. 解决此题的关键是如何将大小写字符转换 1.1 判断 字符是a-z 或者 A-Z是关键  每一个字符都有一个对应的ASII码，因此可以利用这一点来做
- 1.2 大小写转换  将字符串从小写转换为大写可以如下表达：
-ch[j] = (char)(ch[j]-&lsquo;a&rsquo;+&lsquo;A&rsquo;);
-将字符串从大写转换为小写可以如下表达：
-ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
-题目描述如下
-  public String trans(String s, int n) { // write code here  String[] str = s.split(&#34; &#34;,-1); StringBuilder res = new StringBuilder(); for(int i = str.length-1;i&gt;=0;i--){ String tmp = str[i]; char[] ch = tmp.toCharArray(); for(int j = 0;j&lt;ch.length;j++){ if(ch[j]&gt;=&#39;a&#39; &amp;&amp; ch[j]&lt;=&#39;z&#39;) ch[j] = (char)(ch[j]-&#39;a&#39;+&#39;A&#39;); else if(ch[j] &gt;= &#39;A&#39; &amp;&amp; ch[j]&lt;=&#39;Z&#39;) ch[j] = (char)(ch[j] -&#39;A&#39;+&#39;a&#39;); } res.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/">二分法使用无符号位右移运算求解上中位数</a></h2>
-            <div class="post-meta">Dec 18, 2020</div>
-            <div class="post-excerpt">
-                获取中间值的方式一般是 int mid = left + (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left+1） 效率更高如下： int mid = left + ((right-left)&gt;&gt;1);
- 1.有符号右移 &gt;&gt;  有符号右移：右移之后，左边补上符号为，正数补0，负数补1.
- 2.无符号位右移 &gt;&gt;&gt;  无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。
- 3.左移 &lt;&lt;  左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。
- 4.计算除法时（2的n次方）可以使用有符号的右移  20 的二进制位 10100 有符号位右移2位后为 101 十进制解释表示为 20&frasl;4=5（取整）
-20 的二进制位 10100 左移2位后 1010000 十进制结果为81
- 5.判奇数偶数的方法  (num &amp; 1) == 0表示为偶数 (num &amp; 1) == 1表示为奇数
- 这里注意一个遇到的坑 使用 int mid = left + ((right-left)&gt;&gt;1); 时切记+号后面是加一个整体，因此需要将((right-left)&gt;&gt;1)括起来。 6.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/">二叉树的镜像问题</a></h2>
-            <div class="post-meta">Dec 18, 2020</div>
-            <div class="post-excerpt">
-                题目描述如下图所示：
-
-解题思路：利用栈的先进后出特性去做；也可以利用队列去做，只要保证right先进队列就行
- import java.util.*; /** public class TreeNode { int val = 0; TreeNode left = null; TreeNode right = null; public TreeNode(int val) { this.val = val; } } */ public class Solution { public void Mirror(TreeNode root) { if(root==null)return; Stack&lt;TreeNode&gt; stack = new Stack&lt;TreeNode&gt;(); stack.push(root); while(!stack.isEmpty()){ TreeNode tn = stack.pop(); if(tn.left != null||tn.right != null){ TreeNode temp = tn.left; tn.left = tn.right; tn.right = temp; } if(tn.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/3/" class="previous">PREV</a>
-        <span class="page_number ">4 of 15</span>
+        <span class="page_number ">4 of 16</span>
         <a href="/page/5/" class="next">NEXT</a>
     </div>
 </div>
@@ -169,6 +165,18 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
         </li>
         
@@ -177,7 +185,7 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
         </li>
         
         <li>
@@ -185,7 +193,7 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
         </li>
         
         <li>
@@ -197,7 +205,7 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
         </li>
         
         <li>
@@ -205,23 +213,11 @@ ch[j] = (char)(ch[j] -&lsquo;A&rsquo;+&lsquo;a&rsquo;);
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

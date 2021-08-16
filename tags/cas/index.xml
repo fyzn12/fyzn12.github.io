@@ -13,10 +13,10 @@
     
     <item>
       <title>CAS</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</link>
+      <link>https://fyzn12.github.io/post/java/cas/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</guid>
+      <guid>https://fyzn12.github.io/post/java/cas/</guid>
       <description>CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
 因为经常配合循环操作，直到完成为止，所以泛指一类操作
 cas(v, a, b) ，变量v，期待值a, 修改值b

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>NIO 学习笔记 - fyzn12</title>
+
+<meta name="description" content="1. NIO 学习笔记  1.1 概念了解 java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。
+   工作方式的比较:
+- Java NIO: Channel and Buffer (通道和缓冲区) 数据总是从通道读取到缓冲区， 或者是从缓冲区写入到通道中。 - 标准IO： 标准IO基于字节流和字符流进行操作  Java NIO: Non-blocking IO（非阻塞IO）
+java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他 事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  Java NIO: Selectors（选择器）
+Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
+Channels Buffers Selectors  其他组件
+其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
+ FileChannel DatagramChannel SocketChannel ServerSocketChannel
+  这些通道覆盖了UDP和TCP网络IO，以及文件IO。" /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="NIO 学习笔记" />
+<meta property="og:description" content="1. NIO 学习笔记  1.1 概念了解 java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。
+   工作方式的比较:
+- Java NIO: Channel and Buffer (通道和缓冲区) 数据总是从通道读取到缓冲区， 或者是从缓冲区写入到通道中。 - 标准IO： 标准IO基于字节流和字符流进行操作  Java NIO: Non-blocking IO（非阻塞IO）
+java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他 事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  Java NIO: Selectors（选择器）
+Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
+Channels Buffers Selectors  其他组件
+其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
+ FileChannel DatagramChannel SocketChannel ServerSocketChannel
+  这些通道覆盖了UDP和TCP网络IO，以及文件IO。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java/java-nio/" />
+<meta property="article:published_time" content="2021-08-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-11T00:00:00+00:00" />
+<meta itemprop="name" content="NIO 学习笔记">
+<meta itemprop="description" content="1. NIO 学习笔记  1.1 概念了解 java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。
+   工作方式的比较:
+- Java NIO: Channel and Buffer (通道和缓冲区) 数据总是从通道读取到缓冲区， 或者是从缓冲区写入到通道中。 - 标准IO： 标准IO基于字节流和字符流进行操作  Java NIO: Non-blocking IO（非阻塞IO）
+java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他 事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  Java NIO: Selectors（选择器）
+Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
+Channels Buffers Selectors  其他组件
+其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
+ FileChannel DatagramChannel SocketChannel ServerSocketChannel
+  这些通道覆盖了UDP和TCP网络IO，以及文件IO。">
+
+
+<meta itemprop="datePublished" content="2021-08-11T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-08-11T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="79">
+
+
+
+<meta itemprop="keywords" content="NIO," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="NIO 学习笔记"/>
+<meta name="twitter:description" content="1. NIO 学习笔记  1.1 概念了解 java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。
+   工作方式的比较:
+- Java NIO: Channel and Buffer (通道和缓冲区) 数据总是从通道读取到缓冲区， 或者是从缓冲区写入到通道中。 - 标准IO： 标准IO基于字节流和字符流进行操作  Java NIO: Non-blocking IO（非阻塞IO）
+java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他 事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  Java NIO: Selectors（选择器）
+Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
+Channels Buffers Selectors  其他组件
+其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
+ FileChannel DatagramChannel SocketChannel ServerSocketChannel
+  这些通道覆盖了UDP和TCP网络IO，以及文件IO。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">NIO 学习笔记</h1>
+        <p class="post-meta">Aug 11, 2021</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<h1 id="1-nio-学习笔记">1. NIO 学习笔记</h1>
+
+<blockquote>
+<h2 id="1-1-概念了解">1.1 概念了解</h2>
+
+<p>java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。</p>
+</blockquote>
+</blockquote>
+
+<ol>
+<li><p>工作方式的比较:</p>
+<div class="highlight"><pre class="chroma">- Java NIO:    
+    Channel and Buffer (通道和缓冲区)    
+    数据总是从通道读取到缓冲区，   
+    或者是从缓冲区写入到通道中。  
+
+- 标准IO：
+    标准IO基于字节流和字符流进行操作   </pre></div></li>
+
+<li><p>Java NIO: Non-blocking IO（非阻塞IO）</p>
+<div class="highlight"><pre class="chroma">    java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他    
+    事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  </pre></div></li>
+
+<li><p>Java NIO: Selectors（选择器）</p>
+<div class="highlight"><pre class="chroma">    Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  </pre></div></li>
+
+<li><p>核心组成部分</p>
+<div class="highlight"><pre class="chroma"> Channels
+ Buffers
+ Selectors  </pre></div></li>
+
+<li><p>其他组件</p>
+<div class="highlight"><pre class="chroma">其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。  </pre></div></li>
+</ol>
+
+<blockquote>
+<blockquote>
+<h2 id="1-2-channel-和-buffer">1.2 Channel 和 Buffer</h2>
+</blockquote>
+</blockquote>
+
+<p>基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。</p>
+
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="./channel-buffer.PNG" alt="avatar" class="lazyload"></figure></p>
+
+<p>Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：</p>
+
+<ul>
+<li>FileChannel</li>
+<li>DatagramChannel</li>
+<li>SocketChannel</li>
+<li>ServerSocketChannel<br /></li>
+</ul>
+
+<p>这些通道覆盖了UDP和TCP网络IO，以及文件IO。</p>
+
+<p>以下是Java NIO里关键的Buffer实现：</p>
+
+<ul>
+<li>ByteBuffer</li>
+<li>CharBuffer</li>
+<li>DoubleBuffer</li>
+<li>FloatBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>ShortBuffer<br />
+
+<br /></li>
+</ul>
+
+<p>这些Buffer覆盖了你能通过IO发送的基本数据类型：byte, short, int, long, float, double 和 char。</p>
+
+<p>Java NIO 还有个 MappedByteBuffer，用于表示内存映射文件</p>
+
+<blockquote>
+<blockquote>
+<h2 id="1-3-selector">1.3 Selector</h2>
+</blockquote>
+</blockquote>
+
+<p>Selector允许单线程处理多个 Channel。如果你的应用打开了多个连接（通道），但每个连接的流量都很低，使用Selector就会很方便。例如，在一个聊天服务器中。</p>
+
+<p>这是在一个单线程中使用一个Selector处理3个Channel的图示：</p>
+
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="./selector.PNG" alt="avatar" class="lazyload"></figure></p>
+
+<p>要使用Selector，得向Selector注册Channel，然后调用它的select()方法。这个方法会一直阻塞到某个注册的通道有事件就绪。一旦这个方法返回，线程就可以处理这些事件，事件的例子有如新连接进来，数据接收等。</p>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/java/word_list/">
+            单词学习
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

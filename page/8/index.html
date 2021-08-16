@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-07-28T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,44 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AF%BB%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0/">求两个有序数组的中位数</a></h2>
+            <div class="post-meta">Sep 25, 2020</div>
+            <div class="post-excerpt">
+                  给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
+ leetcode给出从时间复杂度和空间复杂度最优解分析 方法一：二分查找 给定两个有序数组，要求找到两个有序数组的中位数，最直观的思路有以下两种：
+使用归并的方式，合并两个有序数组，得到一个大的有序数组。大的有序数组的中间位置的元素，即为中位数。 不需要合并两个有序数组，只要找到中位数的位置即可。由于两个数组的长度已知，因此中位数对应的两个数 组的下标之和也是已知的。维护两个指针，初始时分别指向两个数组的下标 000 的位置，每次将指向较小 值的指针后移一位（如果一个指针已经到达数组末尾，则只需要移动另一个数组的指针），直到到达中位数 的位置。 假设两个有序数组的长度分别为 m 和 n，上述两种思路的复杂度如何？
+第一种思路的时间复杂度是 O(m+n)，空间复杂度是 O(m+n)。第二种思路虽然可以将空间复杂度降到 O(1)，但是时间复杂度仍是 O(m+n)。题目要求时间复杂度是 O(log⁡(m+n))，因此上述两种思路都不满足题目要求的时间复杂度。
+如何把时间复杂度降低到 O(log⁡(m+n)) 呢？如果对时间复杂度的要求有 log，通常都需要用到二分查找，这道题也可以通过二分查找实现。
+根据中位数的定义，当 m+n 是奇数时，中位数是两个有序数组中的第 (m+n)/2 个元素，当 m+n 是偶数时，中位数是两个有序数组中的第 (m+n)/2 个元素和第 (m+n)/2+1 个元素的平均值。因此，这道题可以转化成寻找两个有序数组中的第 k 小的数，其中 k 为 (m+n)/2 或 (m+n)/2+1。
+注意：以上分析思路来自于leetcode官方阶梯思路 
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/tree/">二叉树</a></h2>
+            <div class="post-meta">Sep 23, 2020</div>
+            <div class="post-excerpt">
+                二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/command-design/">命令模式</a></h2>
+            <div class="post-meta">Sep 21, 2020</div>
+            <div class="post-excerpt">
+                  命令模式的简单介绍
+ 1 命令模式的介绍 1.1 命令模式的结构 
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
             <div class="post-meta">Sep 19, 2020</div>
             <div class="post-excerpt">
@@ -104,39 +142,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Xml字符编码规范</a></h2>
-            <div class="post-meta">Sep 11, 2020</div>
-            <div class="post-excerpt">
-                 xml字符编码规范
- &lt; &lt;(小于) &gt; &gt;(大于) &amp; &amp;(和) &apos; &lsquo;(单引号) &quot; &ldquo;(双引号)   
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/singleton/">单例模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
-            <div class="post-excerpt">
-                单例模式的介绍
- 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
-  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/factory-pattern/">工厂模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
-            <div class="post-excerpt">
-                  工厂模式的简单介绍
- 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/7/" class="previous">PREV</a>
-        <span class="page_number ">8 of 15</span>
+        <span class="page_number ">8 of 16</span>
         <a href="/page/9/" class="next">NEXT</a>
     </div>
 </div>
@@ -162,6 +172,18 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
         </li>
         
@@ -170,7 +192,7 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
         </li>
         
         <li>
@@ -178,7 +200,7 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
         </li>
         
         <li>
@@ -190,7 +212,7 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
         </li>
         
         <li>
@@ -198,23 +220,11 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

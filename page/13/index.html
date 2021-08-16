@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-07-28T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,7 +76,45 @@
         
         
         <li>
-            <h2><a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">JVM初始化初步理解</a></h2>
+            <h2><a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">SpringCloud整合Consul注册中心</a></h2>
+            <div class="post-meta">Jun 24, 2020</div>
+            <div class="post-excerpt">
+                SpringCloud整合Consul注册中心 1 Consul简介 Consul 是 HashiCorp 公司推出的开源工具，用于实现分布式系统的服务发现与配置。与其他分布式服务注册与发现的方案，Consul的方案更“一站式”，内置了服务注册与发现框 架、具有以下性质： 分布一致性协议实现、 健康检查、 Key/Value存储、 多数据中心方案， 不再需要依赖其他工具（比如ZooKeeper等）。 2 SpringCloud整合Consul 2.1 创建会员服务 2.1.1 配置会员服务的pom文件 &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.2.2.RELEASE&lt;/version&gt; &lt;/parent&gt; &lt;groupId&gt;com.fyzn12&lt;/groupId&gt; &lt;artifactId&gt;springcloud-consul-member&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;springcloud-consul-member Maven Webapp&lt;/name&gt; &lt;!-- FIXME change it to the project&#39;s website --&gt; &lt;url&gt;http://www.example.com&lt;/url&gt; &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt; &lt;version&gt;Hoxton.SR2&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; &lt;dependencies&gt; &lt;!-- 导入springboot的启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;!-- 导入springcloud整合Zookeeper启动器--&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-starter-consul-discovery&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80/">Java基础篇</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
+==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java/jvm/">JVM</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                jvm初学篇
+ 1 JVM的启动流程  通过编辑器将java代码编辑好之后编译成java字节码，也就是.class文件；
+ 装载JVM 会通过当前路径或者系统的版本去寻找 JVM.cfg文件； 通过JVM.cfg文件寻找到 JVM.dll文件 &mdash;该文件是JVM的具体实现；
+ 初始化本地接口 JNI &mdash;如Env接口 JNI接口的作用就是负责将.class文件装载到JVM中；
+ 找到main方法并执行
+   2 JVM的内存分区  1 PC寄存器  &mdash; 每个线程拥有一个PC寄存器
+ &mdash; 在线程创建时 创建（PC寄存器）
+ &mdash; 指向下一条指令的地址
+ &mdash; 执行本地方法时，PC的值为undefined（未定义）  2 方法区  &mdash; 保存装载的类信息
+ 类型的常量池 &mdash;&ndash; 这一点得注意 ： 在JDK6时，String等常量信息是保存在方法区，但是在JDK7时，已经移到了堆； 字段、方法信息
+ 方法字节码
+  &mdash; 线程共享
+ &mdash; 通常和永久区（Perm：保存一些相对来说静止稳定的数据）关联在一起
+  3 Java堆  &mdash; 和程序开发密切相关
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">JVM初始化初步理解</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
                  要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
@@ -98,43 +136,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">几种结构</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                  数据结构的分析
- 1 队列 队列采用先进先出策略的集合类型，如图所示
-1.1 队列的入队演示 如图将 89 添加到队列中，采用的是 ： 在队列队尾添加，整个事件时间复杂度为O(1)  1.2 队列的出队演示 当队列收到出队的命令后，会将指针指向head，从而移除head的值，原先head值指向的下一个值变为head，整个事件时间复杂度为 O(1)  注意：java中还有先进先出队列，策略和基本队列相反，和下面的栈的策略相同 1.3 队列的总结，队列是采用先进先出的策略，添加元素时是在队尾添加，出队时是在队头移除或出队 2 链表 2.1 链表插入策略的演示 2.1.1 头插  2.1.2 尾插  2.1.3 中间任意部位插入 任意部位的插入首先要指定一个插入点，在插入过程中会先遍历插入点前面的元素，找到插入点元素 之后在修改插入点元素的指针，让其指向新增元素   3 栈 栈（stack）是操作受限的线性表，限定元素的插入和删除运算只能在表的一端进行，通常把进行插入删除的一端称作栈顶（top） 另一端称为栈底（bottom）  3.1 栈的五种运算  置空栈setnull（s）：将栈s设置成空栈，即不管栈的原来状态如何一律置为空栈；
- 判断栈是否为空empty(s):返回一个布尔值，当栈为空时返回1，否则返回返回0；
- 进栈push(s,x):把元素x压入栈s中，成为新的栈顶元素；
- 出栈pop(s):该操作从栈顶弹出栈顶元素并返回，栈为空时返回NULL；
- 读栈顶元素gettop(s):返回栈顶元素，该操作栈的状态不变；   栈与队列的总结 栈可以形象的比喻为一个瓶子，先进的元素只能从瓶口进，然后往瓶底走，出的时候也只能从瓶口出，而后面进的元素往往先出 队列可以看成一条管道，该管道从bottom入，top出 
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">基本排序算法总结</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                排序算法总结 1 选择排序 1.1 思路分析  ① 在0~N-1 范围上找到最小值，将其放在0位置上； ② 在1~N-1 范围上找到最小值，将其放在1位置上； &hellip; 知道确定最后一个值的位置。
-  1.2 代码实现 public static void selectionSort(int[] arr) { if (arr == null || arr.length &lt; 2) { return; } // 0 ~ N-1 找到最小值，在哪，放到0位置上  // 1 ~ n-1 找到最小值，在哪，放到1 位置上  // 2 ~ n-1 找到最小值，在哪，放到2 位置上  for (int i = 0; i &lt; arr.length - 1; i++) { int minIndex = i; // i ~ N-1 上找最小值的下标  for (int j = i + 1; j &lt; arr.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">常见算法篇</a></h2>
-            <div class="post-meta">Jun 11, 2020</div>
-            <div class="post-excerpt">
-                常见算法总结篇 递归算法 递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)+2; } 排序算法  快速排序算法 排序步骤总结如下：
-* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&#34;11&#34;,&#34;66&#34;,&#34;22&#34;,&#34;0&#34;,&#34;55&#34;,&#34;22&#34;,&#34;0&#34;,&#34;32&#34;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //先判断左右指针是否越界 if (left&gt;right){ returen; } //定义基准位置，左右移动时的指针以及中间变量 String standard,tmp; //步骤一：确定基准位置（可以随意） standard = strViod[left]; int i,j; i = left; j = right; //步骤二：初步与基准值比较，确认基准值的左右集合 while(i&lt;j){ //首先进行基准值右侧值的判断,这里建议将String转为int进行判断，别用compareTo进行判断 while(Integer.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/12/" class="previous">PREV</a>
-        <span class="page_number ">13 of 15</span>
+        <span class="page_number ">13 of 16</span>
         <a href="/page/14/" class="next">NEXT</a>
     </div>
 </div>
@@ -160,6 +166,18 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
         </li>
         
@@ -168,7 +186,7 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
         </li>
         
         <li>
@@ -176,7 +194,7 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
         </li>
         
         <li>
@@ -188,7 +206,7 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
         </li>
         
         <li>
@@ -196,23 +214,11 @@
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

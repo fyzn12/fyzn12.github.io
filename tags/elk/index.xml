@@ -48,10 +48,10 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
     
     <item>
       <title>GC和JVM</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</link>
+      <link>https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</guid>
+      <guid>https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/</guid>
       <description>GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
 GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
 C++： new delete

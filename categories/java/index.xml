@@ -6,37 +6,149 @@
     <description>Recent content in java on fyzn12</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>NIO 学习笔记</title>
+      <link>https://fyzn12.github.io/post/java/java-nio/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/java-nio/</guid>
+      <description>1. NIO 学习笔记  1.1 概念了解 java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。
+   工作方式的比较:
+- Java NIO: Channel and Buffer (通道和缓冲区) 数据总是从通道读取到缓冲区， 或者是从缓冲区写入到通道中。 - 标准IO： 标准IO基于字节流和字符流进行操作  Java NIO: Non-blocking IO（非阻塞IO）
+java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他 事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  Java NIO: Selectors（选择器）
+Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
+Channels Buffers Selectors  其他组件
+其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
+ FileChannel DatagramChannel SocketChannel ServerSocketChannel
+  这些通道覆盖了UDP和TCP网络IO，以及文件IO。</description>
+    </item>
+    
+    <item>
+      <title>单词学习</title>
+      <link>https://fyzn12.github.io/post/java/word_list/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/word_list/</guid>
+      <description> 单词学习  allocate /ˈæləkeɪt/ 分配；拨出
+Buffer使用时，静态方法，用于分配Buffer内存资源 // 分配Buffer的capacity的字节为48 ByteBuffer buf = ByteBuffer.allocate(48);  capacity /kəˈpæsəti/ 能力；容量；资格，地位；生产力
+指定一些容器的大小值    </description>
+    </item>
+    
+    <item>
+      <title>菜单树</title>
+      <link>https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
+ 菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
+数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表 	List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t.</description>
+    </item>
+    
+    <item>
+      <title>CAS</title>
+      <link>https://fyzn12.github.io/post/java/cas/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/cas/</guid>
+      <description>CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current + 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：</description>
+    </item>
+    
+    <item>
+      <title>GC和JVM</title>
+      <link>https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/</guid>
+      <description>GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
+GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
+C++： new delete
+c/C++ 手动回收内存
+Java: new ？
+自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：
+ 忘记回收 多次回收   没有任何引用指向的一个对象或者多个对象（循环引用）
+2.如何定位垃圾  引用计数（ReferenceCount） 根可达算法(RootSearching)  3.常见的垃圾回收算法  标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描） 拷贝算法 (copying) - 没有碎片，浪费空间 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）  4.JVM内存分代模型（用于分代垃圾回收算法）  部分垃圾回收器使用的模型   除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+G1是逻辑分代，物理不分代
+除此之外不仅逻辑分代，而且物理分代
+  新生代 + 老年代 + 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+ 永久代 元数据 - Class 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存） 字符串常量 1.</description>
+    </item>
+    
+    <item>
+      <title>volatile的用途</title>
+      <link>https://fyzn12.github.io/post/java/volatile/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/volatile/</guid>
+      <description>volatile的用途 1.线程可见性 package com.mashibing.testvolatile; public class T01_ThreadVisibility { private static volatile boolean flag = true; public static void main(String[] args) throws InterruptedException { new Thread(()-&amp;gt; { while (flag) { //do sth  } System.out.println(&amp;#34;end&amp;#34;); }, &amp;#34;server&amp;#34;).start(); Thread.sleep(1000); flag = false; } } 2.防止指令重排序 问题：DCL单例需不需要加volatile？ CPU的基础知识  缓存行对齐 缓存行64个字节是CPU同步的基本单位，缓存行隔离会比伪共享效率要高 Disruptor
+package com.mashibing.juc.c_028_FalseSharing; public class T02_CacheLinePadding { private static class Padding { public volatile long p1, p2, p3, p4, p5, p6, p7; //  } private static class T extends Padding { public volatile long x = 0L; } public static T[] arr = new T[2]; static { arr[0] = new T(); arr[1] = new T(); } public static void main(String[] args) throws Exception { Thread t1 = new Thread(()-&amp;gt;{ for (long i = 0; i &amp;lt; 1000_0000L; i++) { arr[0].</description>
+    </item>
+    
+    <item>
       <title>SynchronizedMap如何让HashMap具备线程安全</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</link>
+      <link>https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</link>
       <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</guid>
+      <guid>https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</guid>
       <description>问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
 SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&amp;lt;K,V&amp;gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&amp;lt;String,Long&amp;gt; user = Collections.synchronizedMap(new HashMap&amp;lt;&amp;gt;()); user.put(&amp;#34;xsj&amp;#34;,1234567l); System.</description>
     </item>
     
     <item>
       <title>xml字符编码规范</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+      <link>https://fyzn12.github.io/post/java/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</link>
       <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
+      <guid>https://fyzn12.github.io/post/java/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
       <description> xml字符编码规范
  &amp;lt; &amp;lt;(小于) &amp;gt; &amp;gt;(大于) &amp;amp; &amp;amp;(和) &amp;apos; &amp;lsquo;(单引号) &amp;quot; &amp;ldquo;(双引号)   </description>
     </item>
     
     <item>
-      <title>JVM</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/</link>
+      <title>多线程</title>
+      <link>https://fyzn12.github.io/post/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+      <pubDate>Tue, 21 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
+      <description>java多线程总结 多线程的几种实现方式  继承Thread类 重写run（）方法定义线程的行为；
+如下图所示  实现Runnable接口
+如下图所示
+    实现 Callable 接口，该接口中的 call方法可以在线程执行结束时产生一个返回值。
+使用总结：因为 Java 中的继承是单继承，一个类有一个父类，如果继承了 Thread 类就无法再继承其 他类了，显然使用 Runnable 接口更为灵活。
+实现Runnable接口比继承Thread类所具有的优势：
+1）：适合多个相同的程序代码的线程去处理同一个资源 2）：可以避免java中的单继承的限制 3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立 4）：线程池只能放入实现Runable或callable类线程，不能直接放入继承Thread的类 创建多线程的三种方式:两个接口（Runnable、Callable）一个类（Thread）  实例变量与线程安全 自定义线程类中的实例变量针对其他线程可以有共享与不共享之分。当每个线程都有各自的实例变量时，就是变量不共享。共享数据的情况就是多个线程可以访问同一个变量。 来看下面的示例：  打印的结果中存在多个线程同时对count进行操作，产生了&amp;#34;非线程安全&amp;#34;问题 * 在某些JVM中，i--的操作要分成如下3步： * 取得原有变量的值。计算i-1。对i进行赋值。 * 在这三个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。 解决方法就是使用 synchronized 同步关键字 使各个线程排队执行run()方法。修改后的run()方法：    synchronized 关键字的用法 在上面提到&amp;#34;同步&amp;#34;关键字，synchronized关键字可以将方法或者对象标记为同步，以实现对对象和法 的互斥访问，可以用synchronized(对象) { … }定义同步代码块，或者在声明方法时将 synchronized 作为方法的修饰符。 如果系统中存在临界资源（资源数量少于竞争资源的线程数量的资源），例如正在写的数据以后可能被另 一个线程读到，或者正在读的数据可能已经被另一个线程写过了，那么这些数据就必须进行同步存取（数 据库操作中的排他锁就是最好的例子）。当应用程序在对象上调用了一个需要花费很长时间来执行的方 法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效 率。事实上，所谓的同步就是指阻塞式操作，而异步就是非阻塞式操作。  线程的状态变化 要想实现多线程，必须在主线程中创建新的线程对象。任何线程一般具有5种状态，即创建，就绪，运行 阻塞，终止。下面分别介绍一下这几种状态：  创建状态</description>
+    </item>
+    
+    <item>
+      <title>java基础篇</title>
+      <link>https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/</guid>
+      <guid>https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80/</guid>
+      <description>JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
+==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &amp;#34;string&amp;#34;; String y = &amp;#34;string&amp;#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &amp;#34; 值 的 比 较 &amp;#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.</description>
+    </item>
+    
+    <item>
+      <title>JVM</title>
+      <link>https://fyzn12.github.io/post/java/jvm/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/jvm/</guid>
       <description>jvm初学篇
  1 JVM的启动流程  通过编辑器将java代码编辑好之后编译成java字节码，也就是.class文件；
  装载JVM 会通过当前路径或者系统的版本去寻找 JVM.cfg文件； 通过JVM.cfg文件寻找到 JVM.dll文件 &amp;mdash;该文件是JVM的具体实现；
@@ -55,10 +167,10 @@ SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerEx
     
     <item>
       <title>JVM初始化初步理解</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
+      <link>https://fyzn12.github.io/post/java/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
+      <guid>https://fyzn12.github.io/post/java/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
       <description> 要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
 首先java程序在执行时会被编译成java字节码即.class文件
 ————&amp;gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）

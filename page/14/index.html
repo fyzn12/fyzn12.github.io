@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-07-28T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,38 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">几种结构</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                  数据结构的分析
+ 1 队列 队列采用先进先出策略的集合类型，如图所示
+1.1 队列的入队演示 如图将 89 添加到队列中，采用的是 ： 在队列队尾添加，整个事件时间复杂度为O(1)  1.2 队列的出队演示 当队列收到出队的命令后，会将指针指向head，从而移除head的值，原先head值指向的下一个值变为head，整个事件时间复杂度为 O(1)  注意：java中还有先进先出队列，策略和基本队列相反，和下面的栈的策略相同 1.3 队列的总结，队列是采用先进先出的策略，添加元素时是在队尾添加，出队时是在队头移除或出队 2 链表 2.1 链表插入策略的演示 2.1.1 头插  2.1.2 尾插  2.1.3 中间任意部位插入 任意部位的插入首先要指定一个插入点，在插入过程中会先遍历插入点前面的元素，找到插入点元素 之后在修改插入点元素的指针，让其指向新增元素   3 栈 栈（stack）是操作受限的线性表，限定元素的插入和删除运算只能在表的一端进行，通常把进行插入删除的一端称作栈顶（top） 另一端称为栈底（bottom）  3.1 栈的五种运算  置空栈setnull（s）：将栈s设置成空栈，即不管栈的原来状态如何一律置为空栈；
+ 判断栈是否为空empty(s):返回一个布尔值，当栈为空时返回1，否则返回返回0；
+ 进栈push(s,x):把元素x压入栈s中，成为新的栈顶元素；
+ 出栈pop(s):该操作从栈顶弹出栈顶元素并返回，栈为空时返回NULL；
+ 读栈顶元素gettop(s):返回栈顶元素，该操作栈的状态不变；   栈与队列的总结 栈可以形象的比喻为一个瓶子，先进的元素只能从瓶口进，然后往瓶底走，出的时候也只能从瓶口出，而后面进的元素往往先出 队列可以看成一条管道，该管道从bottom入，top出 
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">基本排序算法总结</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                排序算法总结 1 选择排序 1.1 思路分析  ① 在0~N-1 范围上找到最小值，将其放在0位置上； ② 在1~N-1 范围上找到最小值，将其放在1位置上； &hellip; 知道确定最后一个值的位置。
+  1.2 代码实现 public static void selectionSort(int[] arr) { if (arr == null || arr.length &lt; 2) { return; } // 0 ~ N-1 找到最小值，在哪，放到0位置上  // 1 ~ n-1 找到最小值，在哪，放到1 位置上  // 2 ~ n-1 找到最小值，在哪，放到2 位置上  for (int i = 0; i &lt; arr.length - 1; i++) { int minIndex = i; // i ~ N-1 上找最小值的下标  for (int j = i + 1; j &lt; arr.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">常见算法篇</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                常见算法总结篇 递归算法 递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)+2; } 排序算法  快速排序算法 排序步骤总结如下：
+* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&#34;11&#34;,&#34;66&#34;,&#34;22&#34;,&#34;0&#34;,&#34;55&#34;,&#34;22&#34;,&#34;0&#34;,&#34;32&#34;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //先判断左右指针是否越界 if (left&gt;right){ returen; } //定义基准位置，左右移动时的指针以及中间变量 String standard,tmp; //步骤一：确定基准位置（可以随意） standard = strViod[left]; int i,j; i = left; j = right; //步骤二：初步与基准值比较，确认基准值的左右集合 while(i&lt;j){ //首先进行基准值右侧值的判断,这里建议将String转为int进行判断，别用compareTo进行判断 while(Integer.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/selectionsorted/">排序算法</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
@@ -98,52 +130,11 @@
             </div>
         </li>
         
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/spring-boot/springboot-exception/">SpringBoot提供的五种异常机制</a></h2>
-            <div class="post-meta">May 12, 2020</div>
-            <div class="post-excerpt">
-                SpringBoot中的异常处理方式  自定义错误页面
- @ExceptionHandle注解处理异常
- @ControllerAdvice + @ExceptionHandle注解处理异常
- 配置SimpleMappingExceptionResolver处理异常
- 自定义HandleExceptionResolver类处理异常
-  1 自定义错误页面 1.1 SpringBoot的默认异常机制详解 SpringBoot默认的异常机制：SpringBoot默认已经提供了一套处理异常的机制。 一旦程序中出现了异常，SpringBoot会向/error的url发送请求。在SpringBoot中提供了一个 叫BasicExceptionController来处理/error请求，然后跳转到默认显示的页面来展示异常信息。   1.2 自定义错误界面 如果我们需要将所有的异常统一跳转到自定义错误页面，需要在classpath下创建一个templates目录(即在resources目录下创建templates目录)，在该目录下创建一个名为error.html的页面。 2 基于@ExceptionHandler注解处理异常 2.1 创建指定处理的异常 /** *java.lang.ArithmeticException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 */ @ExceptionHandler(value={java.lang.ArithmeticException.class}) publicModelAndViewarithmeticExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error1&#34;); returnmv; } /** *java.lang.NullPointerException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 **/ @ExceptionHandler(value={java.lang.NullPointerException.class}) publicModelAndViewnullPointerExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error2&#34;); return mv； }  2.2 使用该方法的总结 使用@ExceptionHandler注解处理异常时，首先编写异常页面error.html，其次创建Controller类，编写基于注解@ExceptionHandle注解的方法，并且在该方法中必须指定想要助理异常的名称如上面的java.lang.NullPointerException.class、java.lang.ArithmeticException.class。 3 使用@ControllerAdvice + @ExceptionHandler注解处理异常 3.1 创建一个全局异常类使用ControllerAdvice注解 /** *全局异常处理类 **/ @ControllerAdvice public class GlobalException { /** * java.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">Mybatis之动态SQL</a></h2>
-            <div class="post-meta">Oct 08, 2019</div>
-            <div class="post-excerpt">
-                动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
-&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
-1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
-&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/">Ssm随学札记</a></h2>
-            <div class="post-meta">Oct 08, 2019</div>
-            <div class="post-excerpt">
-                使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
-java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
-1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
-2. 期待转成的对象与json对应的属性不匹配。
-3. 真正的空指针，既json为空。
-ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
-* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
-* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
-/** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax.
-            </div>
-        </li>
-        
     </ul>
     
     <div class="pagination">
         <a href="/page/13/" class="previous">PREV</a>
-        <span class="page_number ">14 of 15</span>
+        <span class="page_number ">14 of 16</span>
         <a href="/page/15/" class="next">NEXT</a>
     </div>
 </div>
@@ -169,6 +160,18 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
         </li>
         
@@ -177,7 +180,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/" class="post-link">CAS</a>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
         </li>
         
         <li>
@@ -185,7 +188,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
         </li>
         
         <li>
@@ -197,7 +200,7 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/" class="post-link">Volatile的用途</a>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
         </li>
         
         <li>
@@ -205,23 +208,11 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%94%B11%E6%9E%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" class="post-link">二维数组中由1构成的最大正方形</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E9%93%BE%E8%A1%A8%E6%B1%82%E5%92%8C%E5%8F%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%82%E5%92%8C/" class="post-link">链表求和及字符串求和</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E9%9B%86%E9%97%AE%E9%A2%98/" class="post-link">二叉树根节点到叶子节点和为指定值的路径集问题</a>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
         </li>
         
     </ul>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>menu tree on fyzn12</title>
+    <link>https://fyzn12.github.io/tags/menu-tree/</link>
+    <description>Recent content in menu tree on fyzn12</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/menu-tree/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>菜单树</title>
+      <link>https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
+ 菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
+数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表 	List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t.</description>
+    </item>
+    
+  </channel>
+</rss>

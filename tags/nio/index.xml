@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NIO on fyzn12</title>
+    <link>https://fyzn12.github.io/tags/nio/</link>
+    <description>Recent content in NIO on fyzn12</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/nio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NIO 学习笔记</title>
+      <link>https://fyzn12.github.io/post/java/java-nio/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/java-nio/</guid>
+      <description>1. NIO 学习笔记  1.1 概念了解 java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。
+   工作方式的比较:
+- Java NIO: Channel and Buffer (通道和缓冲区) 数据总是从通道读取到缓冲区， 或者是从缓冲区写入到通道中。 - 标准IO： 标准IO基于字节流和字符流进行操作  Java NIO: Non-blocking IO（非阻塞IO）
+java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他 事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  Java NIO: Selectors（选择器）
+Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
+Channels Buffers Selectors  其他组件
+其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
+ FileChannel DatagramChannel SocketChannel ServerSocketChannel
+  这些通道覆盖了UDP和TCP网络IO，以及文件IO。</description>
+    </item>
+    
+  </channel>
+</rss>

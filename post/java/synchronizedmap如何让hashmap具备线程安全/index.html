@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>SynchronizedMap如何让HashMap具备线程安全 - fyzn12</title>
+
+<meta name="description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&amp;lt;K,V&amp;gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&amp;lt;String,Long&amp;gt; user = Collections.synchronizedMap(new HashMap&amp;lt;&amp;gt;()); user.put(&amp;#34;xsj&amp;#34;,1234567l); System." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="SynchronizedMap如何让HashMap具备线程安全" />
+<meta property="og:description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.put(&#34;xsj&#34;,1234567l); System." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" />
+<meta property="article:published_time" content="2020-12-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-31T00:00:00+00:00" />
+<meta itemprop="name" content="SynchronizedMap如何让HashMap具备线程安全">
+<meta itemprop="description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.put(&#34;xsj&#34;,1234567l); System.">
+
+
+<meta itemprop="datePublished" content="2020-12-31T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-12-31T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="67">
+
+
+
+<meta itemprop="keywords" content="数组," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SynchronizedMap如何让HashMap具备线程安全"/>
+<meta name="twitter:description" content="问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
+SynchronizedMap(Map&lt;K,V&gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&lt;K,V&gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&lt;String,Long&gt; user = Collections.synchronizedMap(new HashMap&lt;&gt;()); user.put(&#34;xsj&#34;,1234567l); System."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">SynchronizedMap如何让HashMap具备线程安全</h1>
+        <p class="post-meta">Dec 31, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<h2 id="问题-synchronizedmap如何让hashmap具备线程安全">问题：SynchronizedMap如何让HashMap具备线程安全</h2>
+
+<blockquote>
+<h3 id="1-首先利用synchronizedmap的构造函数获取map的对象-而该构造器可以传入一个hashmap的集合作为参数">1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数</h3>
+
+<h3 id="2-synchronizedmap底层通过一个互斥信号量mutex-final-object-进行方法同步的限定">2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定，</h3>
+
+<p>synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">        <span class="n">SynchronizedMap</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">m</span><span class="p">)</span> <span class="p">{</span>  
+            <span class="k">if</span> <span class="p">(</span><span class="n">m</span><span class="o">==</span><span class="kc">null</span><span class="p">)</span>  
+                <span class="k">throw</span> <span class="k">new</span> <span class="n">NullPointerException</span><span class="p">();</span>  
+            <span class="k">this</span><span class="p">.</span><span class="na">m</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>  
+            <span class="n">mutex</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>  
+        <span class="p">}</span>  
+  
+        <span class="n">SynchronizedMap</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">m</span><span class="p">,</span> <span class="n">Object</span> <span class="nf">mutex</span><span class="p">)</span> <span class="p">{</span>  
+            <span class="k">this</span><span class="p">.</span><span class="na">m</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>  
+            <span class="k">this</span><span class="p">.</span><span class="na">mutex</span> <span class="o">=</span> <span class="n">mutex</span><span class="p">;</span>  
+        <span class="p">}</span>   
+  
+
+        <span class="kd">public</span> <span class="nf">int</span> <span class="n">size</span><span class="p">()</span> <span class="p">{</span>  
+               <span class="kd">synchronized</span><span class="p">(</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">m</span><span class="p">.</span><span class="na">size</span><span class="p">();}</span>  
+        <span class="p">}</span>  
+
+        <span class="kd">public</span> <span class="nf">boolean</span> <span class="n">isEmpty</span><span class="p">(){</span>  
+               <span class="kd">synchronized</span><span class="p">(</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">m</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">();}</span>  
+        <span class="p">}</span>  
+
+        <span class="kd">public</span> <span class="nf">boolean</span> <span class="n">containsKey</span><span class="p">(</span><span class="n">Object</span> <span class="nf">key</span><span class="p">)</span> <span class="p">{</span>  
+               <span class="kd">synchronized</span><span class="p">(</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">m</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">key</span><span class="p">);}</span>  
+        <span class="p">}</span>    </code></pre></div>
+<h3 id="3-使用方式">3.使用方式：</h3>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="n">Long</span><span class="o">&gt;</span> <span class="nf">user</span> <span class="o">=</span> <span class="n">Collections</span><span class="p">.</span><span class="na">synchronizedMap</span><span class="p">(</span><span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">());</span>
+    <span class="n">user</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;xsj&#34;</span><span class="p">,</span><span class="n">1234567l</span><span class="p">);</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;xsj&#34;</span><span class="p">));</span>  </code></pre></div>
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/">
+            两个链表的第一个公共节点
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
+            Mysql的存储引擎
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

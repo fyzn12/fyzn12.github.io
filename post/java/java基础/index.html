@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>java基础篇 - fyzn12</title>
+
+<meta name="description" content="JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
+==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &amp;#34;string&amp;#34;; String y = &amp;#34;string&amp;#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &amp;#34; 值 的 比 较 &amp;#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="java基础篇" />
+<meta property="og:description" content="JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
+==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80/" />
+<meta property="article:published_time" content="2020-06-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-11T00:00:00+00:00" />
+<meta itemprop="name" content="java基础篇">
+<meta itemprop="description" content="JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
+==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.">
+
+
+<meta itemprop="datePublished" content="2020-06-11T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-06-11T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="760">
+
+
+
+<meta itemprop="keywords" content="java," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="java基础篇"/>
+<meta name="twitter:description" content="JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
+==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &#34;string&#34;; String y = &#34;string&#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Java基础篇</h1>
+        <p class="post-meta">Jun 11, 2020</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<h2 id="jvm加载class文件的原理机制">JVM加载class文件的原理机制</h2>
+<div class="highlight"><pre class="chroma">    JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的  
+    java运行时系统组件，他负责在运行时查找和装入类文件中的类。</pre></div>
+<h2 id="jdk和jre的区别">JDK和JRE的区别</h2>
+<div class="highlight"><pre class="chroma">    * JDK ：java development kit的简称，java开发的环境和运行环境  
+    * JRE ：java runtime environment的简称，java运行环境。  
+    * 具体来说JDK其实包含了jre，如下图所示  </pre></div>
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="https://fyzn12.github.io/img/picture/jdk-jre.png" alt="avatar" class="lazyload"></figure><br />
+        同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。</p>
+
+<h2 id="和equals的区别">==和equals的区别</h2>
+
+<h3 id="解读">==解读</h3>
+<div class="highlight"><pre class="chroma">    对于基本类型和引用类型 == 的作用效果是不同的，  
+    * 基本类型：比较的是值是否相等  ；
+    * 引用类型：比较的是引用是否相同；  
+    如下代码  
+    String x = &#34;string&#34;;
+    String y = &#34;string&#34;;
+    System.out.println(x==y); // true
+    System.out.println(x==z); // false
+    System.out.println(x.equals(y)); // true
+    System.out.println(x.equals(z)); // true  
+
+    因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。  
+    而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。  
+    而equals比较的是 “值” ，所以结果都为true。  </pre></div>
+<h3 id="equals解读">equals解读</h3>
+<div class="highlight"><pre class="chroma">    equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &#34; 值 的 比 较 &#34;  
+    equals的源码如下  
+        public boolean equals（Object obj）{
+            return (this == obj);
+        }  
+    在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等；  
+    如下代码可以很清晰的解释这一观点：  
+        class Cat {
+            public Cat(String name) {
+                this.name = name;
+            }
+
+            private String name;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
+
+        Cat c1 = new Cat(&#34;王磊&#34;);
+        Cat c2 = new Cat(&#34;王磊&#34;);
+        System.out.println(c1.equals(c2)); // false  
+
+     在上面代码中，由于没有重写equals方法，在进行比较的是“比较c1和c2的引用类型”，很明显两者是不同内存，引用类型肯定不等，所以比对结果自然是false。     
+
+     String和Integer将equals重写，代码如下：  
+        public boolean equals(Object anObject) {
+            if (this == anObject) {
+                return true;
+            }
+            if (anObject instanceof String) {
+                String anotherString = (String)anObject;
+                int n = value.length;
+                if (n == anotherString.value.length) {
+                    char v1[] = value;
+                    char v2[] = anotherString.value;
+                    int i = 0;
+                    while (n-- != 0) {
+                        if (v1[i] != v2[i])
+                            return false;
+                        i++;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }  
+    重写之后的equals方法是对值进行比较，而并非是对引用类型再进行比较。  </pre></div>
+<h2 id="final在java中有什么作用">final在java中有什么作用</h2>
+<div class="highlight"><pre class="chroma">    * final修饰的类叫最终类，该类不能被继承  
+    * final修饰的方法不能被重写  
+    * final修饰的变量叫常量，常量必须被初始化，初始化之后的值不能再被修改  </pre></div>
+<h2 id="java中finally不执行的情况分析">java中finally不执行的情况分析</h2>
+<div class="highlight"><pre class="chroma">    在try块或者catch块中调用了退出虚拟机的方法（即System.exit(1);），
+    否则不管在try块、catch块中执行怎样的代码，出现怎样的情况，异常处理的finally块总是会被执行的。  
+    正常执行时会在方法返回调用者前执行。</pre></div>
+<h2 id="生成某一个范围内的随机数">生成某一个范围内的随机数</h2>
+<div class="highlight"><pre class="chroma">    用java自带的工具类Random类实现  
+    int randNumber = rand.nextInt(MAX-MIN+1)+MIN  
+    用Math.random()实现
+    (数据类型)(最小值+Math.random()*(最大值-最小值+1)) 
+    int randNumber = (int)(MIN+Math.random()*MAX)  </pre></div>
+<h2 id="java-中操作字符串都有哪些类-它们之间有什么区别">java 中操作字符串都有哪些类？它们之间有什么区别？</h2>
+<div class="highlight"><pre class="chroma">    操作字符串的类有：String、StringBuffer、StringBuilder。
+    String 和 StringBuffer、StringBuilder 的区别在于 String 声明的是不可变的对象，
+    每次操作都会生成新的 String 对象，然后将指针指向新的 String 对象，而 StringBuffer、StringBuilder 可以在原有对象的基础上进行操作，所以在经常改变字符串内容的情况下最好不要使用 String。
+    StringBuffer 和 StringBuilder 最大的区别在于，StringBuffer 是线程安全的，而 StringBuilder 是非线程安全的，但 StringBuilder 的性能却高于 StringBuffer，
+    所以在单线程环境下推荐使用 StringBuilder，多线程环境下推荐使用 StringBuffer。</pre></div>
+<h2 id="string-str-i-和string-str-new-string-i-一样吗">String str = &ldquo;i&rdquo; 和String str = new String(&ldquo;i&rdquo;)一样吗</h2>
+<div class="highlight"><pre class="chroma">    内存的分配方式不一样，String str = &#34;i&#34; java虚拟机会将其分配到常量池中；
+    而String str = new Stirng(&#34;i&#34;)则会将其分到堆内存中。  </pre></div>
+<h2 id="普通类和抽象类有哪些区别">普通类和抽象类有哪些区别？</h2>
+<div class="highlight"><pre class="chroma">    普通类不能包含抽象方法，抽象类可以包含抽象方法。
+    抽象类不能直接实例化，普通类可以直接实例化。   </pre></div>
+<h2 id="抽象类能使用-final-修饰吗">抽象类能使用 final 修饰吗？</h2>
+<div class="highlight"><pre class="chroma">    不能，定义抽象类就是让其他类继承的，如果定义为 final 该类就不能被继承，
+    这样彼此就会产生矛盾，所以 final 不能修饰抽象类</pre></div>
+<h2 id="接口和抽象类有什么区别">接口和抽象类有什么区别？</h2>
+<div class="highlight"><pre class="chroma">    * 实现：抽象类的子类使用 extends 来继承；接口必须使用 implements 来实现接口。
+
+    * 构造函数：抽象类可以有构造函数；接口不能有。
+
+    * main 方法：抽象类可以有 main 方法，并且我们能运行它；接口不能有 main 方法。
+
+    * 实现数量：类可以实现很多个接口；但是只能继承一个抽象类。
+
+    * 访问修饰符：接口中的方法默认使用 public 修饰；抽象类中的方法可以是任意访问修饰符。     </pre></div>
+<h2 id="java是值传递还是引用传递">java是值传递还是引用传递</h2>
+<div class="highlight"><pre class="chroma">    值传递是对基本型变量而言，传递的是该变量的一个副本，改变副本不影响原变量，引用传递一般是对于对象型变量而言，  
+    传递的是该对象地址的一个副本，而不是原对象本身。  
+
+    一般认为，java内的传递都是值传递如下代码能直观的表达，值传递，传递的是原参数的副本，  </pre></div>
+<div align=center><img src="https://fyzn12.github.io/img/picture/值传递.png" /></div>    
+
+<h2 id="java的构造器是否可以被重写">java的构造器是否可以被重写</h2>
+<div class="highlight"><pre class="chroma">    java中父类的私有属性以及构造器是不能被继承的，所有constructor并不能被重写，但是能重载（overload）。   </pre></div>
+<h2 id="两个对象值相等-x-equals-y-true-但他们的hashcode不同正确吗">两个对象值相等（x.equals(y)==true）,但他们的hashCode不同正确吗？</h2>
+<div class="highlight"><pre class="chroma">    （1）如果两个对象值相同（equals方法返回true），那么他们的hashCode值一定相同；  
+    （2）如果两个对象的hashCode相同，他们并不一定相等。  </pre></div>
+<h2 id="string可以被继承吗">String可以被继承吗</h2>
+<div class="highlight"><pre class="chroma">    查看String的源码，他的方法头如下：   </pre></div>
+<div align=center><img src="https://fyzn12.github.io/img/picture/String.png" /></div>  
+    
+<div class="highlight"><pre class="chroma">    由于String类是被final修饰，因此String类是不能 被继承的。    </pre></div>
+<h2 id="char型的变量能不能存储一个汉字">char型的变量能不能存储一个汉字</h2>
+<div class="highlight"><pre class="chroma">    首先明白char型变量是存储unicode编码字符，unicode编码字符集中包含了汉字，  
+    所以char型变量可以存储一个汉字，但是如果这个特殊的汉字不在unicode编码字符集中，那么就不能存储。  
+
+    说明：unicode编码占用两个字节，所以，char类型的变量也是占用两个字节。  </pre></div>
+<h2 id="程序的执行顺序">程序的执行顺序</h2>
+<div class="highlight"><pre class="chroma">   如下代码  
+        class A {
+            static {
+                System.out.print(&#34;1&#34;);
+            }
+            public A() {
+                System.out.print(&#34;2&#34;);
+            }
+        }
+        class B extends A{
+            static {
+                System.out.print(&#34;a&#34;);
+            }
+            public B() {
+                System.out.print(&#34;b&#34;);
+            }
+        }
+        public class Hello {
+            public static void main(String[] args) {
+                A ab = new B();
+                ab = new B();
+            }
+        }
+    创建对象时构造器的调用顺序是：
+        先初始化静态成员，然后调用父类构造器，再初始化非静态成员，最后调用自身构造器。
+    （1）执行结果  
+    A ab = new B();是从父类指向他的实现类，输出1a2b  
+    ab = new B();因为静态变量已经被初始化，而栈指向的是同一个地址ad，因此这里只会输出2b  
+   上面总的输出是1a2b2b如图所示  </pre></div>
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="https://fyzn12.github.io/img/picture/static-constructor.png" alt="avatar" class="lazyload"></figure></p>
+<div class="highlight"><pre class="chroma">     （2）修改下面的Hello类中的输出如下所示  
+            public class Hello {
+                public static void main(String[] args) {
+                    System.out.println(&#34;测试静态代码块的执行次数&#34;);
+                    A ab = new B();
+                    ab = new B();
+                    System.out.println(&#34;\n-------------&#34;);
+                    A cd = new B();
+                    cd = new B();
+                }
+            }
+        程序代码执行效果图如下，静态代码块一旦执行之后，后面再new新的对象，静态代码块也不会再进行赋值。</pre></div>
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="https://fyzn12.github.io/img/picture/static-num.png" alt="avatar" class="lazyload"></figure></p>
+
+<h2 id="类-examplea-继承-exception-类-exampleb-继承examplea">类 ExampleA 继承 Exception，类 ExampleB 继承ExampleA。</h2>
+<div class="highlight"><pre class="chroma">        有如下代码片断：try {
+            throw new ExampleB(&#34;b&#34;)
+        }
+        catch（ExampleA e）{
+            System.out.println(&#34;ExampleA&#34;);
+        }
+        catch（Exception e）{
+            System.out.println(&#34;Exception&#34;);
+        }复制代码**请问执行此段代码的输出是什么？答：输出：ExampleA。（根据里氏代换原则[能使用父类型的地方一定能使用子类型]，抓取 ExampleA 类型异常的 catch 块能够抓住 try 块中抛出的 ExampleB 类型的异常）</pre></div>
+<h2 id="java中保证多线程的运行安全">java中保证多线程的运行安全</h2>
+<div class="highlight"><pre class="chroma">    * 原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操着（atomic，synchronied）;  
+    * 可见性：一个线程对主内存的修改可以及时的被其他线程看到（synchronied，volatile）；
+    * 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序，该观察结果一般杂论无序（happens-before原则）</pre></div>
+<h2 id="session和cookie的区别">session和cookie的区别</h2>
+<div class="highlight"><pre class="chroma">    * 由于http协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识别具体的用户，这个机制就是session，如购物车，在服务端需要记录该用户的状态。在服务端保存session的方式有很多，比如内存、数据库、文件。集群的时候也要考虑session的转移，一般会有专门的session服务器集群，（使用缓存服务器Memcached）。
+    * 服务端如何识别特定的用户：每次Http请求时，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用Cookie来实现Session跟踪，第一次创建session时，服务端会在Http协议中告诉客户端，需要在Cookie里面记录一个session ID，以后每次请求把这个会话ID发送到服务器，如果客户端浏览器禁用了Cookie，一般情况下会使用URl重写的技术来进行会话跟踪，即每次HTTP交互时，URL后面都会附加上一个sid=xxxx这样的参数，服务端据此来识别用户。
+    * Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。</pre></div>
+<h2 id="session的工作原理">session的工作原理</h2>
+
+<p>session是存在服务器上的类似于一个散列表格。类似于一个大号的map，里面存储的是用户的session ID，用户向服务器发送请求的时候会带上这个session ID，这时就可以从中取出对应的值。</p>
+
+<h2 id="struts和springmvc的区别">struts和springMVC的区别</h2>
+<div class="highlight"><pre class="chroma">    * 拦截机制不同  
+      1. struts是类拦截。每次请求都会创建一个action。
+      2. springMVC是方法级别的拦截。
+    * 底层框架不同  
+      1. struts2采用Filter实现，SpringMVC采用servlet实现。Filter在容器启动后即初始化；服务器停止后坠毁，晚于servlet。servlet是在调用的时候初始化，先于Filter调用，服务停止后销毁。  
+    * 配置方面  
+      spring MVC 和spring是无缝的。从这个项目的管理和安全上也比struts2高。  </pre></div>
+<h2 id="避免sql注入">避免sql注入</h2>
+<div class="highlight"><pre class="chroma">    * 使用preparedstatement
+    * 使用正则表达式过滤传入的参数
+    * 字符串过滤
+    * jsp调用该函数检查是否包含非法字符
+    * jsp页面判断代码  </pre></div>
+<h2 id="什么是xss攻击">什么是XSS攻击</h2>
+<div class="highlight"><pre class="chroma">    XSS攻击又称CSS，其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当用户浏览该网站时，
+    这段html代码就会执行，从而达到攻击的目的。XSS攻击类似于SQL注入的攻击，SQL注入攻击中以SQL语
+    句走位用户输入，从而达到查询/修改/删除数据，而在xss攻击中通过恶意脚本，实现对用户浏览器的控
+    制，获取用户的一些信息。XSS是web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式。  </pre></div>
+<h2 id="xss防范的总体思路是-对输入-和url参数-进行过滤-对输出进行编码">XSS防范的总体思路是：对输入（和URL参数）进行过滤，对输出进行编码。</h2>
+
+<h2 id="什么是csrf攻击">什么是CSRF攻击</h2>
+<div class="highlight"><pre class="chroma">    CSRF也称为one-click attack或者session riding，中文全称叫&#34;跨站请求伪造&#34;。一般来说攻击者通
+    过伪造用户浏览器的请求，向访问一个用户自己曾经认证访问过的网站发送出去，使目标网站接受并以为
+    是用户的真实操着而去执行用户的浏览器，却不能验证请求是否源于用户的真实意愿下的操作行为。  </pre></div>
+<h2 id="如何避免csrf攻击">如何避免CSRF攻击</h2>
+
+<ul>
+<li>验证HTTP Referer字段：<br />
+    HTTP头中的Referer字段记录了该HTTP请求的来源地址。通常情况下，访问一个安全受限页面的请求来自
+    于同一个网站，而如果黑客要对其实施CSRF攻击，他一般只能在他自己 的网站构造请求。因此，可以通过
+    验证Referer值来防御CSRF攻击。</li>
+<li>使用验证码
+    关键操作页面上加上验证码，后台接收到请求后通过判断验证码可以防御CSRF。但这种方法对用户不太友好。</li>
+<li>在请求地址中添加token并验证。
+    CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存
+    在于cookie中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的cookie 来通过安全验
+    证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。
+    可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这
+    个 token，如果请求中没有token或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。这
+    种方法要比检查 Referer 要安全一些，token 可以在用户登陆后产生并放于session之中，然后在每次请求时把token 从 session 中拿出，与请求中的 token 进行比对，但这种方法的难点在于如何把
+    token 以参数的形式加入请求。
+    对于 GET 请求，token 将附在请求地址之后，这样 URL 就变成 <a href="http://url?csrftoken=tokenvalue。">http://url?csrftoken=tokenvalue。</a>
+    而对于 POST 请求来说，要在 form 的最后加上 <input type="hidden" name="csrftoken" value="tokenvalue"/>，
+    这样就把token以参数的形式加入请求了。</li>
+
+<li><p>在HTTP头中自定义属性并验证<br />
+    这种方法也是使用 token 并进行验证，和上一种方法不同的是，这里并不是把 token 以参数的形式置
+    于 HTTP 请求之中，而是把它放到 HTTP 头中自定义的属性里。通过 XMLHttpRequest 这个类，可以
+    一次性给所有该类请求加上 csrftoken 这个 HTTP 头属性，并把 token 值放入其中。这样解决了上种
+    方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求的地址不会被记录到浏览器的
+    地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中去。</p>
+
+<h2 id="switch语句能否作用在byte上-能否作用在long上-能否作用在string上">switch语句能否作用在byte上，能否作用在long上，能否作用在string上？</h2>
+<div class="highlight"><pre class="chroma">在switch（exprl）中exprl只能是整数表达式或枚举常量，整数表达式可以是int基本数据类型或
+Integer包装类型，由于byte，short，char都可以隐含转换为int，所以这些类型以及这些类型的包装
+类型也是可以的。显然，long和String类型都不符合switch的语法规定，并且不能隐式转换成int类型，
+所以，他们不能用于switch语句中。  </pre></div>
+<h2 id="short-sl-1-sl-sl-1-与short-sl-1-sl-1-有什么错">short sl=1;sl = sl + 1 与short sl = 1; sl += 1;有什么错？</h2>
+<div class="highlight"><pre class="chroma">对于short sl = 1； sl = sl + 1；由于sl + 1运算时会自动提升表达式的类型，所以结果是int类型，在赋值给sl，编译器会包需要强制转换类型的错误。
+sl += 1；+=是java语言规定的运算符，java编译器会对他进行特殊处理，因此可以正确编译。</pre></div></li>
+</ul>
+
+<h2 id="用最有效率的方法计算2乘以8">用最有效率的方法计算2乘以8</h2>
+<div class="highlight"><pre class="chroma">2&lt;&lt;3   因为将一个数左移n位就相当于乘以2的n次方。而位运算cpu直接支持，效率最高。所以2乘以8最高效率就是位运算，2&lt;&lt;3</pre></div>
+<h2 id="去掉vector集合的重复元素">去掉Vector集合的重复元素</h2>
+<div class="highlight"><pre class="chroma">利用set集合的特性去掉  
+HashSet hashset = new HashSet(vector);
+这样就可以去掉vector集合中重复的元素  </pre></div>
+<h2 id="collection和collections的区别">Collection和Collections的区别</h2>
+<div class="highlight"><pre class="chroma">Collection是集合类的上级借口，继承他的接口有Set和List。Collections是针对集合类的一个辅助类，他
+提供一系列的静态方法实现对各种集合的搜索、排序、线程安全化等操作。 </pre></div>
+<h2 id="java中io分为几种">java中IO分为几种</h2>
+<div class="highlight"><pre class="chroma">按功能划分：输入流、输出流；  
+按类型划分：字节流、字符流；
+字节流和字符流的区别：字节流按8位传输，以字节为单位输入输出数据；字符流按16位传输，以字符为单位输入输出数据。</pre></div>
+<h2 id="什么是-java-序列化-什么情况下需要序列化">什么是 java 序列化？什么情况下需要序列化？</h2>
+<div class="highlight"><pre class="chroma">保存在内存中的各种对象的状态，并且可以把保存对象的状态再次读取出来。是java提供的一种保存对象的状态的机制————序列化。
+什么需要序列化：
+1 当你想把内存中的对象保存到文件或数据库中的时候。
+2 当你想用套接字在网络上传输对象的时候。
+3 当你想通过RMI传输对象的时候。
+总结：序列化其实就是保存在内存中对象的状态</pre></div>
+<h2 id="head-堆-和stack-栈-的区别">head（堆）和stack（栈）的区别？</h2>
+<div class="highlight"><pre class="chroma">java中内存分为两类：栈和堆内存。
+栈内存是指程序进入一个方法时，会为这个方法单独分配一个私属存储空间，用于存储这个方法内部的局部变
+量，当这个方法结束时，这个栈空间也会被释放。
+堆内存是指：存放不在当前方法中的那些数据。比如new创建的对象都存放在堆内存中。局部变量使用final修
+饰的变量也存放在堆内存中。</pre></div>
+<h2 id="抽象类的总结">抽象类的总结</h2>
+<div class="highlight"><pre class="chroma">1. 抽象类的方法必须以&#34;;&#34;结尾不能用&#34;{}&#34;结尾。
+2. 局部变量前不能放置任何访问修饰符
+3. 抽象类的方法不能是private修饰，因为要子类实现
+4. 抽象类不能用final修饰</pre></div>
+<h2 id="接口的总结">接口的总结</h2>
+<div class="highlight"><pre class="chroma">1. 接口中声明的变量是pulib static final
+2. 接口不能有main方法，但抽象类可以有；
+3. 接口可以继承多个接口如interface Rollable extends Playable, Bounceable ，playable和Bounceable都是接口。
+4. 接口不可以有构造函数，但抽象类可以有。
+5. 程序如下加深印象。
+    interface Playable {
+        void play();
+    }
+    interface Bounceable {
+        void play();
+    }
+    interface Rollable extends Playable, Bounceable {
+        Ball ball = new Ball(&#34;PingPang&#34;);
+    }
+    class Ball implements Rollable {
+        private String name;
+        public String getName() {
+            return name;
+        }
+        public Ball(String name) {
+            this.name = name;        
+        }
+        public void play() {
+            ball = new Ball(&#34;Football&#34;);
+            System.out.println(ball.getName());
+         }
+    }
+    在上面程序中是有错误的分析如下：
+    首先明确接口是可以继承多个接口；
+    接口中变量都是默认public static final
+    因此在接口  Rollable中声明的 对象Ball ball = new Ball(&#34;PingPang&#34;);这里可以看成是变量，默认就是
+      public static final Ball ball = new Ball(&#34;PingPang&#34;);
+    再看类Ball中，方法play（）中重初始化ball，相当于修改了接口Rollable中的ball，但是该变量是用final修饰，不能随意修改。
+    final的object是不能被改变reference的。因此编译器将在&#34;ball = new Ball(&#34;Football&#34;);&#34;这里显示有错。</pre></div>
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/java/jvm/">
+            JVM
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/springcloud/springcloud%E6%95%B4%E5%90%88consul%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
+            SpringCloud整合Consul注册中心
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

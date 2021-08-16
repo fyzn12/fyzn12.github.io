@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>CAS - fyzn12</title>
+
+<meta name="description" content="CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current &#43; 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：" /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="CAS" />
+<meta property="og:description" content="CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current &#43; 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java/cas/" />
+<meta property="article:published_time" content="2021-06-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-06-18T00:00:00+00:00" />
+<meta itemprop="name" content="CAS">
+<meta itemprop="description" content="CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current &#43; 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用：">
+
+
+<meta itemprop="datePublished" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-06-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1237">
+
+
+
+<meta itemprop="keywords" content="CAS," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CAS"/>
+<meta name="twitter:description" content="CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
+因为经常配合循环操作，直到完成为止，所以泛指一类操作
+cas(v, a, b) ，变量v，期待值a, 修改值b
+ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止
+解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号
+Unsafe AtomicInteger:
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current &#43; 1; if (compareAndSet(current, next)) return next; } } public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } Unsafe:
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 运用："/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">CAS</h1>
+        <p class="post-meta">Jun 18, 2021</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<h1 id="cas">CAS</h1>
+
+<p>Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁</p>
+
+<p>因为经常配合循环操作，直到完成为止，所以泛指一类操作</p>
+
+<p>cas(v, a, b) ，变量v，期待值a, 修改值b</p>
+
+<p>ABA问题，你的女朋友在离开你的这段儿时间经历了别的人，自旋就是你空转等待，一直等到她接纳你为止</p>
+
+<p>解决办法（版本号 AtomicStampedReference），基础类型简单值不需要版本号</p>
+
+<h1 id="unsafe">Unsafe</h1>
+
+<p>AtomicInteger:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">final</span> <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="nf">current</span> <span class="o">=</span> <span class="n">get</span><span class="p">();</span>
+            <span class="kt">int</span> <span class="nf">next</span> <span class="o">=</span> <span class="n">current</span> <span class="o">+</span> <span class="n">1</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">compareAndSet</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">next</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="kd">public</span> <span class="nf">final</span> <span class="kt">boolean</span> <span class="nf">compareAndSet</span><span class="p">(</span><span class="kt">int</span> <span class="nf">expect</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">update</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">unsafe</span><span class="p">.</span><span class="na">compareAndSwapInt</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">valueOffset</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">update</span><span class="p">);</span>
+    <span class="p">}</span></code></pre></div>
+<p>Unsafe:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">final</span> <span class="kd">native</span> <span class="nf">boolean</span> <span class="n">compareAndSwapInt</span><span class="p">(</span><span class="n">Object</span> <span class="nf">var1</span><span class="p">,</span> <span class="kt">long</span> <span class="nf">var2</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">var4</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">var5</span><span class="p">);</span></code></pre></div>
+<p>运用：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nf">com</span><span class="p">.</span><span class="na">mashibing</span><span class="p">.</span><span class="na">jol</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nf">sun</span><span class="p">.</span><span class="na">misc</span><span class="p">.</span><span class="na">Unsafe</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">reflect</span><span class="p">.</span><span class="na">Field</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">T02_TestUnsafe</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="nf">static</span> <span class="n">T02_TestUnsafe</span> <span class="nf">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T02_TestUnsafe</span><span class="p">();</span>
+
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">Exception</span> <span class="p">{</span>
+        <span class="c1">//Unsafe unsafe = Unsafe.getUnsafe();
+</span><span class="c1"></span>
+        <span class="n">Field</span> <span class="nf">unsafeField</span> <span class="o">=</span> <span class="n">Unsafe</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getDeclaredFields</span><span class="p">()[</span><span class="n">0</span><span class="p">];</span>
+        <span class="n">unsafeField</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="n">Unsafe</span> <span class="nf">unsafe</span> <span class="o">=</span> <span class="p">(</span><span class="n">Unsafe</span><span class="p">)</span> <span class="n">unsafeField</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+        <span class="n">Field</span> <span class="nf">f</span> <span class="o">=</span> <span class="n">T02_TestUnsafe</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getDeclaredField</span><span class="p">(</span><span class="s">&#34;i&#34;</span><span class="p">);</span>
+        <span class="kt">long</span> <span class="nf">offset</span> <span class="o">=</span> <span class="n">unsafe</span><span class="p">.</span><span class="na">objectFieldOffset</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">offset</span><span class="p">);</span>
+
+        <span class="kt">boolean</span> <span class="nf">success</span> <span class="o">=</span> <span class="n">unsafe</span><span class="p">.</span><span class="na">compareAndSwapInt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">0</span><span class="p">,</span> <span class="n">1</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">success</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">i</span><span class="p">);</span>
+        <span class="c1">//unsafe.compareAndSwapInt()
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>jdk8u: unsafe.cpp:</p>
+
+<p>cmpxchg = compare and exchange</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">UNSAFE_ENTRY</span><span class="p">(</span><span class="n">jboolean</span><span class="p">,</span> <span class="n">Unsafe_CompareAndSwapInt</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">unsafe</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">obj</span><span class="p">,</span> <span class="n">jlong</span> <span class="n">offset</span><span class="p">,</span> <span class="n">jint</span> <span class="n">e</span><span class="p">,</span> <span class="n">jint</span> <span class="n">x</span><span class="p">))</span>
+  <span class="n">UnsafeWrapper</span><span class="p">(</span><span class="s">&#34;Unsafe_CompareAndSwapInt&#34;</span><span class="p">);</span>
+  <span class="n">oop</span> <span class="n">p</span> <span class="o">=</span> <span class="n">JNIHandles</span><span class="o">::</span><span class="n">resolve</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+  <span class="n">jint</span><span class="o">*</span> <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">jint</span> <span class="o">*</span><span class="p">)</span> <span class="n">index_oop_from_field_offset_long</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">jint</span><span class="p">)(</span><span class="n">Atomic</span><span class="o">::</span><span class="n">cmpxchg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span> <span class="o">==</span> <span class="n">e</span><span class="p">;</span>
+<span class="n">UNSAFE_END</span>
+</code></pre></div>
+<p>jdk8u: atomic_linux_x86.inline.hpp</p>
+
+<p>is_MP = Multi Processor</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kr">inline</span> <span class="n">jint</span>     <span class="n">Atomic</span><span class="o">::</span><span class="n">cmpxchg</span>    <span class="p">(</span><span class="n">jint</span>     <span class="n">exchange_value</span><span class="p">,</span> <span class="k">volatile</span> <span class="n">jint</span><span class="o">*</span>     <span class="n">dest</span><span class="p">,</span> <span class="n">jint</span>     <span class="n">compare_value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">mp</span> <span class="o">=</span> <span class="n">os</span><span class="o">::</span><span class="n">is_MP</span><span class="p">();</span>
+  <span class="n">__asm__</span> <span class="nf">volatile</span> <span class="p">(</span><span class="n">LOCK_IF_MP</span><span class="p">(</span><span class="o">%</span><span class="mi">4</span><span class="p">)</span> <span class="s">&#34;cmpxchgl %1,(%3)&#34;</span>
+                    <span class="o">:</span> <span class="s">&#34;=a&#34;</span> <span class="p">(</span><span class="n">exchange_value</span><span class="p">)</span>
+                    <span class="o">:</span> <span class="s">&#34;r&#34;</span> <span class="p">(</span><span class="n">exchange_value</span><span class="p">),</span> <span class="s">&#34;a&#34;</span> <span class="p">(</span><span class="n">compare_value</span><span class="p">),</span> <span class="s">&#34;r&#34;</span> <span class="p">(</span><span class="n">dest</span><span class="p">),</span> <span class="s">&#34;r&#34;</span> <span class="p">(</span><span class="n">mp</span><span class="p">)</span>
+                    <span class="o">:</span> <span class="s">&#34;cc&#34;</span><span class="p">,</span> <span class="s">&#34;memory&#34;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">exchange_value</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>jdk8u: os.hpp is_MP()</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">  <span class="k">static</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">is_MP</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// During bootstrap if _processor_count is not yet initialized
+</span><span class="c1"></span>    <span class="c1">// we claim to be MP as that is safest. If any platform has a
+</span><span class="c1"></span>    <span class="c1">// stub generator that might be triggered in this phase and for
+</span><span class="c1"></span>    <span class="c1">// which being declared MP when in fact not, is a problem - then
+</span><span class="c1"></span>    <span class="c1">// the bootstrap routine for the stub generator needs to check
+</span><span class="c1"></span>    <span class="c1">// the processor count directly and leave the bootstrap routine
+</span><span class="c1"></span>    <span class="c1">// in place until called after initialization has ocurred.
+</span><span class="c1"></span>    <span class="k">return</span> <span class="p">(</span><span class="n">_processor_count</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="n">AssumeMP</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>jdk8u: atomic_linux_x86.inline.hpp</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#define LOCK_IF_MP(mp) &#34;cmp $0, &#34; #mp &#34;; je 1f; lock; 1: &#34;
+</span></code></pre></div>
+<p>最终实现：</p>
+
+<p>cmpxchg = cas修改变量值</p>
+<div class="highlight"><pre class="chroma"><code class="language-assembly" data-lang="assembly">lock cmpxchg 指令</code></pre></div>
+<p>硬件：</p>
+
+<p>lock指令在执行后面指令的时候锁定一个北桥信号</p>
+
+<p>（不采用锁总线的方式）</p>
+
+<h1 id="markword">markword</h1>
+
+<h1 id="工具-jol-java-object-layout">工具：JOL = Java Object Layout</h1>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependencies&gt;</span>
+        <span class="c">&lt;!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.openjdk.jol<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>jol-core<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>0.9<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span></code></pre></div>
+<p>jdk8u: markOop.hpp</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Bit-format of an object header (most significant first, big endian layout below):
+</span><span class="c1">//
+</span><span class="c1">//  32 bits:
+</span><span class="c1">//  --------
+</span><span class="c1">//             hash:25 ------------&gt;| age:4    biased_lock:1 lock:2 (normal object)
+</span><span class="c1">//             JavaThread*:23 epoch:2 age:4    biased_lock:1 lock:2 (biased object)
+</span><span class="c1">//             size:32 ------------------------------------------&gt;| (CMS free block)
+</span><span class="c1">//             PromotedObject*:29 ----------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)
+</span><span class="c1">//
+</span><span class="c1">//  64 bits:
+</span><span class="c1">//  --------
+</span><span class="c1">//  unused:25 hash:31 --&gt;| unused:1   age:4    biased_lock:1 lock:2 (normal object)
+</span><span class="c1">//  JavaThread*:54 epoch:2 unused:1   age:4    biased_lock:1 lock:2 (biased object)
+</span><span class="c1">//  PromotedObject*:61 ---------------------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)
+</span><span class="c1">//  size:64 -----------------------------------------------------&gt;| (CMS free block)
+</span><span class="c1">//
+</span><span class="c1">//  unused:25 hash:31 --&gt;| cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; normal object)
+</span><span class="c1">//  JavaThread*:54 epoch:2 cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; biased object)
+</span><span class="c1">//  narrowOop:32 unused:24 cms_free:1 unused:4 promo_bits:3 -----&gt;| (COOPs &amp;&amp; CMS promoted object)
+</span><span class="c1"></span><span class="o">//</span>  <span class="n">unused</span><span class="o">:</span><span class="n">21</span> <span class="nf">size</span><span class="o">:</span><span class="n">35</span> <span class="o">--&gt;|</span> <span class="n">cms_free</span><span class="o">:</span><span class="n">1</span> <span class="nf">unused</span><span class="o">:</span><span class="n">7</span> <span class="o">------------------&gt;|</span> <span class="p">(</span><span class="n">COOPs</span> <span class="o">&amp;&amp;</span> <span class="n">CMS</span> <span class="nf">free</span> <span class="n">block</span><span class="p">)</span></code></pre></div>
+<h1 id="synchronized的横切面详解">synchronized的横切面详解</h1>
+
+<ol>
+<li>synchronized原理</li>
+<li>升级过程</li>
+<li>汇编实现</li>
+<li>vs reentrantLock的区别</li>
+</ol>
+
+<h2 id="java源码层级">java源码层级</h2>
+
+<p>synchronized(o)</p>
+
+<h2 id="字节码层级">字节码层级</h2>
+
+<p>monitorenter moniterexit</p>
+
+<h2 id="jvm层级-hotspot">JVM层级（Hotspot）</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nf">com</span><span class="p">.</span><span class="na">mashibing</span><span class="p">.</span><span class="na">insidesync</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nf">org</span><span class="p">.</span><span class="na">openjdk</span><span class="p">.</span><span class="na">jol</span><span class="p">.</span><span class="na">info</span><span class="p">.</span><span class="na">ClassLayout</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">T01_Sync1</span> <span class="p">{</span>
+  
+
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Object</span> <span class="nf">o</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
+
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">ClassLayout</span><span class="p">.</span><span class="na">parseInstance</span><span class="p">(</span><span class="n">o</span><span class="p">).</span><span class="na">toPrintable</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">com</span><span class="p">.</span><span class="na">mashibing</span><span class="p">.</span><span class="na">insidesync</span><span class="p">.</span><span class="na">T01_Sync1$Lock</span> <span class="nf">object</span> <span class="n">internals</span><span class="o">:</span>
+ <span class="n">OFFSET</span>  <span class="nf">SIZE</span>   <span class="n">TYPE</span> <span class="nf">DESCRIPTION</span>                               <span class="n">VALUE</span>
+      <span class="nf">0</span>     <span class="n">4</span>   <span class="p">(</span><span class="n">object</span> <span class="nf">header</span><span class="p">)</span>  <span class="n">05</span> <span class="nf">00</span> <span class="n">00</span> <span class="nf">00</span> <span class="p">(</span><span class="n">00000101</span> <span class="nf">00000000</span> <span class="n">00000000</span> <span class="nf">00000000</span><span class="p">)</span> <span class="p">(</span><span class="n">5</span><span class="p">)</span>
+      <span class="n">4</span>     <span class="nf">4</span>   <span class="p">(</span><span class="n">object</span> <span class="nf">header</span><span class="p">)</span>  <span class="n">00</span> <span class="nf">00</span> <span class="n">00</span> <span class="nf">00</span> <span class="p">(</span><span class="n">00000000</span> <span class="nf">00000000</span> <span class="n">00000000</span> <span class="nf">00000000</span><span class="p">)</span> <span class="p">(</span><span class="n">0</span><span class="p">)</span>
+      <span class="n">8</span>     <span class="nf">4</span>   <span class="p">(</span><span class="n">object</span> <span class="nf">header</span><span class="p">)</span>  <span class="n">49</span> <span class="nf">ce</span> <span class="n">00</span> <span class="nf">20</span> <span class="p">(</span><span class="n">01001001</span> <span class="nf">11001110</span> <span class="n">00000000</span> <span class="nf">00100000</span><span class="p">)</span> <span class="p">(</span><span class="n">536923721</span><span class="p">)</span>
+     <span class="n">12</span>     <span class="nf">4</span>        <span class="p">(</span><span class="n">loss</span> <span class="nf">due</span> <span class="n">to</span> <span class="nf">the</span> <span class="n">next</span> <span class="nf">object</span> <span class="n">alignment</span><span class="p">)</span>
+<span class="n">Instance</span> <span class="nf">size</span><span class="o">:</span> <span class="n">16</span> <span class="nf">bytes</span>
+<span class="n">Space</span> <span class="nf">losses</span><span class="o">:</span> <span class="n">0</span> <span class="nf">bytes</span> <span class="n">internal</span> <span class="o">+</span> <span class="n">4</span> <span class="nf">bytes</span> <span class="n">external</span> <span class="o">=</span> <span class="n">4</span> <span class="nf">bytes</span> <span class="n">total</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">com</span><span class="p">.</span><span class="na">mashibing</span><span class="p">.</span><span class="na">insidesync</span><span class="p">.</span><span class="na">T02_Sync2$Lock</span> <span class="nf">object</span> <span class="n">internals</span><span class="o">:</span>
+ <span class="n">OFFSET</span>  <span class="nf">SIZE</span>   <span class="n">TYPE</span> <span class="nf">DESCRIPTION</span>                               <span class="n">VALUE</span>
+      <span class="nf">0</span>     <span class="n">4</span>   <span class="p">(</span><span class="n">object</span> <span class="nf">header</span><span class="p">)</span>  <span class="n">05</span> <span class="nf">90</span> <span class="n">2e</span> <span class="nf">1e</span> <span class="p">(</span><span class="n">00000101</span> <span class="nf">10010000</span> <span class="n">00101110</span> <span class="nf">00011110</span><span class="p">)</span> <span class="p">(</span><span class="n">506368005</span><span class="p">)</span>
+      <span class="n">4</span>     <span class="nf">4</span>   <span class="p">(</span><span class="n">object</span> <span class="nf">header</span><span class="p">)</span>  <span class="n">1b</span> <span class="nf">02</span> <span class="n">00</span> <span class="nf">00</span> <span class="p">(</span><span class="n">00011011</span> <span class="nf">00000010</span> <span class="n">00000000</span> <span class="nf">00000000</span><span class="p">)</span> <span class="p">(</span><span class="n">539</span><span class="p">)</span>
+      <span class="n">8</span>     <span class="nf">4</span>   <span class="p">(</span><span class="n">object</span> <span class="nf">header</span><span class="p">)</span>  <span class="n">49</span> <span class="nf">ce</span> <span class="n">00</span> <span class="nf">20</span> <span class="p">(</span><span class="n">01001001</span> <span class="nf">11001110</span> <span class="n">00000000</span> <span class="nf">00100000</span><span class="p">)</span> <span class="p">(</span><span class="n">536923721</span><span class="p">)</span>
+     <span class="n">12</span>     <span class="nf">4</span>        <span class="p">(</span><span class="n">loss</span> <span class="nf">due</span> <span class="n">to</span> <span class="nf">the</span> <span class="n">next</span> <span class="nf">object</span> <span class="n">alignment</span><span class="p">)</span>
+<span class="n">Instance</span> <span class="nf">size</span><span class="o">:</span> <span class="n">16</span> <span class="nf">bytes</span>
+<span class="n">Space</span> <span class="nf">losses</span><span class="o">:</span> <span class="n">0</span> <span class="nf">bytes</span> <span class="n">internal</span> <span class="o">+</span> <span class="n">4</span> <span class="nf">bytes</span> <span class="n">external</span> <span class="o">=</span> <span class="n">4</span> <span class="nf">bytes</span> <span class="n">tota</span></code></pre></div>
+<p>InterpreterRuntime:: monitorenter方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">IRT_ENTRY_NO_ASYNC</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span> <span class="n">InterpreterRuntime</span><span class="o">::</span><span class="n">monitorenter</span><span class="p">(</span><span class="n">JavaThread</span><span class="o">*</span> <span class="kr">thread</span><span class="p">,</span> <span class="n">BasicObjectLock</span><span class="o">*</span> <span class="n">elem</span><span class="p">))</span>
+<span class="cp">#ifdef ASSERT
+</span><span class="cp"></span>  <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">last_frame</span><span class="p">().</span><span class="n">interpreter_frame_verify_monitor</span><span class="p">(</span><span class="n">elem</span><span class="p">);</span>
+<span class="cp">#endif
+</span><span class="cp"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">PrintBiasedLockingStatistics</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Atomic</span><span class="o">::</span><span class="n">inc</span><span class="p">(</span><span class="n">BiasedLocking</span><span class="o">::</span><span class="n">slow_path_entry_count_addr</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="n">Handle</span> <span class="n">h_obj</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span> <span class="n">elem</span><span class="o">-&gt;</span><span class="n">obj</span><span class="p">());</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">Universe</span><span class="o">::</span><span class="n">heap</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_in_reserved_or_null</span><span class="p">(</span><span class="n">h_obj</span><span class="p">()),</span>
+         <span class="s">&#34;must be NULL or an object&#34;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">UseBiasedLocking</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Retry fast entry if bias is revoked to avoid unnecessary inflation
+</span><span class="c1"></span>    <span class="n">ObjectSynchronizer</span><span class="o">::</span><span class="n">fast_enter</span><span class="p">(</span><span class="n">h_obj</span><span class="p">,</span> <span class="n">elem</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">(),</span> <span class="nb">true</span><span class="p">,</span> <span class="n">CHECK</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">ObjectSynchronizer</span><span class="o">::</span><span class="n">slow_enter</span><span class="p">(</span><span class="n">h_obj</span><span class="p">,</span> <span class="n">elem</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">(),</span> <span class="n">CHECK</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">Universe</span><span class="o">::</span><span class="n">heap</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_in_reserved_or_null</span><span class="p">(</span><span class="n">elem</span><span class="o">-&gt;</span><span class="n">obj</span><span class="p">()),</span>
+         <span class="s">&#34;must be NULL or an object&#34;</span><span class="p">);</span>
+<span class="cp">#ifdef ASSERT
+</span><span class="cp"></span>  <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">last_frame</span><span class="p">().</span><span class="n">interpreter_frame_verify_monitor</span><span class="p">(</span><span class="n">elem</span><span class="p">);</span>
+<span class="cp">#endif
+</span><span class="cp"></span><span class="n">IRT_END</span>
+</code></pre></div>
+<p>synchronizer.cpp</p>
+
+<p>revoke_and_rebias</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">ObjectSynchronizer</span><span class="o">::</span><span class="n">fast_enter</span><span class="p">(</span><span class="n">Handle</span> <span class="n">obj</span><span class="p">,</span> <span class="n">BasicLock</span><span class="o">*</span> <span class="n">lock</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">attempt_rebias</span><span class="p">,</span> <span class="n">TRAPS</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">UseBiasedLocking</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">SafepointSynchronize</span><span class="o">::</span><span class="n">is_at_safepoint</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">BiasedLocking</span><span class="o">::</span><span class="n">Condition</span> <span class="n">cond</span> <span class="o">=</span> <span class="n">BiasedLocking</span><span class="o">::</span><span class="n">revoke_and_rebias</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attempt_rebias</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">cond</span> <span class="o">==</span> <span class="n">BiasedLocking</span><span class="o">::</span><span class="n">BIAS_REVOKED_AND_REBIASED</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">attempt_rebias</span><span class="p">,</span> <span class="s">&#34;can not rebias toward VM thread&#34;</span><span class="p">);</span>
+      <span class="n">BiasedLocking</span><span class="o">::</span><span class="n">revoke_at_safepoint</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mark</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">has_bias_pattern</span><span class="p">(),</span> <span class="s">&#34;biases should be revoked by now&#34;</span><span class="p">);</span>
+ <span class="p">}</span>
+
+ <span class="n">slow_enter</span> <span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">lock</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">ObjectSynchronizer</span><span class="o">::</span><span class="n">slow_enter</span><span class="p">(</span><span class="n">Handle</span> <span class="n">obj</span><span class="p">,</span> <span class="n">BasicLock</span><span class="o">*</span> <span class="n">lock</span><span class="p">,</span> <span class="n">TRAPS</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">markOop</span> <span class="n">mark</span> <span class="o">=</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">mark</span><span class="p">();</span>
+  <span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">mark</span><span class="o">-&gt;</span><span class="n">has_bias_pattern</span><span class="p">(),</span> <span class="s">&#34;should not see bias pattern here&#34;</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">mark</span><span class="o">-&gt;</span><span class="n">is_neutral</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// Anticipate successful CAS -- the ST of the displaced mark must
+</span><span class="c1"></span>    <span class="c1">// be visible &lt;= the ST performed by the CAS.
+</span><span class="c1"></span>    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">set_displaced_header</span><span class="p">(</span><span class="n">mark</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mark</span> <span class="o">==</span> <span class="p">(</span><span class="n">markOop</span><span class="p">)</span> <span class="n">Atomic</span><span class="o">::</span><span class="n">cmpxchg_ptr</span><span class="p">(</span><span class="n">lock</span><span class="p">,</span> <span class="n">obj</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">mark_addr</span><span class="p">(),</span> <span class="n">mark</span><span class="p">))</span> <span class="p">{</span>
+      <span class="n">TEVENT</span> <span class="p">(</span><span class="nl">slow_enter</span><span class="p">:</span> <span class="n">release</span> <span class="n">stacklock</span><span class="p">)</span> <span class="p">;</span>
+      <span class="k">return</span> <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Fall through to inflate() ...
+</span><span class="c1"></span>  <span class="p">}</span> <span class="k">else</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">mark</span><span class="o">-&gt;</span><span class="n">has_locker</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">THREAD</span><span class="o">-&gt;</span><span class="n">is_lock_owned</span><span class="p">((</span><span class="n">address</span><span class="p">)</span><span class="n">mark</span><span class="o">-&gt;</span><span class="n">locker</span><span class="p">()))</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">lock</span> <span class="o">!=</span> <span class="n">mark</span><span class="o">-&gt;</span><span class="n">locker</span><span class="p">(),</span> <span class="s">&#34;must not re-lock the same lock&#34;</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">lock</span> <span class="o">!=</span> <span class="p">(</span><span class="n">BasicLock</span><span class="o">*</span><span class="p">)</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mark</span><span class="p">(),</span> <span class="s">&#34;don&#39;t relock with same BasicLock&#34;</span><span class="p">);</span>
+    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">set_displaced_header</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="cp">#if 0</span><span class="c">
+</span><span class="c">  // The following optimization isn&#39;t particularly useful.
+</span><span class="c">  if (mark-&gt;has_monitor() &amp;&amp; mark-&gt;monitor()-&gt;is_entered(THREAD)) {
+</span><span class="c">    lock-&gt;set_displaced_header (NULL) ;
+</span><span class="c">    return ;
+</span><span class="c">  }
+</span><span class="c"></span><span class="cp">#endif
+</span><span class="cp"></span>
+  <span class="c1">// The object header will never be displaced to this lock,
+</span><span class="c1"></span>  <span class="c1">// so it does not matter what the value is, except that it
+</span><span class="c1"></span>  <span class="c1">// must be non-zero to avoid looking like a re-entrant lock,
+</span><span class="c1"></span>  <span class="c1">// and must not look locked either.
+</span><span class="c1"></span>  <span class="n">lock</span><span class="o">-&gt;</span><span class="n">set_displaced_header</span><span class="p">(</span><span class="n">markOopDesc</span><span class="o">::</span><span class="n">unused_mark</span><span class="p">());</span>
+  <span class="n">ObjectSynchronizer</span><span class="o">::</span><span class="n">inflate</span><span class="p">(</span><span class="n">THREAD</span><span class="p">,</span> <span class="n">obj</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">enter</span><span class="p">(</span><span class="n">THREAD</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>inflate方法：膨胀为重量级锁</p>
+
+<h1 id="锁升级过程">锁升级过程</h1>
+
+<h2 id="jdk8-markword实现表">JDK8 markword实现表：</h2>
+
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="./markword.png" alt="markword" class="lazyload"></figure></p>
+
+<p>无锁 - 偏向锁 - 轻量级锁 （自旋锁，自适应自旋）- 重量级锁</p>
+
+<p>synchronized优化的过程和markword息息相关</p>
+
+<p>用markword中最低的三位代表锁状态 其中1位是偏向锁位 两位是普通锁位</p>
+
+<ol>
+<li><p>Object o = new Object()
+锁 = 0 01 无锁态</p></li>
+
+<li><p>o.hashCode()
+001 + hashcode</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">00000001</span> <span class="nf">10101101</span> <span class="n">00110100</span> <span class="nf">00110110</span>
+<span class="n">01011001</span> <span class="nf">00000000</span> <span class="n">00000000</span> <span class="nf">00000000</span></code></pre></div></li>
+</ol>
+
+<p>little endian big endian</p>
+
+<p>00000000 00000000 00000000 01011001 00110110 00110100 10101101 00000000</p>
+
+<ol>
+<li><p>默认synchronized(o)
+00 -&gt; 轻量级锁
+默认情况 偏向锁有个时延，默认是4秒
+why? 因为JVM虚拟机自己有一些默认启动的线程，里面有好多sync代码，这些sync代码启动时就知道肯定会有竞争，如果使用偏向锁，就会造成偏向锁不断的进行锁撤销和锁升级的操作，效率较低。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">-XX:BiasedLockingStartupDelay<span class="o">=</span><span class="m">0</span></code></pre></div></li>
+
+<li><p>如果设定上述参数
+new Object () - &gt; 101 偏向锁 -&gt;线程ID为0 -&gt; Anonymous BiasedLock
+打开偏向锁，new出来的对象，默认就是一个可偏向匿名对象101</p></li>
+
+<li><p>如果有线程上锁
+上偏向锁，指的就是，把markword的线程ID改为自己线程ID的过程
+偏向锁不可重偏向 批量偏向 批量撤销</p></li>
+
+<li><p>如果有线程竞争
+撤销偏向锁，升级轻量级锁
+线程在自己的线程栈生成LockRecord ，用CAS操作将markword设置为指向自己这个线程的LR的指针，设置成功者得到锁</p></li>
+
+<li><p>如果竞争加剧
+竞争加剧：有线程超过10次自旋， -XX:PreBlockSpin， 或者自旋线程数超过CPU核数的一半， 1.6之后，加入自适应自旋 Adapative Self Spinning ， JVM自己控制
+升级重量级锁：-&gt; 向操作系统申请资源，linux mutex , CPU从3级-0级系统调用，线程挂起，进入等待队列，等待操作系统的调度，然后再映射回用户空间</p></li>
+</ol>
+
+<p>(以上实验环境是JDK11，打开就是偏向锁，而JDK8默认对象头是无锁)</p>
+
+<p>偏向锁默认是打开的，但是有一个时延，如果要观察到偏向锁，应该设定参数</p>
+
+<p>没错，我就是厕所所长</p>
+
+<p>加锁，指的是锁定对象</p>
+
+<p>锁升级的过程</p>
+
+<p>JDK较早的版本 OS的资源 互斥量 用户态 -&gt; 内核态的转换 重量级 效率比较低</p>
+
+<p>现代版本进行了优化</p>
+
+<p>无锁 - 偏向锁 -轻量级锁（自旋锁）-重量级锁</p>
+
+<p>偏向锁 - markword 上记录当前线程指针，下次同一个线程加锁的时候，不需要争用，只需要判断线程指针是否同一个，所以，偏向锁，偏向加锁的第一个线程 。hashCode备份在线程栈上 线程销毁，锁降级为无锁</p>
+
+<p>有争用 - 锁升级为轻量级锁 - 每个线程有自己的LockRecord在自己的线程栈上，用CAS去争用markword的LR的指针，指针指向哪个线程的LR，哪个线程就拥有锁</p>
+
+<p>自旋超过10次，升级为重量级锁 - 如果太多线程自旋 CPU消耗过大，不如升级为重量级锁，进入等待队列（不消耗CPU）-XX:PreBlockSpin</p>
+
+<p>自旋锁在 JDK1.4.2 中引入，使用 -XX:+UseSpinning 来开启。JDK 6 中变为默认开启，并且引入了自适应的自旋锁（适应性自旋锁）。</p>
+
+<p>自适应自旋锁意味着自旋的时间（次数）不再固定，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也是很有可能再次成功，进而它将允许自旋等待持续相对更长的时间。如果对于某个锁，自旋很少成功获得过，那在以后尝试获取这个锁时将可能省略掉自旋过程，直接阻塞线程，避免浪费处理器资源。</p>
+
+<p>偏向锁由于有锁撤销的过程revoke，会消耗系统资源，所以，在锁争用特别激烈的时候，用偏向锁未必效率高。还不如直接使用轻量级锁。</p>
+
+<h2 id="synchronized最底层实现">synchronized最底层实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">T</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="nf">volatile</span> <span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+    
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">n</span><span class="p">()</span> <span class="p">{</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
+    
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kd">synchronized</span> <span class="nf">void</span> <span class="n">m</span><span class="p">()</span> <span class="p">{}</span>
+    
+    <span class="n">publics</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">j</span><span class="o">=</span><span class="n">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">1000_000</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">m</span><span class="p">();</span>
+            <span class="n">n</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>java -XX:+UnlockDiagonositicVMOptions -XX:+PrintAssembly T</p>
+
+<p>C1 Compile Level 1 (一级优化)</p>
+
+<p>C2 Compile Level 2 (二级优化)</p>
+
+<p>找到m() n()方法的汇编码，会看到 lock comxchg &hellip;..指令</p>
+
+<h2 id="synchronized-vs-lock-cas">synchronized vs Lock (CAS)</h2>
+<div class="highlight"><pre class="chroma"> 在高争用 高耗时的环境下synchronized效率更高
+ 在低争用 低耗时的环境下CAS效率更高
+ synchronized到重量级之后是等待队列（不消耗CPU）
+ CAS（等待期间消耗CPU）
+ 
+ 一切以实测为准</pre></div>
+<h1 id="锁消除-lock-eliminate">锁消除 lock eliminate</h1>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">void</span> <span class="n">add</span><span class="p">(</span><span class="n">String</span> <span class="nf">str1</span><span class="p">,</span><span class="n">String</span> <span class="nf">str2</span><span class="p">){</span>
+         <span class="n">StringBuffer</span> <span class="nf">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="p">();</span>
+         <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">str1</span><span class="p">).</span><span class="na">append</span><span class="p">(</span><span class="n">str2</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+<p>我们都知道 StringBuffer 是线程安全的，因为它的关键方法都是被 synchronized 修饰过的，但我们看上面这段代码，我们会发现，sb 这个引用只会在 add 方法中使用，不可能被其它线程引用（因为是局部变量，栈私有），因此 sb 是不可能共享的资源，JVM 会自动消除 StringBuffer 对象内部的锁。</p>
+
+<h1 id="锁粗化-lock-coarsening">锁粗化 lock coarsening</h1>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">String</span> <span class="n">test</span><span class="p">(</span><span class="n">String</span> <span class="nf">str</span><span class="p">){</span>
+       
+       <span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+       <span class="n">StringBuffer</span> <span class="nf">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="p">()</span><span class="o">:</span>
+       <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">100</span><span class="p">){</span>
+           <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+           <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+       <span class="p">}</span>
+       <span class="k">return</span> <span class="n">sb</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">:</span>
+<span class="p">}</span></code></pre></div>
+<p>JVM 会检测到这样一连串的操作都对同一个对象加锁（while 循环内 100 次执行 append，没有锁粗化的就要进行 100  次加锁/解锁），此时 JVM 就会将加锁的范围粗化到这一连串的操作的外部（比如 while 虚幻体外），使得这一连串操作只需要加一次锁即可。</p>
+
+<h1 id="锁降级-不重要">锁降级（不重要）</h1>
+
+<p><a href="https://www.zhihu.com/question/63859501">https://www.zhihu.com/question/63859501</a></p>
+
+<p>其实，只被VMThread访问，降级也就没啥意义了。所以可以简单认为锁降级不存在！</p>
+
+<h1 id="超线程">超线程</h1>
+
+<p>一个ALU + 两组Registers + PC</p>
+
+<h1 id="参考资料">参考资料</h1>
+
+<p><a href="http://openjdk.java.net/groups/hotspot/docs/HotSpotGlossary.html">http://openjdk.java.net/groups/hotspot/docs/HotSpotGlossary.html</a></p>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/elk/filebeat/">
+            FileBeat
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/">
+            Ubuntu搭建单机版k8s
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/" class="post-link">两个链表的第一个公共节点</a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

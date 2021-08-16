@@ -6,10 +6,51 @@
     <description>Recent content in Posts on fyzn12</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 28 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NIO 学习笔记</title>
+      <link>https://fyzn12.github.io/post/java/java-nio/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/java-nio/</guid>
+      <description>1. NIO 学习笔记  1.1 概念了解 java的NIO是一个可以代替标准Java IO API的IO API从java1.4开始。
+   工作方式的比较:
+- Java NIO: Channel and Buffer (通道和缓冲区) 数据总是从通道读取到缓冲区， 或者是从缓冲区写入到通道中。 - 标准IO： 标准IO基于字节流和字符流进行操作  Java NIO: Non-blocking IO（非阻塞IO）
+java NIO可以让你非阻塞的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他 事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。  Java NIO: Selectors（选择器）
+Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。  核心组成部分
+Channels Buffers Selectors  其他组件
+其它组件，如Pipe和FileLock，只不过是与三个核心组件共同使用的工具类。     1.2 Channel 和 Buffer   基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。
+Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：
+ FileChannel DatagramChannel SocketChannel ServerSocketChannel
+  这些通道覆盖了UDP和TCP网络IO，以及文件IO。</description>
+    </item>
+    
+    <item>
+      <title>单词学习</title>
+      <link>https://fyzn12.github.io/post/java/word_list/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/word_list/</guid>
+      <description> 单词学习  allocate /ˈæləkeɪt/ 分配；拨出
+Buffer使用时，静态方法，用于分配Buffer内存资源 // 分配Buffer的capacity的字节为48 ByteBuffer buf = ByteBuffer.allocate(48);  capacity /kəˈpæsəti/ 能力；容量；资格，地位；生产力
+指定一些容器的大小值    </description>
+    </item>
+    
+    <item>
+      <title>菜单树</title>
+      <link>https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
+ 菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
+数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表 	List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t.</description>
+    </item>
     
     <item>
       <title>k8s日志采集</title>
@@ -51,10 +92,10 @@ sudo swapoff -a #暂时关闭 nano /etc/fstab #永久关闭，注释掉swap那�
     
     <item>
       <title>CAS</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</link>
+      <link>https://fyzn12.github.io/post/java/cas/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/cas/</guid>
+      <guid>https://fyzn12.github.io/post/java/cas/</guid>
       <description>CAS Compare And Swap (Compare And Exchange) / 自旋 / 自旋锁 / 无锁
 因为经常配合循环操作，直到完成为止，所以泛指一类操作
 cas(v, a, b) ，变量v，期待值a, 修改值b
@@ -85,10 +126,10 @@ public final native boolean compareAndSwapInt(Object var1, long var2, int var4, 
     
     <item>
       <title>GC和JVM</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</link>
+      <link>https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/gc%E5%92%8Cjvm/</guid>
+      <guid>https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/</guid>
       <description>GC和JVM Tuning 作者：马士兵教育 http://mashibing.com
 GC的基础知识 1.什么是垃圾  C语言申请内存：malloc free
 C++： new delete
@@ -131,10 +172,10 @@ G1是逻辑分代，物理不分代
     
     <item>
       <title>volatile的用途</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/</link>
+      <link>https://fyzn12.github.io/post/java/volatile/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/volatile/</guid>
+      <guid>https://fyzn12.github.io/post/java/volatile/</guid>
       <description>volatile的用途 1.线程可见性 package com.mashibing.testvolatile; public class T01_ThreadVisibility { private static volatile boolean flag = true; public static void main(String[] args) throws InterruptedException { new Thread(()-&amp;gt; { while (flag) { //do sth  } System.out.println(&amp;#34;end&amp;#34;); }, &amp;#34;server&amp;#34;).start(); Thread.sleep(1000); flag = false; } } 2.防止指令重排序 问题：DCL单例需不需要加volatile？ CPU的基础知识  缓存行对齐 缓存行64个字节是CPU同步的基本单位，缓存行隔离会比伪共享效率要高 Disruptor
 package com.mashibing.juc.c_028_FalseSharing; public class T02_CacheLinePadding { private static class Padding { public volatile long p1, p2, p3, p4, p5, p6, p7; //  } private static class T extends Padding { public volatile long x = 0L; } public static T[] arr = new T[2]; static { arr[0] = new T(); arr[1] = new T(); } public static void main(String[] args) throws Exception { Thread t1 = new Thread(()-&amp;gt;{ for (long i = 0; i &amp;lt; 1000_0000L; i++) { arr[0].</description>
     </item>
@@ -162,20 +203,20 @@ MyISAM存储引擎表有MYD和MYI组成，MYD用来存储数据文件，MYI用�
     
     <item>
       <title>SynchronizedMap如何让HashMap具备线程安全</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</link>
+      <link>https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</link>
       <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</guid>
+      <guid>https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</guid>
       <description>问题：SynchronizedMap如何让HashMap具备线程安全  1. 首先利用SynchronizedMap的构造函数获取map的对象，而该构造器可以传入一个HashMap的集合作为参数 2. SynchronizedMap底层通过一个互斥信号量mutex（final Object） 进行方法同步的限定， synchronized（mutex）进行加锁，达到线程同步的效果,如下源码所示
 SynchronizedMap(Map&amp;lt;K,V&amp;gt; m) { if (m==null) throw new NullPointerException(); this.m = m; mutex = this; } SynchronizedMap(Map&amp;lt;K,V&amp;gt; m, Object mutex) { this.m = m; this.mutex = mutex; } public int size() { synchronized(mutex) {return m.size();} } public boolean isEmpty(){ synchronized(mutex) {return m.isEmpty();} } public boolean containsKey(Object key) { synchronized(mutex) {return m.containsKey(key);} }  3.使用方式：  Map&amp;lt;String,Long&amp;gt; user = Collections.synchronizedMap(new HashMap&amp;lt;&amp;gt;()); user.put(&amp;#34;xsj&amp;#34;,1234567l); System.</description>
     </item>
     
     <item>
       <title>两个链表的第一个公共节点</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/</link>
+      <link>https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/</link>
       <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/</guid>
+      <guid>https://fyzn12.github.io/post/java/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/</guid>
       <description> 题目描述：输入两个链表，找出它们的第一个公共结点。（注意因为传入数据是链表，所以错误测试数据的提示是用其他方式显示的，保证传入数据是正确的）
 解题思路：采用双指针的方式遍历链表
 public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) { if(pHead1 == null || pHead2 == null)return null; ListNode p1 = pHead1; ListNode p2 = pHead2; while(p1 != p2){ p1 = p1.next; p2 = p2.next; if(p1 != p2){ if(p1 == null)p1 = pHead1; if(p2 == null)p2 = pHead2; } } return p1; }  </description>
@@ -553,10 +594,10 @@ public class Tree { private class Bitree&amp;lt;T&amp;gt;{ T data; Bitree lchild
     
     <item>
       <title>xml字符编码规范</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+      <link>https://fyzn12.github.io/post/java/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</link>
       <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
+      <guid>https://fyzn12.github.io/post/java/xml%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
       <description> xml字符编码规范
  &amp;lt; &amp;lt;(小于) &amp;gt; &amp;gt;(大于) &amp;amp; &amp;amp;(和) &amp;apos; &amp;lsquo;(单引号) &amp;quot; &amp;ldquo;(双引号)   </description>
     </item>
@@ -678,19 +719,19 @@ public class Tree { private class Bitree&amp;lt;T&amp;gt;{ T data; Bitree lchild
     
     <item>
       <title>java基础底层</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</link>
+      <link>https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</link>
       <pubDate>Tue, 21 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</guid>
+      <guid>https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</guid>
       <description>1 JVM的解析 1.1 JVM的结构图  大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区） ,Heap（堆） , Program Counter Register （程序计数器） , VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的）,Native Method Stack （ 本地方法栈 ） ，其中Method Area 和 Heap 是线程共享的 ，VM Stack，Native Method Stack 和Program Counter Register 是非线程共享的。为什么分为 线程共享和非线程共享的呢?请继续往下看。 首先我们熟悉一下一个一般性的 Java 程序的工作过程。一个 Java 源程序文件，会被编译为字节码文件 （以 class 为扩展名），每个java程序都需要运行在自己的JVM上，然后告知 JVM 程序的运行入口，再被 JVM 通过字 节码解释器加载运行。那么程序开始运行后，都是如何涉及到各内存区域的呢？ 概括地说来，JVM初始运行的时候都会分配好 Method Area（方法区） 和Heap（堆） ，而JVM 每遇到一个线程， 就为其分配一个 Program Counter Register（程序计数器） , VM Stack（虚拟机栈）和Native Method Stack （本地方法栈）， 当线程终止时，三者（虚拟机栈，本地方法栈和程序计数器）所占用的内存空间也会被释放 掉。这也是为什么我把内存区域分为线程共享和非线程共享的原因，非线程共享的那三个区域的生命周期与所属线程相 同，而线程共享的区域与JAVA程序运行的生命周期相同，所以这也是系统垃圾回收的场所只发生在线程共享的区域 （实际上对大部分虚拟机来说知发生在Heap上）的原因。 1.</description>
     </item>
     
     <item>
       <title>多线程</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+      <link>https://fyzn12.github.io/post/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
       <pubDate>Tue, 21 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
+      <guid>https://fyzn12.github.io/post/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
       <description>java多线程总结 多线程的几种实现方式  继承Thread类 重写run（）方法定义线程的行为；
 如下图所示  实现Runnable接口
 如下图所示
@@ -829,20 +870,20 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
     
     <item>
       <title>java基础篇</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/</link>
+      <link>https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/java%E5%9F%BA%E7%A1%80/</guid>
+      <guid>https://fyzn12.github.io/post/java/java%E5%9F%BA%E7%A1%80/</guid>
       <description>JVM加载class文件的原理机制 JVM中类的装载是由类加载器（ClassLoader）和他的子类来实现的，java中的类加载器是一个重要的 java运行时系统组件，他负责在运行时查找和装入类文件中的类。 JDK和JRE的区别 * JDK ：java development kit的简称，java开发的环境和运行环境 * JRE ：java runtime environment的简称，java运行环境。 * 具体来说JDK其实包含了jre，如下图所示  同时还包含了编译java远吗的编译器javac，还包含了很多java调试和分析的工具。
 ==和equals的区别 ==解读 对于基本类型和引用类型 == 的作用效果是不同的， * 基本类型：比较的是值是否相等 ； * 引用类型：比较的是引用是否相同； 如下代码 String x = &amp;#34;string&amp;#34;; String y = &amp;#34;string&amp;#34;; System.out.println(x==y); // true System.out.println(x==z); // false System.out.println(x.equals(y)); // true System.out.println(x.equals(z)); // true 因为x和y指向的是同一个“引用”，所以 == 是true，换句话说： == 是对引用类型作比较。 而new String（）方法则重新开辟了内存空间，所以 == 比较的是两个不同的引用，== 比较的结果则为false。 而equals比较的是 “值” ，所以结果都为true。  equals解读 equals的本质就是 ==，只不过String和Integer等重写了equals的方法，把他变成了 &amp;#34; 值 的 比 较 &amp;#34; equals的源码如下 public boolean equals（Object obj）{ return (this == obj); } 在没有重写equals方法时 equals就是==，他们比较的都是引用类型是否相等，而不是值是否相等； 如下代码可以很清晰的解释这一观点： class Cat { public Cat(String name) { this.</description>
     </item>
     
     <item>
       <title>JVM</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/</link>
+      <link>https://fyzn12.github.io/post/java/jvm/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm/</guid>
+      <guid>https://fyzn12.github.io/post/java/jvm/</guid>
       <description>jvm初学篇
  1 JVM的启动流程  通过编辑器将java代码编辑好之后编译成java字节码，也就是.class文件；
  装载JVM 会通过当前路径或者系统的版本去寻找 JVM.cfg文件； 通过JVM.cfg文件寻找到 JVM.dll文件 &amp;mdash;该文件是JVM的具体实现；
@@ -861,10 +902,10 @@ Eureka Consul（go语言编写） Zookerper 注意：Dubbo支持两种Redis和Zo
     
     <item>
       <title>JVM初始化初步理解</title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
+      <link>https://fyzn12.github.io/post/java/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
       <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
+      <guid>https://fyzn12.github.io/post/java/jvm%E5%88%9D%E5%A7%8B%E5%8C%96%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
       <description> 要了解JVM首先得了解JVM如何创建，然后深入JVM的内存分析
 首先java程序在执行时会被编译成java字节码即.class文件
 ————&amp;gt;其次加载配置文件 jvm.cfg（会根据系统的版本去寻找该配置文件）
@@ -1024,10 +1065,51 @@ InputStream is; try { //1.利用org.apache.ibatis.io.Resources方法读取mybati
     
     <item>
       <title></title>
-      <link>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%B9%B6%E5%8F%91/</link>
+      <link>https://fyzn12.github.io/post/algorithm/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/java%E5%9F%BA%E7%A1%80/%E5%B9%B6%E5%8F%91/</guid>
+      <guid>https://fyzn12.github.io/post/algorithm/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
+      <description>多线程：
+一般来说设置多少个线程与操作系统的核数关，充分利用cpu 实际当中并不是有多少核就设置多少个线程，存在一个压测行为，找到最高效率线程数
+线程数计算.png</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://fyzn12.github.io/post/java/java_annotation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/java_annotation/</guid>
+      <description>注解理解 1. java5之后提供的注解支持 java.lang.annotation提供了四种元注解，专门注解其他的注解： @Target –注解用于什么地方，默认值为任何元素，表示该注解用于什么地方。 可用的ElementType指定参数 ，也同时指定多个 ● ElementType.CONSTRUCTOR:用于描述构造器 ● ElementType.FIELD:成员变量、对象、属性（包括enum实例） ● ElementType.LOCAL_VARIABLE:用于描述局部变量 ● ElementType.METHOD:用于描述方法 ● ElementType.PACKAGE:用于描述包 ● ElementType.PARAMETER:用于描述参数 ● ElementType.TYPE:用于描述类、接口(包括注解类型) 或enum声明  @Retention –什么时候使用该注解，即注解的生命周期，使用RetentionPolicy来指定 ● RetentionPolicy.SOURCE : 在编译阶段丢弃。这些注解在编译结束之后就不再有任何意义，所以它们不会写入字节码。@Override, @SuppressWarnings都属于这类注解。
+● RetentionPolicy.CLASS : 在类加载的时候丢弃。在字节码文件的处理中有用。注解默认使用这种方式
+● RetentionPolicy.RUNTIME : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。
+@Documented –注解是否将包含在JavaDoc中 @Inherited – 是否允许子类继承该注解 @Inherited 元注解是一个标记注解，@Inherited阐述了某个被标注的类型是被继承的。 如果一个使用了@Inherited修饰的annotation类型被用于一个class，则这个 annotation将被用于该class的子类。 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+该注解的作用是，排除自动注入数据源的配置（取消数据库配置），一般使用在客户端（消费者）服务中
+当前项目其实并不需要数据源。查其根源是依赖方提供的API依赖中引用了一些多余的依赖触发了该自动化配置的加载。
+反射  getFields()：获得某个类的所有的公共（public）的字段，包括父类中的字段。
+ getDeclaredFields()：获得某个类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段。
+ getSuperClass()方法用于返回Class，该Class表示此Class表示的任何类，接口，原始类型或任何void类型的超类。 getSuperclass()方法返回的父类的Class对象。
+  实际运用 this.fields = new ArrayList&amp;lt;Object[]&amp;gt;(); List&amp;lt;Field&amp;gt; tempFields = new ArrayList&amp;lt;&amp;gt;(); //getFields()：获得某个类的所有的公共（public）的字段，包括父类中的字段。  //getDeclaredFields()：获得某个类的所有声明的字段，即包括public、private 和proteced，但是不包括父类的申明字段。  //getSuperClass()方法用于返回Class，该Class表示此Class表示的任何类，接口，原始类型或任何void类型的超类。  System.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://fyzn12.github.io/post/java/menu_tree/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/menu_tree/</guid>
+      <description>业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
+ 菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
+数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&amp;lt;Menu&amp;gt; getChildPerms(List&amp;lt;Menu&amp;gt; list, Long parentId) { List&amp;lt;Menu&amp;gt; returnList = new ArrayList&amp;lt;Menu&amp;gt;(); list.stream().forEach(menu -&amp;gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&amp;lt;Menu&amp;gt; list, Menu t) { // 得到子节点列表 	List&amp;lt;Menu&amp;gt; childList = getChildList(list, t); t.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://fyzn12.github.io/post/java/%E5%B9%B6%E5%8F%91/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/%E5%B9%B6%E5%8F%91/</guid>
       <description>1 并发的原理解析 1.1 并发会造成什么问题  死锁
  资源占用 线程安全
 &amp;hellip;

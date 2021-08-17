@@ -82,7 +82,7 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
       <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</guid>
-      <description> volatile 硬件屏障  各个硬件的内存屏障不同
+      <description>volatile 硬件屏障  各个硬件的内存屏障不同
  内存屏障  LoadLoad屏障
 对于这样的语句 Load1;LoadLoad;Load2;
 在Load2及后续读取操作要读取得数据被访问前，保证Load1要读取的数据被读取完毕。
@@ -98,11 +98,13 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
   volatile的实现细节  字节码层面
 ACC_VOLATILE 加了这样一个标识
  JVM层面 &amp;ndash;读取到字节码上的ACC_VOLATILE标识加下面的内存屏障
-StoreStoreBarrier LoadLoadBarrier 内存
-volatile写操作 volatile读操作
-StoreStoreBarrier LoadLoadBarrier 内存
-也就是在volatile内存区的读写都加屏障
- OS和硬件层面
+   StoreStoreBarrier
+volatile写操作
+StoreStoreBarrier
+  LoadLoadBarrier
+volatile读操作
+LoadLoadBarrier
+  OS和硬件层面
 需要用hsdis查看
 windows 就是lock指令实现
   synchronized的实现  字节码层面
@@ -111,9 +113,7 @@ monitorenter 实现
 monitorexit 实现
  JVM层面
 C 和C++调用操作系统提供的同步机制
- OS和硬件层面
-lock指令
-  </description>
+ OS和硬件层面</description>
     </item>
     
     <item>

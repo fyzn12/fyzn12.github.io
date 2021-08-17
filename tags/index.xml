@@ -6,10 +6,37 @@
     <description>Recent content in Tags on fyzn12</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fyzn12.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>jar</title>
+      <link>https://fyzn12.github.io/tags/jar/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/jar/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://fyzn12.github.io/tags/linux/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Serializable</title>
+      <link>https://fyzn12.github.io/tags/serializable/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/tags/serializable/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>menu tree</title>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Serializable on fyzn12</title>
+    <link>https://fyzn12.github.io/tags/serializable/</link>
+    <description>Recent content in Serializable on fyzn12</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 17 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fyzn12.github.io/tags/serializable/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>为什么实现Serializable接口就可以序列化</title>
+      <link>https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>  为什么实现Serializable接口就可以序列化  什么是序列化和反序列化    序列化就是指把Java对象转换为字节流写入硬盘的过程。
+public static void writeObject(Object obj, String dstFilePath) throws IOException { ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(dstFilePath)); out.writeObject(obj); out.close(); }  反序列化就是指把硬盘上的二进制文件用字节流读入内存中，恢复为Java对象的过程
+public static Object loadObject(String fromFile) throws IOException, ClassNotFoundException { ObjectInputStream in = new ObjectInputStream(new FileInputStream(fromFile)); Object obj = in.readObject(); in.close(); return obj; }  </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-17T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,48 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/tree/">二叉树</a></h2>
+            <div class="post-meta">Sep 23, 2020</div>
+            <div class="post-excerpt">
+                二叉树的简单介绍
+ 二叉树的定义 二叉树是(n&gt;=0)个节点的有限集合，他或者(n==0)时为空树，或者（n&gt;0时）由一个根节点及两颗互不相交的分别称为跟的左子树和右子树的二叉树组成。
+2 二叉树的遍历 2.1 前序遍历 递归实现的算法分析 前序遍历二叉树的递归定义为：若二叉树为空树则遍历结束，否则
+1. 访问根节点
+2. 前序遍历根节点的左子树
+3. 前序遍历根节点的右子树
+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; 算法实现 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+public class Tree { private class Bitree&lt;T&gt;{ T data; Bitree lchild; Bitree rchild; public Bitree(T data,Bitree lchild,Bitree rchild){ this.data = data; this.lchild = lchild; this.rchild = rchild; } } private void preorder(Bitree bt){ //设置递归终止条件  if (bt==null){ return; } //输出 跟节点  System.out.println(bt.data); //前序遍历左子树  preorder(bt.lchild); //前序遍历右子树  preorder(bt.rchild); } }  2.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/design_mode/command-design/">命令模式</a></h2>
+            <div class="post-meta">Sep 21, 2020</div>
+            <div class="post-excerpt">
+                  命令模式的简单介绍
+ 1 命令模式的介绍 1.1 命令模式的结构 
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/hashtable/">哈希检索</a></h2>
+            <div class="post-meta">Sep 19, 2020</div>
+            <div class="post-excerpt">
+                哈希检索算法的深度学习
+ 1 相关概念的理解 1.1 哈希检索  概念： 哈希检索技术的初衷是组织理想状态的检索表。检索表的理想状态是：把记录的关键字值与记录在检索表中的存储位置建立起某种一对一的关系，这种一对一的关系可以用关键字的一个函数h(key)来表示，这样不必进行关键字与给定值的比较，而是直接依据给定的关键字值来直接计算得到记录在检索表中的存储地址。 哈希函数（散列函数、杂凑函数）：反应关键字与存储位置一对一关系的函数h(key) 哈希检索技术必须解决的两个问题
+（1）如何选择一个计算简单且地址冲突尽可能少的哈希函数；
+（2）在出现地址冲突时采用什么办法解决冲突
+  1.2 哈希函数的构建方法  直接定址法：h(key) = a*key + b 数字分析法：提前知道关键字值的集合，分析关键字集合的分布情况，确定散列函数； 平方取中法：先求出关键字的平方，然后取中间几位作为哈希地址；
+ 折叠法 除留余数法：h(key) = key % p 余取整法 随机数法：h(key) = random(key)
+  2 地址冲突的消解策略 2.1 开放地址法 把哈希表中的空位置向处理地址冲突开放，具体的做法是，当发生地址冲突时，从发生地址冲突的那个位置开始，使用某种方法在哈希表中形成一个探查序列。
+2.1.1 线性探查法  线性探查法是开放地址法消除地址冲突的一种最简单的探查方法。他把表长为m的哈希表看成是循环表，若发生地址冲突的位置地址为d，则依次探查d+1, d+2, &hellip;,直到找到一个空闲位置为止。
+ 公式：（地址）d = (h(key)+i)%m ， 其中i=1,2,&hellip;,m-1
+ 缺点：线性探查法易造成堆积现象。
+  2.1.2 平方探查法  平方探查法也称为二次探查法。在发生地址冲突时，依次探查位置d+i，其中i取 1^2,-1^2,2^2,-2^2,&hellip;, 公式：d = (h(key)+i^2)%m,d = (h(key)-i^2)%m 和中心扩展法相同，以地址冲突的位置，分别向两边去寻找空地址。
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/linkedlist/">LinkedList以及栈的深度理解</a></h2>
             <div class="post-meta">Sep 11, 2020</div>
             <div class="post-excerpt">
@@ -92,36 +134,6 @@
             <div class="post-excerpt">
                  xml字符编码规范
  &lt; &lt;(小于) &gt; &gt;(大于) &amp; &amp;(和) &apos; &lsquo;(单引号) &quot; &ldquo;(双引号)   
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/singleton/">单例模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
-            <div class="post-excerpt">
-                单例模式的介绍
- 1 单例模式的原理 确保一个类最多只有一个实例，并提供一个全局的访问点  2 单例模式的创建方式 2.1 饱汉模式（懒汉模式） public class SingleTon{ private SingleTon(){} //实例化放在静态代码块里，可提高程序的执行效率，但也可能更占空间 	private final static SingleTon instance = new SingleTon(); //公共结果，获取对象的实例 	public static SingleTon getInstance(){ return instance; } }  饱汉模式的优点和缺点  优点： 在多线程的情况下，可以保证SingleTon的对象唯一 缺点：在多实例或者有其他静态方法时，在启动时没有使用它的时候就已经加载好了,浪费内存。
-  2.2 饥汉模式 public class SingleTon{ private SingleTon(){} private static SingleTon instance = null; public static synchronized SingleTon getInstance(){ if(instance == null){ instance = new SingleTon(); } return instance; } }  饥汉模式的优点和缺点  优点：饥汉模式解决了对象没被使用但却分配了内存空间的问题
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/factory-pattern/">工厂模式</a></h2>
-            <div class="post-meta">Sep 10, 2020</div>
-            <div class="post-excerpt">
-                  工厂模式的简单介绍
- 1 简单的工厂模式  原理：定义一个工厂类，根据不同的参数，创建并返回不同的类。其中这些类具有一个公共的父类或是一个接口。  
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/design_mode/decorator_design/">装饰者模式</a></h2>
-            <div class="post-meta">Sep 09, 2020</div>
-            <div class="post-excerpt">
-                  装饰者模式的简单实现
- 1 装饰者模式的原理  原理：动态的将新功能添加到对象上。在对象扩展方面，他比继承更具有弹性。
- 别人写了一篇易懂的文章装饰者模式
-  
             </div>
         </li>
         
@@ -155,11 +167,23 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" class="post-link">Linux部署springboot的jar包</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/lock/" class="post-link">Synchronized底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-link">为什么实现Serializable接口就可以序列化</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
+            <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile底层实现</a>
         </li>
         
         <li>
@@ -196,18 +220,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
     </ul>

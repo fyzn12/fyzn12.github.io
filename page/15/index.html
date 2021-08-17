@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-17T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,33 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">基本排序算法总结</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                排序算法总结 1 选择排序 1.1 思路分析  ① 在0~N-1 范围上找到最小值，将其放在0位置上； ② 在1~N-1 范围上找到最小值，将其放在1位置上； &hellip; 知道确定最后一个值的位置。
+  1.2 代码实现 public static void selectionSort(int[] arr) { if (arr == null || arr.length &lt; 2) { return; } // 0 ~ N-1 找到最小值，在哪，放到0位置上  // 1 ~ n-1 找到最小值，在哪，放到1 位置上  // 2 ~ n-1 找到最小值，在哪，放到2 位置上  for (int i = 0; i &lt; arr.length - 1; i++) { int minIndex = i; // i ~ N-1 上找最小值的下标  for (int j = i + 1; j &lt; arr.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93/">常见算法篇</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                常见算法总结篇 递归算法 递归算法有一下几个特点 * 递归算法必须设定循环终止条件，称为递归出口 * 方法里调用自身 如下面两个例子： 1. 一个整数，大于0，不用循环和本地变量，按照n，2n，4n，8n的顺序递增，当值大于5000时，把值按照指定顺序输出来。 例：n=1237 函数设定如下： //编写递归函数 private static void getNUm(int n){ //设置递归终止条件 System.out.printl(n); if（n&lt;=5000）{ //调用自身 getNum(n*2); System.out.printl(n); } } 2. 第1个人10，第2个比第1个人大2岁，依次递推，请用递归方式计算出第8个人多大？ 程序设定如下 //n代表传入的人的数量 private static int getAge(int n){ //设定递归终止条件 if（n==1） return 10; //调用自身并返回； return getAge(n-1)+2; } 排序算法  快速排序算法 排序步骤总结如下：
+* 从数组中挑出一个元素，称为“基准”（pivot）； * 重新排序数组，所有元素比基准值小的摆放在基准前面，所有元素比基准大的摆放在基准的后面 （相同可以任意放一边）。这个分割之后，该基准就是他的最后的位置，这个称为“分割”操作 * 递归地把小于基准值元素的子数组和大于基准元素的子数组排序。 下面看一个列子： 请用快速排序排序下面的数组内的数字：String[] strVoid=new String[]{&#34;11&#34;,&#34;66&#34;,&#34;22&#34;,&#34;0&#34;,&#34;55&#34;,&#34;22&#34;,&#34;0&#34;,&#34;32&#34;}; 代码设计如下：严格按照上面三个步骤设计 //三个参数，排序的数组，排序左基点，排序右基点 private static void quickSort(String[] strViod,int left,int right){ //先判断左右指针是否越界 if (left&gt;right){ returen; } //定义基准位置，左右移动时的指针以及中间变量 String standard,tmp; //步骤一：确定基准位置（可以随意） standard = strViod[left]; int i,j; i = left; j = right; //步骤二：初步与基准值比较，确认基准值的左右集合 while(i&lt;j){ //首先进行基准值右侧值的判断,这里建议将String转为int进行判断，别用compareTo进行判断 while(Integer.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/selectionsorted/">排序算法</a></h2>
+            <div class="post-meta">Jun 11, 2020</div>
+            <div class="post-excerpt">
+                排序算法的简单介绍
+ 1 选择排序 1.1 选择排序的理解 选择排序（Selection sort）是一种简单直观的排序算法。 它的工作原理是： 第一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置， 然后再从剩余的未排序元素中寻找到最小（大）元素，然后放到已排序的序列的末尾。以此类推，直到全部待排序 的数据元素的个数为零。选择排序是不稳定的排序方法。  1.2 选择排序的实现 /** * @author ZhangRongJun * @version 1.0 * @date 2020/9/14 18:41 * @description:选择排序 */ public class SelectionSort { public static void sort(Comparable[] a) { int N = a.length; //将a[]按升序排序  for (int i = 0; i &lt; N; i++) { int min = i; for (int j = i+1;j&lt;N;j++){ if (less(a[j],a[min])){ min = j; } } exch(a,i,min); } } private static boolean less(Comparable v,Comparable w){ return v.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/faceword/firstday/">认真刷面试题的第一天</a></h2>
             <div class="post-meta">Jun 11, 2020</div>
             <div class="post-excerpt">
@@ -99,44 +126,6 @@
  配置SimpleMappingExceptionResolver处理异常
  自定义HandleExceptionResolver类处理异常
   1 自定义错误页面 1.1 SpringBoot的默认异常机制详解 SpringBoot默认的异常机制：SpringBoot默认已经提供了一套处理异常的机制。 一旦程序中出现了异常，SpringBoot会向/error的url发送请求。在SpringBoot中提供了一个 叫BasicExceptionController来处理/error请求，然后跳转到默认显示的页面来展示异常信息。   1.2 自定义错误界面 如果我们需要将所有的异常统一跳转到自定义错误页面，需要在classpath下创建一个templates目录(即在resources目录下创建templates目录)，在该目录下创建一个名为error.html的页面。 2 基于@ExceptionHandler注解处理异常 2.1 创建指定处理的异常 /** *java.lang.ArithmeticException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 */ @ExceptionHandler(value={java.lang.ArithmeticException.class}) publicModelAndViewarithmeticExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error1&#34;); returnmv; } /** *java.lang.NullPointerException *该方法需要返回一个ModelAndView：目的是可以让我们封装异常信息以及视图的指定 *参数Exceptione:会将产生异常对象注入到方法中 **/ @ExceptionHandler(value={java.lang.NullPointerException.class}) publicModelAndViewnullPointerExceptionHandler(Exceptione){ ModelAndViewmv=newModelAndView(); mv.addObject(&#34;error&#34;,e.toString()); mv.setViewName(&#34;error2&#34;); return mv； }  2.2 使用该方法的总结 使用@ExceptionHandler注解处理异常时，首先编写异常页面error.html，其次创建Controller类，编写基于注解@ExceptionHandle注解的方法，并且在该方法中必须指定想要助理异常的名称如上面的java.lang.NullPointerException.class、java.lang.ArithmeticException.class。 3 使用@ControllerAdvice + @ExceptionHandler注解处理异常 3.1 创建一个全局异常类使用ControllerAdvice注解 /** *全局异常处理类 **/ @ControllerAdvice public class GlobalException { /** * java.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/dynamicsql/">Mybatis之动态SQL</a></h2>
-            <div class="post-meta">Oct 08, 2019</div>
-            <div class="post-excerpt">
-                动态SQL语句总结 主要内容  if元素
- choose、when、otherwise元素 trim、where、set元素 foreach元素  if 元素 下面先看一个例子
-&lt;select id=&#34;selectUserById&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;if test =&#34;name !=null and name !=&#39;&#39;&#34;&gt; and name like concat(&#39;%&#39;,#{name},&#39;%&#39;) &lt;/if&gt; &lt;if test = &#34;sex !=null and sex !=&#39;&#39;&#34;&gt; and sex = #{sex} &lt;/if&gt; &lt;/select&gt;  在上面的例子中，运用的是sql语句的拼接，在这里需要注意的是有如下几点：
-1. resultType与resultMap不能同时使用 2. #{xxx}与${vlaue}的使用看上一篇博客 3. if的判断条件的test里面的参数目前我知道有三种声明方式如下： 1）对象作为参数，则test里面的参数为对象的属性 2)@Param声明的参数 3)map方式键值对  choose、when 、otherwise元素 有些时候不想用到所以的条件语句，而只想从中选择一二，针对这种情况，Mybatis提供了&lt;choose&gt;元素，如下例子。
-&lt;select id = &#34;selectUserBychoose&#34; resultType=&#34;MyUser&#34; parameterType=&#34;MyUser&#34;&gt; select * from user where 1=1 &lt;choose&gt; &lt;when test=&#34;name !
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/ssm/ssm%E9%9A%8F%E5%AD%A6%E6%9C%AD%E8%AE%B0/">Ssm随学札记</a></h2>
-            <div class="post-meta">Oct 08, 2019</div>
-            <div class="post-excerpt">
-                使用在使用ObjectMapper将json转对象，调用mapper.readValue(jsonStr, XwjUser.class)时，报如下错：
-java.lang.NullPointerException at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:889) at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3004) at com.express.utils.JsonUtils.jsonToPojo(JsonUtils.java:48) at com.express.web.controller.backstage.ManagerBaseController.getCurrentUser(ManagerBaseController.java:29) at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:498) at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) at org.springframework.web.method.annotation.ModelFactory.invokeModelAttributeMethods(ModelFactory.java:142) at org.springframework.web.method.annotation.ModelFactory.initModel(ModelFactory.java:111) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:872) at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)  这个错误产生的原因有三个：
-1. 是因为在使用ObjectMapper将json转为对象时，会默认调用该对象的无参构造函数，因此在该对象类中加入无参构造函数即可去掉该错误。
-2. 期待转成的对象与json对应的属性不匹配。
-3. 真正的空指针，既json为空。
-ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定向的，只能通过前端进行重定向。具体如何实现如下：
-* 判断满足需要重定向时，需要修改返回前端的Header以及Status，并设置拦截（当然这个可以不用）。
-* 编写redirectUtil工具类,处理后台跳转，这里需要注意，设置 response.setStatus(HttpServletResponse.SC_FORBIDDEN);之后前端会被拦截，报403错误，代表服务端终止，前端进行操作。
-/** *@author fyzn12 *@version 1.0 *@date 2020/4/18 13:46 *主要作用于ajax请求，后台重定向 *提供日志接口 *提供获取具体日志对象的方法 */ @Slf4j public class RedirecUtil { public static void redirect(HttpServletRequest request,HttpServletResponse response,String redirectUrl){ try { /* *如果是ajax请求 **/ String ajax = &#34;XMLHttpRequest&#34;; String header = &#34;X-Requested-With&#34;; if(ajax.
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/mybatis/mybatis01/">Mybatis-的配置文件</a></h2>
-            <div class="post-meta">Sep 24, 2019</div>
-            <div class="post-excerpt">
-                Mybatis的配置文件以及mapper文件 在mybatis的配置文件中，所有的配置均是在 &lt;configuration&gt;&lt;/configuration&gt;`这对标签里配置。在这里记录一些课堂老师讲解的重要配置。  &lt;configuration&gt; 1.配置日志（开启日志）通过```&lt;settings&gt;&lt;/settings&gt;```标签配置，如下所示： &lt;!-- 开启日志 --&gt; &lt;settings&gt; &lt;setting name=&#34;logImpl&#34; value=&#34;LOG4J&#34;/&gt; &lt;/settings&gt; 2.为了提高效率，在mapper文件不用每个resultType属性里都添加包名，设置别名。设置在typeAliases标签里，如下两种方式配置，优点和缺点 &lt;typeAliases&gt; &lt;typeAlia type=&#34;com.pojo.Student&#34;alias=&#34;Student&#34;/&gt;--方法一 缺点：有多少个类，就得有多少行这个代码 &lt;!-- 或者&lt;package name=&#34;com.pojo/&gt;&#34; --方法二 缺点： 在pojo包下如果还有子包，在子包下有与子包同级的类名相同时，会出现歧义，不知指定的是哪个包。 &lt;/typeAliases&gt; 3.数据库连接的配置
-&lt;environments default=&#34;default&#34;&gt; &lt;!--配置多个数据源,但只能指定一个使用 --&gt; &lt;!-- Mysql的数据库链接 --&gt; &lt;environment id=&#34;default&#34;&gt; &lt;transactionManager type=&#34;JDBC&#34;/&gt;&lt;!-- 指定当前数据库的事务管理方式 --&gt; &lt;dataSource type=&#34;POOLED&#34;&gt;&lt;!-- 数据源的管理方式为连接池 --&gt; &lt;property name=&#34;driver&#34; value=&#34;com.mysql.jdbc.Driver&#34;/&gt; &lt;property name=&#34;url&#34; value=&#34;dbc:mysql://localhost:3306/ssmLab4046?serverTimezone=GMT%2B8&#34;/&gt; &lt;property name=&#34;username&#34; value=&#34;root&#34;/&gt; &lt;property name=&#34;password&#34; value=&#34;1234&#34;/&gt; &lt;!-- 设定数据库的链接4要素 --&gt; &lt;/dataSource&gt; &lt;/environment&gt;  4.映射文件的扫面通过标签配置。
-&lt;!-- 一定是文件格式--&gt; &lt;mappers&gt; &lt;mapper resource=&#34;com/mapper/StudentMapper.xml&#34;/&gt; &lt;/mappers&gt; &lt;/configuration&gt; &lt;mapper&gt;&lt;/mapper&gt;  mapper文件配置以及对应方法的讲解  mapper配置时设置的属性namespace定义一个操作包，是映射文件匹配的重要点；
             </div>
         </li>
         
@@ -170,11 +159,23 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" class="post-link">Linux部署springboot的jar包</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/lock/" class="post-link">Synchronized底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-link">为什么实现Serializable接口就可以序列化</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
+            <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile底层实现</a>
         </li>
         
         <li>
@@ -211,18 +212,6 @@ ajax提交的几个坑  通过ajax提交数据，在后台是无法进行重定�
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
     </ul>

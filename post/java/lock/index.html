@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Synchronized底层实现 - fyzn12</title>
+
+<meta name="description" content="java创建对象  new Object()创建对象时在内存中的分布&amp;ndash;正对于64位   1. 对象头  1) mark word：标记字段 32位长度为32bit，64位系统上长度为64bit
+ hashcode、GC分代年龄、锁信息（锁标志、锁记录）等  在32位系统上mark word长度为32bit，64位系统上长度为64bit。为了能在有限的空间里存储下更多的数据，其存储格式是不固定的，在32位系统上各状态的格式如下：
+可以看到锁信息也是存在于对象的mark word中的。
+&amp;gt; * 当对象状态为偏向锁（biasable）时，mark word存储的是偏向的线程ID；
+&amp;gt; * 当状态为轻量级锁（lightweight locked）时，mark word存储的是指向线程栈中Lock Record的指针；
+&amp;gt; * 当状态为重量级锁（inflated）时，为指向堆中的monitor对象的指针。
+ 2) klass word ：类型指针
+3) array size ：数组对象：数组长度
+ 2. 实例数据  所有属性加起来的大小
+ 3.对齐填充  实例数据不一定有，取决于实例数据，针对于JVM来说实例数据是8的整数倍，当实例数据不满足这一条件时，对其填充会将其补足为8的整数倍。
+如对象属性加起来为63字节，那么对其填充就是1字节，则实例数据就是64字节。
+ 重量级锁  重量级锁是我们常说的传统意义上的锁，其利用操作系统底层的同步机制去实现Java中的线程同步。
+重量级锁的状态下，对象的mark word为指向一个堆中monitor对象的指针。
+一个monitor对象包括这么几个关键字段：cxq（下图中的ContentionList），EntryList ，WaitSet，owner。
+其中cxq ，EntryList ，WaitSet都是由ObjectWaiter的链表结构，owner指向持有锁的线程。
+  当一个线程尝试获得锁时，如果该锁已经被占用，则会将该线程封装成一个ObjectWaiter对象插入到 cxq 的队列尾部，然后暂停当前线程。当持有锁的线程释放锁前，会将cxq中的所有元素移动到EntryList中去，并唤醒EntryList的队首线程。" /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="Synchronized底层实现" />
+<meta property="og:description" content="java创建对象  new Object()创建对象时在内存中的分布&ndash;正对于64位   1. 对象头  1) mark word：标记字段 32位长度为32bit，64位系统上长度为64bit
+ hashcode、GC分代年龄、锁信息（锁标志、锁记录）等  在32位系统上mark word长度为32bit，64位系统上长度为64bit。为了能在有限的空间里存储下更多的数据，其存储格式是不固定的，在32位系统上各状态的格式如下：
+可以看到锁信息也是存在于对象的mark word中的。
+&gt; * 当对象状态为偏向锁（biasable）时，mark word存储的是偏向的线程ID；
+&gt; * 当状态为轻量级锁（lightweight locked）时，mark word存储的是指向线程栈中Lock Record的指针；
+&gt; * 当状态为重量级锁（inflated）时，为指向堆中的monitor对象的指针。
+ 2) klass word ：类型指针
+3) array size ：数组对象：数组长度
+ 2. 实例数据  所有属性加起来的大小
+ 3.对齐填充  实例数据不一定有，取决于实例数据，针对于JVM来说实例数据是8的整数倍，当实例数据不满足这一条件时，对其填充会将其补足为8的整数倍。
+如对象属性加起来为63字节，那么对其填充就是1字节，则实例数据就是64字节。
+ 重量级锁  重量级锁是我们常说的传统意义上的锁，其利用操作系统底层的同步机制去实现Java中的线程同步。
+重量级锁的状态下，对象的mark word为指向一个堆中monitor对象的指针。
+一个monitor对象包括这么几个关键字段：cxq（下图中的ContentionList），EntryList ，WaitSet，owner。
+其中cxq ，EntryList ，WaitSet都是由ObjectWaiter的链表结构，owner指向持有锁的线程。
+  当一个线程尝试获得锁时，如果该锁已经被占用，则会将该线程封装成一个ObjectWaiter对象插入到 cxq 的队列尾部，然后暂停当前线程。当持有锁的线程释放锁前，会将cxq中的所有元素移动到EntryList中去，并唤醒EntryList的队首线程。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java/lock/" />
+<meta property="article:published_time" content="2021-08-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-17T00:00:00+00:00" />
+<meta itemprop="name" content="Synchronized底层实现">
+<meta itemprop="description" content="java创建对象  new Object()创建对象时在内存中的分布&ndash;正对于64位   1. 对象头  1) mark word：标记字段 32位长度为32bit，64位系统上长度为64bit
+ hashcode、GC分代年龄、锁信息（锁标志、锁记录）等  在32位系统上mark word长度为32bit，64位系统上长度为64bit。为了能在有限的空间里存储下更多的数据，其存储格式是不固定的，在32位系统上各状态的格式如下：
+可以看到锁信息也是存在于对象的mark word中的。
+&gt; * 当对象状态为偏向锁（biasable）时，mark word存储的是偏向的线程ID；
+&gt; * 当状态为轻量级锁（lightweight locked）时，mark word存储的是指向线程栈中Lock Record的指针；
+&gt; * 当状态为重量级锁（inflated）时，为指向堆中的monitor对象的指针。
+ 2) klass word ：类型指针
+3) array size ：数组对象：数组长度
+ 2. 实例数据  所有属性加起来的大小
+ 3.对齐填充  实例数据不一定有，取决于实例数据，针对于JVM来说实例数据是8的整数倍，当实例数据不满足这一条件时，对其填充会将其补足为8的整数倍。
+如对象属性加起来为63字节，那么对其填充就是1字节，则实例数据就是64字节。
+ 重量级锁  重量级锁是我们常说的传统意义上的锁，其利用操作系统底层的同步机制去实现Java中的线程同步。
+重量级锁的状态下，对象的mark word为指向一个堆中monitor对象的指针。
+一个monitor对象包括这么几个关键字段：cxq（下图中的ContentionList），EntryList ，WaitSet，owner。
+其中cxq ，EntryList ，WaitSet都是由ObjectWaiter的链表结构，owner指向持有锁的线程。
+  当一个线程尝试获得锁时，如果该锁已经被占用，则会将该线程封装成一个ObjectWaiter对象插入到 cxq 的队列尾部，然后暂停当前线程。当持有锁的线程释放锁前，会将cxq中的所有元素移动到EntryList中去，并唤醒EntryList的队首线程。">
+
+
+<meta itemprop="datePublished" content="2021-08-17T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-08-17T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="144">
+
+
+
+<meta itemprop="keywords" content="jar,linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Synchronized底层实现"/>
+<meta name="twitter:description" content="java创建对象  new Object()创建对象时在内存中的分布&ndash;正对于64位   1. 对象头  1) mark word：标记字段 32位长度为32bit，64位系统上长度为64bit
+ hashcode、GC分代年龄、锁信息（锁标志、锁记录）等  在32位系统上mark word长度为32bit，64位系统上长度为64bit。为了能在有限的空间里存储下更多的数据，其存储格式是不固定的，在32位系统上各状态的格式如下：
+可以看到锁信息也是存在于对象的mark word中的。
+&gt; * 当对象状态为偏向锁（biasable）时，mark word存储的是偏向的线程ID；
+&gt; * 当状态为轻量级锁（lightweight locked）时，mark word存储的是指向线程栈中Lock Record的指针；
+&gt; * 当状态为重量级锁（inflated）时，为指向堆中的monitor对象的指针。
+ 2) klass word ：类型指针
+3) array size ：数组对象：数组长度
+ 2. 实例数据  所有属性加起来的大小
+ 3.对齐填充  实例数据不一定有，取决于实例数据，针对于JVM来说实例数据是8的整数倍，当实例数据不满足这一条件时，对其填充会将其补足为8的整数倍。
+如对象属性加起来为63字节，那么对其填充就是1字节，则实例数据就是64字节。
+ 重量级锁  重量级锁是我们常说的传统意义上的锁，其利用操作系统底层的同步机制去实现Java中的线程同步。
+重量级锁的状态下，对象的mark word为指向一个堆中monitor对象的指针。
+一个monitor对象包括这么几个关键字段：cxq（下图中的ContentionList），EntryList ，WaitSet，owner。
+其中cxq ，EntryList ，WaitSet都是由ObjectWaiter的链表结构，owner指向持有锁的线程。
+  当一个线程尝试获得锁时，如果该锁已经被占用，则会将该线程封装成一个ObjectWaiter对象插入到 cxq 的队列尾部，然后暂停当前线程。当持有锁的线程释放锁前，会将cxq中的所有元素移动到EntryList中去，并唤醒EntryList的队首线程。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Synchronized底层实现</h1>
+        <p class="post-meta">Aug 17, 2021</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<blockquote>
+<h1 id="java创建对象">java创建对象</h1>
+
+<blockquote>
+<h2 id="new-object-创建对象时在内存中的分布-正对于64位">new Object()创建对象时在内存中的分布&ndash;正对于64位</h2>
+</blockquote>
+</blockquote>
+
+<h3 id="1-对象头">1. 对象头</h3>
+
+<blockquote>
+<p>1) mark word：标记字段 32位长度为32bit，64位系统上长度为64bit</p>
+</blockquote>
+<div class="highlight"><pre class="chroma">   hashcode、GC分代年龄、锁信息（锁标志、锁记录）等  </pre></div>
+<p>在32位系统上mark word长度为32bit，64位系统上长度为64bit。为了能在有限的空间里存储下更多的数据，其存储格式是不固定的，在32位系统上各状态的格式如下：</p>
+
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="https://fyzn12.github.io/img/picture/lock.jpeg" alt="avatar" class="lazyload"></figure><br />
+可以看到锁信息也是存在于对象的mark word中的。<br />
+&gt; * 当对象状态为偏向锁（biasable）时，mark word存储的是偏向的线程ID；<br />
+&gt; * 当状态为轻量级锁（lightweight locked）时，mark word存储的是指向线程栈中Lock Record的指针；<br />
+&gt; * 当状态为重量级锁（inflated）时，为指向堆中的monitor对象的指针。</p>
+
+<hr />
+
+<blockquote>
+<p>2) klass word ：类型指针</p>
+
+<p>3) array size ：数组对象：数组长度</p>
+</blockquote>
+
+<h3 id="2-实例数据">2. 实例数据</h3>
+
+<blockquote>
+<p>所有属性加起来的大小</p>
+</blockquote>
+
+<h3 id="3-对齐填充">3.对齐填充</h3>
+
+<blockquote>
+<p>实例数据不一定有，取决于实例数据，针对于JVM来说实例数据是8的整数倍，当实例数据不满足这一条件时，对其填充会将其补足为8的整数倍。</p>
+
+<p>如对象属性加起来为63字节，那么对其填充就是1字节，则实例数据就是64字节。</p>
+</blockquote>
+
+<h2 id="重量级锁">重量级锁</h2>
+
+<blockquote>
+<p>重量级锁是我们常说的传统意义上的锁，其利用操作系统底层的同步机制去实现Java中的线程同步。</p>
+
+<p>重量级锁的状态下，对象的mark word为指向一个堆中monitor对象的指针。</p>
+
+<p>一个monitor对象包括这么几个关键字段：cxq（下图中的ContentionList），EntryList ，WaitSet，owner。</p>
+
+<p>其中cxq ，EntryList ，WaitSet都是由ObjectWaiter的链表结构，owner指向持有锁的线程。</p>
+</blockquote>
+
+<p><figure><img src="/images/lazy.gif" data-sizes="auto" data-src="https://fyzn12.github.io/img/picture/heavy_lock.png" alt="avatar" class="lazyload"></figure></p>
+
+<blockquote>
+<p>当一个线程尝试获得锁时，如果该锁已经被占用，则会将该线程封装成一个<font color="blue">ObjectWaiter</font>对象插入到 cxq 的队列尾部，然后暂停当前线程。当持有锁的线程释放锁前，会将cxq中的所有元素移动到<font color="blue">EntryList</font>中去，并唤醒<font color="blue">EntryList</font>的队首线程。</p>
+</blockquote>
+
+<p>如果一个线程在同步块中调用了<font color="blue">Object#wait方法</font>，会将该线程对应的<font color="blue">ObjectWaiter</font>从<font color="red">EntryList</font>移除并加入到<font color="purple">WaitSet</font>中，然后释放锁。当<font color="blue">wait</font>的线程被<font color="blue">notify</font>之后，会将对应的<font color="blue">ObjectWaiter</font>从<font color="blue">WaitSet</font>移动到<font color="blue">EntryList</font>中。</p>
+
+<p>以上只是对重量级锁流程的一个简述，其中涉及到的很多细节，比如ObjectMonitor对象从哪来？释放锁时是将cxq中的元素移动到EntryList的尾部还是头部？notfiy时，是将ObjectWaiter移动到EntryList的尾部还是头部？</p>
+
+<p>关于具体的细节，会在重量级锁的文章中分析。</p>
+
+<h2 id="轻量级锁">轻量级锁</h2>
+
+<blockquote>
+<p>JVM的开发者发现在很多情况下，在Java程序运行时，同步块中的代码都是不存在竞争的，不同的线程交替的执行同步块中的代码。这种情况下，用重量级锁是没必要的。因此JVM引入了轻量级锁的概念。</p>
+</blockquote>
+
+<p>线程在执行同步块之前，JVM会先在当前的线程的栈帧中创建一个<font color="green">Lock Record</font>，其包括一个用于存储对象头中的<font color="green"> mark word（官方称之为Displaced Mark Word）</font>以及一个指向对象的指针。下图右边的部分就是一个<font color="green">Lock Record</font>。</p>
+
+<h3 id="1-加锁过程">1. 加锁过程</h3>
+
+<ol>
+<li>在线程栈中创建一个<font color="green">Lock Record</font>  ，将其 <font color="green">  obj   </font> （即上图的Object reference）字段指向锁对象。<br /></li>
+<li>直接通过CAS指令将<font color="green">Lock Record</font> 的地址存储在对象头的<font color="green">make word</font>中 ，如果对象处于无锁状态则修改成功，代表该线程获得了轻量级锁。如果失败，进入到步骤3。<br /></li>
+<li>如果是当前线程已经持有该锁了，代表这是一次锁重入。设置<font color="green">Lock Record</font>第一部分（<font color="green">Displaced Mark Word</font>）未null，起到了一个重入计数器的作用。<br /></li>
+<li>执行到这一步说明发生了竞争，需要膨胀为重量级锁。<br /></li>
+</ol>
+
+<h3 id="2-解锁过程">2. 解锁过程</h3>
+
+<ol>
+<li>遍历线程栈，找到所有<font color="green">obj</font>字段等于当前锁对象的<font color="green">Lock Record</font> 。<br /></li>
+<li>如果<font color="green">Lock Record</font> 的<font color="green">Displaced Mark Word</font>为null，代表这是一次重入，将<font color="green">obj</font>设置为null后continue。</li>
+<li>如果<font color="green">Lock Record</font> 的<font color="green">Displaced Mark Word</font>不为null，则利用 CAS 指令将对象头的<font color="green"> mark word</font>恢复成为<font color="green">Displaced Mark Word</font>。如果成功，则continue，否则膨胀为重量级锁。<br />
+<br />
+<br /></li>
+</ol>
+
+<h2 id="偏向锁">偏向锁</h2>
+
+<h3 id="1-对象创建">1. 对象创建</h3>
+
+<blockquote>
+<p>当JVM启用了偏向锁模式（1.6以上默认开启），当新创建一个对象的时候，如果该对象所属的class没有关闭偏向锁模式（什么时候会关闭一个class的偏向模式下文会说，默认所有class的偏向模式都是是开启的），那新创建对象的mark word将是可偏向状态，此时mark word中的thread id（参见上文偏向状态下的mark word格式）为0，表示未偏向任何线程，也叫做匿名偏向(anonymously biased)。</p>
+</blockquote>
+
+<h3 id="2-加锁过程">2. 加锁过程</h3>
+
+<blockquote>
+<p>case 1：当该对象第一次被线程获得锁的时候，发现是匿名偏向状态，则会用CAS指令，将mark word中的thread id由0改成当前线程Id。如果成功，则代表获得了偏向锁，继续执行同步块中的代码。否则，将偏向锁撤销，升级为轻量级锁。</p>
+
+<p>case 2：当被偏向的线程再次进入同步块时，发现锁对象偏向的就是当前线程，在通过一些额外的检查后（细节见后面的文章），会往当前线程的栈中添加一条Displaced Mark Word为空的Lock Record中，然后继续执行同步块的代码，因为操纵的是线程私有的栈，因此不需要用到CAS指令；由此可见偏向锁模式下，当被偏向的线程再次尝试获得锁时，仅仅进行几个简单的操作就可以了，在这种情况下，synchronized关键字带来的性能开销基本可以忽略。</p>
+
+<p>case 3.当其他线程进入同步块时，发现已经有偏向的线程了，则会进入到撤销偏向锁的逻辑里，一般来说，会在safepoint中去查看偏向的线程是否还存活，如果存活且还在同步块中则将锁升级为轻量级锁，原偏向的线程继续拥有锁，当前线程则走入到锁升级的逻辑里；如果偏向的线程已经不存活或者不在同步块中，则将对象头的mark word改为无锁状态（unlocked），之后再升级为轻量级锁。</p>
+</blockquote>
+
+<p>由此可见，偏向锁升级的时机为：当锁已经发生偏向后，只要有另一个线程尝试获得偏向锁，则该偏向锁就会升级成轻量级锁。当然这个说法不绝对，因为还有批量重偏向这一机制。</p>
+
+<h3 id="3-解锁过程">3. 解锁过程</h3>
+
+<blockquote>
+<p>当有其他线程尝试获得锁时，是根据遍历偏向线程的lock record来确定该线程是否还在执行同步块中的代码。因此偏向锁的解锁很简单，仅仅将栈中的最近一条lock record的obj字段设置为null。需要注意的是，偏向锁的解锁步骤中并不会修改对象头中的thread id。</p>
+</blockquote>
+
+<h1 id="总结">总结</h1>
+
+<blockquote>
+<p><font color="red">
+Java中的synchronized有偏向锁、轻量级锁、重量级锁三种形式，分别对应了锁只被一个线程持有、不同线程交替持有锁、多线程竞争锁三种情况。当条件不满足时，锁会按偏向锁-&gt;轻量级锁-&gt;重量级锁 的顺序升级。JVM种的锁也是能降级的，只不过条件很苛刻，不在我们讨论范围之内。该篇文章主要是对Java的synchronized做个基本介绍，后文会有更详细的分析。</p>
+</blockquote>
+
+<p></font></p>
+
+<h1 id="synchronized和reentrantlock的区别">Synchronized和ReentrantLock的区别</h1>
+
+<blockquote>
+<p>原理弄清楚了，顺便总结了几点Synchronized和ReentrantLock的区别：</p>
+</blockquote>
+
+<ol>
+<li>Synchronized是JVM层次的锁实现，ReentrantLock是JDK层次的锁实现；<br /></li>
+<li>Synchronized的锁状态是无法在代码中直接判断的，但是ReentrantLock可以通过ReentrantLock#isLocked判断；<br /></li>
+<li>Synchronized是非公平锁，ReentrantLock是可以是公平也可以是非公平的；</li>
+<li>Synchronized是不可以被中断的，而ReentrantLock#lockInterruptibly方法是可以被中断的；<br /></li>
+<li>在发生异常时Synchronized会自动释放锁（由javac编译时自动实现），而ReentrantLock需要开发者在finally块中显示释放锁；<br /></li>
+<li>ReentrantLock获取锁的形式有多种：如立即返回是否成功的tryLock(),以及等待指定时长的获取，更加灵活；<br /></li>
+<li>Synchronized在特定的情况下对于已经在等待的线程是后来的线程先获得锁（上文有说），而ReentrantLock对于已经在等待的线程一定是先来的线程先获得锁；<br /></li>
+</ol>
+
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/">
+            为什么实现Serializable接口就可以序列化
+        </a>
+    </li>
+    
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/">
+            Linux部署springboot的jar包
+        </a>
+    </li>
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" class="post-link">Linux部署springboot的jar包</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/lock/" class="post-link">Synchronized底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-link">为什么实现Serializable接口就可以序列化</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

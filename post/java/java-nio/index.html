@@ -171,7 +171,7 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
 </blockquote>
 
 <p>基本上所有的IO在NIO中都是从一个Channel中开始。Channel有点像流，数据可以从Channel读到Buffer中，也可以从Buffer写入到Channel中。<br />
-<div align=center><img src="https://fyzn12.github.io/img/picture/channel-buffer.PNG"/></div></p>
+<div align=center><img src="https://fyzn12.github.io/img/picture/channel-buffer.png"/></div></p>
 
 <p>Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel的实现：</p>
 
@@ -212,7 +212,7 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
 
 <p>这是在一个单线程中使用一个Selector处理3个Channel的图示：</p>
 
-<div align=center><img src="https://fyzn12.github.io/img/picture/selector.PNG"/></div>    
+<div align=center><img src="https://fyzn12.github.io/img/picture/selector.png"/></div>    
  
 
 <p>要使用Selector，得向Selector注册Channel，然后调用它的select()方法。这个方法会一直阻塞到某个注册的通道有事件就绪。一旦这个方法返回，线程就可以处理这些事件，事件的例子有如新连接进来，数据接收等。</p>
@@ -228,11 +228,17 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
 <ul class="prevnext">
     
     <li>上一篇：
-        <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">
-            Volatile和synchronized底层实现
+        <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">
+            Volatile底层实现
         </a>
     </li>
     
+    
+    <li>下一篇：
+        <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/">
+            为什么实现Serializable接口就可以序列化
+        </a>
+    </li>
     
 </ul>
 
@@ -277,11 +283,23 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" class="post-link">Linux部署springboot的jar包</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/lock/" class="post-link">Synchronized底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-link">为什么实现Serializable接口就可以序列化</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
+            <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile底层实现</a>
         </li>
         
         <li>
@@ -318,18 +336,6 @@ Channel和Buffer有好几种类型。下面是JAVA NIO中的一些主要Channel�
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
     </ul>

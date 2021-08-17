@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>volatile和synchronized底层实现</title>
-      <link>https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</link>
+      <title>volatile底层实现</title>
+      <link>https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</guid>
       <description> volatile 硬件屏障  各个硬件的内存屏障不同
  内存屏障  LoadLoad屏障
 对于这样的语句 Load1;LoadLoad;Load2;

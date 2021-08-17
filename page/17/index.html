@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-17T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,55 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/java/java_annotation/"></a></h2>
+            <div class="post-meta">Jan 01, 0001</div>
+            <div class="post-excerpt">
+                注解理解 1. java5之后提供的注解支持 java.lang.annotation提供了四种元注解，专门注解其他的注解： @Target –注解用于什么地方，默认值为任何元素，表示该注解用于什么地方。 可用的ElementType指定参数 ，也同时指定多个 ● ElementType.CONSTRUCTOR:用于描述构造器 ● ElementType.FIELD:成员变量、对象、属性（包括enum实例） ● ElementType.LOCAL_VARIABLE:用于描述局部变量 ● ElementType.METHOD:用于描述方法 ● ElementType.PACKAGE:用于描述包 ● ElementType.PARAMETER:用于描述参数 ● ElementType.TYPE:用于描述类、接口(包括注解类型) 或enum声明  @Retention –什么时候使用该注解，即注解的生命周期，使用RetentionPolicy来指定 ● RetentionPolicy.SOURCE : 在编译阶段丢弃。这些注解在编译结束之后就不再有任何意义，所以它们不会写入字节码。@Override, @SuppressWarnings都属于这类注解。
+● RetentionPolicy.CLASS : 在类加载的时候丢弃。在字节码文件的处理中有用。注解默认使用这种方式
+● RetentionPolicy.RUNTIME : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。
+@Documented –注解是否将包含在JavaDoc中 @Inherited – 是否允许子类继承该注解 @Inherited 元注解是一个标记注解，@Inherited阐述了某个被标注的类型是被继承的。 如果一个使用了@Inherited修饰的annotation类型被用于一个class，则这个 annotation将被用于该class的子类。 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+该注解的作用是，排除自动注入数据源的配置（取消数据库配置），一般使用在客户端（消费者）服务中
+当前项目其实并不需要数据源。查其根源是依赖方提供的API依赖中引用了一些多余的依赖触发了该自动化配置的加载。
+反射  getFields()：获得某个类的所有的公共（public）的字段，包括父类中的字段。
+ getDeclaredFields()：获得某个类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段。
+ getSuperClass()方法用于返回Class，该Class表示此Class表示的任何类，接口，原始类型或任何void类型的超类。 getSuperclass()方法返回的父类的Class对象。
+  实际运用 this.fields = new ArrayList&lt;Object[]&gt;(); List&lt;Field&gt; tempFields = new ArrayList&lt;&gt;(); //getFields()：获得某个类的所有的公共（public）的字段，包括父类中的字段。  //getDeclaredFields()：获得某个类的所有声明的字段，即包括public、private 和proteced，但是不包括父类的申明字段。  //getSuperClass()方法用于返回Class，该Class表示此Class表示的任何类，接口，原始类型或任何void类型的超类。  System.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java/menu_tree/"></a></h2>
+            <div class="post-meta">Jan 01, 0001</div>
+            <div class="post-excerpt">
+                业务中有很多时候需要用到菜单树的结构，比如菜单、评论系统等
+ 菜单树 菜单树的实现分析 1.递归  菜单树的实现最原始的方法就是递归实现
+数据量不是很到大的时候可以采用一次性将数据读取出存到list集合中，然后对该集合进行遍历。
+ /** * 根据父节点的ID获取所有子节点 * * @param list 分类表 * @param parentId 传入的父节点ID * @return String */ public List&lt;Menu&gt; getChildPerms(List&lt;Menu&gt; list, Long parentId) { List&lt;Menu&gt; returnList = new ArrayList&lt;Menu&gt;(); list.stream().forEach(menu -&gt; { // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点 	if (menu.getPId().equals(parentId)) { recursionFn(list, menu); returnList.add(menu); } }); return returnList; } /** * 递归列表 * * @param list * @param t */ private void recursionFn(List&lt;Menu&gt; list, Menu t) { // 得到子节点列表 	List&lt;Menu&gt; childList = getChildList(list, t); t.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/java/%E5%B9%B6%E5%8F%91/"></a></h2>
+            <div class="post-meta">Jan 01, 0001</div>
+            <div class="post-excerpt">
+                1 并发的原理解析 1.1 并发会造成什么问题  死锁
+ 资源占用 线程安全
+&hellip;
+  1.2 并发的根本问题  原子性
+ 可见性
+ 有序性
+  以上三个是造成线程安全的主要原因
+1.2.1 线程在那里创建的 线程在CPU上开启和执行
+在硬件上面CPU的缓存一致性即可见性 单核CPU没有可见性 在硬件上解决缓存一致性伊利诺斯协议&ndash;MESI
+1.2.2 java直接跟硬件交互的是什么 java直接跟硬件交互的是JVM
+关键值在反射的标识是二进制
+java中8个高级指令 lock unlock &hellip;.
+1.2.3 volatile解决可见性的原理，当然他也解决了有序性 需要了解指令重排序，指令流 数据量 控制流
+volatile解决不了原子性
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/new-document/">二维数组中由1构成的最大正方形</a></h2>
             <div class="post-meta">Jan 01, 0001</div>
             <div class="post-excerpt">
@@ -113,11 +162,23 @@
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" class="post-link">Linux部署springboot的jar包</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/lock/" class="post-link">Synchronized底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-link">为什么实现Serializable接口就可以序列化</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
+            <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile底层实现</a>
         </li>
         
         <li>
@@ -154,18 +215,6 @@
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
     </ul>

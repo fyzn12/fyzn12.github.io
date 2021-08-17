@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>linux部署springboot的jar包 - fyzn12</title>
+
+<meta name="description" content="linux部署springboot的jar包 执行jar包的命令和在windows操作系统上是一样  java -jar jarName-0.0.1-SNAPSHOT.jar
+ 注: 关闭服务器连接时会关闭此程序进程,（推荐测试可用）  将jar程序设置成后台运行，并且将标准输出的日志重定向至文件msg.log(可以自定义)  nohup java -jar jarName-0.0.1-SNAPSHOT.jar &amp;gt;msg.log 2&amp;gt;&amp;amp;1 &amp;amp;
+ 详解： nohup nohup命令运行由Command参数和任何相关的Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。 在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup命令，添加 &amp;amp;（表示“and”的符号）到命令的尾部。 nohup是no hang up的缩写，就是不挂断的意思。 nohup命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束，那么可以使用nohup命令。 该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。 在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中。 nohup和&amp;amp;的区别 &amp;amp;：指在后台运行,但当用户推出(挂起)的时候，命令自动也跟着退出 nohup：不挂断的运行，注意并没有后台运行的功能，，就是指，用nohup运行命令可以使命令永久的执行下去，和用户终端没有关系， 例如我们断开SSH连接都不会影响他的运行，注意了nohup没有后台运行的意思；&amp;amp;才是后台运行。 nohup java -jar jarName-0.0.1-SNAPSHOT.jar &amp;gt;msg.log 2&amp;gt;&amp;amp;1 &amp;amp;; 在上面的例子中，0：stdin (standard input)，1：stdout (standard output)，2：stderr (standard error)； 2&amp;gt;&amp;amp;1是将标准错误（2）重定向到标准输出（&amp;amp;1），标准输出（&amp;amp;1）再被重定向输入到msg." /><meta name="keywords"
+  content="fyzn12, java, 网络安全, 红蓝攻防" />
+
+
+<link rel="stylesheet" href="https://fyzn12.github.io/css/main.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/src/css/lightgallery.css">
+
+
+
+<meta property="og:title" content="linux部署springboot的jar包" />
+<meta property="og:description" content="linux部署springboot的jar包 执行jar包的命令和在windows操作系统上是一样  java -jar jarName-0.0.1-SNAPSHOT.jar
+ 注: 关闭服务器连接时会关闭此程序进程,（推荐测试可用）  将jar程序设置成后台运行，并且将标准输出的日志重定向至文件msg.log(可以自定义)  nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;
+ 详解： nohup nohup命令运行由Command参数和任何相关的Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。 在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup命令，添加 &amp;（表示“and”的符号）到命令的尾部。 nohup是no hang up的缩写，就是不挂断的意思。 nohup命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束，那么可以使用nohup命令。 该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。 在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中。 nohup和&amp;的区别 &amp;：指在后台运行,但当用户推出(挂起)的时候，命令自动也跟着退出 nohup：不挂断的运行，注意并没有后台运行的功能，，就是指，用nohup运行命令可以使命令永久的执行下去，和用户终端没有关系， 例如我们断开SSH连接都不会影响他的运行，注意了nohup没有后台运行的意思；&amp;才是后台运行。 nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;; 在上面的例子中，0：stdin (standard input)，1：stdout (standard output)，2：stderr (standard error)； 2&gt;&amp;1是将标准错误（2）重定向到标准输出（&amp;1），标准输出（&amp;1）再被重定向输入到msg." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" />
+<meta property="article:published_time" content="2021-08-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-17T00:00:00+00:00" />
+<meta itemprop="name" content="linux部署springboot的jar包">
+<meta itemprop="description" content="linux部署springboot的jar包 执行jar包的命令和在windows操作系统上是一样  java -jar jarName-0.0.1-SNAPSHOT.jar
+ 注: 关闭服务器连接时会关闭此程序进程,（推荐测试可用）  将jar程序设置成后台运行，并且将标准输出的日志重定向至文件msg.log(可以自定义)  nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;
+ 详解： nohup nohup命令运行由Command参数和任何相关的Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。 在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup命令，添加 &amp;（表示“and”的符号）到命令的尾部。 nohup是no hang up的缩写，就是不挂断的意思。 nohup命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束，那么可以使用nohup命令。 该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。 在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中。 nohup和&amp;的区别 &amp;：指在后台运行,但当用户推出(挂起)的时候，命令自动也跟着退出 nohup：不挂断的运行，注意并没有后台运行的功能，，就是指，用nohup运行命令可以使命令永久的执行下去，和用户终端没有关系， 例如我们断开SSH连接都不会影响他的运行，注意了nohup没有后台运行的意思；&amp;才是后台运行。 nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;; 在上面的例子中，0：stdin (standard input)，1：stdout (standard output)，2：stderr (standard error)； 2&gt;&amp;1是将标准错误（2）重定向到标准输出（&amp;1），标准输出（&amp;1）再被重定向输入到msg.">
+
+
+<meta itemprop="datePublished" content="2021-08-17T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-08-17T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="48">
+
+
+
+<meta itemprop="keywords" content="jar,linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linux部署springboot的jar包"/>
+<meta name="twitter:description" content="linux部署springboot的jar包 执行jar包的命令和在windows操作系统上是一样  java -jar jarName-0.0.1-SNAPSHOT.jar
+ 注: 关闭服务器连接时会关闭此程序进程,（推荐测试可用）  将jar程序设置成后台运行，并且将标准输出的日志重定向至文件msg.log(可以自定义)  nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;
+ 详解： nohup nohup命令运行由Command参数和任何相关的Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。 在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup命令，添加 &amp;（表示“and”的符号）到命令的尾部。 nohup是no hang up的缩写，就是不挂断的意思。 nohup命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束，那么可以使用nohup命令。 该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。 在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中。 nohup和&amp;的区别 &amp;：指在后台运行,但当用户推出(挂起)的时候，命令自动也跟着退出 nohup：不挂断的运行，注意并没有后台运行的功能，，就是指，用nohup运行命令可以使命令永久的执行下去，和用户终端没有关系， 例如我们断开SSH连接都不会影响他的运行，注意了nohup没有后台运行的意思；&amp;才是后台运行。 nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;; 在上面的例子中，0：stdin (standard input)，1：stdout (standard output)，2：stderr (standard error)； 2&gt;&amp;1是将标准错误（2）重定向到标准输出（&amp;1），标准输出（&amp;1）再被重定向输入到msg."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="header-placeholder"></div>
+    
+    <header class="header">
+        <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    
+    <a class="site-title" href="https://fyzn12.github.io/">fyzn12</a>
+    
+    <nav class="site-nav">
+        <a class="page-link" href="/">Home</a><a class="page-link" href="/post/">Category</a><a class="page-link" href="/about">About</a>
+    </nav>
+</div>
+
+    </header>
+
+    
+    <div class="page-content">
+        <div class="wrapper">
+            
+            <div class="col-main">
+                <div class="post">
+    
+    <header class="post-header">
+        <h1 class="post-title">Linux部署springboot的jar包</h1>
+        <p class="post-meta">Aug 17, 2021</p>
+    </header>
+    <article class="post-content">
+        
+        
+        
+        
+        
+        
+        
+
+<h1 id="linux部署springboot的jar包">linux部署springboot的jar包</h1>
+
+<h2 id="执行jar包的命令和在windows操作系统上是一样">执行jar包的命令和在windows操作系统上是一样</h2>
+
+<blockquote>
+<p>java -jar jarName-0.0.1-SNAPSHOT.jar</p>
+</blockquote>
+<div class="highlight"><pre class="chroma">    注:  关闭服务器连接时会关闭此程序进程,（推荐测试可用）  </pre></div>
+<h2 id="将jar程序设置成后台运行-并且将标准输出的日志重定向至文件msg-log-可以自定义">将jar程序设置成后台运行，并且将标准输出的日志重定向至文件msg.log(可以自定义)</h2>
+
+<blockquote>
+<p>nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;</p>
+</blockquote>
+<div class="highlight"><pre class="chroma">    详解：
+    nohup   
+    nohup命令运行由Command参数和任何相关的Arg参数指定的命令，忽略所有挂断（SIGHUP）信号。     
+    在注销后使用 nohup 命令运行后台中的程序。要运行后台中的 nohup命令，添加 &amp;（表示“and”的符号）到命令的尾部。    
+    nohup是no hang up的缩写，就是不挂断的意思。    
+    nohup命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束，那么可以使用nohup命令。    
+    该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。    
+    在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中。    
+
+    nohup和&amp;的区别   
+    &amp;：指在后台运行,但当用户推出(挂起)的时候，命令自动也跟着退出   
+    nohup：不挂断的运行，注意并没有后台运行的功能，，就是指，用nohup运行命令可以使命令永久的执行下去，和用户终端没有关系，
+    例如我们断开SSH连接都不会影响他的运行，注意了nohup没有后台运行的意思；&amp;才是后台运行。     
+
+    nohup java -jar jarName-0.0.1-SNAPSHOT.jar &gt;msg.log 2&gt;&amp;1 &amp;;
+    在上面的例子中，0：stdin (standard input)，1：stdout (standard output)，2：stderr (standard error)；
+    2&gt;&amp;1是将标准错误（2）重定向到标准输出（&amp;1），标准输出（&amp;1）再被重定向输入到msg.log文件中。</pre></div>
+    </article>
+
+    
+    <div class="prevnext">
+        
+
+
+
+<ul class="prevnext">
+    
+    <li>上一篇：
+        <a href="https://fyzn12.github.io/post/java/lock/">
+            Synchronized底层实现
+        </a>
+    </li>
+    
+    
+</ul>
+
+    </div>
+    
+    <div class="post-comments">
+        
+  
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="fyzn12/Y4er.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+    </div>
+</div>
+            </div>
+            
+            <div class="col-second">
+                <div class="col-box col-box-author">
+    <img class="avatar" src="https://fyzn12.github.io/images/header.jpg" alt="fyzn12">
+    <div class="col-box-title name">fyzn12</div>
+    <p>哀吾生之须臾,羡长江之无穷.</p>
+    <p class="contact">
+        <a href="fyzn12_z@163.com">Email</a>
+        <a href="https://fyzn12.github.io">Github</a>
+    </p>
+</div>
+
+<div class="col-box">
+    <div class="col-box-title">Newest Posts</div>
+    <ul class="post-list">
+        
+        <li>
+            <a href="https://fyzn12.github.io/about/" class="post-link">About</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" class="post-link">Linux部署springboot的jar包</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/lock/" class="post-link">Synchronized底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-link">为什么实现Serializable接口就可以序列化</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/word_list/" class="post-link">单词学习</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E8%8F%9C%E5%8D%95%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-link">菜单树</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="post-link">K8s日志采集</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/k8s/ubuntu%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88k8s/" class="post-link">Ubuntu搭建单机版k8s</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/cas/" class="post-link">CAS</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/elk/filebeat/" class="post-link">FileBeat</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/gc%E5%92%8Cjvm/" class="post-link">GC和JVM</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/redis%E9%99%90%E6%B5%81%E7%BB%93%E5%90%88kafka%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%8A%A2%E5%8D%95/" class="post-link">Redis结合kafka实现高并发抢单</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
+        </li>
+        
+    </ul>
+</div>
+
+<div class="col-box post-toc hide">
+    <div class="col-box-title">TOC</div>
+</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="wrapper">
+    © 2021    <a href="https://fyzn12.github.io/">fyzn12</a>
+</div>
+    </footer>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.0/dist/jquery.min.js"></script>
+
+<script src="/js/easybook.js"></script>
+
+<script src="/js/lazysizes.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.12/dist/js/lightgallery-all.min.js"></script>
+<script src="/js/figure.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+</body>
+
+</html>

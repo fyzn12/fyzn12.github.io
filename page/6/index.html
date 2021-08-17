@@ -27,7 +27,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fyzn12.github.io/" />
 
-<meta property="og:updated_time" content="2021-08-11T00:00:00+00:00" />
+<meta property="og:updated_time" content="2021-08-17T00:00:00+00:00" />
 <meta itemprop="name" content="fyzn12">
 <meta itemprop="description" content="伪程序员,信安爱好者,专注于网络攻防和信息安全.">
 
@@ -76,6 +76,47 @@
         
         
         <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%88%86%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E8%8E%B7%E5%8F%96/">二分法使用无符号位右移运算求解上中位数</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                获取中间值的方式一般是 int mid = left + (right-left)/2; 如果要求偶数时中位数取后一位时，需要将（right-left+1） 效率更高如下： int mid = left + ((right-left)&gt;&gt;1);
+ 1.有符号右移 &gt;&gt;  有符号右移：右移之后，左边补上符号为，正数补0，负数补1.
+ 2.无符号位右移 &gt;&gt;&gt;  无符号右移： 右移之后， 无论该数是正数还是负数， 右移之后左边都是补上0。
+ 3.左移 &lt;&lt;  左移不区分有符号和无符号， 都是左移之后右边补上0， 最左边的符号位也直接移走。
+ 4.计算除法时（2的n次方）可以使用有符号的右移  20 的二进制位 10100 有符号位右移2位后为 101 十进制解释表示为 20&frasl;4=5（取整）
+20 的二进制位 10100 左移2位后 1010000 十进制结果为81
+ 5.判奇数偶数的方法  (num &amp; 1) == 0表示为偶数 (num &amp; 1) == 1表示为奇数
+ 这里注意一个遇到的坑 使用 int mid = left + ((right-left)&gt;&gt;1); 时切记+号后面是加一个整体，因此需要将((right-left)&gt;&gt;1)括起来。 6.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E4%BA%8C%E5%8F%89%E6%95%B0%E7%9A%84%E9%95%9C%E5%83%8F%E9%97%AE%E9%A2%98/">二叉树的镜像问题</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                题目描述如下图所示：
+
+解题思路：利用栈的先进后出特性去做；也可以利用队列去做，只要保证right先进队列就行
+ import java.util.*; /** public class TreeNode { int val = 0; TreeNode left = null; TreeNode right = null; public TreeNode(int val) { this.val = val; } } */ public class Solution { public void Mirror(TreeNode root) { if(root==null)return; Stack&lt;TreeNode&gt; stack = new Stack&lt;TreeNode&gt;(); stack.push(root); while(!stack.isEmpty()){ TreeNode tn = stack.pop(); if(tn.left != null||tn.right != null){ TreeNode temp = tn.left; tn.left = tn.right; tn.right = temp; } if(tn.
+            </div>
+        </li>
+        
+        <li>
+            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%89%91%E5%85%8B%E7%89%8C%E9%97%AE%E9%A2%98/">扑克牌问题</a></h2>
+            <div class="post-meta">Dec 18, 2020</div>
+            <div class="post-excerpt">
+                题目描述：LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)&hellip;他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子&hellip;..LL不高兴了,他想了想,决定大\小 王可以看成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+输入：[0,3,2,6,4]
+输出：true
+解题思路：
+我们分两种情况考虑， 一. 如果vector中不包含0的情况： 那么如何判断呢？因为需要是顺子，所以首先不能有重复值， 如果没有重复值，那么形如[1 2 3 4 5] [5 6 7 8 9]， 会发现最大值与最小值的差值应该小于5.
+二. 如果数组中包含0： 发现除去0后的值，判断方法和1中是一样的。
+所以根据如上两个条件，算法过程如下： 1. 初始化一个set，最大值max_ = 0, 最小值min_ = 14 2. 遍历数组， 对于大于0的整数，没有在set中出现，则加入到set中，同时更新max, min 3. 如果出现在了set中，直接返回false 4. 数组遍历完，最后再判断一下最大值与最小值的差值是否小于5
+ 方法1 使用set集合，利用set集合不可重复特性解决问题 public boolean isContinuous(int [] numbers) { if(numbers==null || numbers.length==0) return false; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); int max = 0,min = 14; for(int num:numbers){ if(num&gt;0){ if(set.
+            </div>
+        </li>
+        
+        <li>
             <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E6%97%8B%E8%BD%AC%E9%97%AE%E9%A2%98/">旋转数组的问题</a></h2>
             <div class="post-meta">Dec 18, 2020</div>
             <div class="post-excerpt">
@@ -92,49 +133,6 @@
             <div class="post-meta">Dec 01, 2020</div>
             <div class="post-excerpt">
                  /** * return the min number * @param arr int整型一维数组 the array * @return int整型 */ public int minNumberdisappered (int[] arr) { // write code here  Arrays.sort(arr); int min = 1; for(int i = 0;i&lt;arr.length;i++){ if(arr[i]==min) min++; } return min; } 
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%9F%BA%E4%BA%8Earrays.binarysearch%E8%A7%A3%E5%86%B3%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/">基于Arrays.binarySearch解决最长递增子序列</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                1. Arrays.binarySearch的简单介绍  Arrays.binarySearch构造函数的简单介绍
- 1.1 binarySearch(Object[] arr, Object key)  binarySearch(Object[] arr, Object key)
-arr:要检索的数组
-key:要搜索的值
-如果key在数组中，则返回索引值的索引；否则返回-1或者&rdquo;-&ldquo;(插入点)。插入点是索引键将要插入数组的哪一点，即第一个大于该键的元素的索引。
- 1.1.1 技巧  [1] 搜索值不是数组元素，且在数组范围内，从1开始计数，得“ - 插入点索引值”；
-[2] 搜索值是数组元素，从0开始计数，得搜索值的索引值；
-[3] 搜索值不是数组元素，且大于数组内元素，索引值为 – (length + 1);
-[4] 搜索值不是数组元素，且小于数组内元素，索引值为 – 1。
- 1.1.2 代码  int arrays [] =new int[]{1,3,4,5,8,9};
-Arrays.sort(arr);
-int a = Arrays.binarySearch(arrays,6);
-int b = Arrays.binarySearch(arrays,4);
-int c = Arrays.binarySearch(arrays,0);
-int d = Arrays.binarySearch(arrays,10);
-System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ldquo; + c +&rdquo;,d = &ldquo;+d);
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                最经典的就是寻找最长回文子串的问题
-解题思想：回文子串的详细思路 在上面的链接中，对该问题做了很详细的思路讲解 下面自己实现采用 Manacher 算法，被中国程序员戏称为“马拉车”算法。它专门用于解决“最长回文子串”问题，时间复杂度为O(N) 。
- public int getLongestPalindrome(String A, int n) { // 做字符串的预处理  String str = changeStr(A,&#39;#&#39;); // 定义左跳跃的指针和右跳跃的指针以及最长回文串的返回值  int left=0,right=0,max=0; for(int i = 1;i&lt;str.length();i++) { //判断每一步扩散的步数  right = i + 1; left = i - 1; int count = 0; while (left &gt;= 0 &amp;&amp; right &lt; str.length() &amp;&amp; str.charAt(left) == str.charAt(right)) { count++; left--; right++; } max = max &gt; count ?
-            </div>
-        </li>
-        
-        <li>
-            <h2><a href="https://fyzn12.github.io/post/algorithm/%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%89%E5%A5%87%E5%81%B6%E6%95%B0%E6%8E%92%E5%88%97/">对数组中寄偶数据的处理</a></h2>
-            <div class="post-meta">Dec 01, 2020</div>
-            <div class="post-excerpt">
-                类型一：给定一个整形数组，将数组中的数据按奇数排列在前，偶数排列在后
-解题思路：定义两个指针，从前后开始遍历数组，遇到前后奇偶位置不匹配的，将其交换位置
- public void changeArr(int[] arr) { if (arr == null || arr.length == 0) { return; } int left = 0, right = arr.length - 1; while (left &lt; right) { while ((arr[left] &amp; 1) == 1 &amp;&amp; left &lt; right) { left++; } while ((arr[right] &amp; 1) == 0 &amp;&amp; left &lt; right) { right--; } if (left &lt; right) { arr[left] ^= arr[right]; arr[right] ^= arr[left]; arr[left] ^= arr[right]; } } }   类型二：输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
             </div>
         </li>
         
@@ -168,11 +166,23 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
         </li>
         
         <li>
+            <a href="https://fyzn12.github.io/post/java/linux%E9%83%A8%E7%BD%B2springboot%E7%9A%84jar%E5%8C%85/" class="post-link">Linux部署springboot的jar包</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/lock/" class="post-link">Synchronized底层实现</a>
+        </li>
+        
+        <li>
+            <a href="https://fyzn12.github.io/post/java/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0serializable%E6%8E%A5%E5%8F%A3%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-link">为什么实现Serializable接口就可以序列化</a>
+        </li>
+        
+        <li>
             <a href="https://fyzn12.github.io/post/java/java-nio/" class="post-link">NIO 学习笔记</a>
         </li>
         
         <li>
-            <a href="https://fyzn12.github.io/post/algorithm/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile和synchronized底层实现</a>
+            <a href="https://fyzn12.github.io/post/java/volatile%E5%92%8Csynchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="post-link">Volatile底层实现</a>
         </li>
         
         <li>
@@ -209,18 +219,6 @@ System.out.println(&ldquo;a = &ldquo;+a +&rdquo;,b = &ldquo; +b +&rdquo;,c = &ld
         
         <li>
             <a href="https://fyzn12.github.io/post/spring-boot/componentscan%E6%B3%A8%E8%A7%A3%E5%AF%BC%E8%87%B4controller%E5%A4%B1%E6%95%88/" class="post-link">SpringBoot使用@ComponentScan的Controller失效原因分析 </a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/volatile/" class="post-link">Volatile的用途</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/database/mysql%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="post-link">Mysql的存储引擎</a>
-        </li>
-        
-        <li>
-            <a href="https://fyzn12.github.io/post/java/synchronizedmap%E5%A6%82%E4%BD%95%E8%AE%A9hashmap%E5%85%B7%E5%A4%87%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="post-link">SynchronizedMap如何让HashMap具备线程安全</a>
         </li>
         
     </ul>
